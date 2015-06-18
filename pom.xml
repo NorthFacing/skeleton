@@ -8,12 +8,14 @@
 	<name>myBlog</name>
 	<url>http://stepByMe.com</url>
 	<properties>
-		<!-- JDK -->
-		<java.version>1.8</java.version>
 		<!-- Spring -->
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<!-- mybatis -->
 		<mybatis.version>3.2.8</mybatis.version>
+		<!-- mysql -->
+		<mysql.connection.version>5.1.35</mysql.connection.version>
+		<!-- jstl -->
+		<jstl.vserion>1.2</jstl.vserion>
 		<!-- log -->
 		<slf4j.version>1.7.12</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
@@ -21,6 +23,8 @@
 		<junit.version>4.12</junit.version>
 		<!-- maven -->
 		<maven.compiler.version>3.3</maven.compiler.version>
+		<!-- JDK -->
+		<java.version>1.8</java.version>
 		<!-- server -->
 		<maven.tomcat7.version>2.2</maven.tomcat7.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
@@ -88,6 +92,21 @@
 			<version>1.2.2</version>
 		</dependency>
 		<!-- myBatis end -->
+		<!-- jdbc start -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connection.version}</version>
+		</dependency>
+		<!-- jdbc end -->
+		<!-- jstl start -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.vserion}</version>
+		</dependency>
+		<!-- jstl end -->
+
 		<!-- Logging start -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
