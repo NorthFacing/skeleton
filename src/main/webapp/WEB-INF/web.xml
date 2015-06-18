@@ -7,17 +7,17 @@
 	<!-- Spring 配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-mabatis.xml</param-value>
+		<param-value>classpath:spring-mybatis.xml</param-value>
 	</context-param>
-	spring mvc支持
+	<!-- spring mvc支持 -->
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<!-- context-param中已经配置了，所以，如果没有使用新的配置文件，就可以省略此参数配置 -->
-		<!-- <init-param> -->
-		<!-- <param-name>contextConfigLocation</param-name> -->
-		<!-- <param-value>classpath:applicationContext.xml</param-value> -->
-		<!-- </init-param> -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mybatis.xml</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -42,7 +42,7 @@
 	<!-- LOG配置文件路径 -->
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
-		<param-value>/WEB-INF/classes/log4j.properties</param-value>
+		<param-value>classpath:log4j.properties</param-value>
 	</context-param>
 	<!-- 自动扫描LOG配置信息，可以动态改变记录级别和策略而不用重启服务器，间隔时间是10秒 -->
 	<context-param>
@@ -67,5 +67,9 @@
 		<error-code>404</error-code>
 		<location>/error/error.html</location>
 	</error-page>
+	<!-- 默认页面 -->
+	<welcome-file-list>
+		index.jsp
+	</welcome-file-list>
 
 </web-app>
