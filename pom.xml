@@ -81,6 +81,12 @@
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
+		<!-- Spring 整合 myBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 		<!-- myBatis end -->
 		<!-- Logging start -->
 		<dependency>
