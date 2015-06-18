@@ -5,4 +5,4 @@
  * @author HZ
  *
  */
-package com.bob.action;
+package com.bob.model;

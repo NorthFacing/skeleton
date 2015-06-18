@@ -5,4 +5,4 @@
  * @author HZ
  *
  */
-package com.bob.dao;
+package com.bob.mappers;
