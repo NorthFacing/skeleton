@@ -1,7 +1,7 @@
 <html>
 <head>
-<link href="assets/css/bootstrap-united.css" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+<link href="/assets/css/bootstrap-united.css" rel="stylesheet" />
+<link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 <style>
 body {
 	height: 100%;
@@ -54,7 +54,7 @@ body {
 			<a class="btn btn-primary" href="login.html">Login » </a>
 		</div>
 	</div>
-	<script src="jquery-1.8.3.js"></script>
-	<script src="bootstrap/js/bootstrap.js"></script>
+	<script src="/jquery-1.8.3.js"></script>
+	<script src="/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
