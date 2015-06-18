@@ -7,21 +7,21 @@
 	<!-- Spring 配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-mybatis.xml</param-value>
+		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<!-- spring mvc支持 -->
 	<servlet>
-		<servlet-name>spring</servlet-name>
+		<servlet-name>springDispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- context-param中已经配置了，所以，如果没有使用新的配置文件，就可以省略此参数配置 -->
+		<!-- context-param中已经配置了，所以，是否可以省略此参数配置？ -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring-mybatis.xml</param-value>
+			<param-value>classpath:applicationContext.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
+		<servlet-name>springDispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<!-- 编码 -->
