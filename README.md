@@ -1,4 +1,7 @@
 
+# 项目简介
+本地仓库地址：d:/java/gitRep/myBlog
+
 # 使用技术
 * [Spring Framework-4.1.6.RELEASE](http://spring.io/ "Spring")
 * [MyBatis-3.2.8](https://github.com/mybatis/mybatis-3/releases/tag/mybatis-3.2.8 "MyBatis")
