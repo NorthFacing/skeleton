@@ -11,8 +11,7 @@
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
 
-<!-- 本文件从velocity-tools-2.0.jar 的 org.apache.velocity.tools.view 包中复制而来，并增加如下两行配置： -->
-
+<!-- 本文件从velocity-tools-2.0.jar 的 org.apache.velocity.tools.view 包中复制而来 -->
 <tools>
 	<data type="boolean" key="VIEW_TOOLS_AVAILABLE" value="true" />
 	<toolbox scope="request">
