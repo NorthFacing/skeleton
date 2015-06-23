@@ -23,14 +23,14 @@ public class StudentController {
     public String signup(Model model) {
         Student student = new Student();
         model.addAttribute("student", student);
-        return "signup";
+        return "/demo/signup";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signup(@ModelAttribute("student") Student student, Model model) {
         if (studentService.getStudentByUserName(student.getUserName())) {
             model.addAttribute("message", "User Name exists. Try another user name");
-            return "signup";
+            return "/demo/signup";
         } else {
             studentService.insertStudent(student);
             model.addAttribute("message", "Saved student details");
@@ -42,16 +42,16 @@ public class StudentController {
     public String login(Model model) {
         StudentLogin studentLogin = new StudentLogin();
         model.addAttribute("studentLogin", studentLogin);
-        return "login";
+        return "/demo/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute StudentLogin studentLogin) {
         boolean found = studentService.getStudentByLogin(studentLogin.getUserName(), studentLogin.getPassword());
         if (found) {
-            return "success";
+            return "/demo/success";
         } else {
-            return "failure";
+            return "/demo/failure";
         }
     }
 }
