@@ -11,10 +11,9 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	<typeHandlers>
-		<package name="com.yangtuo.mybatis.handlers" />
-		<!-- <typeHandler javaType="java.time.LocalDateTime" handler="com.yangtuo.mybatis.handlers.LocalDateTimeTypeHandler"/> -->
+		<!-- <package name="com.yangtuo.mybatis.handlers" /> -->
 	</typeHandlers>
-	<plugins>
-		<plugin interceptor="com.yangtuo.mybatis.interceptors.SqlLogInterceptor"/>
-	</plugins>
+	<!-- <plugins> -->
+	<!-- <plugin interceptor="com.yangtuo.mybatis.interceptors.SqlLogInterceptor" /> -->
+	<!-- </plugins> -->
 </configuration>
