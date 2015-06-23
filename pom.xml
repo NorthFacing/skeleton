@@ -8,12 +8,16 @@
 	<name>myBlog</name>
 	<url>http://stepByMe.com</url>
 	<properties>
-		<!-- Spring -->
+		<!-- spring -->
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<!-- mybatis -->
 		<mybatis.version>3.2.8</mybatis.version>
 		<!-- mysql -->
 		<mysql.connection.version>5.1.35</mysql.connection.version>
+		<!-- druid -->
+		<druid.version>1.0.14</druid.version>
+		<!-- servlet -->
+		<servlet.version>3.1.0</servlet.version>
 		<!-- jstl -->
 		<jstl.vserion>1.2</jstl.vserion>
 		<!-- log -->
@@ -30,6 +34,12 @@
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Spring start -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -74,6 +84,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
@@ -103,6 +118,13 @@
 			<version>${mysql.connection.version}</version>
 		</dependency>
 		<!-- jdbc end -->
+		<!-- druid start -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<!-- druid end -->
 		<!-- jstl start -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
