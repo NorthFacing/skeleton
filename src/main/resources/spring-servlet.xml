@@ -45,7 +45,7 @@
 	<!-- </bean> -->
 
 
-	<bean id="viewResolver" class="com.jeedev.common.web.springmvc.view.JeeDevViewResolver">
+	<bean id="viewResolver" class="com.bob.common.springmvc.MultiViewResolver">
 		<property name="defaultViewResolver" ref="beanNameViewResolver" />
 		<property name="viewResolverMap">
 			<map>
