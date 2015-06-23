@@ -6,4 +6,4 @@
  * @date 2015年6月19日 上午3:20:53   
  */
 
-package com.bob.base;
+package com.bob.common;
