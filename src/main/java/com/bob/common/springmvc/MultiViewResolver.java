@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ViewResolver;
 
 /**
  * @ClassName: MultiViewResolver
- * @Description: 自定义视图解析(通过配置实现多视图整合,如jsp,velocity,freemarker,pdf,excel...)
+ * @Description: 自定义 spring mvc 多视图解析 (通过配置实现多视图整合,如jsp,velocity,freemarker,pdf,excel...)
  * @author Bob
  * @date 2015年6月24日 上午12:20:56
  */
