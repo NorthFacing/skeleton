@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login Success</title>
-<link href="assets/css/bootstrap-united.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/demo/assets/css/bootstrap-united.css" rel="stylesheet" />
 
 </head>
 <body>

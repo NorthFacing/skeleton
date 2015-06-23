@@ -1,7 +1,7 @@
 <html>
 <head>
-<link href="/assets/css/bootstrap-united.css" rel="stylesheet" />
-<link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/demo/assets/css/bootstrap-united.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/demo/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
 <style>
 body {
 	height: 100%;

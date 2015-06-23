@@ -10,9 +10,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Student Enrollment Signup</title>
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
-<link href="datepicker/css/datepicker.css" rel="stylesheet" />
-<link href="assets/css/bootstrap-united.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/demo/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/demo/datepicker/css/datepicker.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/demo/assets/css/bootstrap-united.css" rel="stylesheet" />
 
 <style>
 .green {
