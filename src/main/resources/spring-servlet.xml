@@ -44,7 +44,44 @@
 	<!-- </property> -->
 	<!-- </bean> -->
 
-	<bean id="jspConfigurer"
+
+	<bean id="viewResolver" class="com.jeedev.common.web.springmvc.view.JeeDevViewResolver">
+		<property name="defaultViewResolver" ref="beanNameViewResolver" />
+		<property name="viewResolverMap">
+			<map>
+				<entry>
+					<key>
+						<set>
+							<value>.jsp</value>
+						</set>
+					</key>
+					<ref bean="jspViewResolver" />
+				</entry>
+				<entry>
+					<key>
+						<set>
+							<value>.vm</value>
+							<value>.htm</value>
+							<value>.html</value>
+						</set>
+					</key>
+					<ref bean="velocityViewResolver" />
+				</entry>
+				<entry>
+					<key>
+						<value>.ftl</value>
+					</key>
+					<ref bean="freeMarkerViewResolver" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+
+	<bean id="beanNameViewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+
+	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
@@ -56,26 +93,49 @@
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<!-- 模板存放的路径 -->
-		<property name="resourceLoaderPath" value="/WEB-INF/templates/" />
+		<property name="resourceLoaderPath" value="/WEB-INF/velocity/" />
 		<property name="configLocation" value="classpath:velocity.properties" />
 	</bean>
 
 	<!-- 配置视图的显示 -->
-	<bean id="ViewResolver"
+	<bean id="velocityViewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
 		<property name="prefix" value="/WEB-INF/vm" /><!-- 视图文件的前缀，即存放的路径 -->
 		<property name="suffix" value=".vm" /><!-- 视图文件的后缀名 -->
-		<property name="toolboxConfigLocation" value="/WEB-INF/tools.xml" /><!--toolbox配置文件路径 -->
+		<property name="toolboxConfigLocation" value="classpath:tools.xml" /><!--toolbox配置文件路径 -->
 		<property name="dateToolAttribute" value="date" /><!--日期函数名称 -->
 		<property name="numberToolAttribute" value="number" /><!--数字函数名称 -->
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="exposeSpringMacroHelpers" value="true" /><!--是否使用spring对宏定义的支持 -->
 		<property name="exposeRequestAttributes" value="true" /><!--是否开放request属性 -->
 		<property name="requestContextAttribute" value="rc" /><!--request属性引用名称 -->
-		<property name="layoutUrl" value="layout/default.vm" /><!--指定layout文件 -->
+		<property name="layoutUrl" value="/WEB-INF/vm/demo/layout.vm" /><!--指定layout文件 -->
+		<property name="order" value="1" />  <!-- 多ViewResovler配置，此项必须配置 -->
 	</bean>
 	<!-- velocity end -->
-	
+
+	<!-- FreeMarker ViewResolver Configuration -->
+	<bean id="freeMarkerViewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="order" value="0" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+	</bean>
+
+
+	<!-- FreeMarker Configuration -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="configLocation" value="/WEB-INF/freemarker.properties" />
+		<property name="templateLoaderPath" value="/WEB-INF/ftl/" />
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="xml_escape" value-ref="fmXmlEscape" />
+			</map>
+		</property>
+	</bean>
+
+
 	<!-- 文件上传 -->
 	<!-- <bean id="multipartResolver" -->
 	<!-- class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
