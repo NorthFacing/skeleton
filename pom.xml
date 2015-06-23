@@ -20,6 +20,9 @@
 		<servlet.version>3.1.0</servlet.version>
 		<!-- jstl -->
 		<jstl.vserion>1.2</jstl.vserion>
+		<!-- velocity -->
+		<veloctiy.version>1.7</veloctiy.version>
+		<velocity.tools.version>2.0</velocity.tools.version>
 		<!-- log -->
 		<slf4j.version>1.7.12</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
@@ -45,12 +48,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
-			<!-- <exclusions> -->
-			<!-- <exclusion> -->
-			<!-- <groupId>commons-logging</groupId> -->
-			<!-- <artifactId>commons-logging</artifactId> -->
-			<!-- </exclusion> -->
-			<!-- </exclusions> -->
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -132,19 +135,19 @@
 			<version>${jstl.vserion}</version>
 		</dependency>
 		<!-- jstl end -->
-
+		<!-- velocity start -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>${veloctiy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>${velocity.tools.version}</version>
+		</dependency>
+		<!-- velocity end -->
 		<!-- Logging start -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
