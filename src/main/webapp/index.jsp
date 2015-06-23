@@ -54,7 +54,7 @@ body {
 			<a class="btn btn-primary" href="login.html">Login » </a>
 		</div>
 	</div>
-	<script src="/jquery-1.8.3.js"></script>
-	<script src="/bootstrap/js/bootstrap.js"></script>
+	<script src="<%=request.getContextPath()%>/demo/jquery-1.8.3.js"></script>
+	<script src="<%=request.getContextPath()%>/demo/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
