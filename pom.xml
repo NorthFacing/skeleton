@@ -37,12 +37,6 @@
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${servlet.version}</version>
-			<scope>provided</scope>
-		</dependency>
 		<!-- Spring start -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -128,6 +122,14 @@
 			<version>${druid.version}</version>
 		</dependency>
 		<!-- druid end -->
+		<!-- servlet start -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- servlet end -->
 		<!-- jstl start -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
