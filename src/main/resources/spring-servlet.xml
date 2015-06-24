@@ -85,6 +85,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
+		<!-- <property name="order" value="0" /> -->
 	</bean>
 
 
@@ -110,24 +111,32 @@
 		<property name="exposeRequestAttributes" value="true" /><!--是否开放request属性 -->
 		<property name="requestContextAttribute" value="rc" /><!--request属性引用名称 -->
 		<property name="layoutUrl" value="/WEB-INF/vm/demo/layout.vm" /><!--指定layout文件 -->
-		<property name="order" value="1" />  <!-- 多ViewResovler配置，此项必须配置 -->
+		<!-- 多ViewResovler配置，此项必须配置 -->
+		<!-- <property name="order" value="1" /> -->
 	</bean>
 	<!-- velocity end -->
 
-	<!-- FreeMarker ViewResolver Configuration -->
+	<!-- 配置freeMarker视图解析器 -->
 	<bean id="freeMarkerViewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="order" value="0" />
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+		<property name="viewNames" value="*.ftl" />
+		<property name="contentType" value="text/html; charset=utf-8" />
+		<property name="cache" value="true" />
+		<property name="prefix" value="/WEB-INF/ftl/" />
+		<property name="suffix" value="" />
+		<!-- <property name="order" value="2" /> -->
+
 	</bean>
 
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
 
 	<!-- FreeMarker Configuration -->
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="configLocation" value="/WEB-INF/freemarker.properties" />
-		<property name="templateLoaderPath" value="/WEB-INF/ftl/" />
+		<property name="configLocation" value="classpath:freemarker.properties" />
+		<!-- <property name="templateLoaderPath" value="/WEB-INF/ftl/" /> -->
 		<property name="freemarkerVariables">
 			<map>
 				<entry key="xml_escape" value-ref="fmXmlEscape" />
