@@ -1,7 +1,7 @@
 <body>
-	<a href="freeMarker/hello.do">say hello</a>
+	<a href="<%=request.getContextPath()%>/freeMarker/hello.do">say hello</a>
 	<br />
-	<a href="freeMarker/hi.do">say hi</a>
+	<a href="<%=request.getContextPath()%>/freeMarker/hi.do">say hi</a>
 	<br />
-	<a href="freeMarker/jsp.do">jspRequest</a>
+	<a href="<%=request.getContextPath()%>/freeMarker/jsp.do">jspRequest</a>
 </body>
