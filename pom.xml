@@ -37,6 +37,7 @@
 		<!-- server -->
 		<maven.tomcat7.version>2.2</maven.tomcat7.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
+		<port>8086</port>
 	</properties>
 	<dependencies>
 		<!-- Spring start -->
@@ -207,7 +208,7 @@
 				<version>${maven.tomcat7.version}</version>
 				<configuration>
 					<path>/${project.artifactId}</path>
-					<port>8080</port>
+					<port>${port}</port>
 				</configuration>
 			</plugin>
 			<!-- jetty 插件 -->
@@ -221,7 +222,7 @@
 					</webApp>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8080</port>
+							<port>${port}</port>
 						</connector>
 					</connectors>
 					<scanTargets>
