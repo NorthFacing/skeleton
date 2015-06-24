@@ -21,6 +21,6 @@ public class DepartController {
     public String welcomePage(Model model) {
         List<Department> list = deptService.listDepartment();
         model.addAttribute("departments", list);
-        return "index";
+        return "demo/vmDemo.vm";
     }
 }
