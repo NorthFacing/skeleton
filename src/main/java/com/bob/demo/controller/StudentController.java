@@ -19,18 +19,18 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @RequestMapping(value = "jspDemo/signup", method = RequestMethod.GET)
     public String signup(Model model) {
         Student student = new Student();
         model.addAttribute("student", student);
-        return "/demo/signup";
+        return "demo/signup.jsp";
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "jspDemo/signup", method = RequestMethod.POST)
     public String signup(@ModelAttribute("student") Student student, Model model) {
         if (studentService.getStudentByUserName(student.getUserName())) {
             model.addAttribute("message", "User Name exists. Try another user name");
-            return "/demo/signup";
+            return "demo/signup.jsp";
         } else {
             studentService.insertStudent(student);
             model.addAttribute("message", "Saved student details");
@@ -38,20 +38,20 @@ public class StudentController {
         }
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "jspDemo/login", method = RequestMethod.GET)
     public String login(Model model) {
         StudentLogin studentLogin = new StudentLogin();
         model.addAttribute("studentLogin", studentLogin);
-        return "/demo/login";
+        return "demo/login.jsp";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "jspDemo/login", method = RequestMethod.POST)
     public String login(@ModelAttribute StudentLogin studentLogin) {
         boolean found = studentService.getStudentByLogin(studentLogin.getUserName(), studentLogin.getPassword());
         if (found) {
-            return "/demo/success";
+            return "demo/success.jsp";
         } else {
-            return "/demo/failure";
+            return "demo/failure.jsp";
         }
     }
 }
