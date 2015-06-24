@@ -50,11 +50,11 @@ body {
 				<p>To get started, you need to enter your details to enroll with
 					us. Or login to access your details, if you are already enrolled.</p>
 			</div>
-			<a class="btn btn-primary" href="signup.html">Signup » </a> 
-			<a class="btn btn-primary" href="login.html">Login » </a>
+			<a class="btn btn-primary" href="<%=request.getContextPath()%>/jspDemo/signup.html">Signup » </a> 
+			<a class="btn btn-primary" href="<%=request.getContextPath()%>/jspDemo/login.html">Login » </a>
 		</div>
 	</div>
-	<script src="<%=request.getContextPath()%>/demo/jquery-1.8.3.js"></script>
+	<script src="<%=request.getContextPath()%>/demo/jquery/jquery-1.8.3.js"></script>
 	<script src="<%=request.getContextPath()%>/demo/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
