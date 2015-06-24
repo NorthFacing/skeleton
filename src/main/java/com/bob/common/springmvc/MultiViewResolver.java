@@ -21,6 +21,7 @@ public class MultiViewResolver implements ViewResolver {
 
     private static Log logger = LogFactory.getLog(MultiViewResolver.class);
 
+    @Override
     public View resolveViewName(String viewName, Locale locale) throws Exception {
         for (Map.Entry<Set<String>, ViewResolver> map : viewResolverMap.entrySet()) {
             Set<String> suffixs = map.getKey();
