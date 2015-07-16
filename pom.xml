@@ -17,7 +17,7 @@
 		<!-- pageHelper -->
 		<pageHelper.version>3.4.1</pageHelper.version>
 		<!-- mapper -->
-		<!-- <mapper.version>3.1.1</mapper.version> -->
+		<mapper.version>3.1.1</mapper.version>
 		<!-- mysql -->
 		<mysql.connection.version>5.1.35</mysql.connection.version>
 		<!-- druid -->
@@ -133,13 +133,13 @@
 			<version>${pageHelper.version}</version>
 		</dependency>
 		<!-- myBatis end -->
-		<!--通用Mapper start -->
-		<!-- <dependency> -->
-		<!-- <groupId>tk.mybatis</groupId> -->
-		<!-- <artifactId>mapper</artifactId> -->
-		<!-- <version>${mapper.version}</version> -->
-		<!-- </dependency> -->
-		<!--通用Mapper end -->
+		<!-- 通用Mapper start -->
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>${mapper.version}</version>
+		</dependency>
+		<!-- 通用Mapper end -->
 		<!-- jdbc start -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -244,18 +244,18 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.8</version>
-				<configuration>
-					<includes>
-						<!-- 包含所有后缀为Test.jave的类 -->
-						<include>src/main/java/**/*.java</include>
-						<include>src/test/java/**/*Test.java</include>
-					</includes>
-				</configuration>
-			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+			<!-- <version>2.8</version> -->
+			<!-- <configuration> -->
+			<!-- <includes> -->
+			<!-- 包含所有后缀为Test.jave的类 -->
+			<!-- <include>src/main/java/**/*.java</include> -->
+			<!-- <include>src/test/java/**/*Test.java</include> -->
+			<!-- </includes> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 			<!-- Tomcat 插件 -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>

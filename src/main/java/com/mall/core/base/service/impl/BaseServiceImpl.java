@@ -7,53 +7,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mall.core.base.mappers.BaseMapper;
+import com.mall.core.base.mapper.BaseMappor;
 import com.mall.core.base.model.BaseModel;
 import com.mall.core.base.service.BaseService;
 
 public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, VO> {
 
     @Autowired
-    private BaseMapper<M, VO> baseMapper;
+    private BaseMappor<M, VO> baseMapper;
 
     @Override
     public String add(M model) {
         Validate.notNull(model);
-        baseMapper.add(model);
+        baseMapper.insert(model);
         return model.getId();
     }
 
     @Override
-    public <E> E getById(String id) {
+    public M getById(String id) {
         Validate.notNull(id);
-        return baseMapper.getById(id);
+        return baseMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public <E> List<E> getList(VO vo) {
-        return baseMapper.getList(vo);
+    public List<M> getList(M model) {
+        return baseMapper.select(model);
     }
 
     @Override
-    public <E> PageInfo<E> getPage(int pageNum, int pageSize, VO vo) {
+    public PageInfo<M> getPage(int pageNum, int pageSize, M model) {
         Validate.notNull(pageNum);
         Validate.notNull(pageSize);
         PageHelper.startPage(pageNum, pageSize);
-        List<E> list = baseMapper.getList(vo);
-        return new PageInfo<E>(list);
+        List<M> list = baseMapper.select(model);
+        return new PageInfo<M>(list);
     }
 
     @Override
     public void updateById(M model) {
         Validate.notNull(model);
         Validate.notNull(model.getId());
-        baseMapper.updateById(model);
+        baseMapper.updateByPrimaryKey(model);
     }
 
     @Override
     public boolean delById(String id) {
         Validate.notNull(id);
-        baseMapper.delById(id);
+        baseMapper.deleteByPrimaryKey(id);
         return true;
     }
 

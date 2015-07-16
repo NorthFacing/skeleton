@@ -15,11 +15,11 @@ public interface BaseService<M, VO> {
 
     public String add(M model);
 
-    public <E> E getById(String id);
+    public M getById(String id);
 
-    public <E> List<E> getList(VO vo);
+    public List<M> getList(M model);
 
-    public <E> PageInfo<E> getPage(int pageNum, int pageSize, VO vo);
+    public PageInfo<M> getPage(int pageNum, int pageSize, M model);
 
     public void updateById(M model);
 

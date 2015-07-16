@@ -4,4 +4,4 @@
  * @author Bob
  * @created 2015年7月3日 下午4:15:37
  */
-package com.mall.core.base.mappers;
+package com.mall.core.base.mapper;

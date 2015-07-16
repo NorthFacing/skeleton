@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mall.biz.demo.model.DemoModel;
-import com.mall.biz.demo.model.DemoModelVo;
 import com.mall.biz.demo.service.DemoService;
 import com.mall.core.base.BaseServiceTest;
 
@@ -21,10 +20,7 @@ public class DemoServiceImplTest extends BaseServiceTest {
     private static Double score;
     private static Boolean isGraduated;
 
-    @Autowired
     private static DemoModel model;
-    @Autowired
-    private DemoModelVo vo;
 
     @Autowired
     private DemoService demoService;
@@ -71,8 +67,7 @@ public class DemoServiceImplTest extends BaseServiceTest {
         String idTwo = demoService.add(modelTwo);
         assert (idTwo != null);
 
-        vo.setName(name);
-        List<Object> list = demoService.getList(vo);
+        List<DemoModel> list = demoService.getList(new DemoModel().setName(name));
 
         assert (list.size() >= 1);
 
