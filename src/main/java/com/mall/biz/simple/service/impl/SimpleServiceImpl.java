@@ -25,13 +25,6 @@ public class SimpleServiceImpl implements SimpleService {
 
     @Override
     public Simple getById(Integer id) {
-        try {
-            Simple simple = demoMapper.selectByPrimaryKey("12345");
-            System.out.println(simple);
-        } finally {
-            Simple simple = demoMapper.selectByPrimaryKey(id);
-            System.out.println(simple);
-        }
         return demoMapper.selectByPrimaryKey(id);
     }
 

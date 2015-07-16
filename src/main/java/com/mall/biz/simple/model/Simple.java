@@ -117,7 +117,7 @@ public class Simple {
         sb.append("createTime=").append(this.createTime).append(", ");
         sb.append("createUser=").append(this.createUser).append(", ");
         sb.append("updateTime=").append(this.updateTime).append(", ");
-        sb.append("updateUser=").append(this.updateUser).append(", ");
+        sb.append("updateUser=").append(this.updateUser);
         sb.append(" ]");
         return sb.toString();
     }

@@ -70,7 +70,7 @@ public class Demo extends BaseModel {
         sb.append("createUser=").append(this.createUser).append(", ");
         sb.append("createTime=").append(this.createTime).append(", ");
         sb.append("updateUser=").append(this.updateUser).append(", ");
-        sb.append("updateTime=").append(this.updateTime).append(", ");
+        sb.append("updateTime=").append(this.updateTime);
         sb.append(" ]");
         return sb.toString();
     }

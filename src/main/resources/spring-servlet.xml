@@ -45,7 +45,7 @@
 	<!-- 配置视图的显示 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-		<property name="prefix" value="/WEB-INF/mall/admin/" /><!-- 视图文件的前缀，即存放的路径 -->
+		<property name="prefix" value="/WEB-INF/mall/" /><!-- 视图文件的前缀，即存放的路径 -->
 		<property name="suffix" value=".html" />
 		<!-- 视图文件的后缀名 -->
 		<property name="toolboxConfigLocation" value="/WEB-INF/tools.xml" /><!--toolbox配置文件路径 -->
