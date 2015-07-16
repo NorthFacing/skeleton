@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +23,9 @@ public class SimpleController {
     private SimpleService demoSerivce;
 
     @RequestMapping(value = "/simple/add", method = RequestMethod.POST)
-    public String add(@Validated Simple simpleModel, Model model) {
-        demoSerivce.add(simpleModel);
-        return "demo/view";
+    public AjaxResults<?> add(@Validated Simple model) {
+        demoSerivce.add(model);
+        return AjaxResults.success();
     }
 
     @ResponseBody
@@ -37,28 +36,27 @@ public class SimpleController {
 
     @ResponseBody
     @RequestMapping(value = "/simple/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(Simple simpleModel) {
-        return new AjaxResults<List<?>>(demoSerivce.getList(simpleModel));
+    public AjaxResults<List<?>> getList(Simple model) {
+        return new AjaxResults<List<?>>(demoSerivce.getList(model));
     }
 
     @ResponseBody
     @RequestMapping(value = "/simple/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(Simple simpleModel,
-        @RequestParam(defaultValue = Constants.pageNum) int pageNum,
+    public AjaxResults<PageInfo<?>> getPage(Simple model, @RequestParam(defaultValue = Constants.pageNum) int pageNum,
         @RequestParam(defaultValue = Constants.pageSize) int pageSize) {
-        return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(pageNum, pageSize, simpleModel));
+        return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(pageNum, pageSize, model));
     }
 
     @RequestMapping(value = "/simple/update", method = RequestMethod.POST)
-    public String update(@Validated Simple simpleModel, Model model) {
-        demoSerivce.updateById(simpleModel);
-        return "demo/view";
+    public AjaxResults<?> update(@Validated Simple model) {
+        demoSerivce.updateById(model);
+        return AjaxResults.success();
     }
 
-    // 测试代码，不需要自动生成
-    @RequestMapping(value = "/simple/list", method = RequestMethod.GET)
-    public String viewList(Model model) {
-        return "demo/list";
+    @RequestMapping(value = "/simple/delById", method = RequestMethod.POST)
+    public AjaxResults<?> delById(Integer id) {
+        demoSerivce.delById(id);
+        return AjaxResults.success();
     }
 
 }
