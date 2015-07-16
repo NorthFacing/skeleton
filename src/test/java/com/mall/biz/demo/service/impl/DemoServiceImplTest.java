@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mall.biz.demo.model.DemoModel;
+import com.mall.biz.demo.model.Demo;
 import com.mall.biz.demo.service.DemoService;
 import com.mall.core.base.BaseServiceTest;
 
@@ -20,14 +20,14 @@ public class DemoServiceImplTest extends BaseServiceTest {
     private static Double score;
     private static Boolean isGraduated;
 
-    private static DemoModel model;
+    private static Demo model;
 
     @Autowired
     private DemoService demoService;
 
     @BeforeClass
     public static void checkInit() {
-        model = new DemoModel();
+        model = new Demo();
         // 初始化随机参数
         Random r = new Random();
         Integer i = r.nextInt(60);
@@ -42,32 +42,32 @@ public class DemoServiceImplTest extends BaseServiceTest {
 
     @Test
     public void testAdd() {
-        String id = demoService.add(model);
+        Integer id = demoService.add(model);
         assert (id != null);
-        DemoModel result = (DemoModel) demoService.getById(id);
+        Demo result = (Demo) demoService.getById(id);
         assert (result != null && result.getName() != null);
     }
 
     @Test
     public void testGetById() {
-        String id = demoService.add(model);
+        Integer id = demoService.add(model);
         assert (id != null);
-        DemoModel result = (DemoModel) demoService.getById(id);
+        Demo result = (Demo) demoService.getById(id);
         assert (result != null && result.getName() != null);
     }
 
     @Test
     public void testGetList() {
 
-        String id = demoService.add(model);
+        Integer id = demoService.add(model);
         assert (id != null);
 
-        DemoModel modelTwo = new DemoModel();
+        Demo modelTwo = new Demo();
         modelTwo.setName(name + name);
-        String idTwo = demoService.add(modelTwo);
+        Integer idTwo = demoService.add(modelTwo);
         assert (idTwo != null);
 
-        List<DemoModel> list = demoService.getList(new DemoModel().setName(name));
+        List<Demo> list = demoService.getList(new Demo().setName(name));
 
         assert (list.size() >= 1);
 
@@ -75,25 +75,25 @@ public class DemoServiceImplTest extends BaseServiceTest {
 
     @Test
     public void testUpdate() {
-        String id = demoService.add(model);
+        Integer id = demoService.add(model);
         assert (id != null);
 
         String newName = new StringBuffer(model.getName()).reverse().toString();
         demoService.updateById(model);
 
-        DemoModel result = (DemoModel) demoService.getById(id);
+        Demo result = (Demo) demoService.getById(id);
         assert (result != null && result.getName() != null && newName.equals(result.getName()));
     }
 
     @Test
     public void testDelById() {
-        String id = demoService.add(model);
+        Integer id = demoService.add(model);
         assert (id != null);
 
         boolean b = demoService.delById(id);
         assert (b);
 
-        DemoModel result = (DemoModel) demoService.getById(id);
+        Demo result = (Demo) demoService.getById(id);
         assert (null == result);
     }
 

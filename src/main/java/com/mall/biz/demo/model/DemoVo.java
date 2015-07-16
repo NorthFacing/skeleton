@@ -2,7 +2,7 @@ package com.mall.biz.demo.model;
 
 import java.time.LocalDateTime;
 
-public class DemoModelVo extends DemoModel {
+public class DemoVo extends Demo {
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;

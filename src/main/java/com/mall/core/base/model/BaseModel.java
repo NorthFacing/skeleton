@@ -2,19 +2,22 @@ package com.mall.core.base.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Id;
+
 public class BaseModel {
 
-    protected String id;
+    @Id
+    protected Integer id;
     protected LocalDateTime createTime;
     protected String createUser;
     protected LocalDateTime updateTime;
     protected String updateUser;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public BaseModel setId(String id) {
+    public BaseModel setId(Integer id) {
         this.id = id;
         return this;
     }

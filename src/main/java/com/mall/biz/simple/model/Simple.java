@@ -2,14 +2,17 @@ package com.mall.biz.simple.model;
 
 import java.util.Date;
 
+import javax.persistence.Id;
+
 /**
  * demo
  * @since v0.0.1
  * @author Bob
  */
-public class SimpleModel {
+public class Simple {
 
-	private String id;    //  
+    @Id
+	private Integer id;    //  
 	private String name;    //  
 	private Integer age;    //  
 	private Date birthDay;    //  
@@ -21,10 +24,10 @@ public class SimpleModel {
 	private String updateUser;    //  
 		
 	/**  */
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public SimpleModel setId (String id) {
+	public Simple setId (Integer id) {
 		this.id = id;
 		return this;
 	}
@@ -32,7 +35,7 @@ public class SimpleModel {
 	public String getName() {
 		return name;
 	}
-	public SimpleModel setName (String name) {
+	public Simple setName (String name) {
 		this.name = name;
 		return this;
 	}
@@ -40,7 +43,7 @@ public class SimpleModel {
 	public Integer getAge() {
 		return age;
 	}
-	public SimpleModel setAge (Integer age) {
+	public Simple setAge (Integer age) {
 		this.age = age;
 		return this;
 	}
@@ -48,7 +51,7 @@ public class SimpleModel {
 	public Date getBirthDay() {
 		return birthDay;
 	}
-	public SimpleModel setBirthDay (Date birthDay) {
+	public Simple setBirthDay (Date birthDay) {
 		this.birthDay = birthDay;
 		return this;
 	}
@@ -56,7 +59,7 @@ public class SimpleModel {
 	public double getScore() {
 		return score;
 	}
-	public SimpleModel setScore (double score) {
+	public Simple setScore (double score) {
 		this.score = score;
 		return this;
 	}
@@ -64,7 +67,7 @@ public class SimpleModel {
 	public boolean getIsGraduated() {
 		return isGraduated;
 	}
-	public SimpleModel setIsGraduated (boolean isGraduated) {
+	public Simple setIsGraduated (boolean isGraduated) {
 		this.isGraduated = isGraduated;
 		return this;
 	}
@@ -72,7 +75,7 @@ public class SimpleModel {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	public SimpleModel setCreateTime (Date createTime) {
+	public Simple setCreateTime (Date createTime) {
 		this.createTime = createTime;
 		return this;
 	}
@@ -80,7 +83,7 @@ public class SimpleModel {
 	public String getCreateUser() {
 		return createUser;
 	}
-	public SimpleModel setCreateUser (String createUser) {
+	public Simple setCreateUser (String createUser) {
 		this.createUser = createUser;
 		return this;
 	}
@@ -88,7 +91,7 @@ public class SimpleModel {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	public SimpleModel setUpdateTime (Date updateTime) {
+	public Simple setUpdateTime (Date updateTime) {
 		this.updateTime = updateTime;
 		return this;
 	}
@@ -96,14 +99,14 @@ public class SimpleModel {
 	public String getUpdateUser() {
 		return updateUser;
 	}
-	public SimpleModel setUpdateUser (String updateUser) {
+	public Simple setUpdateUser (String updateUser) {
 		this.updateUser = updateUser;
 		return this;
 	}
 	
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Demo");
+        StringBuilder sb = new StringBuilder(Simple.class.getName());
         sb.append(" [ ");
         sb.append("id=").append(this.id).append(", ");
         sb.append("name=").append(this.name).append(", ");

@@ -1,7 +1,7 @@
 package com.mall.biz.demo.mapper;
 
-import com.mall.biz.demo.model.DemoModel;
-import com.mall.biz.demo.model.DemoModelVo;
+import com.mall.biz.demo.model.Demo;
+import com.mall.biz.demo.model.DemoVo;
 import com.mall.core.base.mapper.BaseMappor;
 
 /**
@@ -11,6 +11,6 @@ import com.mall.core.base.mapper.BaseMappor;
  * @author Bob
  * @created 2015年7月3日 下午8:11:53
  */
-public interface DemoMapper extends BaseMappor<DemoModel, DemoModelVo> {
+public interface DemoMapper extends BaseMappor<Demo, DemoVo> {
 
 }

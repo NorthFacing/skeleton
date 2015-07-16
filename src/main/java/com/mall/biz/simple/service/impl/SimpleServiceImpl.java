@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mall.biz.simple.mapper.SimpleMapper;
-import com.mall.biz.simple.model.SimpleModel;
+import com.mall.biz.simple.model.Simple;
 import com.mall.biz.simple.service.SimpleService;
 
 @Service
@@ -16,37 +16,44 @@ public class SimpleServiceImpl implements SimpleService {
 
     @Autowired
     private SimpleMapper demoMapper;
-    
+
     @Override
-    public String add(SimpleModel model) {
+    public Integer add(Simple model) {
         demoMapper.insert(model);
         return model.getId();
     }
 
     @Override
-    public SimpleModel getById(String id) {
+    public Simple getById(Integer id) {
+        try {
+            Simple simple = demoMapper.selectByPrimaryKey("12345");
+            System.out.println(simple);
+        } finally {
+            Simple simple = demoMapper.selectByPrimaryKey(id);
+            System.out.println(simple);
+        }
         return demoMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<SimpleModel> getList(SimpleModel model) {
+    public List<Simple> getList(Simple model) {
         return demoMapper.select(model);
     }
 
     @Override
-    public PageInfo<SimpleModel> getPage(int pageNum, int pageSize, SimpleModel model) {
+    public PageInfo<Simple> getPage(int pageNum, int pageSize, Simple model) {
         PageHelper.startPage(pageNum, pageSize);
-        List<SimpleModel> list = demoMapper.select(model);
-        return new PageInfo<SimpleModel>(list);
+        List<Simple> list = demoMapper.select(model);
+        return new PageInfo<Simple>(list);
     }
 
     @Override
-    public void updateById(SimpleModel model) {
+    public void updateById(Simple model) {
         demoMapper.updateByPrimaryKey(model);
     }
 
     @Override
-    public boolean delById(String id) {
+    public boolean delById(Integer id) {
         demoMapper.deleteByPrimaryKey(id);
         return true;
     }

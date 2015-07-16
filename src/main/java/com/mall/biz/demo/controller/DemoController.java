@@ -15,8 +15,8 @@ import com.github.pagehelper.PageInfo;
 import com.mall.core.base.controller.BaseController;
 import com.mall.core.contants.Constants;
 import com.mall.core.utils.AjaxResults;
-import com.mall.biz.demo.model.DemoModel;
-import com.mall.biz.demo.model.DemoModelVo;
+import com.mall.biz.demo.model.Demo;
+import com.mall.biz.demo.model.DemoVo;
 import com.mall.biz.demo.service.DemoService;
 
 @Controller
@@ -26,33 +26,33 @@ public class DemoController extends BaseController {
     private DemoService demoSerivce;
 
     @RequestMapping(value = "/demo/add", method = RequestMethod.POST)
-    public String add(@Validated DemoModel demoModel, Model model) {
+    public String add(@Validated Demo demoModel, Model model) {
         demoSerivce.add(demoModel);
         return "demo/view";
     }
 
     @ResponseBody
     @RequestMapping(value = "/demo/getById", method = RequestMethod.GET)
-    public AjaxResults<?> DemoModel(String id) {
+    public AjaxResults<?> getById(Integer id) {
         return new AjaxResults<Object>(demoSerivce.getById(id));
     }
 
     @ResponseBody
     @RequestMapping(value = "/demo/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(DemoModelVo demoModelVo) {
+    public AjaxResults<List<?>> getList(DemoVo demoModelVo) {
         return new AjaxResults<List<?>>(demoSerivce.getList(demoModelVo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/demo/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(DemoModelVo demoModelVo,
+    public AjaxResults<PageInfo<?>> getPage(DemoVo demoModelVo,
         @RequestParam(defaultValue = Constants.pageNum) int pageNum,
         @RequestParam(defaultValue = Constants.pageSize) int pageSize) {
         return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(pageNum, pageSize, demoModelVo));
     }
 
     @RequestMapping(value = "/demo/update", method = RequestMethod.POST)
-    public String update(@Validated DemoModel demoModel, Model model) {
+    public String update(@Validated Demo demoModel, Model model) {
         demoSerivce.updateById(demoModel);
         return "demo/view";
     }

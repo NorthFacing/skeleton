@@ -17,14 +17,14 @@ public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, 
     private BaseMappor<M, VO> baseMapper;
 
     @Override
-    public String add(M model) {
+    public Integer add(M model) {
         Validate.notNull(model);
         baseMapper.insert(model);
         return model.getId();
     }
 
     @Override
-    public M getById(String id) {
+    public M getById(Integer id) {
         Validate.notNull(id);
         return baseMapper.selectByPrimaryKey(id);
     }
@@ -51,7 +51,7 @@ public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, 
     }
 
     @Override
-    public boolean delById(String id) {
+    public boolean delById(Integer id) {
         Validate.notNull(id);
         baseMapper.deleteByPrimaryKey(id);
         return true;

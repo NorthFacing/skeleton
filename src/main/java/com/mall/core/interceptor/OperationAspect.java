@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import org.aspectj.lang.JoinPoint;
 
 import com.mall.core.base.model.BaseModel;
-import com.mall.core.utils.UuidUtil;
 
 /**
  * 新增/修改 自动补充用户和时间字段
@@ -20,8 +19,6 @@ public class OperationAspect {
         Object obj = jp.getArgs()[0];
         if (obj instanceof BaseModel) {
             BaseModel model = (BaseModel) obj;
-            String id = UuidUtil.uuid();
-            model.setId(id);
             model.setCreateTime(LocalDateTime.now());
             model.setCreateUser("TODO-ADD");
             model.setUpdateTime(LocalDateTime.now());

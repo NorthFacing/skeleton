@@ -4,13 +4,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.mall.biz.demo.model.DemoModel;
+import com.mall.biz.demo.model.Demo;
 
 public class DemoValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> c) {
-        return DemoModel.class.isAssignableFrom(c);
+        return Demo.class.isAssignableFrom(c);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class DemoValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthDay", "field.birthDay.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "score", "field.score.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "score", "field.isGraduated.empty");
-        DemoModel domeModel = (DemoModel) command;
+        Demo domeModel = (Demo) command;
         if (domeModel.getAge() < 0)
             errors.rejectValue("age", "field.age.negative");
     }

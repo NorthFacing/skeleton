@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.bob.biz.demo.mapper.DemoMapper">
-	<resultMap id="DemoMap" type="com.bob.biz.model.Demo">
-		<id property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="age" column="age" />
-		<result property="birthDay" column="birth_day" />
-		<result property="score" column="score" />
-		<result property="isGraduated" column="is_graduated" />
-		<result property="createTime" column="create_time" />
-		<result property="createUser" column="create_user" />
-		<result property="updateTime" column="update_time" />
-		<result property="updateUser" column="update_user" />
+<mapper namespace="com.mall.biz.demo.mapper.DemoMapper">
+	<resultMap id="BaseResultMap" type="com.mall.biz.demo.model.Demo">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="name" column="name" jdbcType="VARCHAR" />
+		<result property="age" column="age" jdbcType="INTEGER" />
+		<result property="birthDay" column="birth_day" jdbcType="DATE" />
+		<result property="score" column="score" jdbcType="INTEGER" />
+		<result property="isGraduated" column="is_graduated" jdbcType="BIT" />
+		<result property="createTime" column="create_time" jdbcType="TIME" />
+		<result property="createUser" column="create_user" jdbcType="VARCHAR" />
+		<result property="updateTime" column="update_time" jdbcType="TIME" />
+		<result property="updateUser" column="update_user" jdbcType="VARCHAR" />
 	</resultMap>
 </mapper>

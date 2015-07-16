@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * @author Bob
  */
 
-public class SimpleModelVo extends SimpleModel {
+public class SimpleVo extends Simple {
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;

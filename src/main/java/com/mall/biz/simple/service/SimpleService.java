@@ -3,23 +3,23 @@ package com.mall.biz.simple.service;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
-import com.mall.biz.simple.model.SimpleModel;
+import com.mall.biz.simple.model.Simple;
 
 /**
  * demo
  */
 public interface SimpleService {
 
-    public String add(SimpleModel model);
+    public Integer add(Simple model);
 
-    public SimpleModel getById(String id);
+    public Simple getById(Integer id);
 
-    public List<SimpleModel> getList(SimpleModel Demoodel);
+    public List<Simple> getList(Simple Demoodel);
 
-    public PageInfo<SimpleModel> getPage(int pageNum, int pageSize, SimpleModel model);
+    public PageInfo<Simple> getPage(int pageNum, int pageSize, Simple model);
 
-    public void updateById(SimpleModel model);
+    public void updateById(Simple model);
 
-    public boolean delById(String id);
+    public boolean delById(Integer id);
 
 }
