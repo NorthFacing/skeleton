@@ -31,7 +31,7 @@ public class DemoController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demo/getById", method = RequestMethod.GET)
-    public AjaxResults<?> getById(Integer id) {
+    public AjaxResults<?> getById(String id) {
         return new AjaxResults<Demo>(demoSerivce.getById(id));
     }
 
@@ -56,7 +56,7 @@ public class DemoController extends BaseController {
     }
 
     @RequestMapping(value = "/demo/delById", method = RequestMethod.GET)
-    public AjaxResults<?> delById(Integer id) {
+    public AjaxResults<?> delById(String id) {
         demoSerivce.delById(id);
         return AjaxResults.success();
     }

@@ -18,13 +18,13 @@ public class SimpleServiceImpl implements SimpleService {
     private SimpleMapper demoMapper;
 
     @Override
-    public Integer add(Simple model) {
+    public String add(Simple model) {
         demoMapper.insert(model);
         return model.getId();
     }
 
     @Override
-    public Simple getById(Integer id) {
+    public Simple getById(String id) {
         return demoMapper.selectByPrimaryKey(id);
     }
 
@@ -46,7 +46,7 @@ public class SimpleServiceImpl implements SimpleService {
     }
 
     @Override
-    public boolean delById(Integer id) {
+    public boolean delById(String id) {
         demoMapper.deleteByPrimaryKey(id);
         return true;
     }

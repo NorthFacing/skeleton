@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,59 +43,59 @@ public class DemoServiceImplTest extends BaseServiceTest {
 
     @Test
     public void testAdd() {
-        Integer id = demoService.add(model);
-        assert (id != null);
-        Demo result = (Demo) demoService.getById(id);
-        assert (result != null && result.getName() != null);
+        String id = demoService.add(model);
+        Assert.assertNotNull("add 方法返回值为空！", id);
     }
 
     @Test
     public void testGetById() {
-        Integer id = demoService.add(model);
-        assert (id != null);
+        String id = demoService.add(model);
+        Assert.assertNotNull("add 方法返回值为空！", id);
+
         Demo result = (Demo) demoService.getById(id);
-        assert (result != null && result.getName() != null);
+        Assert.assertNotNull("getById 方法返回值为空！", result);
+        Assert.assertNotNull("getById 方法返回值 name 为空！", result.getName());
     }
 
     @Test
     public void testGetList() {
 
-        Integer id = demoService.add(model);
-        assert (id != null);
+        String id = demoService.add(model);
+        Assert.assertNotNull("add 方法返回值为空！", id);
 
         Demo modelTwo = new Demo();
         modelTwo.setName(name + name);
-        Integer idTwo = demoService.add(modelTwo);
-        assert (idTwo != null);
+        String idTwo = demoService.add(modelTwo);
+        Assert.assertNotNull("add 方法返回值为空！", idTwo);
 
         List<Demo> list = demoService.getList(new Demo().setName(name));
-
-        assert (list.size() >= 1);
-
+        Assert.assertTrue("getList 方法 查询结果不正确！", list.size() >= 1);
     }
 
     @Test
     public void testUpdate() {
-        Integer id = demoService.add(model);
-        assert (id != null);
+        String id = demoService.add(model);
+        Assert.assertNotNull("update 方法返回值为空！", id);
 
         String newName = new StringBuffer(model.getName()).reverse().toString();
         demoService.updateById(model);
 
         Demo result = (Demo) demoService.getById(id);
-        assert (result != null && result.getName() != null && newName.equals(result.getName()));
+        Assert.assertNotNull("getById 方法返回值为空！", result);
+        Assert.assertNotNull("getById 方法返回值 name 为空！", result.getName());
+        Assert.assertEquals(newName, new StringBuffer(result.getName()).reverse().toString());
     }
 
     @Test
     public void testDelById() {
-        Integer id = demoService.add(model);
-        assert (id != null);
+        String id = demoService.add(model);
+        Assert.assertNotNull("update 方法返回值为空！", id);
 
         boolean b = demoService.delById(id);
-        assert (b);
+        Assert.assertTrue(b);
 
         Demo result = (Demo) demoService.getById(id);
-        assert (null == result);
+        Assert.assertNull(result);
     }
 
 }

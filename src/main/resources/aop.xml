@@ -32,17 +32,18 @@
 
 	<!-- CCUU 开始 -->
 	<!-- ICCUU：id,createTime,createUser,updateTime,udpateUser -->
-	<bean id="operationAspect" class="com.mall.core.interceptor.OperationAspect" />
+	<bean id="operationAspect" class="com.mall.core.interceptor.CcuuAspect" />
 	<aop:config>
 		<aop:aspect ref="operationAspect">
-			<aop:pointcut expression="execution(* com.mall..mappers.*Mapper.add*(..))"
+			<aop:pointcut
+				expression="(execution(* com.mall..mapper.*Mapper.insert*(..))) or (execution (* tk.mybatis.mapper..*Mapper.insert*(..)))"
 				id="addOperation" />
-			<aop:before pointcut-ref="addOperation" method="addOperation" />
+			<aop:before pointcut-ref="addOperation" method="insert" />
 		</aop:aspect>
 		<aop:aspect ref="operationAspect">
 			<aop:pointcut id="updateOperation"
-				expression="execution(* com.mall..mappers.*Mapper.update*(..))" />
-			<aop:before pointcut-ref="updateOperation" method="updateOperation" />
+				expression="(execution(* com.mall..mapper.*Mapper.update*(..))) or (execution (* tk.mybatis.mapper..*Mapper.update*(..)))" />
+			<aop:before pointcut-ref="updateOperation" method="update" />
 		</aop:aspect>
 	</aop:config>
 	<!-- CCUU 结束 -->

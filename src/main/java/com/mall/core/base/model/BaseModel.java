@@ -7,17 +7,17 @@ import javax.persistence.Id;
 public class BaseModel {
 
     @Id
-    protected Integer id;
+    protected String id;
     protected LocalDateTime createTime;
     protected String createUser;
     protected LocalDateTime updateTime;
     protected String updateUser;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public BaseModel setId(Integer id) {
+    public BaseModel setId(String id) {
         this.id = id;
         return this;
     }

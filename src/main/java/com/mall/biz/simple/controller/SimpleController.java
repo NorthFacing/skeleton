@@ -30,7 +30,7 @@ public class SimpleController {
 
     @ResponseBody
     @RequestMapping(value = "/simple/getById", method = RequestMethod.GET)
-    public AjaxResults<?> getById(Integer id) {
+    public AjaxResults<?> getById(String id) {
         return new AjaxResults<Object>(demoSerivce.getById(id));
     }
 
@@ -54,7 +54,7 @@ public class SimpleController {
     }
 
     @RequestMapping(value = "/simple/delById", method = RequestMethod.POST)
-    public AjaxResults<?> delById(Integer id) {
+    public AjaxResults<?> delById(String id) {
         demoSerivce.delById(id);
         return AjaxResults.success();
     }

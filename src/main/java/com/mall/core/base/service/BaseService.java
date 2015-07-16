@@ -13,9 +13,9 @@ import com.github.pagehelper.PageInfo;
  */
 public interface BaseService<M, VO> {
 
-    public Integer add(M model);
+    public String add(M model);
 
-    public M getById(Integer id);
+    public M getById(String id);
 
     public List<M> getList(M model);
 
@@ -23,6 +23,6 @@ public interface BaseService<M, VO> {
 
     public void updateById(M model);
 
-    public boolean delById(Integer id);
+    public boolean delById(String id);
 
 }

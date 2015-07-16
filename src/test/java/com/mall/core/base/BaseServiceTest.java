@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,6 +22,11 @@ public class BaseServiceTest extends TestCase {
     @BeforeClass
     public static void start() {
         System.out.println("=====================  start  =======================");
+    }
+
+    @Test
+    public void sysoutTest() {
+        System.out.println("=====================  ING  =======================");
     }
 
     @AfterClass

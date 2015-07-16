@@ -10,9 +10,9 @@ import com.mall.biz.simple.model.Simple;
  */
 public interface SimpleService {
 
-    public Integer add(Simple model);
+    public String add(Simple model);
 
-    public Simple getById(Integer id);
+    public Simple getById(String id);
 
     public List<Simple> getList(Simple Demoodel);
 
@@ -20,6 +20,6 @@ public interface SimpleService {
 
     public void updateById(Simple model);
 
-    public boolean delById(Integer id);
+    public boolean delById(String id);
 
 }

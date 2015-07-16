@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class Simple {
 
     @Id
-	private Integer id;    //  
+	private String id;    //  
 	private String name;    //  
 	private Integer age;    //  
 	private Date birthDay;    //  
@@ -24,10 +24,10 @@ public class Simple {
 	private String updateUser;    //  
 		
 	/**  */
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public Simple setId (Integer id) {
+	public Simple setId (String id) {
 		this.id = id;
 		return this;
 	}

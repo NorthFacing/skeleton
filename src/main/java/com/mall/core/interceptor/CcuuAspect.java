@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.aspectj.lang.JoinPoint;
 
 import com.mall.core.base.model.BaseModel;
+import com.mall.core.utils.UuidUtil;
 
 /**
  * 新增/修改 自动补充用户和时间字段
@@ -13,12 +14,13 @@ import com.mall.core.base.model.BaseModel;
  * @author Bob
  * @created 2015年7月4日 下午11:37:15
  */
-public class OperationAspect {
+public class CcuuAspect {
 
-    public void addOperation(JoinPoint jp) {
+    public void insert(JoinPoint jp) {
         Object obj = jp.getArgs()[0];
         if (obj instanceof BaseModel) {
             BaseModel model = (BaseModel) obj;
+            model.setId(UuidUtil.uuid());
             model.setCreateTime(LocalDateTime.now());
             model.setCreateUser("TODO-ADD");
             model.setUpdateTime(LocalDateTime.now());
@@ -26,7 +28,7 @@ public class OperationAspect {
         }
     }
 
-    public void updateOperation(JoinPoint jp) {
+    public void update(JoinPoint jp) {
         Object obj = jp.getArgs()[0];
         if (obj instanceof BaseModel) {
             BaseModel model = (BaseModel) obj;
