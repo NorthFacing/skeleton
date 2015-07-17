@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mall.core.base.mapper.BaseMappor;
+import com.mall.core.base.mapper.BaseMapper;
 import com.mall.core.base.model.BaseModel;
 import com.mall.core.base.service.BaseService;
 
 public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, VO> {
 
     @Autowired
-    private BaseMappor<M, VO> baseMapper;
+    private BaseMapper<M, VO> baseMapper;
 
     @Override
     public String add(M model) {
