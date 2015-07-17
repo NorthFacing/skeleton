@@ -36,6 +36,27 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="typeAliasesPackage" value="com.mall.biz.*.model" />
 		<property name="mapperLocations" value="classpath*:com.mall.biz.*.mappers/*.xml"></property>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+							reasonable=true
+						</value>
+					</property>
+				</bean>
+				<bean class="tk.mybatis.mapper.mapperhelper.MapperOnceInterceptor">
+					<property name="properties">
+						<value>
+							mappers=tk.mybatis.mapper.common.Mapper
+							IDENTITY=MYSQL
+							notEmpty=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
@@ -55,16 +76,16 @@
 	</bean>
 
 	<!-- 通用Mapper插件支持 -->
-	<bean class="tk.mybatis.mapper.mapperhelper.MapperHelper"
-		depends-on="sqlSession" init-method="initMapper" scope="singleton"
-		lazy-init="false">
-		<property name="mappers">
-			<array>
-				<value>tk.mybatis.mapper.common.BaseMapper</value>
-			</array>
-		</property>
-		<!-- 对于多数据源，这里也可以像上面这样配置多个 -->
-		<property name="sqlSessions" ref="sqlSession" />
-	</bean>
+	<!-- <bean class="tk.mybatis.mapper.mapperhelper.MapperHelper" -->
+	<!-- depends-on="sqlSession" init-method="initMapper" scope="singleton" -->
+	<!-- lazy-init="false"> -->
+	<!-- <property name="mappers"> -->
+	<!-- <array> -->
+	<!-- <value>tk.mybatis.mapper.common.BaseMapper</value> -->
+	<!-- </array> -->
+	<!-- </property> -->
+	<!-- 对于多数据源，这里也可以像上面这样配置多个 -->
+	<!-- <property name="sqlSessions" ref="sqlSession" /> -->
+	<!-- </bean> -->
 
 </beans>
