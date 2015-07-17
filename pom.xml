@@ -35,6 +35,7 @@
 		<fastjson.version>1.2.6</fastjson.version>
 		<!-- test -->
 		<junit.version>4.12</junit.version>
+		<mockito.version>1.10.19</mockito.version>
 		<!-- maven -->
 		<maven.compiler.version>3.3</maven.compiler.version>
 		<!-- JDK -->
@@ -218,6 +219,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- test end -->
