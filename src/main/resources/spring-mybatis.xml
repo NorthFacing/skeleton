@@ -17,10 +17,10 @@
 		<property name="password" value="${dbPassWord}" />
 
 		<property name="filters" value="stat" />
-		<property name="maxActive" value="20" />
-		<property name="initialSize" value="1" />
-		<property name="maxWait" value="60000" />
-		<property name="minIdle" value="1" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="maxWait" value="${maxWait}" />
+		<property name="minIdle" value="${minIdle}" />
 		<property name="timeBetweenEvictionRunsMillis" value="60000" />
 		<property name="minEvictableIdleTimeMillis" value="300000" />
 		<property name="validationQuery" value="SELECT 'x'" />
@@ -65,8 +65,7 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage"
-			value="com.mall.core.base.mappers;com.mall.biz.*.mapper" />
+		<property name="basePackage" value="com.mall.biz.*.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
@@ -74,18 +73,5 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
-	<!-- 通用Mapper插件支持 -->
-	<!-- <bean class="tk.mybatis.mapper.mapperhelper.MapperHelper" -->
-	<!-- depends-on="sqlSession" init-method="initMapper" scope="singleton" -->
-	<!-- lazy-init="false"> -->
-	<!-- <property name="mappers"> -->
-	<!-- <array> -->
-	<!-- <value>tk.mybatis.mapper.common.BaseMapper</value> -->
-	<!-- </array> -->
-	<!-- </property> -->
-	<!-- 对于多数据源，这里也可以像上面这样配置多个 -->
-	<!-- <property name="sqlSessions" ref="sqlSession" /> -->
-	<!-- </bean> -->
 
 </beans>
