@@ -94,13 +94,12 @@ public class DemoServiceImplTest extends BaseServiceTest {
 
         List<Demo> list = demoService.getList(null);
         Assert.assertTrue("getList 方法 查询结果不正确！", list.size() >= 35);
-        
+
         int pageNum = 2;
-        int pageSize = 3;
+        int pageSize = 6;
 
         PageInfo<Demo> page = demoService.getPage(pageNum, pageSize, null);
-        Assert.assertTrue("", page.getList().size() == 3);
-
+        Assert.assertTrue("", page.getList().size() == pageSize);
     }
 
     @Test
