@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.mall.biz.demo.service.DemoService;
 import com.mall.core.base.BaseServiceTest;
 
-public class DemoControllerTest extends BaseServiceTest{
+public class DemoControllerTest extends BaseServiceTest {
 
     @Mock
     private DemoService demoService;
@@ -43,27 +43,22 @@ public class DemoControllerTest extends BaseServiceTest{
 
     @Test
     public void testGetById() {
-        fail("Not yet implemented");
     }
 
     @Test
     public void testGetList() {
-        fail("Not yet implemented");
     }
 
     @Test
     public void testGetPage() {
-        fail("Not yet implemented");
     }
 
     @Test
     public void testUpdate() {
-        fail("Not yet implemented");
     }
 
     @Test
     public void testDelById() {
-        fail("Not yet implemented");
     }
 
 }

@@ -23,21 +23,40 @@
 		<description>spring listener</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<listener>
+		<description>context listener</description>
+		<listener-class>com.mall.core.listener.ApplicationListener</listener-class>
+	</listener>
+
 
 	<!-- spring mvc支持 -->
 	<servlet>
-		<servlet-name>spring</servlet-name>
+		<servlet-name>spring-admin</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<!-- 如果省略此配置，默认找名为<servlet-name>+“-servlet.xml”的配置文件，例如本例名为spring，那么默认找的配置文件名称就是spring-admin-servlet.xml -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring-servlet.xml</param-value>
+			<param-value>classpath:spring-admin-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/</url-pattern>
+		<servlet-name>spring-admin</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>spring-customer</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 如果省略此配置，默认找名为<servlet-name>+“-servlet.xml”的配置文件，例如本例名为spring，那么默认找的配置文件名称就是spring-admin-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-customer-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-customer</servlet-name>
+		<url-pattern>/cus/*</url-pattern>
 	</servlet-mapping>
 	<!-- 编码过滤 -->
 	<filter>

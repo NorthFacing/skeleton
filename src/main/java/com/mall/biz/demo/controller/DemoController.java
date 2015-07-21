@@ -24,8 +24,8 @@ public class DemoController extends BaseController {
     private DemoService demoSerivce;
 
     @RequestMapping(value = "/demo/add", method = RequestMethod.POST)
-    public AjaxResults<?> add(@Validated Demo model) {
-        demoSerivce.add(model);
+    public AjaxResults<?> add(@Validated Demo demo) {
+        demoSerivce.add(demo);
         return AjaxResults.success();
     }
 
@@ -37,21 +37,21 @@ public class DemoController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demo/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(Demo model) {
-        return new AjaxResults<List<?>>(demoSerivce.getList(model));
+    public AjaxResults<List<?>> getList(Demo demo) {
+        return new AjaxResults<List<?>>(demoSerivce.getList(demo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/demo/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(Demo model,
+    public AjaxResults<PageInfo<?>> getPage(Demo demo,
         @RequestParam(defaultValue = Constants.pageNum) int pageNum,
         @RequestParam(defaultValue = Constants.pageSize) int pageSize) {
-        return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(pageNum, pageSize, model));
+        return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(pageNum, pageSize, demo));
     }
 
     @RequestMapping(value = "/demo/update", method = RequestMethod.POST)
-    public AjaxResults<?> update(@Validated Demo demoModel) {
-        demoSerivce.updateById(demoModel);
+    public AjaxResults<?> update(@Validated Demo demo) {
+        demoSerivce.updateById(demo);
         return AjaxResults.success();
     }
 
