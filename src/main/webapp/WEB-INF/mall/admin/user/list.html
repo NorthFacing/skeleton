@@ -1,8 +1,38 @@
 #set($title="用户列表")
-<div>
-	<table id="userList"></table>
-	<div id="userPager"></div>
-	<div>${path}</div>
+
+<div class="row clearfix">
+	<div class="col-md-12 btner">
+		<div class="btn-group">
+			<button class="btn btn-default" type="button">
+				<em class="glyphicon"></em> 新增
+			</button>
+			<button class="btn btn-default" type="button">
+				<em class="glyphicon"></em> 修改
+			</button>
+			<button class="btn btn-default" type="button">
+				<em class="glyphicon"></em> 删除
+			</button>
+		</div>
+		<div class="col-lg-3 search">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="请输入查询条件...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">查询</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row clearfix">
+	<div class="col-md-3">组织层级</div>
+	<div class="col-md-9">
+		<div>主要内容</div>
+		<div>
+			<table id="userList"></table>
+			<div id="userPager"></div>
+			<div>${path}</div>
+		</div>
+	</div>
 </div>
 
 <script src="$!{path}/mall/js/user/list.js"></script>

@@ -43,8 +43,8 @@ public class UserController extends BaseController {
         return new AjaxResults<User>(userService.getById(id));
     }
 
-    @RequestMapping(value = "/user/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    @RequestMapping(value = "/user/listHtml", method = RequestMethod.GET)
+    public String listHtml(Model model) {
         return "/user/list";
     }
 

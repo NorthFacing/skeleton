@@ -3,9 +3,10 @@
 <html lang="zh-CN">
 #parse("/WEB-INF/mall/admin/layout/header.html")
 <body>
+	##parse("/WEB-INF/mall/admin/layout/top.html")
 	<div class="container-fluid">
-		<div class="row clearfix header">
-			<div class="col-md-12">
+		<div class="row-fluid">
+			<div class="span12">
 				<header id="header">
 					<h1 class="site_title">
 						<a href="index.html">土特产供销</a>
@@ -13,13 +14,13 @@
 				</header>
 			</div>
 		</div>
-		<div class="row clearfix">
-			<div class="col-md-2 sidebar">
-
-				<div class="sidebar">
+		<div class="row-fluid">
+			##parse("/WEB-INF/mall/admin/layout/sidebar.html")
+			<div class="span3">
+				<div id="sidebar">
 					<h3>用户管理</h3>
 					<ul>
-						<li><a href="${path}/admin/user/listHtml">用户管理</a></li>
+						<li><a href="${path}/admin/user/list">用户管理</a></li>
 					</ul>
 					<h3>酒店管理</h3>
 					<ul>
@@ -37,20 +38,24 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-md-10">$screen_content</div>
+			<!-- end of sidebar -->
+			<div class="span9">
+				$screen_content
+				##parse("/WEB-INF/mall/admin/layout/footer.html")
+			</div>
 		</div>
-		<div class="row clearfix">
-			<div class="col-md-12 footer">
-
+		<div class="row-fluid">
+			<div class="span12">
 				<footer>
 					<p>
-						<strong>Copyright &copy; 2015</strong>
+						<strong>Copyright &copy; 杭州景忠科技有限公司</strong>
 					</p>
 					<p>
-						Copyright &copy; <a href="www.fisiontech.com">杭州景忠科技有限公司</a>
+						Theme by <a href="http://www.medialoot.com">MediaLoot</a>
 					</p>
 				</footer>
 			</div>
 		</div>
+	</div>
 </body>
 </html>
