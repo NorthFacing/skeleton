@@ -67,12 +67,15 @@ var JZ = {
 		}
 		return true;
 	},
+	
 	/** 清空form表单中的数据 */
 	clearData : function(prefix) {
-		var colNames = $("#" + prefix + "List").jqGrid('getColProp')
-		for ( var param in colNames) {
-			alert(colNames[param]);
-			$("#" + prefix + "_" + colNames[param]).val(null);
+		var ids = $("#" + prefix + "List").jqGrid('getDataIDs');
+		if (ids != null && ids.length >= 1) {
+			var data = $("#" + prefix + "List").jqGrid('getRowData', ids[0]);
+			for ( var param in data) {
+				$("#" + prefix + "_" + param).val(null);
+			}
 		}
 	}
 

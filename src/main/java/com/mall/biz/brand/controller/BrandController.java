@@ -31,15 +31,10 @@ public class BrandController extends BaseController {
     @Autowired
     private BrandService brandService;
 
-    @RequestMapping(value = "/brand/add", method = RequestMethod.GET)
-    public String add(Model model) {
-        return "/brand/edit";
-    }
-
     @ResponseBody
-    @RequestMapping(value = "/brand/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/brand/edit", method = RequestMethod.POST)
     public AjaxResults<?> add(@Validated Brand brand) {
-        brandService.add(brand);
+        brandService.edit(brand);
         return AjaxResults.success();
     }
 

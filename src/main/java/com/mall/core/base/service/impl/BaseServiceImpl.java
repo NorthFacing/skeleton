@@ -17,6 +17,17 @@ public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, 
     private BaseMapper<M, VO> baseMapper;
 
     @Override
+    public String edit(M model) {
+        Validate.notNull(model);
+        if (model.getId() != null) {
+            baseMapper.updateByPrimaryKey(model);
+        } else {
+            baseMapper.insert(model);
+        }
+        return model.getId();
+    }
+
+    @Override
     public String add(M model) {
         Validate.notNull(model);
         baseMapper.insert(model);

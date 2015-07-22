@@ -17,11 +17,11 @@ function updateModal() {
 function save() {
 	// TODO 先校验
 	// jQuery 的 validate 方法的使用
-
 	// 再提交
 	$.ajax({
 		url : path + '/admin/brand/edit',
-		data : "",
+		type : 'POST',
+		data : $("editForm").serialize(),
 		dataType : "json",
 		success : function(data) {
 			if (data.code == 200) {
@@ -29,6 +29,7 @@ function save() {
 			} else {
 				JZ.alert('保存失败：' + data.msg);
 			}
+			$('#modal-edit').modal().remove();
 		}
 	});
 }

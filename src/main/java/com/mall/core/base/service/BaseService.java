@@ -13,6 +13,8 @@ import com.github.pagehelper.PageInfo;
  */
 public interface BaseService<M, VO> {
 
+    public String edit(M model);
+
     public String add(M model);
 
     public M getById(String id);
