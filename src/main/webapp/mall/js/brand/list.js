@@ -19,28 +19,8 @@ $("#brandList").jqGrid({
 		index : 'createTime',
 		width : 150
 	} ],
-	rowNum : 10,
-	rowList : [ 10, 20, 30 ],
 	pager : '#brandPager',
-	jsonReader : {
-		root : "data.rows",
-		page : "data.pageNum",
-		total : "data.totalPage",
-		records : "data.recordsNum",
-		repeatitems : false,
-		cell : "cell",
-		id : "id",
-		userdata : "code",
-		subgrid : {
-			root : "rows",
-			repeatitems : true,
-			cell : "cell"
-		}
-	},
 	height : '400',
-	multiselect : false,// 多选（复选框）
-	sortname : 'id',
-	mtype : "get",
 	viewrecords : true,
 	sortorder : "desc",
 	regional : 'cn'
