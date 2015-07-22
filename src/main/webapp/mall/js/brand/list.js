@@ -13,21 +13,15 @@ $("#brandList").jqGrid({
 	}, {
 		name : 'description',
 		index : 'description',
-		width : 600
+		width : 550
 	}, {
 		name : 'createTime',
 		index : 'createTime',
 		width : 150
-	} ],
+	}],
 	pager : '#brandPager',
 	height : '400',
 	viewrecords : true,
 	sortorder : "desc",
 	regional : 'cn'
-});
-
-jQuery("#brandList").jqGrid('navGrid', '#brandPager', {
-	edit : false,
-	add : false,
-	del : false
 });
