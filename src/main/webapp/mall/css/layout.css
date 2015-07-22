@@ -3,7 +3,7 @@
 }
 
 .header {
-	height:70px;
+	height: 70px;
 	background-color: #000000;
 }
 
@@ -12,7 +12,17 @@
 	min-height: 560px;
 }
 
+.btner {
+	padding: 5px 0px 5px 0px;
+	margin: 20px 0 10px 5%;
+}
+
+.search {
+	float: right;
+	margin-right: 20%;
+}
+
 .footer {
-	height:70px;
+	height: 70px;
 	background-color: #000000;
 }

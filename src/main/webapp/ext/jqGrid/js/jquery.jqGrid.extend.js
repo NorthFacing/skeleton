@@ -12,7 +12,7 @@ $.extend($.jgrid.defaults, {
 	rowNum : 10,
 	rowList : [ 20, 50, 100 ],
 	jsonReader : {
-		root : "data.rows",
+		root : "data.list",
 		page : "data.pageNum",
 		total : "data.totalPage",
 		records : "data.recordsNum",
@@ -24,5 +24,9 @@ $.extend($.jgrid.defaults, {
 			repeatitems : true,
 			cell : "cell"
 		}
-	}
+	},
+	autowidth : true,
+	shrinkToFit : false,
+	sortorder : "desc",
+	regional : 'cn'
 });

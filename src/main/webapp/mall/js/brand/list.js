@@ -17,11 +17,14 @@ $("#brandList").jqGrid({
 	}, {
 		name : 'createTime',
 		index : 'createTime',
+//		formatter : "date",
+//		formatoptions : {
+//			srcformat : "iso8601",
+//			newformat: 'Y-m-d'
+//		},
 		width : 150
-	}],
+
+	} ],
 	pager : '#brandPager',
-	height : '400',
-	viewrecords : true,
-	sortorder : "desc",
-	regional : 'cn'
+	height : '400'
 });
