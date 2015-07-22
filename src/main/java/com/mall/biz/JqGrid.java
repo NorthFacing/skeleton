@@ -5,33 +5,33 @@ import java.util.List;
 
 public class JqGrid {
 
-    public int page;
-    public int total;
-    public int records;
+    public int pageNum;
+    public int totalPage;
+    public int recordsNum;
     public List<Row> rows = new ArrayList<Row>();
 
     public int getPage() {
-        return page;
+        return pageNum;
     }
 
     public void setPage(int page) {
-        this.page = page;
+        this.pageNum = page;
     }
 
     public int getTotal() {
-        return total;
+        return totalPage;
     }
 
     public void setTotal(int total) {
-        this.total = total;
+        this.totalPage = total;
     }
 
     public int getRecords() {
-        return records;
+        return recordsNum;
     }
 
     public void setRecords(int records) {
-        this.records = records;
+        this.recordsNum = records;
     }
 
     public List<Row> getRows() {

@@ -3,14 +3,16 @@
 }
 
 .header {
+	height:70px;
 	background-color: #000000;
 }
 
 .sidebar {
 	background-color: #E0E0E3;
-	min-height: 600px;
+	min-height: 560px;
 }
 
 .footer {
+	height:70px;
 	background-color: #000000;
 }
