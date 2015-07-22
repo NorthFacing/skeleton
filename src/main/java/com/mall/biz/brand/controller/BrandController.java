@@ -15,6 +15,8 @@ import com.github.pagehelper.PageInfo;
 import com.mall.core.base.controller.BaseController;
 import com.mall.core.contants.Constants;
 import com.mall.core.utils.AjaxResults;
+import com.mall.biz.JqGrid;
+import com.mall.biz.Row;
 import com.mall.biz.brand.model.Brand;
 import com.mall.biz.brand.service.BrandService;
 
@@ -56,10 +58,27 @@ public class BrandController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/brand/getPage", method = RequestMethod.GET)
-    public String getPage(Brand brand,
+    public JqGrid getPage(Brand brand,
         @RequestParam(value = "pageNum", required = false, defaultValue = Constants.pageNum) int page,
         @RequestParam(value = "rows", required = false, defaultValue = Constants.pageSize) int rows) {
-        return "gridModel({'total': '2','page': '1','records': '300','rows':[{id:'1',name:'test',description:'测试品牌1',createTime:'1998-01-01'},{id:'2',name:'test2',description:'测试品牌2',createTime:'2007-10-02'}]})";
+        JqGrid grid = new JqGrid();
+        grid.page = 1;
+        grid.records = 200;
+        grid.total = 20;
+        Row row1 = new Row();
+        row1.id = "id1";
+        row1.name="name1";
+        row1.description="des1";
+        row1.createTime = "2015";
+        grid.rows.add(row1);
+        Row row2 = new Row();
+        row2.id = "id2";
+        row2.name="name2";
+        row2.description="des2";
+        row2.createTime = "2015";
+        grid.rows.add(row2);
+//        return "gridModel({'total': '2','page': '1','records': '300','rows':[{id:'1',name:'test',description:'LuanMa1',createTime:'1998-01-01'},{id:'2',name:'test2',description:'LuanMa2',createTime:'2007-10-02'}]})";
+        return grid;
     }
 //    public AjaxResults<PageInfo<?>> getPage(Brand brand,
 //        @RequestParam(value = "pageNum", required = false, defaultValue = Constants.pageNum) int page,

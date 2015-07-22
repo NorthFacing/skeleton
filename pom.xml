@@ -33,6 +33,8 @@
 		<slf4j.version>1.7.12</slf4j.version>
 		<!-- fastjson -->
 		<fastjson.version>1.2.6</fastjson.version>
+		<!-- jackson -->
+		<jackson.version>2.6.0</jackson.version>
 		<!-- test -->
 		<junit.version>4.12</junit.version>
 		<mockito.version>1.10.19</mockito.version>
@@ -208,6 +210,22 @@
 			<version>${fastjson.version}</version>
 		</dependency>
 		<!-- fastjson end -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
 		<!-- test start -->
 		<dependency>
 			<groupId>junit</groupId>
