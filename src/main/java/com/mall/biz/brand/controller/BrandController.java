@@ -31,6 +31,12 @@ public class BrandController extends BaseController {
     @Autowired
     private BrandService brandService;
 
+    @RequestMapping(value = "/brand/add", method = RequestMethod.GET)
+    public String add(Model model) {
+        return "/brand/edit";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/brand/add", method = RequestMethod.POST)
     public AjaxResults<?> add(@Validated Brand brand) {
         brandService.add(brand);
@@ -62,12 +68,14 @@ public class BrandController extends BaseController {
         return new AjaxResults<PageInfo<?>>(brandService.getPage(pageNum, pageSize, brand));
     }
 
+    @ResponseBody
     @RequestMapping(value = "/brand/update", method = RequestMethod.POST)
     public AjaxResults<?> update(@Validated Brand brand) {
         brandService.updateById(brand);
         return AjaxResults.success();
     }
 
+    @ResponseBody
     @RequestMapping(value = "/brand/delById", method = RequestMethod.GET)
     public AjaxResults<?> delById(String id) {
         brandService.delById(id);

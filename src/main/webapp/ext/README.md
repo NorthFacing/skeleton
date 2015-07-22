@@ -6,3 +6,5 @@
 * BootStrap - v3.3.5
 * jqGrid - v4.8.2（最新版）
 * zTree - v3.5.18
+* artDialog - v6.0.4
+

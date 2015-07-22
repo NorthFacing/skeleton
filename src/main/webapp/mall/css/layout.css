@@ -9,17 +9,21 @@
 
 .sidebar {
 	background-color: #E0E0E3;
-	min-height: 560px;
+	min-height: 580px;
 }
 
-.btner {
-	padding: 5px 0px 5px 0px;
-	margin: 20px 0 10px 5%;
+.btners {
+	padding: 5px 0px 5px 0;
+	margin: 20px 0 10px 0;
 }
 
 .search {
 	float: right;
-	margin-right: 20%;
+	margin-right: 10%;
+}
+
+.content {
+	margin: 20px 0 10px 0;
 }
 
 .footer {
