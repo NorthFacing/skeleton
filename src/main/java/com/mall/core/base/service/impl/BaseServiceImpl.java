@@ -2,6 +2,7 @@ package com.mall.core.base.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,10 +20,10 @@ public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, 
     @Override
     public String edit(M model) {
         Validate.notNull(model);
-        if (model.getId() != null) {
-            baseMapper.updateByPrimaryKey(model);
-        } else {
+        if (StringUtils.isBlank(model.getId())) {
             baseMapper.insert(model);
+        } else {
+            baseMapper.updateByPrimaryKeySelective(model);
         }
         return model.getId();
     }
@@ -54,11 +55,17 @@ public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, 
         return new PageInfo<M>(list);
     }
 
+    /**
+     * 此方法值只更新字段不为空的值，如果想要圈子段更新，请使用updateByPrimaryKey
+     * @since v0.0.1
+     * @author Bob
+     * @created 2015年7月23日 上午9:59:23
+     */
     @Override
     public void updateById(M model) {
         Validate.notNull(model);
         Validate.notNull(model.getId());
-        baseMapper.updateByPrimaryKey(model);
+        baseMapper.updateByPrimaryKeySelective(model);
     }
 
     @Override
