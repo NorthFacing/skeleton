@@ -2,13 +2,13 @@
 function addModal() {
 	$('#editTitle').html('新增品牌');
 	$('#editForm').attr('action', path + '/admin/brand/add');
-	JZ.clearData('brand');
+	JZ.clearForAdd('brand');
 	$('#modal-edit').modal();
 }
 
 function updateModal() {
 	$('#editTitle').html('修改品牌');
-	if (JZ.checkSelectOne("brand")) {
+	if (JZ.checkForUpdate("brand")) {
 		$('#editForm').attr('action', path + '/admin/brand/update');
 		$('#modal-edit').modal();
 	}
@@ -21,7 +21,7 @@ function save() {
 	$.ajax({
 		url : path + '/admin/brand/edit',
 		type : 'POST',
-		data : $("editForm").serialize(),
+		data : $("#editForm").serialize(),
 		dataType : "json",
 		success : function(data) {
 			if (data.code == 200) {
@@ -29,17 +29,28 @@ function save() {
 			} else {
 				JZ.alert('保存失败：' + data.msg);
 			}
-			$('#modal-edit').modal().remove();
 		}
 	});
 }
 
 /** delete */
 function deleteModal() {
-	if (JZ.checkSelectOne("brand")) {
+	if (JZ.checkSelectOne("brand") != null) {
 		JZ.confirm("删除之后无法恢复，请确认是否删除？", deleteBrand);
 	}
 }
 function deleteBrand() {
-	alert("删除回到");
+	$.ajax({
+		url : path + '/admin/brand/edit',
+		type : 'POST',
+		data : $("#editForm").serialize(),
+		dataType : "json",
+		success : function(data) {
+			if (data.code == 200) {
+				JZ.alert('保存成功!');
+			} else {
+				JZ.alert('保存失败：' + data.msg);
+			}
+		}
+	});
 }

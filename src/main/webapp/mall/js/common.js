@@ -51,9 +51,9 @@ var JZ = {
 	},
 
 	/**
-	 * prefix：前缀； s：自定义提示语
+	 * prefix：列表前缀； s：自定义提示语
 	 */
-	checkSelectOne : function(prefix, s) {
+	checkForUpdate : function(prefix, s) {
 		var id = $("#" + prefix + "List").jqGrid('getGridParam', 'selrow');
 		/** 判断是否选中了一条数据 */
 		if (id == null) {
@@ -67,11 +67,25 @@ var JZ = {
 		}
 		return true;
 	},
-	
-	/** 清空form表单中的数据 */
-	clearData : function(prefix) {
+	/**
+	 * prefix：列表前缀； s：自定义提示语
+	 */
+	checkSelectOne : function(prefix, s) {
+		var id = $("#" + prefix + "List").jqGrid('getGridParam', 'selrow');
+		/** 判断是否选中了一条数据 */
+		if (id == null) {
+			JZ.alert(s == null ? "请选择一条数据后再进行操作！" : s);
+			return null;
+		}
+		return id;
+	},
+	/**
+	 * prefix：列表前缀
+	 */
+	clearForAdd : function(prefix) {
 		var ids = $("#" + prefix + "List").jqGrid('getDataIDs');
 		if (ids != null && ids.length >= 1) {
+			/** 清空form表单中的数据 */
 			var data = $("#" + prefix + "List").jqGrid('getRowData', ids[0]);
 			for ( var param in data) {
 				$("#" + prefix + "_" + param).val(null);
