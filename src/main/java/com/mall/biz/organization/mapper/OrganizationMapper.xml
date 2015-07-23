@@ -5,4 +5,47 @@
 <mapper namespace="com.mall.biz.organization.mapper.OrganizationMapper">
 	<resultMap id="BaseResultMap" type="com.mall.biz.organization.model.Organization">
 	</resultMap>
+
+	<sql id="tabaleName">organization</sql>
+
+	<sql id="baseColumn">
+		id,
+		p_id,
+		code,
+		name,
+		full_name,
+		create_time,
+		create_user,
+		update_time,
+		update_user
+	</sql>
+
+	<select id="select" parameterType="com.mall.biz.organization.model.OrganizationVo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="baseColumn"></include>
+		from
+		<include refid="tabaleName"></include>
+		<where>
+			<if test=" pId!=null and pId!='' ">
+				and p_id = #{pId]
+			</if>
+			<if test=" code!=null and code!='' ">
+				and code like '%${code}%'
+			</if>
+			<if test=" name!=null and name!='' ">
+				and name like '%${name}%'
+			</if>
+			<if test=" fullName!=null and fullName!='' ">
+				and full_name like '%${fullName}%'
+			</if>
+		</where>
+		<if test=" sidx!=null and sidx!='' ">
+			order by #{sidx}
+		</if>
+		<if test=" sord!=null and sord!='' ">
+			#{sord}
+		</if>
+	</select>
+
 </mapper>

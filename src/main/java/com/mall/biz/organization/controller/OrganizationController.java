@@ -1,7 +1,5 @@
 package com.mall.biz.organization.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,46 +28,30 @@ public class OrganizationController extends BaseController {
     @Autowired
     private OrganizationService organizationService;
 
-    @RequestMapping(value = "/org/add", method = RequestMethod.POST)
-    public AjaxResults<?> add(@Validated Organization organization) {
-        organizationService.add(organization);
+    @ResponseBody
+    @RequestMapping(value = "/organization/edit", method = RequestMethod.POST)
+    public AjaxResults<?> edit(@Validated Organization organization) {
+        organizationService.edit(organization);
         return AjaxResults.success();
     }
 
     @ResponseBody
-    @RequestMapping(value = "/org/getById", method = RequestMethod.GET)
+    @RequestMapping(value = "/organization/getById", method = RequestMethod.GET)
     public AjaxResults<?> getById(String id) {
         return new AjaxResults<Organization>(organizationService.getById(id));
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/org/listHtml", method = RequestMethod.GET)
+    @RequestMapping(value = "/organization/listHtml", method = RequestMethod.GET)
     public String listHtml(Model model) {
-        return "org/list";
+        return "organization/list";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/org/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(Organization organization) {
-        return new AjaxResults<List<?>>(organizationService.getList(organization));
-    }
-
-//    @ResponseBody
-//    @RequestMapping(value = "/org/getPage", method = RequestMethod.GET)
-//    public AjaxResults<PageInfo<?>> getPage(OrganizationVo organizationVo) {
-//        return new AjaxResults<PageInfo<?>>(organizationService.getPage(organizationVo));
-//    }
-
-    @RequestMapping(value = "/org/update", method = RequestMethod.POST)
-    public AjaxResults<?> update(@Validated Organization organization) {
-        organizationService.updateById(organization);
-        return AjaxResults.success();
-    }
-
-    @RequestMapping(value = "/org/delById", method = RequestMethod.GET)
-    public AjaxResults<?> delById(String id) {
-        organizationService.delById(id);
-        return AjaxResults.success();
+    @RequestMapping(value = "/organization/getPage", method = RequestMethod.POST)
+    public AjaxResults<?> getPage(OrganizationVo organizationVo) {
+        PageInfo<Organization> pageInfo = organizationService.getPage(organizationVo.getPage(),
+            organizationVo.getRows(), organizationVo);
+        return new AjaxResults<PageInfo<?>>(pageInfo);
     }
 
 }

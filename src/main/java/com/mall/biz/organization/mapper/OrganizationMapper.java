@@ -1,5 +1,7 @@
 package com.mall.biz.organization.mapper;
 
+import java.util.List;
+
 import com.mall.biz.organization.model.Organization;
 import com.mall.biz.organization.model.OrganizationVo;
 import com.mall.core.base.mapper.BaseMapper;
@@ -13,4 +15,5 @@ import com.mall.core.base.mapper.BaseMapper;
  */
 public interface OrganizationMapper extends BaseMapper<Organization, OrganizationVo> {
 
+    List<Organization> select(Organization organization);
 }

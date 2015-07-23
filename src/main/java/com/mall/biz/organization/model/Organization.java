@@ -15,6 +15,7 @@ public class Organization extends BaseModel {
     private String code;    // 组织CODE
     private String name;    // 组织名称
     private String fullName;    // 组织全称
+    private String textName;
 
     /** 父级ID */
     public String getPId() {
@@ -54,6 +55,16 @@ public class Organization extends BaseModel {
     public Organization setFullName(String fullName) {
         this.fullName = fullName;
         return this;
+    }
+
+    
+    public String getTextName() {
+        return textName;
+    }
+
+    
+    public void setTextName(String textName) {
+        this.textName = textName;
     }
 
     @Override
