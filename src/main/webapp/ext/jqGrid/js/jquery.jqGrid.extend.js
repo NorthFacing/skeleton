@@ -30,3 +30,7 @@ $.extend($.jgrid.defaults, {
 	sortorder : "desc",
 	regional : 'cn'
 });
+
+/** 所有的请求改为POST方式，防止乱码 */
+$.jgrid.ajaxOptions.type = 'post';
+

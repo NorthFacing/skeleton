@@ -53,11 +53,11 @@ public class UserController extends BaseController {
         return new AjaxResults<List<?>>(userService.getList(user));
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/user/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(UserVo userVo) {
-        return new AjaxResults<PageInfo<?>>(userService.getPage(userVo));
-    }
+    // @ResponseBody
+    // @RequestMapping(value = "/user/getPage", method = RequestMethod.GET)
+    // public AjaxResults<PageInfo<?>> getPage(UserVo userVo) {
+    // return new AjaxResults<PageInfo<?>>(userService.getPage(userVo));
+    // }
 
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     public AjaxResults<?> update(@Validated User user) {

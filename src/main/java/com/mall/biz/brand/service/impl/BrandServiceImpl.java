@@ -27,8 +27,8 @@ public class BrandServiceImpl extends BaseServiceImpl<Brand, BrandVo> implements
     private BrandMapper brandMapper;
 
     @Override
-    public PageInfo<Brand> getPage(BrandVo brandVo) {
-        PageHelper.startPage(brandVo.getPage(), brandVo.getRows());
+    public PageInfo<Brand> getPage(int pageNum, int pageSize, BrandVo brandVo) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Brand> list = brandMapper.select(brandVo);
         return new PageInfo<Brand>(list);
     }

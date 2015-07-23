@@ -47,11 +47,11 @@ public class CategoryController extends BaseController {
         return new AjaxResults<List<?>>(categoryService.getList(category));
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/category/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(CategoryVo categoryVo) {
-        return new AjaxResults<PageInfo<?>>(categoryService.getPage(categoryVo));
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/category/getPage", method = RequestMethod.GET)
+//    public AjaxResults<PageInfo<?>> getPage(BaseModelVo baseVo, CategoryVo categoryVo) {
+//        return new AjaxResults<PageInfo<?>>(categoryService.getPage(baseVo, categoryVo));
+//    }
 
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
     public AjaxResults<?> update(@Validated Category category) {

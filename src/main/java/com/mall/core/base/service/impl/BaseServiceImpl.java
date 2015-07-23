@@ -47,8 +47,8 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     }
 
     @Override
-    public PageInfo<M> getPage(VO modelVo) {
-        PageHelper.startPage(modelVo.getPage(), modelVo.getRows());
+    public PageInfo<M> getPage(int pageNum, int pageSize, VO modelVo) {
+        PageHelper.startPage(pageNum, pageSize);
         List<M> list = baseMapper.select(modelVo);
         return new PageInfo<M>(list);
     }

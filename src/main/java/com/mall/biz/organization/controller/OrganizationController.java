@@ -54,11 +54,11 @@ public class OrganizationController extends BaseController {
         return new AjaxResults<List<?>>(organizationService.getList(organization));
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/org/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(OrganizationVo organizationVo) {
-        return new AjaxResults<PageInfo<?>>(organizationService.getPage(organizationVo));
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/org/getPage", method = RequestMethod.GET)
+//    public AjaxResults<PageInfo<?>> getPage(OrganizationVo organizationVo) {
+//        return new AjaxResults<PageInfo<?>>(organizationService.getPage(organizationVo));
+//    }
 
     @RequestMapping(value = "/org/update", method = RequestMethod.POST)
     public AjaxResults<?> update(@Validated Organization organization) {

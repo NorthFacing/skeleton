@@ -31,3 +31,11 @@ function initGrid() {
 	});
 }
 
+function search() {
+	var postData = $("#brandList").jqGrid("getGridParam", "postData");
+	var s_name = $('#s_name').val();
+	$.extend(postData, {
+		'name' : s_name
+	});
+	$("#brandList").trigger("reloadGrid");
+}

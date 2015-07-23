@@ -27,10 +27,10 @@
 		<include refid="tabaleName"></include>
 		<where>
 			<if test=" name!=null and name!='' ">
-				and name = #{name}
+				and name like '%${name}%'
 			</if>
 			<if test=" description!=null and description!='' ">
-				and description = #{description}
+				and description like '%${description}%' 
 			</if>
 			<if test=" isDelete!=null and isDelete!='' ">
 				and is_delete = #{isDelete}
