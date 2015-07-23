@@ -12,6 +12,7 @@ import com.mall.core.base.model.BaseModel;
 public class Brand extends BaseModel {
 
     private String name;    // 品牌名称
+    private String code;    // 品牌编码
     private String description;    // 品牌描述
     private Boolean isDelete;    // 是否删除
 
@@ -22,6 +23,16 @@ public class Brand extends BaseModel {
 
     public Brand setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    /** 品牌编码 */
+    public String getCode() {
+        return code;
+    }
+
+    public Brand setCode(String code) {
+        this.code = code;
         return this;
     }
 
@@ -51,6 +62,7 @@ public class Brand extends BaseModel {
         sb.append(" [ ");
         sb.append("id=").append(this.id).append(", ");
         sb.append("name=").append(this.name).append(", ");
+        sb.append("code=").append(this.code).append(", ");
         sb.append("description=").append(this.description).append(", ");
         sb.append("isDelete=").append(this.isDelete).append(", ");
         sb.append("createTime=").append(this.createTime).append(", ");

@@ -11,6 +11,7 @@
 	<sql id="baseColumn">
 		id,
 		name,
+		code,
 		description,
 		is_delete,
 		create_time,
@@ -29,12 +30,20 @@
 			<if test=" name!=null and name!='' ">
 				and name like '%${name}%'
 			</if>
+			<if test=" code!=null and code!='' ">
+				and code like '%${code}%'
+			</if>
 			<if test=" description!=null and description!='' ">
-				and description like '%${description}%' 
+				and description like '%${description}%'
 			</if>
-			<if test=" isDelete!=null and isDelete!='' ">
-				and is_delete = #{isDelete}
-			</if>
+			<choose>
+				<when test=" isDelete!=null and isDelete!='' ">
+					and is_delete = #{isDelete}
+				</when>
+				<otherwise>
+					and (is_delete is NULL or is_delete = 0 ) 
+				</otherwise>
+			</choose>
 		</where>
 		<if test=" sidx!=null and sidx!='' ">
 			order by #{sidx}

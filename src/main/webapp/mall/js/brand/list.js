@@ -7,7 +7,7 @@ function initGrid() {
 	$("#brandList").jqGrid({
 		url : path + "/admin/brand/getPage",
 		datatype : "json",
-		colNames : [ 'id', '名称', '描述', '添加时间' ],
+		colNames : [ 'id', '名称', '编码', '描述'],
 		colModel : [ {
 			name : 'id',
 			index : 'id',
@@ -17,14 +17,13 @@ function initGrid() {
 			index : 'name',
 			width : 250
 		}, {
+			name : 'code',
+			index : 'code',
+			width : 250
+		}, {
 			name : 'description',
 			index : 'description',
 			width : 550
-		}, {
-			name : 'createTime',
-			index : 'createTime',
-			width : 150
-
 		} ],
 		pager : '#brandPager',
 		height : '400'
