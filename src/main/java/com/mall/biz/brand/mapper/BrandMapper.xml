@@ -5,4 +5,43 @@
 <mapper namespace="com.mall.biz.brand.mapper.BrandMapper">
 	<resultMap id="BaseResultMap" type="com.mall.biz.brand.model.Brand">
 	</resultMap>
+
+	<sql id="tabaleName">brand</sql>
+
+	<sql id="baseColumn">
+		id,
+		name,
+		description,
+		is_delete,
+		create_time,
+		create_user,
+		update_time,
+		update_user
+	</sql>
+
+	<select id="select" parameterType="com.mall.biz.brand.model.BrandVo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="baseColumn"></include>
+		from
+		<include refid="tabaleName"></include>
+		<where>
+			<if test=" name!=null and name!='' ">
+				and name = #{name}
+			</if>
+			<if test=" description!=null and description!='' ">
+				and description = #{description}
+			</if>
+			<if test=" isDelete!=null and isDelete!='' ">
+				and is_delete = #{isDelete}
+			</if>
+		</where>
+		<if test=" sidx!=null and sidx!='' ">
+			order by #{sidx}
+		</if>
+		<if test=" sord!=null and sord!='' ">
+			#{sord}
+		</if>
+	</select>
+
 </mapper>

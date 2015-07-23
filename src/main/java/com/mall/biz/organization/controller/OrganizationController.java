@@ -8,14 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.mall.core.base.controller.BaseController;
-import com.mall.core.contants.Constants;
 import com.mall.core.utils.AjaxResults;
 import com.mall.biz.organization.model.Organization;
+import com.mall.biz.organization.model.OrganizationVo;
 import com.mall.biz.organization.service.OrganizationService;
 
 /**
@@ -57,10 +56,8 @@ public class OrganizationController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/org/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(Organization organization,
-        @RequestParam(defaultValue = Constants.pageNum) int pageNum,
-        @RequestParam(defaultValue = Constants.pageSize) int pageSize) {
-        return new AjaxResults<PageInfo<?>>(organizationService.getPage(pageNum, pageSize, organization));
+    public AjaxResults<PageInfo<?>> getPage(OrganizationVo organizationVo) {
+        return new AjaxResults<PageInfo<?>>(organizationService.getPage(organizationVo));
     }
 
     @RequestMapping(value = "/org/update", method = RequestMethod.POST)

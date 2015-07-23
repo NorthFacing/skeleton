@@ -6,14 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.mall.core.base.controller.BaseController;
-import com.mall.core.contants.Constants;
 import com.mall.core.utils.AjaxResults;
 import com.mall.biz.brand.model.Brand;
+import com.mall.biz.brand.model.BrandVo;
 import com.mall.biz.brand.service.BrandService;
 
 /**
@@ -49,10 +48,8 @@ public class BrandController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/brand/getPage", method = RequestMethod.GET)
-    public AjaxResults<?> getPage(Brand brand,
-        @RequestParam(value = "page", required = false, defaultValue = Constants.pageNum) int pageNum,
-        @RequestParam(value = "rows", required = false, defaultValue = Constants.pageSize) int pageSize) {
-        return new AjaxResults<PageInfo<?>>(brandService.getPage(pageNum, pageSize, brand));
+    public AjaxResults<?> getPage(BrandVo brandVo) {
+        return new AjaxResults<PageInfo<?>>(brandService.getPage(brandVo));
     }
 
 }

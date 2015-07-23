@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.mall.biz.simple.model.Simple;
+import com.mall.biz.simple.model.SimpleVo;
 
 /**
  * demo
@@ -16,7 +17,7 @@ public interface SimpleService {
 
     public List<Simple> getList(Simple Demoodel);
 
-    public PageInfo<Simple> getPage(int pageNum, int pageSize, Simple model);
+    public PageInfo<Simple> getPage(SimpleVo modelVo);
 
     public void updateById(Simple model);
 

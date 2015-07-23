@@ -5,10 +5,10 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mall.biz.simple.mapper.SimpleMapper;
 import com.mall.biz.simple.model.Simple;
+import com.mall.biz.simple.model.SimpleVo;
 import com.mall.biz.simple.service.SimpleService;
 
 @Service
@@ -34,9 +34,8 @@ public class SimpleServiceImpl implements SimpleService {
     }
 
     @Override
-    public PageInfo<Simple> getPage(int pageNum, int pageSize, Simple model) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Simple> list = demoMapper.select(model);
+    public PageInfo<Simple> getPage(SimpleVo modelVo) {
+        List<Simple> list = demoMapper.select(modelVo);
         return new PageInfo<Simple>(list);
     }
 

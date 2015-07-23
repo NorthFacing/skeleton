@@ -7,13 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.mall.biz.simple.model.Simple;
+import com.mall.biz.simple.model.SimpleVo;
 import com.mall.biz.simple.service.SimpleService;
-import com.mall.core.contants.Constants;
 import com.mall.core.utils.AjaxResults;
 
 @Controller
@@ -42,9 +41,8 @@ public class SimpleController {
 
     @ResponseBody
     @RequestMapping(value = "/simple/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(Simple model, @RequestParam(defaultValue = Constants.pageNum) int pageNum,
-        @RequestParam(defaultValue = Constants.pageSize) int pageSize) {
-        return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(pageNum, pageSize, model));
+    public AjaxResults<PageInfo<?>> getPage(SimpleVo modelVo) {
+        return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(modelVo));
     }
 
     @RequestMapping(value = "/simple/update", method = RequestMethod.POST)

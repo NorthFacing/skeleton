@@ -24,8 +24,10 @@ function save() {
 		data : $("#editForm").serialize(),
 		dataType : "json",
 		success : function(data) {
+			$('#modal-edit').modal('hide');
 			if (data.code == 200) {
 				JZ.alert('保存成功!');
+				$('#brandList').trigger("reloadGrid");
 			} else {
 				JZ.alert('保存失败：' + data.msg);
 			}

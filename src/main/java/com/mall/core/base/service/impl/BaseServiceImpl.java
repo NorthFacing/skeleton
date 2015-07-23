@@ -12,7 +12,7 @@ import com.mall.core.base.mapper.BaseMapper;
 import com.mall.core.base.model.BaseModel;
 import com.mall.core.base.service.BaseService;
 
-public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, VO> {
+public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseService<M, VO> {
 
     @Autowired
     private BaseMapper<M, VO> baseMapper;
@@ -47,16 +47,15 @@ public class BaseServiceImpl<M extends BaseModel, VO> implements BaseService<M, 
     }
 
     @Override
-    public PageInfo<M> getPage(int pageNum, int pageSize, M model) {
-        Validate.notNull(pageNum);
-        Validate.notNull(pageSize);
-        PageHelper.startPage(pageNum, pageSize);
-        List<M> list = baseMapper.select(model);
+    public PageInfo<M> getPage(VO modelVo) {
+        PageHelper.startPage(modelVo.getPage(), modelVo.getRows());
+        List<M> list = baseMapper.select(modelVo);
         return new PageInfo<M>(list);
     }
 
     /**
      * 此方法值只更新字段不为空的值，如果想要圈子段更新，请使用updateByPrimaryKey
+     * 
      * @since v0.0.1
      * @author Bob
      * @created 2015年7月23日 上午9:59:23
