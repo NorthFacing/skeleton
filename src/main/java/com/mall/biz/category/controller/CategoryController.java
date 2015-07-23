@@ -1,9 +1,8 @@
 package com.mall.biz.category.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +16,7 @@ import com.mall.biz.category.model.CategoryVo;
 import com.mall.biz.category.service.CategoryService;
 
 /**
- * categoryController
+ * CategoryController
  * 
  * @since v0.0.1
  * @author Bob
@@ -29,9 +28,10 @@ public class CategoryController extends BaseController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value = "/category/add", method = RequestMethod.POST)
-    public AjaxResults<?> add(@Validated Category category) {
-        categoryService.add(category);
+    @ResponseBody
+    @RequestMapping(value = "/category/edit", method = RequestMethod.POST)
+    public AjaxResults<?> edit(@Validated Category category) {
+        categoryService.edit(category);
         return AjaxResults.success();
     }
 
@@ -41,28 +41,15 @@ public class CategoryController extends BaseController {
         return new AjaxResults<Category>(categoryService.getById(id));
     }
 
+    @RequestMapping(value = "/category/listHtml", method = RequestMethod.GET)
+    public String listHtml(Model model) {
+        return "category/list";
+    }
+
     @ResponseBody
-    @RequestMapping(value = "/category/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(Category category) {
-        return new AjaxResults<List<?>>(categoryService.getList(category));
+    @RequestMapping(value = "/category/getPage", method = RequestMethod.POST)
+    public AjaxResults<?> getPage(CategoryVo categoryVo) {
+        PageInfo<Category> pageInfo = categoryService.getPage(categoryVo.getPage(), categoryVo.getRows(), categoryVo);
+        return new AjaxResults<PageInfo<?>>(pageInfo);
     }
-
-//    @ResponseBody
-//    @RequestMapping(value = "/category/getPage", method = RequestMethod.GET)
-//    public AjaxResults<PageInfo<?>> getPage(BaseModelVo baseVo, CategoryVo categoryVo) {
-//        return new AjaxResults<PageInfo<?>>(categoryService.getPage(baseVo, categoryVo));
-//    }
-
-    @RequestMapping(value = "/category/update", method = RequestMethod.POST)
-    public AjaxResults<?> update(@Validated Category category) {
-        categoryService.updateById(category);
-        return AjaxResults.success();
-    }
-
-    @RequestMapping(value = "/category/delById", method = RequestMethod.GET)
-    public AjaxResults<?> delById(String id) {
-        categoryService.delById(id);
-        return AjaxResults.success();
-    }
-
 }

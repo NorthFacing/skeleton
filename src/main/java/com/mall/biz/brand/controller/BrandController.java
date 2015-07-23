@@ -49,6 +49,7 @@ public class BrandController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/brand/getPage", method = RequestMethod.POST)
     public AjaxResults<?> getPage(BrandVo brandVo) {
-        return new AjaxResults<PageInfo<?>>(brandService.getPage(brandVo.getPage(), brandVo.getRows(), brandVo));
+        PageInfo<Brand> pageInfo = brandService.getPage(brandVo.getPage(), brandVo.getRows(), brandVo);
+        return new AjaxResults<PageInfo<?>>(pageInfo);
     }
 }
