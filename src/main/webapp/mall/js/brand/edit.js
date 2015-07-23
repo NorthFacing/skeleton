@@ -55,6 +55,7 @@ function deleteBrand() {
 		success : function(data) {
 			if (data.code == 200) {
 				JZ.alert('删除成功!');
+				$('#brandList').trigger("reloadGrid");
 			} else {
 				JZ.alert('删除失败：' + data.msg);
 			}
