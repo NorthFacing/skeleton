@@ -39,17 +39,22 @@ function deleteModal() {
 		JZ.confirm("删除之后无法恢复，请确认是否删除？", deleteBrand);
 	}
 }
+
 function deleteBrand() {
+	var id = $("#brandList").jqGrid('getGridParam', 'selrow');
 	$.ajax({
 		url : path + '/admin/brand/edit',
 		type : 'POST',
-		data : $("#editForm").serialize(),
+		data : {
+			'id' : id,
+			'isDelete' : '1'
+		},
 		dataType : "json",
 		success : function(data) {
 			if (data.code == 200) {
-				JZ.alert('保存成功!');
+				JZ.alert('删除成功!');
 			} else {
-				JZ.alert('保存失败：' + data.msg);
+				JZ.alert('删除失败：' + data.msg);
 			}
 		}
 	});
