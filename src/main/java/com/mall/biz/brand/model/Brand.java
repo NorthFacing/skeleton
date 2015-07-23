@@ -13,7 +13,7 @@ public class Brand extends BaseModel {
 
     private String name;    // 品牌名称
     private String description;    // 品牌描述
-    private boolean isDelete;    // 是否删除
+    private Boolean isDelete;    // 是否删除
 
     /** 品牌名称 */
     public String getName() {
@@ -36,11 +36,11 @@ public class Brand extends BaseModel {
     }
 
     /** 是否删除 */
-    public boolean getIsDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public Brand setIsDelete(boolean isDelete) {
+    public Brand setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
         return this;
     }
