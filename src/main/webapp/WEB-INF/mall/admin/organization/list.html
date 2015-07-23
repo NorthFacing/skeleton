@@ -1,38 +1,41 @@
 #set($title="品牌列表")
 
-<!-- btns -->
 <div class="row clearfix">
-	<div class="col-md-12 btners">
-		<div class="col-md-3">
-			<div class="btn-group">
-				<button class="btn btn-default" onClick="addModal()">
-					<em class="glyphicon">新增</em>
-				</button>
-				<button class="btn btn-default" onClick="updateModal()">
-					<em class="glyphicon">修改</em>
-				</button>
-				<button class="btn btn-default" onClick="deleteModal()">
-					<em class="glyphicon">删除</em>
-				</button>
-			</div>
-		</div>
-		<div class="col-md-3 search">
-			<div class="input-group">
-				<input type="text" class="form-control" id="s_name" placeholder="请输入查询名称...">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" onClick="search()">查询</button>
-				</span>
-			</div>
-		</div>
+	<!-- zTree -->
+	<div class="col-md-3">
+		<div id="orgTree" class="ztree"></div>
 	</div>
-</div>
-
-<!-- list -->
-<div class="row clearfix">
-	<div class="col-md-12">
-		<div id="organizationGrid">
-			<table id="organizationList"></table>
-			<div id="organizationPager"></div>
+	<div class="col-md-9">
+		<!-- btns -->
+		<div class="row clearfix btners">
+			<div class="col-md-3">
+				<div class="btn-group">
+					<button class="btn btn-default" onClick="addModal()">
+						<em class="glyphicon">新增</em>
+					</button>
+					<button class="btn btn-default" onClick="updateModal()">
+						<em class="glyphicon">修改</em>
+					</button>
+					<button class="btn btn-default" onClick="deleteModal()">
+						<em class="glyphicon">删除</em>
+					</button>
+				</div>
+			</div>
+			<div class="col-md-4 search">
+				<div class="input-group">
+					<input type="text" class="form-control" id="s_name"
+						placeholder="请输入查询名称..."> <span class="input-group-btn">
+						<button class="btn btn-default" type="button" onClick="search()">查询</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- list -->
+		<div class="row clearfix">
+			<div class="col-md-12" id="organizationGrid">
+				<table id="organizationList"></table>
+				<div id="organizationPager"></div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -49,8 +52,8 @@
 			</div>
 
 			<div class="modal-body">
-				<form id="editForm" role="form" action="$!{path}/admin/organization/add"
-					method="POST">
+				<form id="editForm" role="form"
+					action="$!{path}/admin/organization/add" method="POST">
 					<input type="hidden" id="organization_id" name="id" />
 					<div class="row clearfix form-group">
 						<div class="col-md-2 ">
