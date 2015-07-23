@@ -1,7 +1,5 @@
 package com.mall.biz.brand.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +31,7 @@ public class BrandController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/brand/edit", method = RequestMethod.POST)
-    public AjaxResults<?> add(@Validated Brand brand) {
+    public AjaxResults<?> edit(@Validated Brand brand) {
         brandService.edit(brand);
         return AjaxResults.success();
     }
@@ -50,31 +48,11 @@ public class BrandController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/brand/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(Brand brand) {
-        return new AjaxResults<List<?>>(brandService.getList(brand));
-    }
-
-    @ResponseBody
     @RequestMapping(value = "/brand/getPage", method = RequestMethod.GET)
     public AjaxResults<?> getPage(Brand brand,
         @RequestParam(value = "page", required = false, defaultValue = Constants.pageNum) int pageNum,
         @RequestParam(value = "rows", required = false, defaultValue = Constants.pageSize) int pageSize) {
         return new AjaxResults<PageInfo<?>>(brandService.getPage(pageNum, pageSize, brand));
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/brand/update", method = RequestMethod.POST)
-    public AjaxResults<?> update(@Validated Brand brand) {
-        brandService.updateById(brand);
-        return AjaxResults.success();
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/brand/delById", method = RequestMethod.GET)
-    public AjaxResults<?> delById(String id) {
-        brandService.delById(id);
-        return AjaxResults.success();
     }
 
 }
