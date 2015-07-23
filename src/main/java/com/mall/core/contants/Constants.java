@@ -12,7 +12,7 @@ public class Constants {
     /**  */
 
     /** 默认查询页码 */
-    public static final String pageNum = "0";
+    public static final Integer pageNum = 0;
     /** 默认每个页面查询数量 */
-    public static final String pageSize = "10";
+    public static final Integer pageSize = 10;
 }
