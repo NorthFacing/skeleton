@@ -38,4 +38,17 @@ public class OrganizationServiceImpl extends BaseServiceImpl<Organization, Organ
     public List<Organization> getList(OrganizationVo organizationVo) {
         return organizationMapper.select(organizationVo);
     }
+
+    @Override
+    public String getCodeByParentId(String parentId) {
+        String code = organizationMapper.getCodeByParentId(parentId);
+        if (code == null) {
+            return "1";
+        } else {
+            String maxCode = code.substring(code.lastIndexOf(".") + 1);
+            Integer next = Integer.parseInt(maxCode) + 1;
+            return next.toString();
+        }
+    }
+
 }

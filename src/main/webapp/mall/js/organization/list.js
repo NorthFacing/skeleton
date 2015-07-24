@@ -37,7 +37,6 @@ function zTreeOnClick(event, treeId, treeNode) {
 
 function ajaxDataFilter(treeId, parentNode, responseData) {
 	if (responseData.code = 200) {
-		console.log(responseData.data);
 		return responseData.data;
 	} else {
 		JZ.alert("数据加载异常：" + responseData.msg);
@@ -55,7 +54,7 @@ function initGrid() {
 	$("#organizationList").jqGrid({
 		url : path + "/admin/organization/getPage",
 		datatype : "json",
-		colNames : [ 'id', '名称', '编码', '全称' ],
+		colNames : [ 'id', '层级名称', '层级编码', '层级全称' ],
 		colModel : [ {
 			name : 'id',
 			index : 'id',

@@ -1,9 +1,50 @@
 /** edit */
 function addModal() {
+	// 新增必须选中父节点
+	var treeObj = $.fn.zTree.getZTreeObj("orgTree");
+	var nodes = treeObj.getSelectedNodes();
+	if (nodes.length != 1) {
+		JZ.alert("请在左侧选中一条节点后再进行新增操作！");
+		return false;
+	}
+	var node = nodes[0];
 	$('#editTitle').html('新增层级');
 	$('#editForm').attr('action', path + '/admin/organization/add');
-	JZ.clearForAdd('organization');
+	$('#organization_parentId').val(node.id);
+	$('#organization_parentName').val(node.name);
+	$('#organization_name').val("");
+	$('#organization_code').val(node.code + '.' + getCode(node.id));
+	$('#organization_fullName').val(node.fullName + '->');
+	change(node.fullName + '->');
 	$('#modal-edit').modal();
+}
+
+function change(pName) {
+	$('#organization_name').bind('input propertychange', function() {
+		var name = $('#organization_name').val();
+		$('#organization_fullName').val(pName + name);
+	});
+}
+
+function getCode(pId) {
+	var code;
+	$.ajax({
+		url : path + '/admin/organization/getCodeByParentId',
+		type : 'GET',
+		data : {
+			parentId : pId
+		},
+		async : false,
+		dataType : "json",
+		success : function(data) {
+			if (data.code == 200) {
+				code = data.data;
+			} else {
+				JZ.alert('程序出错：' + data.msg);
+			}
+		}
+	});
+	return code;
 }
 
 function updateModal() {
@@ -45,11 +86,10 @@ function deleteModal() {
 function deleteOrganization() {
 	var id = $("#organizationList").jqGrid('getGridParam', 'selrow');
 	$.ajax({
-		url : path + '/admin/organization/edit',
+		url : path + '/admin/organization/delById',
 		type : 'POST',
 		data : {
-			'id' : id,
-			'isDelete' : '1'
+			'id' : id
 		},
 		dataType : "json",
 		success : function(data) {

@@ -13,4 +13,5 @@ import com.mall.core.base.service.BaseService;
  */
 public interface OrganizationService extends BaseService<Organization, OrganizationVo> {
 
+    String getCodeByParentId(String parentId);
 }

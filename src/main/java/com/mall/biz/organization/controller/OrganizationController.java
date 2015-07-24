@@ -43,6 +43,12 @@ public class OrganizationController extends BaseController {
         return new AjaxResults<Organization>(organizationService.getById(id));
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/organization/getCodeByParentId", method = RequestMethod.GET)
+    public AjaxResults<?> getCodeByParentId(String parentId) {
+        return new AjaxResults<String>(organizationService.getCodeByParentId(parentId));
+    }
+
     @RequestMapping(value = "/organization/listHtml", method = RequestMethod.GET)
     public String listHtml(Model model) {
         return "organization/list";
@@ -61,6 +67,13 @@ public class OrganizationController extends BaseController {
     public AjaxResults<?> getList(OrganizationVo organizationVo) {
         List<Organization> list = organizationService.getList(organizationVo);
         return new AjaxResults<List<?>>(list);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/organization/delById", method = RequestMethod.POST)
+    public AjaxResults<?> delById(String id) {
+        organizationService.delById(id);
+        return AjaxResults.success();
     }
 
 }

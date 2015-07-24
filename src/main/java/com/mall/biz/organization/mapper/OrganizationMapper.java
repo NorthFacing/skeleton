@@ -16,4 +16,6 @@ import com.mall.core.base.mapper.BaseMapper;
 public interface OrganizationMapper extends BaseMapper<Organization, OrganizationVo> {
 
     List<Organization> select(Organization organization);
+
+    String getCodeByParentId(String parentId);
 }
