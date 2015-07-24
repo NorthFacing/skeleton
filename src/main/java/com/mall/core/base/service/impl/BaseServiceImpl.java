@@ -43,13 +43,13 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
 
     @Override
     public List<M> getList(VO modelVo) {
-        return baseMapper.select(modelVo);
+        return baseMapper.getList(modelVo);
     }
 
     @Override
     public PageInfo<M> getPage(int pageNum, int pageSize, VO modelVo) {
         PageHelper.startPage(pageNum, pageSize);
-        List<M> list = baseMapper.select(modelVo);
+        List<M> list = baseMapper.getList(modelVo);
         return new PageInfo<M>(list);
     }
 

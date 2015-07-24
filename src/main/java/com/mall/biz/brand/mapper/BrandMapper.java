@@ -1,7 +1,5 @@
 package com.mall.biz.brand.mapper;
 
-import java.util.List;
-
 import com.mall.biz.brand.model.Brand;
 import com.mall.biz.brand.model.BrandVo;
 import com.mall.core.base.mapper.BaseMapper;
@@ -15,5 +13,4 @@ import com.mall.core.base.mapper.BaseMapper;
  */
 public interface BrandMapper extends BaseMapper<Brand, BrandVo> {
 
-    List<Brand> select(BrandVo brandVo);
 }

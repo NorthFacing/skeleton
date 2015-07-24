@@ -29,7 +29,7 @@
 		update_user,
 	</sql>
 
-	<select id="select" parameterType="com.mall.biz.parameter.model.ParameterVo"
+	<select id="getList" parameterType="com.mall.biz.parameter.model.ParameterVo"
 		resultMap="BaseResultMap">
 		select
 		<include refid="baseColumn"></include>

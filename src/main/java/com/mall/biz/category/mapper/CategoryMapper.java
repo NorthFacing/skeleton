@@ -1,7 +1,5 @@
 package com.mall.biz.category.mapper;
 
-import java.util.List;
-
 import com.mall.biz.category.model.Category;
 import com.mall.biz.category.model.CategoryVo;
 import com.mall.core.base.mapper.BaseMapper;
@@ -14,7 +12,5 @@ import com.mall.core.base.mapper.BaseMapper;
  * @Date 2015-7-21 20:54:42
  */
 public interface CategoryMapper extends BaseMapper<Category, CategoryVo> {
-
-    List<Category> select(CategoryVo categoryVo);
 
 }

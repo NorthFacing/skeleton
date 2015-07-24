@@ -1,12 +1,8 @@
 package com.mall.biz.organization.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.mall.biz.organization.mapper.OrganizationMapper;
 import com.mall.biz.organization.model.Organization;
 import com.mall.biz.organization.model.OrganizationVo;
@@ -26,18 +22,6 @@ public class OrganizationServiceImpl extends BaseServiceImpl<Organization, Organ
 
     @Autowired
     private OrganizationMapper organizationMapper;
-
-    @Override
-    public PageInfo<Organization> getPage(int pageNum, int pageSize, OrganizationVo organizationVo) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Organization> list = organizationMapper.select(organizationVo);
-        return new PageInfo<Organization>(list);
-    }
-
-    @Override
-    public List<Organization> getList(OrganizationVo organizationVo) {
-        return organizationMapper.select(organizationVo);
-    }
 
     @Override
     public String getCodeByParentId(String parentId) {
