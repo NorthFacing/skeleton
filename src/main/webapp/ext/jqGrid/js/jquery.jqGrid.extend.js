@@ -28,7 +28,8 @@ $.extend($.jgrid.defaults, {
 	autowidth : true,
 	shrinkToFit : false,
 	sortorder : "desc",
-	regional : 'cn'
+	regional : 'cn',
+	height : '450'
 });
 
 /** 所有的请求改为POST方式，防止乱码 */

@@ -15,6 +15,6 @@ import com.mall.core.base.mapper.BaseMapper;
  */
 public interface CategoryMapper extends BaseMapper<Category, CategoryVo> {
 
-    List<Category> select(Category category);
+    List<Category> select(CategoryVo categoryVo);
 
 }

@@ -25,8 +25,7 @@ function initGrid() {
 			index : 'description',
 			width : 550
 		} ],
-		pager : '#brandPager',
-		height : '400'
+		pager : '#brandPager'
 	});
 }
 

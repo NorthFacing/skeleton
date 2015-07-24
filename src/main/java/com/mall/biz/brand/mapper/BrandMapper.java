@@ -15,5 +15,5 @@ import com.mall.core.base.mapper.BaseMapper;
  */
 public interface BrandMapper extends BaseMapper<Brand, BrandVo> {
 
-    List<Brand> select(Brand brand);
+    List<Brand> select(BrandVo brandVo);
 }

@@ -9,7 +9,7 @@ var setting = {
 	async : {
 		enable : true,
 		autoParam : [ "id" ],
-		url : path + '/admin/organization/getList',
+		url : path + '/admin/parameter/getList',
 		contentType : "application/json",
 		dataFilter : ajaxDataFilter,
 		otherParam : {
@@ -51,43 +51,35 @@ function initZTree() {
 
 /** list 开始 */
 function initGrid() {
-	$("#organizationList").jqGrid({
-		url : path + "/admin/organization/getPage",
+	$("#parameterList").jqGrid({
+		url : path + "/admin/parameter/getPage",
 		datatype : "json",
-		colNames : [ 'id','parentId', '层级名称', '层级编码', '层级全称' ],
+		colNames : [ 'id', '参数名称', '参数描述' ],
 		colModel : [ {
 			name : 'id',
 			index : 'id',
-			hidden : true
-		}, {
-			name : 'parentId',
-			index : 'parentId',
 			hidden : true
 		}, {
 			name : 'name',
 			index : 'name',
 			width : 200
 		}, {
-			name : 'code',
-			index : 'code',
-			width : 150
-		}, {
-			name : 'fullName',
-			index : 'fullName',
-			width : 460
+			name : 'description',
+			index : 'description',
+			width : 400
 		} ],
-		pager : '#organizationPager'
+		pager : '#parameterPager'
 	});
 }
 
 function search(parentId) {
-	var postData = $("#organizationList").jqGrid("getGridParam", "postData");
+	var postData = $("#parameterList").jqGrid("getGridParam", "postData");
 	var s_name = $('#s_name').val();
 	$.extend(postData, {
 		'name' : s_name,
 		'parentId' : parentId
 	});
-	$("#organizationList").trigger("reloadGrid");
+	$("#parameterList").trigger("reloadGrid");
 }
 
 /** list 结束 */
