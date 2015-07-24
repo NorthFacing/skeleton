@@ -9,7 +9,6 @@ function addModal() {
 	}
 	var node = nodes[0];
 	$('#editTitle').html('新增层级');
-	$('#editForm').attr('action', path + '/admin/organization/add');
 	$('#organization_parentId').val(node.id);
 	$('#organization_parentName').val(node.name);
 	$('#organization_name').val("");
@@ -65,7 +64,6 @@ function updateModal() {
 		$("#organization_parentName").val(pName);
 		$('#organization_fullName').val(pFullName + row.name);
 		change(pFullName);
-		$('#editForm').attr('action', path + '/admin/organization/update');
 		$('#modal-edit').modal();
 	}
 }

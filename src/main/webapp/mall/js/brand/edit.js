@@ -1,7 +1,6 @@
 /** edit */
 function addModal() {
 	$('#editTitle').html('新增品牌');
-	$('#editForm').attr('action', path + '/admin/brand/add');
 	JZ.clearForAdd('brand');
 	$('#modal-edit').modal();
 }
@@ -9,7 +8,6 @@ function addModal() {
 function updateModal() {
 	$('#editTitle').html('修改品牌');
 	if (JZ.checkForUpdate("brand")) {
-		$('#editForm').attr('action', path + '/admin/brand/update');
 		$('#modal-edit').modal();
 	}
 }

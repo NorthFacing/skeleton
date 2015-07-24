@@ -6,7 +6,7 @@
  */
 $.extend($.jgrid.defaults, {
 	mtype : "get",
-	sortname : 'createTime',
+	sortname : 'create_time',
 	sortorder : "desc",
 	multiselect : false,
 	rowNum : 10,
@@ -27,7 +27,6 @@ $.extend($.jgrid.defaults, {
 	},
 	autowidth : true,
 	shrinkToFit : false,
-	sortorder : "desc",
 	regional : 'cn',
 	height : '450'
 });

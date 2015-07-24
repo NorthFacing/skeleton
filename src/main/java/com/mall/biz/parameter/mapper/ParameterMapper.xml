@@ -3,9 +3,10 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mall.biz.parameter.mapper.ParameterMapper">
-	<resultMap id="BaseResultMap" type="com.mall.biz.parameter.model.Parameter">
+	<resultMap id="BaseVoResultMap" type="com.mall.biz.parameter.model.ParameterVo">
 		<result column="id" property="id" />
 		<result column="category_id" property="categoryId" />
+		<result column="categoryName" property="categoryName" />
 		<result column="name" property="name" />
 		<result column="description" property="description" />
 		<result column="is_delete" property="isDelete" />
@@ -17,24 +18,28 @@
 
 	<sql id="tabaleName">parameter</sql>
 
-	<sql id="baseColumn">
-		id,
-		category_id,
-		name,
-		description,
-		is_delete,
-		create_time,
-		create_user,
-		update_time,
-		update_user,
+	<sql id="aliasColumn">
+		p.id,
+		p.category_id,
+		p.name,
+		p.description,
+		p.is_delete,
+		p.create_time,
+		p.create_user,
+		p.update_time,
+		p.update_user
 	</sql>
 
 	<select id="getList" parameterType="com.mall.biz.parameter.model.ParameterVo"
-		resultMap="BaseResultMap">
+		resultMap="BaseVoResultMap">
 		select
-		<include refid="baseColumn"></include>
+		c.name categoryName,
+		<include refid="aliasColumn"></include>
 		from
-		<include refid="tabaleName"></include>
+		<include refid="tabaleName"></include> p
+		left join 
+			category c
+		on p.category_id = c.id
 		<where>
 			<if test=" categoryId!=null and categoryId!='' ">
 				and category_id = categoryId,
@@ -50,6 +55,7 @@
 			</if>
 		</where>
 		<if test=" sidx!=null and sidx!='' ">
+			order by #{sidx}
 		</if>
 		<if test=" sord!=null and sord!='' ">
 			#{sord}

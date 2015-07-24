@@ -1,7 +1,6 @@
 /** edit */
 function addModal() {
 	$('#editTitle').html('新增类目');
-	$('#editForm').attr('action', path + '/admin/category/add');
 	JZ.clearForAdd('category');
 	$('#modal-edit').modal();
 }
@@ -9,7 +8,6 @@ function addModal() {
 function updateModal() {
 	$('#editTitle').html('修改类目');
 	if (JZ.checkForUpdate("category")) {
-		$('#editForm').attr('action', path + '/admin/category/update');
 		$('#modal-edit').modal();
 	}
 }

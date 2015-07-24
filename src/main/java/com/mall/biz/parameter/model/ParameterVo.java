@@ -4,6 +4,8 @@ import com.mall.core.contants.Constants;
 
 public class ParameterVo extends Parameter {
 
+    private String categoryName;
+
     /** 排序字段 */
     private String sidx;
     /** 排序方式：DESC、ASC */
@@ -12,6 +14,15 @@ public class ParameterVo extends Parameter {
     private Integer rows = Constants.pageSize;
     /** pageNum */
     private Integer page = Constants.pageNum;
+
+    /** 类目名称  */
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public String getSidx() {
         return sidx;

@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.github.pagehelper.PageInfo;
+//import com.github.pagehelper.PageInfo;
 import com.mall.biz.demo.model.Demo;
 import com.mall.biz.demo.service.DemoService;
 import com.mall.core.base.BaseServiceTest;
@@ -95,8 +95,8 @@ public class DemoServiceImplTest extends BaseServiceTest {
         List<Demo> list = demoService.getList(null);
         Assert.assertTrue("getList 方法 查询结果不正确！", list.size() >= 35);
 
-        int pageNum = 2;
-        int pageSize = 6;
+        // // int pageNum = 2;
+        // int pageSize = 6;
 
         // PageInfo<Demo> page = demoService.getPage(null);
         // Assert.assertTrue("", page.getList().size() == pageSize);
