@@ -14,4 +14,7 @@ public class ResultCode {
     /** 操作失败通用码 */
     public static final int FAILED = 444;
    
+    
+    /** 参数错误 */
+    public static final int ARGS_ERROR = 401;
 }

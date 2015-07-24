@@ -54,10 +54,14 @@ function initGrid() {
 	$("#organizationList").jqGrid({
 		url : path + "/admin/organization/getPage",
 		datatype : "json",
-		colNames : [ 'id', '层级名称', '层级编码', '层级全称' ],
+		colNames : [ 'id','parentId', '层级名称', '层级编码', '层级全称' ],
 		colModel : [ {
 			name : 'id',
 			index : 'id',
+			hidden : true
+		}, {
+			name : 'parentId',
+			index : 'parentId',
 			hidden : true
 		}, {
 			name : 'name',

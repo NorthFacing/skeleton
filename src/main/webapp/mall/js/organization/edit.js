@@ -50,9 +50,45 @@ function getCode(pId) {
 function updateModal() {
 	$('#editTitle').html('修改层级');
 	if (JZ.checkForUpdate("organization")) {
+		var id = $("#organizationList").jqGrid('getGridParam', 'selrow');
+		var row = $("#organizationList").jqGrid('getRowData', id);
+		var pName;
+		var pFullName;
+		if (row.parentId != null && row.parentId != "") {
+			var org = getOrg(row.parentId);
+			pName = org.name;
+			pFullName = org.fullName + '->';
+		} else {
+			pName = "";
+			pFullName = ""
+		}
+		$("#organization_parentName").val(pName);
+		$('#organization_fullName').val(pFullName + row.name);
+		change(pFullName);
 		$('#editForm').attr('action', path + '/admin/organization/update');
 		$('#modal-edit').modal();
 	}
+}
+
+function getOrg(id) {
+	var org;
+	$.ajax({
+		url : path + '/admin/organization/getById',
+		type : 'GET',
+		data : {
+			id : id
+		},
+		async : false,
+		dataType : "json",
+		success : function(data) {
+			if (data.code == 200) {
+				org = data.data;
+			} else {
+				JZ.alert('程序出错：' + data.msg);
+			}
+		}
+	});
+	return org;
 }
 
 function save() {
