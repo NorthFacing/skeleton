@@ -42,8 +42,8 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     }
 
     @Override
-    public List<M> getList(M model) {
-        return baseMapper.select(model);
+    public List<M> getList(VO modelVo) {
+        return baseMapper.select(modelVo);
     }
 
     @Override

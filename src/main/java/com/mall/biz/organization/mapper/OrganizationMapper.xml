@@ -4,13 +4,22 @@
 
 <mapper namespace="com.mall.biz.organization.mapper.OrganizationMapper">
 	<resultMap id="BaseResultMap" type="com.mall.biz.organization.model.Organization">
+		   <result column="id" property="id" />
+		   <result column="parent_id" property="parentId" />
+		   <result column="code" property="code" />
+		   <result column="name" property="name" />
+		   <result column="full_name" property="fullName" />
+		   <result column="create_time" property="createTime" />
+		   <result column="create_user" property="createUser" />
+		   <result column="update_time" property="updateTime" />
+		   <result column="update_user" property="updateUser" />
 	</resultMap>
 
 	<sql id="tabaleName">organization</sql>
 
 	<sql id="baseColumn">
 		id,
-		p_id,
+		parent_id,
 		code,
 		name,
 		full_name,
@@ -27,9 +36,6 @@
 		from
 		<include refid="tabaleName"></include>
 		<where>
-			<if test=" pId!=null and pId!='' ">
-				and p_id = #{pId]
-			</if>
 			<if test=" code!=null and code!='' ">
 				and code like '%${code}%'
 			</if>
@@ -38,6 +44,9 @@
 			</if>
 			<if test=" fullName!=null and fullName!='' ">
 				and full_name like '%${fullName}%'
+			</if>
+			<if test=" parentId!=null and parentId!='' ">
+				and parent_id = #{parentId}
 			</if>
 		</where>
 		<if test=" sidx!=null and sidx!='' ">

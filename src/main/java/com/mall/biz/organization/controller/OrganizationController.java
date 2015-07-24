@@ -1,5 +1,7 @@
 package com.mall.biz.organization.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,6 +54,13 @@ public class OrganizationController extends BaseController {
         PageInfo<Organization> pageInfo = organizationService.getPage(organizationVo.getPage(),
             organizationVo.getRows(), organizationVo);
         return new AjaxResults<PageInfo<?>>(pageInfo);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/organization/getList", method = RequestMethod.POST)
+    public AjaxResults<?> getList(OrganizationVo organizationVo) {
+        List<Organization> list = organizationService.getList(organizationVo);
+        return new AjaxResults<List<?>>(list);
     }
 
 }

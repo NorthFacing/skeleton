@@ -11,20 +11,18 @@ import com.mall.core.base.model.BaseModel;
  */
 public class Organization extends BaseModel {
 
-    private String pId;    // 父级ID
+    private String parentId;    // 父级ID
     private String code;    // 组织CODE
     private String name;    // 组织名称
     private String fullName;    // 组织全称
-    private String textName;
 
     /** 父级ID */
-    public String getPId() {
-        return pId;
+    public String getParentId() {
+        return parentId;
     }
 
-    public Organization setPId(String pId) {
-        this.pId = pId;
-        return this;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     /** 组织CODE */
@@ -57,22 +55,12 @@ public class Organization extends BaseModel {
         return this;
     }
 
-    
-    public String getTextName() {
-        return textName;
-    }
-
-    
-    public void setTextName(String textName) {
-        this.textName = textName;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Organization");
         sb.append(" [ ");
         sb.append("id=").append(this.id).append(", ");
-        sb.append("pId=").append(this.pId).append(", ");
+        sb.append("parentId=").append(this.parentId).append(", ");
         sb.append("code=").append(this.code).append(", ");
         sb.append("name=").append(this.name).append(", ");
         sb.append("fullName=").append(this.fullName).append(", ");

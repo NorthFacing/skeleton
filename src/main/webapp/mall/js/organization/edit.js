@@ -1,13 +1,13 @@
 /** edit */
 function addModal() {
-	$('#editTitle').html('新增品牌');
+	$('#editTitle').html('新增层级');
 	$('#editForm').attr('action', path + '/admin/organization/add');
 	JZ.clearForAdd('organization');
 	$('#modal-edit').modal();
 }
 
 function updateModal() {
-	$('#editTitle').html('修改品牌');
+	$('#editTitle').html('修改层级');
 	if (JZ.checkForUpdate("organization")) {
 		$('#editForm').attr('action', path + '/admin/organization/update');
 		$('#modal-edit').modal();

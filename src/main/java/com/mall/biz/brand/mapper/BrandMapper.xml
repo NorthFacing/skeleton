@@ -4,6 +4,15 @@
 
 <mapper namespace="com.mall.biz.brand.mapper.BrandMapper">
 	<resultMap id="BaseResultMap" type="com.mall.biz.brand.model.Brand">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="code" property="code" />
+		<result column="description" property="description" />
+		<result column="is_delete" property="isDelete" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
 	</resultMap>
 
 	<sql id="tabaleName">brand</sql>
@@ -41,7 +50,7 @@
 					and is_delete = #{isDelete}
 				</when>
 				<otherwise>
-					and (is_delete is NULL or is_delete = 0 ) 
+					and (is_delete is NULL or is_delete = 0 )
 				</otherwise>
 			</choose>
 		</where>

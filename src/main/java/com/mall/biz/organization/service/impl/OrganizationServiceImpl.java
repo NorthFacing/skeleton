@@ -33,4 +33,9 @@ public class OrganizationServiceImpl extends BaseServiceImpl<Organization, Organ
         List<Organization> list = organizationMapper.select(organizationVo);
         return new PageInfo<Organization>(list);
     }
+
+    @Override
+    public List<Organization> getList(OrganizationVo organizationVo) {
+        return organizationMapper.select(organizationVo);
+    }
 }

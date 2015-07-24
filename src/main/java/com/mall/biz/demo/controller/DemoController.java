@@ -34,17 +34,17 @@ public class DemoController extends BaseController {
         return new AjaxResults<Demo>(demoSerivce.getById(id));
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/demo/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(Demo demo) {
-        return new AjaxResults<List<?>>(demoSerivce.getList(demo));
-    }
+    // @ResponseBody
+    // @RequestMapping(value = "/demo/getList", method = RequestMethod.GET)
+    // public AjaxResults<List<?>> getList(Demo demo) {
+    // return new AjaxResults<List<?>>(demoSerivce.getList(demo));
+    // }
 
-//    @ResponseBody
-//    @RequestMapping(value = "/demo/getPage", method = RequestMethod.GET)
-//    public AjaxResults<PageInfo<?>> getPage(BaseModelVo baseVo, DemoVo demoVo) {
-//        return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(baseVo, demoVo));
-//    }
+    // @ResponseBody
+    // @RequestMapping(value = "/demo/getPage", method = RequestMethod.GET)
+    // public AjaxResults<PageInfo<?>> getPage(BaseModelVo baseVo, DemoVo demoVo) {
+    // return new AjaxResults<PageInfo<?>>(demoSerivce.getPage(baseVo, demoVo));
+    // }
 
     @RequestMapping(value = "/demo/update", method = RequestMethod.POST)
     public AjaxResults<?> update(@Validated Demo demo) {

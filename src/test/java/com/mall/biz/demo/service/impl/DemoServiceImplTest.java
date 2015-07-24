@@ -79,8 +79,8 @@ public class DemoServiceImplTest extends BaseServiceTest {
         List<Demo> list01 = demoService.getList(null);
         Assert.assertTrue("getList 方法 查询结果不正确！", list01.size() >= j * 2);
 
-        List<Demo> list02 = demoService.getList(model);
-        Assert.assertTrue("getList 方法 查询结果不正确！", list02.size() * 2 <= list01.size());
+        // List<Demo> list02 = demoService.getList(model);
+        // Assert.assertTrue("getList 方法 查询结果不正确！", list02.size() * 2 <= list01.size());
 
     }
 
@@ -98,8 +98,8 @@ public class DemoServiceImplTest extends BaseServiceTest {
         int pageNum = 2;
         int pageSize = 6;
 
-//        PageInfo<Demo> page = demoService.getPage(null);
-//        Assert.assertTrue("", page.getList().size() == pageSize);
+        // PageInfo<Demo> page = demoService.getPage(null);
+        // Assert.assertTrue("", page.getList().size() == pageSize);
     }
 
     @Test

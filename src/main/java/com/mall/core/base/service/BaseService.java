@@ -19,7 +19,7 @@ public interface BaseService<M, VO> {
 
     public M getById(String id);
 
-    public List<M> getList(M model);
+    public List<M> getList(VO modelVo);
 
     public PageInfo<M> getPage(int pageNum, int pageSize, VO modelVo);
 

@@ -47,11 +47,11 @@ public class UserController extends BaseController {
         return "/user/list";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/user/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(User user) {
-        return new AjaxResults<List<?>>(userService.getList(user));
-    }
+    // @ResponseBody
+    // @RequestMapping(value = "/user/getList", method = RequestMethod.GET)
+    // public AjaxResults<List<?>> getList(User user) {
+    // return new AjaxResults<List<?>>(userService.getList(user));
+    // }
 
     // @ResponseBody
     // @RequestMapping(value = "/user/getPage", method = RequestMethod.GET)
