@@ -54,7 +54,7 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     }
 
     /**
-     * 此方法值只更新字段不为空的值，如果想要圈子段更新，请使用updateByPrimaryKey
+     * 此方法值只更新字段不为空的值，如果想要全字段更新，请使用updateByPrimaryKey
      * 
      * @since v0.0.1
      * @author Bob
