@@ -10,23 +10,31 @@ import com.mall.core.base.model.BaseModel;
  * @Date 2015-7-25 13:22:46
  */
 public class User extends BaseModel {
-    
+
     private String orgId;       // 层级ID
+    private String orgCode;     // 层级code
     private String userName;    // 用户名
     private String passWord;    // 密码
     private String nickName;    // 昵称
     private String userRole;    // 角色
     private boolean isDelete;    // 是否删除
 
-    
     /** 层级ID */
     public String getOrgId() {
         return orgId;
     }
 
-    
     public void setOrgId(String orgId) {
         this.orgId = orgId;
+    }
+
+    /** 层级code */
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
     }
 
     /** 用户名 */

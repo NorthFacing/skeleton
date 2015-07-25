@@ -6,6 +6,7 @@
 	<resultMap id="BaseResultMap" type="com.mall.biz.user.model.User">
 		<result column="id" property="id" />
 		<result column="org_id" property="orgId" />
+		<result column="org_code" property="orgCode" />
 		<result column="user_name" property="userName" />
 		<result column="pass_word" property="passWord" />
 		<result column="nick_name" property="nickName" />
@@ -22,6 +23,7 @@
 	<sql id="baseColumn">
 		id,
 		org_id,
+		org_code,
 		user_name,
 		pass_word,
 		nick_name,
@@ -42,6 +44,9 @@
 		<where>
 			<if test=" orgId !=null and orgId !='' ">
 				and org_id = #{orgId}
+			</if>
+			<if test=" orgCode !=null and orgCode !='' ">
+				and org_code like '#{orgCode}%'
 			</if>
 			<if test=" userName !=null and userName !='' ">
 				and user_name like '%#{userName}%'
