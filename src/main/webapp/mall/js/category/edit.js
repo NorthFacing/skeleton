@@ -14,7 +14,7 @@ function updateModal() {
 
 function save() {
 	// TODO 先校验
-	// jQuery 的 validate 方法的使用
+	
 	// 再提交
 	$.ajax({
 		url : path + '/admin/category/edit',
