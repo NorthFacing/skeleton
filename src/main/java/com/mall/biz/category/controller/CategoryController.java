@@ -1,5 +1,7 @@
 package com.mall.biz.category.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,5 +53,12 @@ public class CategoryController extends BaseController {
     public AjaxResults<?> getPage(CategoryVo categoryVo) {
         PageInfo<Category> pageInfo = categoryService.getPage(categoryVo.getPage(), categoryVo.getRows(), categoryVo);
         return new AjaxResults<PageInfo<?>>(pageInfo);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/category/getList", method = RequestMethod.POST)
+    public AjaxResults<?> getList(CategoryVo categoryVo) {
+        List<Category> list = categoryService.getList(categoryVo);
+        return new AjaxResults<Object>(list);
     }
 }

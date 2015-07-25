@@ -7,10 +7,14 @@ function initGrid() {
 	$("#parameterList").jqGrid({
 		url : path + "/admin/parameter/getPage",
 		datatype : "json",
-		colNames : [ 'id', '类目归属', '参数名称', '参数描述' ],
+		colNames : [ 'id', 'categoryId', '类目归属', '参数名称', '参数描述' ],
 		colModel : [ {
 			name : 'id',
 			index : 'id',
+			hidden : true
+		}, {
+			name : 'categoryId',
+			index : 'categoryId',
 			hidden : true
 		}, {
 			name : 'categoryName',

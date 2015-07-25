@@ -30,6 +30,7 @@ public class ParameterController extends BaseController {
     @Autowired
     private ParameterService parameterService;
 
+    @ResponseBody
     @RequestMapping(value = "/parameter/edit", method = RequestMethod.POST)
     public AjaxResults<?> edit(@Validated Parameter parameter) {
         parameterService.edit(parameter);

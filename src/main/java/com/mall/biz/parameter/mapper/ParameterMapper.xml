@@ -42,17 +42,22 @@
 		on p.category_id = c.id
 		<where>
 			<if test=" categoryId!=null and categoryId!='' ">
-				and category_id = categoryId,
+				and p.category_id = categoryId,
 			</if>
 			<if test=" name!=null and name!='' ">
-				and name like '%${name}%'
+				and p.name like '%${name}%'
 			</if>
 			<if test=" description!=null and description!='' ">
-				and description like '%${description}%'
+				and p.description like '%${description}%'
 			</if>
-			<if test=" isDelete!=null and isDelete!='' ">
-				and is_delete = isDelete,
-			</if>
+			<choose>
+				<when test=" isDelete!=null and isDelete!='' ">
+					and p.is_delete = #{isDelete}
+				</when>
+				<otherwise>
+					and (p.is_delete is NULL or p.is_delete = 0 )
+				</otherwise>
+			</choose>
 		</where>
 		<if test=" sidx!=null and sidx!='' ">
 			order by #{sidx}
