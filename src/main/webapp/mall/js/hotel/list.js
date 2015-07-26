@@ -51,43 +51,61 @@ function initZTree() {
 
 /** list 开始 */
 function initGrid() {
-	$("#userList").jqGrid({
-		url : path + "/admin/user/getPage",
-		datatype : "json",
-		colNames : [ 'id','orgId', '登录名', '用户昵称', '用户角色' ],
-		colModel : [ {
-			name : 'id',
-			index : 'id',
-			hidden : true
-		}, {
-			name : 'orgId',
-			index : 'orgId',
-			hidden : true
-		}, {
-			name : 'userName',
-			index : 'userName',
-			width : 200
-		}, {
-			name : 'nickName',
-			index : 'nickName',
-			width : 150
-		}, {
-			name : 'userRole',
-			index : 'userRole',
-			width : 460
-		} ],
-		pager : '#userPager'
-	});
+	$("#hotelList").jqGrid(
+			{
+				url : path + "/admin/hotel/getPage",
+				datatype : "json",
+				colNames : [ 'id', 'orgId', 'orgCode', '酒店名称', '联系电话', '联系手机',
+						'所属层级', '所属层级', '详细地址' ],
+				colModel : [ {
+					name : 'id',
+					index : 'id',
+					hidden : true
+				}, {
+					name : 'orgId',
+					index : 'orgId',
+					hidden : true
+				}, {
+					name : 'orgCode',
+					index : 'orgCode',
+					hidden : true
+				}, {
+					name : 'name',
+					index : 'name',
+					width : 200
+				}, {
+					name : 'telePhone',
+					index : 'telePhone',
+					width : 100
+				}, {
+					name : 'mobile',
+					index : 'mobile',
+					width : 100
+				}, {
+					name : 'orgName',
+					index : 'orgName',
+					hidden : true
+				}, {
+					name : 'orgFullName',
+					index : 'orgFullName',
+					width : 200
+				}, {
+					name : 'address',
+					index : 'address',
+					width : 300
+				} ],
+				pager : '#hotelPager'
+			});
 }
 
 function search(orgId) {
-	var postData = $("#userList").jqGrid("getGridParam", "postData");
+	var postData = $("#hotelList").jqGrid("getGridParam", "postData");
 	var s_name = $('#s_name').val();
 	$.extend(postData, {
 		'name' : s_name,
 		'orgId' : orgId
 	});
-	$("#userList").trigger("reloadGrid");
+	$("#hotelList").trigger("reloadGrid");
 }
 
 /** list 结束 */

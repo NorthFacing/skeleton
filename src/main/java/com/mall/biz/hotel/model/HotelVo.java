@@ -11,6 +11,9 @@ import com.mall.core.contants.Constants;
  */
 public class HotelVo extends Hotel {
 
+    private String orgName;
+    private String orgFullName;
+
     /** 排序字段 */
     private String sidx;
     /** 排序方式：DESC、ASC */
@@ -19,6 +22,22 @@ public class HotelVo extends Hotel {
     private Integer rows = Constants.pageSize;
     /** pageNum */
     private Integer page = Constants.pageNum;
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getOrgFullName() {
+        return orgFullName;
+    }
+
+    public void setOrgFullName(String orgFullName) {
+        this.orgFullName = orgFullName;
+    }
 
     public String getSidx() {
         return sidx;

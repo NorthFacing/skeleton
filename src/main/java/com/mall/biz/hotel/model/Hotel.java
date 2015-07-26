@@ -18,6 +18,7 @@ public class Hotel extends BaseModel {
     private String mobile;    // 酒店电话
     private String telePhone;    // 酒店手机
     private String address;    // 酒店详细地址
+    private Boolean isDelete;   // 是否删除
 
     /** 酒店经理 */
     public String getManagerId() {
@@ -89,6 +90,16 @@ public class Hotel extends BaseModel {
         return this;
     }
 
+    /** 是否删除 */
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public Hotel setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+        return this;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Hotel");
@@ -101,6 +112,7 @@ public class Hotel extends BaseModel {
         sb.append("mobile=").append(this.mobile).append(", ");
         sb.append("telePhone=").append(this.telePhone).append(", ");
         sb.append("address=").append(this.address).append(", ");
+        sb.append("isDelete=").append(this.isDelete).append(", ");
         sb.append("createTime=").append(this.createTime).append(", ");
         sb.append("createUser=").append(this.createUser).append(", ");
         sb.append("updateTime=").append(this.updateTime).append(", ");

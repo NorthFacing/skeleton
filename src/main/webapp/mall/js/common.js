@@ -83,13 +83,9 @@ var JZ = {
 	 * prefix：列表前缀
 	 */
 	clearForAdd : function(prefix) {
-		var ids = $("#" + prefix + "List").jqGrid('getDataIDs');
-		if (ids != null && ids.length >= 1) {
-			/** 清空form表单中的数据 */
-			var data = $("#" + prefix + "List").jqGrid('getRowData', ids[0]);
-			for ( var param in data) {
-				$("#" + prefix + "_" + param).val(null);
-			}
+		var col = $("#" + prefix + "List").jqGrid('getGridParam', 'colModel');
+		for (var i = 0; i < col.length; i++) {
+			$("#" + prefix + "_" + col[i].index).val(null);
 		}
 	}
 

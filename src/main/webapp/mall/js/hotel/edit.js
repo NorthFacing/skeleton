@@ -7,32 +7,18 @@ function addModal() {
 		JZ.alert("请在左侧选中一条节点后再进行新增操作！");
 		return false;
 	}
+	JZ.clearForAdd('hotel');
 	var node = nodes[0];
-	$('#editTitle').html('新增用户');
-	$('#user_orgId').val(node.id);
-	$('#user_orgName').val(node.name);
-	$('#user_name').val("");
+	$('#editTitle').html('新增酒店');
+	$('#hotel_orgId').val(node.id);
+	$('#hotel_orgName').val(node.name);
+	$('#hotel_orgCode').val(node.code);
 	$('#modal-edit').modal();
 }
 
 function updateModal() {
-	$('#editTitle').html('修改用户');
-	if (JZ.checkForUpdate("user")) {
-		var id = $("#userList").jqGrid('getGridParam', 'selrow');
-		var row = $("#userList").jqGrid('getRowData', id);
-		var pName;
-		var pFullName;
-		if (row.parentId != null && row.parentId != "") {
-			var org = getOrg(row.parentId);
-			pName = org.name;
-			pFullName = org.fullName + '->';
-		} else {
-			pName = "";
-			pFullName = ""
-		}
-		$("#user_parentName").val(pName);
-		$('#user_fullName').val(pFullName + row.name);
-		change(pFullName);
+	$('#editTitle').html('修改酒店');
+	if (JZ.checkForUpdate("hotel")) {
 		$('#modal-edit').modal();
 	}
 }
@@ -40,7 +26,7 @@ function updateModal() {
 function getOrg(id) {
 	var org;
 	$.ajax({
-		url : path + '/admin/user/getById',
+		url : path + '/admin/hotel/getById',
 		type : 'GET',
 		data : {
 			id : id
@@ -60,10 +46,10 @@ function getOrg(id) {
 
 function save() {
 	// TODO 先校验
-	
+
 	// 再提交
 	$.ajax({
-		url : path + '/admin/user/edit',
+		url : path + '/admin/hotel/edit',
 		type : 'POST',
 		data : $("#editForm").serialize(),
 		dataType : "json",
@@ -71,7 +57,7 @@ function save() {
 			$('#modal-edit').modal('hide');
 			if (data.code == 200) {
 				JZ.alert('保存成功!');
-				$('#userList').trigger("reloadGrid");
+				$('#hotelList').trigger("reloadGrid");
 			} else {
 				JZ.alert('保存失败：' + data.msg);
 			}
@@ -81,15 +67,15 @@ function save() {
 
 /** delete */
 function deleteModal() {
-	if (JZ.checkSelectOne("user") != null) {
-		JZ.confirm("删除之后无法恢复，请确认是否删除？", deleteuser);
+	if (JZ.checkSelectOne("hotel") != null) {
+		JZ.confirm("删除之后无法恢复，请确认是否删除？", deletehotel);
 	}
 }
 
-function deleteuser() {
-	var id = $("#userList").jqGrid('getGridParam', 'selrow');
+function deletehotel() {
+	var id = $("#hotelList").jqGrid('getGridParam', 'selrow');
 	$.ajax({
-		url : path + '/admin/user/delById',
+		url : path + '/admin/hotel/delById',
 		type : 'POST',
 		data : {
 			'id' : id
@@ -98,7 +84,7 @@ function deleteuser() {
 		success : function(data) {
 			if (data.code == 200) {
 				JZ.alert('删除成功!');
-				$('#userList').trigger("reloadGrid");
+				$('#hotelList').trigger("reloadGrid");
 			} else {
 				JZ.alert('删除失败：' + data.msg);
 			}

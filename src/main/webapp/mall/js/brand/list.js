@@ -7,7 +7,7 @@ function initGrid() {
 	$("#brandList").jqGrid({
 		url : path + "/admin/brand/getPage",
 		datatype : "json",
-		colNames : [ 'id', '名称', '编码', '描述'],
+		colNames : [ 'id', '名称', '编码', '描述' ],
 		colModel : [ {
 			name : 'id',
 			index : 'id',
