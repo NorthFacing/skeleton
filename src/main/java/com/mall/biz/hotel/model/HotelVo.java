@@ -13,6 +13,7 @@ public class HotelVo extends Hotel {
 
     private String orgName;
     private String orgFullName;
+    private String managerName;
 
     /** 排序字段 */
     private String sidx;
@@ -37,6 +38,14 @@ public class HotelVo extends Hotel {
 
     public void setOrgFullName(String orgFullName) {
         this.orgFullName = orgFullName;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
 
     public String getSidx() {

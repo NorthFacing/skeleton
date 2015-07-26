@@ -46,12 +46,16 @@
 		select
 		o.name orgName,
 		o.full_name orgFullName,
+		u.user_name managerName,
 		<include refid="baseColumn"></include>
 		from
 		<include refid="tabaleName"></include>
 		left join
 		organization o
 		on t.org_id = o.id
+		left join 
+		user u
+		on t.manager_id = u.id
 		<where>
 			<if test=" managerId !=null and managerId !='' ">
 				and t.manager_id = #{managerId}

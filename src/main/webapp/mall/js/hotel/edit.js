@@ -13,35 +13,54 @@ function addModal() {
 	$('#hotel_orgId').val(node.id);
 	$('#hotel_orgName').val(node.name);
 	$('#hotel_orgCode').val(node.code);
+	setOptions(getManager(node.id));
 	$('#modal-edit').modal();
 }
 
 function updateModal() {
 	$('#editTitle').html('修改酒店');
-	if (JZ.checkForUpdate("hotel")) {
-		$('#modal-edit').modal();
+	var id = $("#hotelList").jqGrid('getGridParam', 'selrow');
+	if (id == null) {
+		JZ.alert(s == null ? "请选择一条数据后再进行操作！" : s);
+		return false;
 	}
+	var data = $("#hotelList").jqGrid('getRowData', id);
+	setOptions(getManager(data.orgId));
+	for ( var param in data) {
+		$("#hotel_" + param).val(data[param]);
+	}
+	$('#modal-edit').modal();
 }
 
-function getOrg(id) {
-	var org;
+function getManager(orgId) {
+	var userList;
 	$.ajax({
-		url : path + '/admin/hotel/getById',
-		type : 'GET',
+		url : path + '/admin/user/getList',
+		type : 'POST',
 		data : {
-			id : id
+			orgId : orgId,
+			isDelete : 0
 		},
 		async : false,
 		dataType : "json",
 		success : function(data) {
 			if (data.code == 200) {
-				org = data.data;
+				userList = data.data;
 			} else {
 				JZ.alert('程序出错：' + data.msg);
 			}
 		}
 	});
-	return org;
+	return userList;
+}
+
+function setOptions(userList) {
+	var opt = '<option value="">请选择</option>';
+	for (var i = 0; i < userList.length; i++) {
+		opt += '<option value="' + userList[i].id + '">' + userList[i].nickName
+				+ '</option>';
+	}
+	$('#hotel_managerId').html(opt);
 }
 
 function save() {

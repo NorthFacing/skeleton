@@ -55,8 +55,8 @@ function initGrid() {
 			{
 				url : path + "/admin/hotel/getPage",
 				datatype : "json",
-				colNames : [ 'id', 'orgId', 'orgCode', '酒店名称', '联系电话', '联系手机',
-						'所属层级', '所属层级', '详细地址' ],
+				colNames : [ 'id', 'orgId', 'orgCode', '酒店名称', '酒店经理ID',
+						'酒店经理', '联系电话', '联系手机', '所属层级', '所属层级', '详细地址' ],
 				colModel : [ {
 					name : 'id',
 					index : 'id',
@@ -72,6 +72,14 @@ function initGrid() {
 				}, {
 					name : 'name',
 					index : 'name',
+					width : 200
+				}, {
+					name : 'managerId',
+					index : 'managerId',
+					hidden : true
+				}, {
+					name : 'managerName',
+					index : 'managerName',
 					width : 200
 				}, {
 					name : 'telePhone',
