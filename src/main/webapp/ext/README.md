@@ -7,4 +7,6 @@
 * jqGrid - v4.8.2（最新版）
 * zTree - v3.5.18
 * artDialog - v6.0.4
+* ECharts - v2.2.7
+* UEditor - v1.4.3
 
