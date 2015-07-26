@@ -39,6 +39,7 @@ function getManager(orgId) {
 		type : 'POST',
 		data : {
 			orgId : orgId,
+			userRole : 'hotelManager',
 			isDelete : 0
 		},
 		async : false,
