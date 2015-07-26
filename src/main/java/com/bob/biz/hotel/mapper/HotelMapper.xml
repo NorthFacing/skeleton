@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bob.biz.hotel.mapper.HotelMapper">
+	<resultMap id="BaseResultMap" type="com.bob.biz.hotel.model.HotelVo">
+
+		<result column="orgName" property="orgName" />
+		<result column="orgFullName" property="orgFullName" />
+
+		<result column="id" property="id" />
+		<result column="manager_id" property="managerId" />
+		<result column="org_id" property="orgId" />
+		<result column="org_code" property="orgCode" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="tele_phone" property="telePhone" />
+		<result column="address" property="address" />
+		<result column="is_delete" property="isDelete" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<sql id="tabaleName">hotel t</sql>
+
+	<sql id="baseColumn">
+		t.id,
+		t.manager_id,
+		t.org_id,
+		t.org_code,
+		t.name,
+		t.mobile,
+		t.tele_phone,
+		t.address,
+		t.is_delete,
+		t.create_time,
+		t.create_user,
+		t.update_time,
+		t.update_user
+	</sql>
+
+	<select id="getList" parameterType="com.bob.biz.hotel.model.HotelVo"
+		resultMap="BaseResultMap">
+		select
+		o.name orgName,
+		o.full_name orgFullName,
+		u.user_name managerName,
+		<include refid="baseColumn"></include>
+		from
+		<include refid="tabaleName"></include>
+		left join
+		organization o
+		on t.org_id = o.id
+		left join 
+		user u
+		on t.manager_id = u.id
+		<where>
+			<if test=" managerId !=null and managerId !='' ">
+				and t.manager_id = #{managerId}
+			</if>
+			<if test=" orgId !=null and orgId !='' ">
+				and t.org_id = #{orgId}
+			</if>
+			<if test=" orgCode !=null and orgCode !='' ">
+				and t.org_code like '#{orgCode}%'
+			</if>
+			<if test=" name !=null and name !='' ">
+				and t.name like '%#{name}%'
+			</if>
+			<if test=" mobile !=null and mobile !='' ">
+				and t.mobile like '%#{mobile}%'
+			</if>
+			<if test=" telePhone !=null and telePhone !='' ">
+				and t.tele_phone like '%#{telePhone}%'
+			</if>
+			<if test=" address !=null and address !='' ">
+				and t.address like '%#{address}%'
+			</if>
+			<choose>
+				<when test=" isDelete !=null and isDelete !='' ">
+					and t.is_delete = #{isDelete}
+				</when>
+				<otherwise>
+					and (t.is_delete is NULL or t.is_delete = 0 )
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
+</mapper>

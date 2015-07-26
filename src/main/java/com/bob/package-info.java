@@ -1,8 +1,6 @@
-/** 
- * @Title: package-info.java 
- * @Package com.bob.demo 
- * @Description: 项目代码根目录
- * @author Bob   
- * @date 2015年6月19日 上午2:13:06  
+/**
+ * @since v0.0.1
+ * @author Bob
+ * @created 2015年7月16日 上午10:01:52
  */
 package com.bob;

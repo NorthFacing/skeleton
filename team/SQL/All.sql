@@ -4,30 +4,30 @@
 /*==============================================================*/
 
 
-drop table if exists nmall.brand;
+drop table if exists myBlog.brand;
 
-drop table if exists nmall.category;
+drop table if exists myBlog.category;
 
-drop table if exists nmall.customer;
+drop table if exists myBlog.customer;
 
-drop table if exists nmall.hotel;
+drop table if exists myBlog.hotel;
 
-drop table if exists nmall.item;
+drop table if exists myBlog.item;
 
-drop table if exists nmall.item_parameter;
+drop table if exists myBlog.item_parameter;
 
-drop table if exists nmall.order_detail;
+drop table if exists myBlog.order_detail;
 
-drop table if exists nmall.organization;
+drop table if exists myBlog.organization;
 
-drop table if exists nmall.parameter;
+drop table if exists myBlog.parameter;
 
-drop table if exists nmall.user;
+drop table if exists myBlog.user;
 
 /*==============================================================*/
 /* Table: brand                                                 */
 /*==============================================================*/
-create table nmall.brand
+create table myBlog.brand
 (
    id                   varchar(32) not null comment 'ID',
    name                 varchar(128) comment '品牌名称',
@@ -42,7 +42,7 @@ create table nmall.brand
 /*==============================================================*/
 /* Table: category                                              */
 /*==============================================================*/
-create table nmall.category
+create table myBlog.category
 (
    id                   varchar(32) not null comment 'ID',
    name                 varchar(128) comment '类目名称',
@@ -57,7 +57,7 @@ create table nmall.category
 /*==============================================================*/
 /* Table: customer                                              */
 /*==============================================================*/
-create table nmall.customer
+create table myBlog.customer
 (
    id                   varchar(32),
    name                 varchar(64) comment '消费者姓名',
@@ -74,7 +74,7 @@ create table nmall.customer
 /*==============================================================*/
 /* Table: hotel                                                 */
 /*==============================================================*/
-create table nmall.hotel
+create table myBlog.hotel
 (
    id                   varchar(32) not null comment 'ID',
    name                 varchar(128) comment '酒店名称',
@@ -91,7 +91,7 @@ create table nmall.hotel
 /*==============================================================*/
 /* Table: item                                                  */
 /*==============================================================*/
-create table nmall.item
+create table myBlog.item
 (
    id                   varchar(32) not null comment 'ID',
    name                 varchar(128) comment '名称',
@@ -112,7 +112,7 @@ create table nmall.item
 /*==============================================================*/
 /* Table: item_parameter                                        */
 /*==============================================================*/
-create table nmall.item_parameter
+create table myBlog.item_parameter
 (
    id                   varchar(32) not null,
    item_id              varchar(32) comment '商品ID',
@@ -129,7 +129,7 @@ create table nmall.item_parameter
 /*==============================================================*/
 /* Table: order_detail                                          */
 /*==============================================================*/
-create table nmall.order_detail
+create table myBlog.order_detail
 (
    id                   varchar(32) not null comment 'ID',
    item_id              varchar(32) comment '商品ID',
@@ -160,7 +160,7 @@ create table nmall.order_detail
 /*==============================================================*/
 /* Table: organization                                          */
 /*==============================================================*/
-create table nmall.organization
+create table myBlog.organization
 (
    id                   varchar(32) not null comment 'ID',
    code                 varchar(64) comment '组织CODE',
@@ -177,7 +177,7 @@ create table nmall.organization
 /*==============================================================*/
 /* Table: parameter                                             */
 /*==============================================================*/
-create table nmall.parameter
+create table myBlog.parameter
 (
    id                   varchar(32) not null,
    name                 varchar(128),
@@ -192,7 +192,7 @@ create table nmall.parameter
 /*==============================================================*/
 /* Table: user                                                  */
 /*==============================================================*/
-create table nmall.user
+create table myBlog.user
 (
    id                   varchar(32) not null,
    user_name            varchar(64),
@@ -206,33 +206,33 @@ create table nmall.user
    primary key (id)
 );
 
-alter table nmall.hotel add constraint FK_hotel_manager foreign key (manager_id)
-      references nmall.user (id) on delete restrict on update restrict;
+alter table myBlog.hotel add constraint FK_hotel_manager foreign key (manager_id)
+      references myBlog.user (id) on delete restrict on update restrict;
 
-alter table nmall.hotel add constraint FK_hotel_org foreign key (org_id)
-      references nmall.organization (id) on delete restrict on update restrict;
+alter table myBlog.hotel add constraint FK_hotel_org foreign key (org_id)
+      references myBlog.organization (id) on delete restrict on update restrict;
 
-alter table nmall.item add constraint FK_item_brand foreign key (brand_id)
-      references nmall.brand (id) on delete restrict on update restrict;
+alter table myBlog.item add constraint FK_item_brand foreign key (brand_id)
+      references myBlog.brand (id) on delete restrict on update restrict;
 
-alter table nmall.item add constraint FK_item_category foreign key (category_id)
-      references nmall.category (id) on delete restrict on update restrict;
+alter table myBlog.item add constraint FK_item_category foreign key (category_id)
+      references myBlog.category (id) on delete restrict on update restrict;
 
-alter table nmall.item_parameter add constraint FK_parameter_item foreign key (item_id)
-      references nmall.item (id) on delete restrict on update restrict;
+alter table myBlog.item_parameter add constraint FK_parameter_item foreign key (item_id)
+      references myBlog.item (id) on delete restrict on update restrict;
 
-alter table nmall.item_parameter add constraint FK_parameter_parameter foreign key (parameter_id)
-      references nmall.parameter (id) on delete restrict on update restrict;
+alter table myBlog.item_parameter add constraint FK_parameter_parameter foreign key (parameter_id)
+      references myBlog.parameter (id) on delete restrict on update restrict;
 
-alter table nmall.order_detail add constraint FK_order_customer foreign key (customer_id)
-      references nmall.customer (id) on delete restrict on update restrict;
+alter table myBlog.order_detail add constraint FK_order_customer foreign key (customer_id)
+      references myBlog.customer (id) on delete restrict on update restrict;
 
-alter table nmall.order_detail add constraint FK_order_hotel foreign key (hotel_id)
-      references nmall.hotel (id) on delete restrict on update restrict;
+alter table myBlog.order_detail add constraint FK_order_hotel foreign key (hotel_id)
+      references myBlog.hotel (id) on delete restrict on update restrict;
 
-alter table nmall.order_detail add constraint FK_order_item foreign key (item_id)
-      references nmall.item (id) on delete restrict on update restrict;
+alter table myBlog.order_detail add constraint FK_order_item foreign key (item_id)
+      references myBlog.item (id) on delete restrict on update restrict;
 
-alter table nmall.parameter add constraint FK_parameter_category foreign key (category_id)
-      references nmall.category (id) on delete restrict on update restrict;
+alter table myBlog.parameter add constraint FK_parameter_category foreign key (category_id)
+      references myBlog.category (id) on delete restrict on update restrict;
 
