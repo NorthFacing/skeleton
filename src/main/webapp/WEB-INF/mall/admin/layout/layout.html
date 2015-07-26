@@ -1,0 +1,51 @@
+##parse("/WEB-INF/mall/admin/layout/base.html")
+<!DOCTYPE html>
+<html lang="zh-CN">
+#parse("/WEB-INF/mall/admin/layout/header.html")
+<body>
+	<div class="container-fluid">
+		<div class="row navbar navbar-duomi navbar-static-top"
+			role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#" id="logo">土特产供销 </a>
+				</div>
+			</div>
+		</div>
+		<div class="row clearfix">
+			<div class="col-md-2">
+				<ul id="main-nav" class="nav nav-tabs nav-stacked">
+					<li>
+						<a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse"> 
+							商品管理 
+							<span class="pull-right glyphicon glyphicon-chevron-down"></span>
+						</a>
+						<ul id="systemSetting" class="nav nav-list collapse secondmenu"
+							style="height: 0px;">
+							<li><a href="${path}/admin/brand/listHtml">品牌管理</a></li>
+							<li><a href="${path}/admin/category/listHtml">类目管理</a></li>
+							<li><a href="${path}/admin/parameter/listHtml">参数管理</a></li>
+							<li><a href="#">商品管理</a></li>
+						</ul></li>
+					<li class=""><a href="#"> 订单管理 </a></li>
+					<li class=""><a href="${path}/admin/hotel/listHtml"> 酒店管理 </a></li>
+					<li class=""><a href="${path}/admin/user/listHtml"> 用户管理 </a></li>
+					<li class=""><a href="${path}/admin/organization/listHtml"> 层级管理 </a></li>
+				</ul>
+			</div>
+			<div class="col-md-10" style="min-height: 550px;">$screen_content</div>
+		</div>
+		<div class="row clearfix">
+			<div class="col-md-12 footer">
+				<footer>
+					<p>
+						<strong>Copyright &copy; 2015</strong>
+					</p>
+					<p>
+						Copyright &copy; <a href="www.fisiontech.com">杭州景忠科技有限公司</a>
+					</p>
+				</footer>
+			</div>
+		</div>
+</body>
+</html>

@@ -1,16 +1,18 @@
+#nMall
 
-# 项目简介
-本地仓库地址：d:/java/gitRep/myBlog
-
-# 使用技术
-* [Spring Framework-4.1.6.RELEASE](http://spring.io/ "Spring")
-* [MyBatis-3.2.8](https://github.com/mybatis/mybatis-3/releases/tag/mybatis-3.2.8 "MyBatis")
-* [MyBatis-Spring-1.2.2](https://mybatis.github.io/spring/index.html "MyBatis-Spring")
-* [velocity]( "")
-* shiro temp04
-
+* D:/java/eclipseHT/workspace/nMall
 
 # 参考资料
-* [spring技术参考](http://blog.csdn.net/Evankaka/article/category/3073841 "CSDN-林炳文Evankaka")
-* [Markdown 语法说明](http://wowubuntu.com/markdown/#link "Markdown 语法说明 (简体中文版)")
-* [velocity-tools](http://velocity.apache.org/tools/devel/generic/index.html "veloctiy tools")
+
+## 密码加密
+* [使用typeHandler进行加密](http://www.thespringriver.com/simple-example-of-mybatis-java-maven-implementation-8-customized-type-handler/ "使用typeHandler处理密码")
+
+
+ALTER TABLE `nmall`.`parameter`
+  ADD COLUMN `create_time` DATETIME NOT NULL   COMMENT '创建时间' AFTER `category_id`,
+  ADD COLUMN `create_user` VARCHAR(64) NOT NULL   COMMENT '创建人' AFTER `create_time`,
+  ADD COLUMN `update_time` DATETIME NULL   COMMENT '修改时间' AFTER `create_user`,
+  ADD COLUMN `update_user` VARCHAR(64) NULL   COMMENT '修改人' AFTER `update_time`;
+  
+  
+  

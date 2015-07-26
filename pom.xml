@@ -1,35 +1,43 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.bob</groupId>
-	<artifactId>myBlog</artifactId>
+	<groupId>com.mall</groupId>
+	<artifactId>mall</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1</version>
-	<name>myBlog</name>
-	<url>http://stepByMe.com</url>
+	<version>0.1-SNAPSHOT</version>
+	<name>mall</name>
+	<url></url>
 	<properties>
 		<!-- spring -->
 		<spring.version>4.1.6.RELEASE</spring.version>
+		<!-- hibernate.validate -->
+		<hibernate.validate>5.1.3.Final</hibernate.validate>
 		<!-- mybatis -->
 		<mybatis.version>3.2.8</mybatis.version>
+		<!-- pageHelper -->
+		<pageHelper.version>3.4.1</pageHelper.version>
+		<!-- mapper -->
+		<mapper.version>3.1.3-SNAPSHOT</mapper.version>
+		<!-- <mapper.version>3.1.1</mapper.version> -->
 		<!-- mysql -->
 		<mysql.connection.version>5.1.35</mysql.connection.version>
 		<!-- druid -->
 		<druid.version>1.0.14</druid.version>
 		<!-- servlet -->
 		<servlet.version>3.1.0</servlet.version>
-		<!-- jstl -->
-		<jstl.vserion>1.2</jstl.vserion>
 		<!-- velocity -->
 		<veloctiy.version>1.7</veloctiy.version>
 		<velocity.tools.version>2.0</velocity.tools.version>
-		<!-- freemarker -->
-		<freemarker.version>2.3.22</freemarker.version>
 		<!-- log -->
-		<slf4j.version>1.7.12</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
+		<slf4j.version>1.7.12</slf4j.version>
+		<!-- fastjson -->
+		<fastjson.version>1.2.6</fastjson.version>
+		<!-- jackson -->
+		<jackson.version>2.6.0</jackson.version>
 		<!-- test -->
 		<junit.version>4.12</junit.version>
+		<mockito.version>1.10.19</mockito.version>
 		<!-- maven -->
 		<maven.compiler.version>3.3</maven.compiler.version>
 		<!-- JDK -->
@@ -50,6 +58,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -97,6 +111,13 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<!-- Spring end -->
+		<!-- hibernate-validator start -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validate}</version>
+		</dependency>
+		<!-- hibernate-validator end -->
 		<!-- myBatis start -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -109,7 +130,20 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+		<!-- pageHelper -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${pageHelper.version}</version>
+		</dependency>
 		<!-- myBatis end -->
+		<!-- 通用Mapper start -->
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>${mapper.version}</version>
+		</dependency>
+		<!-- 通用Mapper end -->
 		<!-- jdbc start -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -132,13 +166,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- servlet end -->
-		<!-- jstl start -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl.vserion}</version>
-		</dependency>
-		<!-- jstl end -->
 		<!-- velocity start -->
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
@@ -151,12 +178,24 @@
 			<version>${velocity.tools.version}</version>
 		</dependency>
 		<!-- velocity end -->
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>${freemarker.version}</version>
-		</dependency>
 		<!-- Logging start -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -164,6 +203,29 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- Logging end -->
+		<!-- fastjson start -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+		<!-- fastjson end -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
 		<!-- test start -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -177,11 +239,29 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- test end -->
 	</dependencies>
 	<build>
-		<finalName>myBlog</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<directory>target</directory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<!-- 拷贝Mapper.xml文件 -->
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<!-- maven 插件 -->
 			<plugin>
@@ -199,8 +279,21 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+			<!-- <version>2.8</version> -->
+			<!-- <configuration> -->
+			<!-- <includes> -->
+			<!-- 包含所有后缀为Test.jave的类 -->
+			<!-- <include>src/main/java/**/*.java</include> -->
+			<!-- <include>src/test/java/**/*Test.java</include> -->
+			<!-- </includes> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 			<!-- Tomcat 插件 -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -234,4 +327,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>oss-snapshots</id>
+			<name>oss-snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
 </project>

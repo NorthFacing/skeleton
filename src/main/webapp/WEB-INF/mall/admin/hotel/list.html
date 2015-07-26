@@ -1,0 +1,134 @@
+#set($title="酒店列表")
+
+<div class="row clearfix">
+	<!-- zTree -->
+	<div class="col-md-3">
+		<div id="orgTree" class="ztree"></div>
+	</div>
+
+	<div class="col-md-9">
+		<!-- btns -->
+		<div class="row clearfix btners">
+			<div class="col-md-3">
+				<div class="btn-group">
+					<button class="btn btn-default" onClick="addModal()">
+						<em class="glyphicon">新增</em>
+					</button>
+					<button class="btn btn-default" onClick="updateModal()">
+						<em class="glyphicon">修改</em>
+					</button>
+					<button class="btn btn-default" onClick="deleteModal()">
+						<em class="glyphicon">删除</em>
+					</button>
+				</div>
+			</div>
+			<div class="col-md-4 search">
+				<div class="input-group">
+					<input type="text" class="form-control" id="s_name"
+						placeholder="请输入查询名称..."> <span class="input-group-btn">
+						<button class="btn btn-default" type="button" onClick="search()">查询</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- list -->
+		<div class="row clearfix">
+			<div class="col-md-12" id="hotelGrid">
+				<table id="hotelList"></table>
+				<div id="hotelPager"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- edit -->
+<div class="modal fade" id="modal-edit" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h5 class="modal-title" id="editTitle">编辑酒店</h5>
+			</div>
+
+			<div class="modal-body">
+				<form id="editForm" role="form" action="$!{path}/admin/hotel/edit"
+					method="POST">
+					<input type="hidden" id="hotel_id" name="id" />
+					<div class="row clearfix form-group">
+						<div class="col-md-2 ">
+							<label class="inputName">所属层级</label>
+						</div>
+						<div class="col-md-9">
+							<input type="hidden" id="hotel_orgId" name="orgId" /> <input
+								type="hidden" id="hotel_orgCode" name="orgCode" /> <input
+								type="text" readOnly class="form-control" id="hotel_orgName" />
+						</div>
+					</div>
+
+					<div class="row clearfix form-group">
+						<div class="col-md-2 ">
+							<label class="inputName">酒店名称</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="hotel_name"
+								name="name" />
+						</div>
+					</div>
+
+					<div class="row clearfix form-group">
+						<div class="col-md-2 ">
+							<label class="inputName">酒店经理</label>
+						</div>
+						<div class="col-md-9">
+							<select type="text" class="form-control" id="hotel_managerId"
+								name="managerId">
+								<option>请选择</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row clearfix form-group">
+						<div class="col-md-2">
+							<label class="inputName">联系电话</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="hotel_telePhone"
+								name="telePhone" />
+						</div>
+					</div>
+
+					<div class="row clearfix form-group">
+						<div class="col-md-2 ">
+							<label class="inputName">联系手机</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="hotel_mobile"
+								name="mobile" />
+						</div>
+					</div>
+
+					<div class="row clearfix form-group">
+						<div class="col-md-2 ">
+							<label class="inputName">详细地址</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="hotel_address"
+								name="address" />
+						</div>
+					</div>
+
+				</form>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" onClick="save()">确认</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="$!{path}/mall/js/hotel/list.js"></script>
+<script src="$!{path}/mall/js/hotel/edit.js"></script>

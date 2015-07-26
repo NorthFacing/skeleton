@@ -1,0 +1,96 @@
+#set($title="类目列表")
+
+<!-- btns -->
+<div class="row clearfix">
+	<div class="col-md-12 btners">
+		<div class="col-md-3">
+			<div class="btn-group">
+				<button class="btn btn-default" onClick="addModal()">
+					<em class="glyphicon">新增</em>
+				</button>
+				<button class="btn btn-default" onClick="updateModal()">
+					<em class="glyphicon">修改</em>
+				</button>
+				<button class="btn btn-default" onClick="deleteModal()">
+					<em class="glyphicon">删除</em>
+				</button>
+			</div>
+		</div>
+		<div class="col-md-3 search">
+			<div class="input-group">
+				<input type="text" class="form-control" id="s_name" placeholder="请输入查询名称...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" onClick="search()">查询</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- list -->
+<div class="row clearfix">
+	<div class="col-md-12">
+		<div id="categoryGrid">
+			<table id="categoryList"></table>
+			<div id="categoryPager"></div>
+		</div>
+	</div>
+</div>
+
+<!-- edit -->
+<div class="modal fade" id="modal-edit" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h5 class="modal-title" id="editTitle">编辑类目</h5>
+			</div>
+
+			<div class="modal-body">
+				<form id="editForm" role="form" action="$!{path}/admin/category/edit"
+					method="POST">
+					<input type="hidden" id="category_id" name="id" />
+					<div class="row clearfix form-group">
+						<div class="col-md-2 ">
+							<label class="inputName">类目名称</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="category_name"
+								name="name" />
+						</div>
+					</div>
+
+					<div class="row clearfix form-group">
+						<div class="col-md-2 ">
+							<label class="inputName">类目编码</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="category_code"
+								name="code" />
+						</div>
+					</div>
+
+					<div class="row clearfix form-group">
+						<div class="col-md-2">
+							<label class="inputName">类目描述</label>
+						</div>
+						<div class="col-md-9">
+							<textarea class="form-control" id="category_description"
+								name="description" rows="10"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" onClick="save()">确认</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="$!{path}/mall/js/category/list.js"></script>
+<script src="$!{path}/mall/js/category/edit.js"></script>
