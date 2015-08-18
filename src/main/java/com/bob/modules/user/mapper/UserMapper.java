@@ -1,7 +1,7 @@
 package com.bob.modules.user.mapper;
 
-import com.bob.biz.user.model.User;
-import com.bob.biz.user.model.UserVo;
+import com.bob.modules.user.model.User;
+import com.bob.modules.user.model.UserVo;
 import com.bob.core.base.mapper.BaseMapper;
 
 /**

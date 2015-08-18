@@ -1,7 +1,7 @@
 package com.bob.modules.organization.mapper;
 
-import com.bob.biz.organization.model.Organization;
-import com.bob.biz.organization.model.OrganizationVo;
+import com.bob.modules.organization.model.Organization;
+import com.bob.modules.organization.model.OrganizationVo;
 import com.bob.core.base.mapper.BaseMapper;
 
 /**

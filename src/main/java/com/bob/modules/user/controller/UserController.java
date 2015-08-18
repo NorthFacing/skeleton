@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.bob.core.base.controller.BaseController;
 import com.bob.core.utils.AjaxResults;
-import com.bob.biz.user.model.User;
-import com.bob.biz.user.model.UserVo;
-import com.bob.biz.user.service.UserService;
+import com.bob.modules.user.model.User;
+import com.bob.modules.user.model.UserVo;
+import com.bob.modules.user.service.UserService;
 
 /**
  * userController

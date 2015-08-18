@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.bob.core.base.controller.BaseController;
 import com.bob.core.utils.AjaxResults;
-import com.bob.biz.organization.model.Organization;
-import com.bob.biz.organization.model.OrganizationVo;
-import com.bob.biz.organization.service.OrganizationService;
+import com.bob.modules.organization.model.Organization;
+import com.bob.modules.organization.model.OrganizationVo;
+import com.bob.modules.organization.service.OrganizationService;
 
 /**
  * organizationController

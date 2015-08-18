@@ -2,9 +2,9 @@ package com.bob.modules.user.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.bob.biz.user.model.User;
-import com.bob.biz.user.model.UserVo;
-import com.bob.biz.user.service.UserService;
+import com.bob.modules.user.model.User;
+import com.bob.modules.user.model.UserVo;
+import com.bob.modules.user.service.UserService;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 
 /**

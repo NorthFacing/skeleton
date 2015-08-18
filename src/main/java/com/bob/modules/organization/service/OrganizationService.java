@@ -1,7 +1,7 @@
 package com.bob.modules.organization.service;
 
-import com.bob.biz.organization.model.Organization;
-import com.bob.biz.organization.model.OrganizationVo;
+import com.bob.modules.organization.model.Organization;
+import com.bob.modules.organization.model.OrganizationVo;
 import com.bob.core.base.service.BaseService;
 
 /**
