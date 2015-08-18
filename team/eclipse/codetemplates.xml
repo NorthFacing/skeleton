@@ -8,13 +8,13 @@
 </template><template autoinsert="true" context="getterbody_context" deleted="false" description="Code in created getters" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.getterbody" name="getterbody">return ${field};</template><template autoinsert="false" context="overridecomment_context" deleted="false" description="Comment for overriding methods" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.overridecomment" name="overridecomment">/**
  * ${see_to_overridden}
  * @since #{version}
- * @author #{author}
+ * @author Bob<url>0haizhu0@gmail.com</url>
  * @created ${date} ${time}
  */</template><template autoinsert="false" context="delegatecomment_context" deleted="false" description="Comment for delegate methods" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.delegatecomment" name="delegatecomment">/**
  * ${tags}
  * ${see_to_target}
  * @since #{version}
- * @author #{author}
+ * @author Bob<url>0haizhu0@gmail.com</url>
  * @created ${date} ${time}
  */</template><template autoinsert="true" context="newtype_context" deleted="false" description="Newly created files" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.newtype" name="newtype">${filecomment}
 ${package_declaration}
@@ -29,18 +29,18 @@ ${exception_var}.printStackTrace();</template><template autoinsert="true" contex
  * 
  * ${tags}
  * @since #{version}
- * @author #{author}
+ * @author Bob<url>0haizhu0@gmail.com</url>
  * @created ${date} ${time}
  */</template><template autoinsert="true" context="fieldcomment_context" deleted="false" description="Comment for fields" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.fieldcomment" name="fieldcomment">/**  */</template><template autoinsert="true" context="methodbody_context" deleted="false" description="Code in created method stubs" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.methodbody" name="methodbody">// ${todo} Auto-generated method stub
 ${body_statement}</template><template autoinsert="false" context="constructorcomment_context" deleted="false" description="Comment for created constructors" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.constructorcomment" name="constructorcomment">/**
  * ${tags}
  * @since #{version}
- * @author #{author}
+ * @author Bob<url>0haizhu0@gmail.com</url>
  * @created ${date} ${time}
  */</template><template autoinsert="false" context="methodcomment_context" deleted="false" description="Comment for non-overriding methods" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.methodcomment" name="methodcomment">/** ${todo} Comment.
  * 
  * ${tags}
  * @since #{version}
- * @author #{author}
+ * @author Bob<url>0haizhu0@gmail.com</url>
  * @created ${date} ${time}
  */</template></templates>
