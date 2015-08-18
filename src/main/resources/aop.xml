@@ -43,7 +43,7 @@
 	</tx:advice>
 	<aop:config>
 		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.myBlog..service.*Impl.*(..))" />
+			expression="execution(* com.bob..service.*Impl.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
 	</aop:config>
@@ -55,13 +55,13 @@
 	<aop:config>
 		<aop:aspect ref="operationAspect">
 			<aop:pointcut
-				expression="(execution(* com.myBlog..mapper.*Mapper.insert*(..))) or (execution (* tk.mybatis.mapper..*Mapper.insert*(..)))"
+				expression="(execution(* com.bob..mapper.*Mapper.insert*(..))) or (execution (* tk.mybatis.mapper..*Mapper.insert*(..)))"
 				id="addOperation" />
 			<aop:before pointcut-ref="addOperation" method="insert" />
 		</aop:aspect>
 		<aop:aspect ref="operationAspect">
 			<aop:pointcut id="updateOperation"
-				expression="(execution(* com.myBlog..mapper.*Mapper.update*(..))) or (execution (* tk.mybatis.mapper..*Mapper.update*(..)))" />
+				expression="(execution(* com.bob..mapper.*Mapper.update*(..))) or (execution (* tk.mybatis.mapper..*Mapper.update*(..)))" />
 			<aop:before pointcut-ref="updateOperation" method="update" />
 		</aop:aspect>
 	</aop:config>
