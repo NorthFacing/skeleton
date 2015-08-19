@@ -9,9 +9,12 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 
-	<context:property-placeholder
-		location="classpath:config.${env}.properties" />
+	<context:property-placeholder location="classpath:config.${env}.properties" />
 
 	<context:component-scan base-package="com.bob.biz.*.service" />
+
+	<bean class="com.bob.core.contants.Config">
+		<property name="demo" value="${configDemo}" />
+	</bean>
 
 </beans>

@@ -10,4 +10,14 @@ package com.bob.core.contants;
  */
 public class Config {
 
+    public static String dmeo;
+
+    public static String getDmeo() {
+        return dmeo;
+    }
+
+    public static void setDmeo(String dmeo) {
+        Config.dmeo = dmeo;
+    }
+
 }
