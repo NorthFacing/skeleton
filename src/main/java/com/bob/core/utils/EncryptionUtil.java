@@ -15,7 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 public class EncryptionUtil {
 
     private static SecretKeySpec skeySpec;
-    
+
     static {
         try {
             ClassPathResource res = new ClassPathResource("key.key");
