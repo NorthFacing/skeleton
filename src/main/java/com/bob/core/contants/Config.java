@@ -1,5 +1,6 @@
 package com.bob.core.contants;
 
+
 /**
  * 
  * 配置常量封装类
@@ -10,14 +11,25 @@ package com.bob.core.contants;
  */
 public class Config {
 
-    public static String dmeo;
+    /** 微信跳转访问域名 */
+    public static String wxUrl;
+    /** 微信appId */
+    public static String appId;
 
-    public static String getDmeo() {
-        return dmeo;
+    public static String getWxUrl() {
+        return wxUrl;
     }
 
-    public static void setDmeo(String dmeo) {
-        Config.dmeo = dmeo;
+    public static void setWxUrl(String wxUrl) {
+        Config.wxUrl = wxUrl;
+    }
+
+    public static String getAppId() {
+        return appId;
+    }
+
+    public static void setAppId(String appId) {
+        Config.appId = appId;
     }
 
 }
