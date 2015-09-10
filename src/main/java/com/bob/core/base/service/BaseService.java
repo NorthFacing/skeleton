@@ -19,9 +19,15 @@ public interface BaseService<M, VO> {
 
     public M getById(String id);
 
+    public VO getVoById(String id);
+
     public List<M> getList(VO modelVo);
 
+    public List<VO> getVoList(VO modelVo);
+
     public PageInfo<M> getPage(int pageNum, int pageSize, VO modelVo);
+
+    public PageInfo<VO> getVoPage(int pageNum, int pageSize, VO modelVo);
 
     public void updateById(M model);
 

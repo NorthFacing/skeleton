@@ -42,8 +42,19 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     }
 
     @Override
+    public VO getVoById(String id){
+        Validate.notNull(id);
+        return baseMapper.getVoById(id);
+    }
+    
+    @Override
     public List<M> getList(VO modelVo) {
         return baseMapper.getList(modelVo);
+    }
+
+    @Override
+    public List<VO> getVoList(VO modelVo) {
+        return baseMapper.getVoList(modelVo);
     }
 
     @Override
@@ -51,6 +62,13 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
         PageHelper.startPage(pageNum, pageSize);
         List<M> list = baseMapper.getList(modelVo);
         return new PageInfo<M>(list);
+    }
+
+    @Override
+    public PageInfo<VO> getVoPage(int pageNum, int pageSize, VO modelVo) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<VO> list = baseMapper.getVoList(modelVo);
+        return new PageInfo<VO>(list);
     }
 
     /**

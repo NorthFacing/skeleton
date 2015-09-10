@@ -8,6 +8,10 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface BaseMapper<M extends BaseModel, VO> extends Mapper<M> {
 
-    List<M> getList(VO modelVo);
-    
+    public VO getVoById(String id);
+
+    public List<M> getList(VO modelVo);
+
+    public List<VO> getVoList(VO modelVo);
+
 }
