@@ -12,10 +12,10 @@
 			classpath:aop.xml
 		</param-value>
 	</context-param>
-	<context-param>
-		<param-name>env</param-name>
-		<param-value>dev</param-value>
-	</context-param>
+	<!-- <context-param> -->
+	<!-- <param-name>env</param-name> -->
+	<!-- <param-value>dev</param-value> -->
+	<!-- </context-param> -->
 	<listener>
 		<description>spring listener</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
