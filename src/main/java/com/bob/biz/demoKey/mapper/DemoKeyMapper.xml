@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bob.biz.demoKey.mapper.DemoKeyMapper">
+
+	<sql id="baseResult">
+		<result column="id" property="id" />
+		<result column="lock_id" property="lockId" />
+		<result column="brand" property="brand" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</sql>
+	<sql id="voResult">
+	</sql>
+
+	<resultMap id="BaseResultMap" type="com.bob.biz.demoKey.model.DemoKey">
+		<include refid="baseResult"></include>
+	</resultMap>
+
+	<resultMap id="BaseVoResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo">
+		<include refid="baseResult"></include>
+		<include refid="voResult"></include>
+	</resultMap>
+
+	<sql id="tabaleName">demoKey as t</sql>
+
+	<sql id="baseColumn">
+		t.id,
+		t.lock_id,
+		t.brand,
+		t.create_time,
+		t.create_user,
+		t.update_time,
+		t.update_user
+	</sql>
+
+	<select id="getList" parameterType="com.bob.biz.demoKey.model.DemoKeyVo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="baseColumn"></include>
+		from
+		<include refid="tabaleName"></include>
+		<where>
+			<if test=" id !=null and id !='' ">
+				and t.id = id
+			</if>
+			<if test=" lockId !=null and lockId !='' ">
+				and t.lock_id = lockId
+			</if>
+			<if test=" brand !=null and brand !='' ">
+				and t.brand = brand
+			</if>
+			<if test=" createTime !=null and createTime !='' ">
+				and t.create_time = createTime
+			</if>
+			<if test=" createUser !=null and createUser !='' ">
+				and t.create_user = createUser
+			</if>
+			<if test=" updateTime !=null and updateTime !='' ">
+				and t.update_time = updateTime
+			</if>
+			<if test=" updateUser !=null and updateUser !='' ">
+				and t.update_user = updateUser
+			</if>
+		</where>
+	</select>
+
+</mapper>
