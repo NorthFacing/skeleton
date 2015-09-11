@@ -31,8 +31,10 @@ public class DemoKeyController extends BaseController {
     private DemoKeyService demoKeyService;
 
     @ResponseBody
-    @RequestMapping(value = "/demoKey/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/demoKey/save", method = RequestMethod.GET)
     public AjaxResults<?> save(@Validated DemoKey demoKey) {
+        demoKey = new DemoKey();
+        demoKey.setBrand("三环");
         demoKeyService.save(demoKey);
         return AjaxResults.success();
     }

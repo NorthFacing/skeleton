@@ -2,10 +2,11 @@ package com.bob.biz.demoKey.service;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bob.biz.demoKey.model.DemoKey;
 import com.bob.core.base.BaseServiceTest;
 
 public class DemoKeyServiceTest extends BaseServiceTest {
@@ -13,15 +14,17 @@ public class DemoKeyServiceTest extends BaseServiceTest {
     @Autowired
     private DemoKeyService demoKeyService;
 
-    @Before
-    public void startTest() {
+    @BeforeClass
+    public static void startTest() {
         System.out.println("单元测试开始");
     }
 
     @Test
     public void testSave() {
-        demoKeyService.save(null);
-        Assert.assertTrue("", true);
+        DemoKey demoKey = new DemoKey();
+        demoKey.setBrand("三环");
+        String id = demoKeyService.save(demoKey);
+        Assert.assertNull("添加成功【demoKey ：" + id + "】", id);
     }
 
     @Test
@@ -70,7 +73,7 @@ public class DemoKeyServiceTest extends BaseServiceTest {
     }
 
     @AfterClass
-    public void endTest() {
+    public static void endTest() {
         System.out.println("单元测试结束");
     }
 }

@@ -4,24 +4,22 @@
 
 <mapper namespace="com.bob.biz.demoLock.mapper.DemoLockMapper">
 
-	<sql id="baseResult">
+	<resultMap id="BaseResultMap" type="com.bob.biz.demoLock.model.DemoLock">
 		<result column="id" property="id" />
 		<result column="brand" property="brand" />
 		<result column="create_time" property="createTime" />
 		<result column="create_user" property="createUser" />
 		<result column="update_time" property="updateTime" />
 		<result column="update_user" property="updateUser" />
-	</sql>
-	<sql id="voResult">
-	</sql>
-
-	<resultMap id="BaseResultMap" type="com.bob.biz.demoLock.model.DemoLock">
-		<include refid="baseResult"></include>
 	</resultMap>
 
-	<resultMap id="BaseResultMap" type="com.bob.biz.demoLock.model.DemoLockVo">
-		<include refid="baseResult"></include>
-		<include refid="voResult"></include>
+	<resultMap id="voResultMap" type="com.bob.biz.demoLock.model.DemoLockVo">
+		<result column="id" property="id" />
+		<result column="brand" property="brand" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
 	</resultMap>
 
 	<sql id="tabaleName">demoLock as t</sql>

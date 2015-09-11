@@ -4,7 +4,7 @@
 
 <mapper namespace="com.bob.biz.demoKey.mapper.DemoKeyMapper">
 
-	<sql id="baseResult">
+	<resultMap id="BaseResultMap" type="com.bob.biz.demoKey.model.DemoKey">
 		<result column="id" property="id" />
 		<result column="lock_id" property="lockId" />
 		<result column="brand" property="brand" />
@@ -12,17 +12,16 @@
 		<result column="create_user" property="createUser" />
 		<result column="update_time" property="updateTime" />
 		<result column="update_user" property="updateUser" />
-	</sql>
-	<sql id="voResult">
-	</sql>
-
-	<resultMap id="BaseResultMap" type="com.bob.biz.demoKey.model.DemoKey">
-		<include refid="baseResult"></include>
 	</resultMap>
 
-	<resultMap id="BaseVoResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo">
-		<include refid="baseResult"></include>
-		<include refid="voResult"></include>
+	<resultMap id="voResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo">
+		<result column="id" property="id" />
+		<result column="lock_id" property="lockId" />
+		<result column="brand" property="brand" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
 	</resultMap>
 
 	<sql id="tabaleName">demoKey as t</sql>
@@ -40,9 +39,9 @@
 	<select id="getList" parameterType="com.bob.biz.demoKey.model.DemoKeyVo"
 		resultMap="BaseResultMap">
 		select
-		<include refid="baseColumn"></include>
+		<include refid="baseColumn" />
 		from
-		<include refid="tabaleName"></include>
+		<include refid="tabaleName" />
 		<where>
 			<if test=" id !=null and id !='' ">
 				and t.id = id
