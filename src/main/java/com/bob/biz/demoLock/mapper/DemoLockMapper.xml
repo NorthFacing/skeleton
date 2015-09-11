@@ -33,32 +33,36 @@
 		t.update_user
 	</sql>
 
-	<select id="getList" parameterType="com.bob.biz.demoLock.model.DemoLockVo"
-		resultMap="BaseResultMap">
-		select
-		<include refid="baseColumn"></include>
-		from
-		<include refid="tabaleName"></include>
+	<sql id="whereCondition">
 		<where>
-			<if test=" id !=null and id !='' ">
-				and t.id = id
-			</if>
+
+			<include refid="com.bob.core.base.mapper.BaseMapper.baseCondition" />
+			
 			<if test=" brand !=null and brand !='' ">
 				and t.brand = brand
 			</if>
 			<if test=" createTime !=null and createTime !='' ">
-				and t.create_time = createTime
+				and t.create_time = #{createTime}
 			</if>
 			<if test=" createUser !=null and createUser !='' ">
-				and t.create_user = createUser
+				and t.create_user = #{createUser}
 			</if>
 			<if test=" updateTime !=null and updateTime !='' ">
-				and t.update_time = updateTime
+				and t.update_time = #{updateTime}
 			</if>
 			<if test=" updateUser !=null and updateUser !='' ">
-				and t.update_user = updateUser
+				and t.update_user = #{updateUser}
 			</if>
 		</where>
+	</sql>
+
+	<select id="getList" parameterType="com.bob.biz.demoLock.model.DemoLockVo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="baseColumn" />
+		from
+		<include refid="tabaleName" />
+		<include refid="whereCondition" />
 	</select>
 
 </mapper>

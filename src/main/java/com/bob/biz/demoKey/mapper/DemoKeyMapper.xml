@@ -38,27 +38,16 @@
 
 	<sql id="whereCondition">
 		<where>
-			<if test=" id !=null and id !='' ">
-				and t.id = #{id}
-			</if>
+
+			<include refid="com.bob.core.base.mapper.BaseMapper.baseCondition" />
+			
 			<if test=" lockId !=null and lockId !='' ">
 				and t.lock_id = #{lockId}
 			</if>
 			<if test=" brand !=null and brand !='' ">
 				and t.brand like '%${brand}%'
 			</if>
-			<if test=" createTime !=null and createTime !='' ">
-				and t.create_time = #{createTime}
-			</if>
-			<if test=" createUser !=null and createUser !='' ">
-				and t.create_user = #{createUser}
-			</if>
-			<if test=" updateTime !=null and updateTime !='' ">
-				and t.update_time = #{updateTime}
-			</if>
-			<if test=" updateUser !=null and updateUser !='' ">
-				and t.update_user = #{updateUser}
-			</if>
+
 		</where>
 	</sql>
 

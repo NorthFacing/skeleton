@@ -25,6 +25,15 @@ public class BaseModel {
     private Integer rows = Constants.pageSize;// pageSize
     @Transient
     private Integer page = Constants.pageNum;// pageNum
+    // 公用时间查询字段
+    @Transient
+    private LocalDateTime createTimeStart;
+    @Transient
+    private LocalDateTime createTimeEnd;
+    @Transient
+    protected LocalDateTime updateTimeStart;
+    @Transient
+    protected LocalDateTime updateTimeEnd;
 
     public String getId() {
         return id;
@@ -103,6 +112,38 @@ public class BaseModel {
         this.page = page;
     }
 
+    public LocalDateTime getCreateTimeStart() {
+        return createTimeStart;
+    }
+
+    public void setCreateTimeStart(LocalDateTime createTimeStart) {
+        this.createTimeStart = createTimeStart;
+    }
+
+    public LocalDateTime getCreateTimeEnd() {
+        return createTimeEnd;
+    }
+
+    public void setCreateTimeEnd(LocalDateTime createTimeEnd) {
+        this.createTimeEnd = createTimeEnd;
+    }
+
+    public LocalDateTime getUpdateTimeStart() {
+        return updateTimeStart;
+    }
+
+    public void setUpdateTimeStart(LocalDateTime updateTimeStart) {
+        this.updateTimeStart = updateTimeStart;
+    }
+
+    public LocalDateTime getUpdateTimeEnd() {
+        return updateTimeEnd;
+    }
+
+    public void setUpdateTimeEnd(LocalDateTime updateTimeEnd) {
+        this.updateTimeEnd = updateTimeEnd;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("DemoModel");
@@ -116,6 +157,10 @@ public class BaseModel {
         sb.append("createTime=").append(this.createTime).append(", ");
         sb.append("updateUser=").append(this.updateUser).append(", ");
         sb.append("updateTime=").append(this.updateTime).append(", ");
+        sb.append("createTimeStart=").append(this.createTimeStart).append(", ");
+        sb.append("createTimeEnd=").append(this.createTimeEnd).append(", ");
+        sb.append("updateTimeStart=").append(this.updateTimeStart).append(", ");
+        sb.append("updateTimeEnd=").append(this.updateTimeEnd).append(", ");
         sb.append(" ]");
         return sb.toString();
     }
