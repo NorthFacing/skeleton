@@ -6,7 +6,7 @@
 	<packaging>war</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>Bob</name>
-	<url></url>
+	<url>stepByMe.com</url>
 	<properties>
 		<!-- spring -->
 		<spring.version>4.1.6.RELEASE</spring.version>
@@ -317,6 +317,7 @@
 			<version>1.1</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<directory>target</directory>
@@ -385,11 +386,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- <repositories> -->
-	<!-- <repository> -->
-	<!-- <id>oss-snapshots</id> -->
-	<!-- <name>oss-snapshots</name> -->
-	<!-- <url>https://oss.sonatype.org/content/repositories/snapshots/</url> -->
-	<!-- </repository> -->
-	<!-- </repositories> -->
 </project>
