@@ -3,6 +3,7 @@ package com.bob.core.base.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import com.bob.core.contants.Constants;
 
@@ -16,9 +17,13 @@ public class BaseModel {
     protected String updateUser;
 
     // 分页查询字段
+    @Transient
     private String sidx;// 排序字段
+    @Transient
     private String sord;// 排序方式：DESC、ASC
+    @Transient
     private Integer rows = Constants.pageSize;// pageSize
+    @Transient
     private Integer page = Constants.pageNum;// pageNum
 
     public String getId() {
