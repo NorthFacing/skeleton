@@ -15,7 +15,8 @@
 	<context:component-scan base-package="com.bob.biz.*.service" />
 
 	<bean class="com.bob.core.contants.Config">
-		<property name="demo" value="${configDemo}" />
+		<property name="wxUrl" value="${wxUrl}" />
+		<property name="appId" value="${appId}" />
 	</bean>
 
 </beans>
