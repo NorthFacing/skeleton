@@ -33,7 +33,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
     public AjaxResults<?> edit(@Validated User user) {
-        userService.edit(user);
+        userService.save(user);
         return AjaxResults.success();
     }
 

@@ -33,7 +33,7 @@ public class OrganizationController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/organization/edit", method = RequestMethod.POST)
     public AjaxResults<?> edit(@Validated Organization organization) {
-        organizationService.edit(organization);
+        organizationService.save(organization);
         return AjaxResults.success();
     }
 

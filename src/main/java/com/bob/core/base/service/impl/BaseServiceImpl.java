@@ -18,7 +18,7 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     private BaseMapper<M, VO> baseMapper;
 
     @Override
-    public String edit(M model) {
+    public String save(M model) {
         Validate.notNull(model);
         if (StringUtils.isBlank(model.getId())) {
             baseMapper.insert(model);
@@ -42,11 +42,11 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     }
 
     @Override
-    public VO getVoById(String id){
+    public VO getVoById(String id) {
         Validate.notNull(id);
         return baseMapper.getVoById(id);
     }
-    
+
     @Override
     public List<M> getList(VO modelVo) {
         return baseMapper.getList(modelVo);

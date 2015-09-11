@@ -12,8 +12,8 @@ import com.github.pagehelper.PageInfo;
  * @created 2015年7月3日 下午6:00:51
  */
 public interface BaseService<M, VO> {
-
-    public String edit(M model);
+    
+    public String save(M model);
 
     public String add(M model);
 
