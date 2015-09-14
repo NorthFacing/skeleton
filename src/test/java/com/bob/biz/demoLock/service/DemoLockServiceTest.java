@@ -2,9 +2,10 @@ package com.bob.biz.demoLock.service;
 
 import java.util.List;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,15 +21,16 @@ public class DemoLockServiceTest extends BaseServiceTest {
 
     public static String id;
 
-    @Before
-    public void startTest() {
+    @BeforeClass
+    public static void startTest() {
         System.out.println("单元测试开始");
-        {
-            DemoLock demoLock = new DemoLock();
-            demoLock.setBrand("三环");
-            id = demoLockService.add(demoLock);
-            Assert.assertNotNull("添加成功【demoLock ：" + id + "】", id);
-        }
+    }
+
+    @Before
+    public void before() {
+        DemoLock demoLock = new DemoLock();
+        demoLock.setBrand("三环");
+        id = demoLockService.add(demoLock);
     }
 
     @Test
@@ -98,8 +100,8 @@ public class DemoLockServiceTest extends BaseServiceTest {
         Assert.assertTrue("delById success", delById);
     }
 
-    @After
-    public void endTest() {
+    @AfterClass
+    public static void endTest() {
         System.out.println("单元测试结束");
     }
 }
