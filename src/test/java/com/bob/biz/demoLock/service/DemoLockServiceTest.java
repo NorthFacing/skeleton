@@ -9,6 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bob.biz.demoKey.model.DemoKey;
+import com.bob.biz.demoKey.service.DemoKeyService;
 import com.bob.biz.demoLock.model.DemoLock;
 import com.bob.biz.demoLock.model.DemoLockVo;
 import com.bob.core.base.BaseServiceTest;
@@ -18,6 +20,8 @@ public class DemoLockServiceTest extends BaseServiceTest {
 
     @Autowired
     private DemoLockService demoLockService;
+    @Autowired
+    private DemoKeyService demoKeyService;
 
     public static String id;
 
@@ -31,37 +35,48 @@ public class DemoLockServiceTest extends BaseServiceTest {
         DemoLock demoLock = new DemoLock();
         demoLock.setBrand("三环");
         id = demoLockService.add(demoLock);
+        DemoKey demoKey = new DemoKey();
+        demoKey.setLockId(id);
+        demoKey.setBrand("三环");
+        demoKeyService.add(demoKey);
+        demoKeyService.add(demoKey);
     }
 
     @Test
     public void testGetById() {
         DemoLock demoLock = demoLockService.getById(id);
-        Assert.assertNotNull("getById success", demoLock);
+        Assert.assertNotNull(demoLock);
     }
 
     @Test
     public void testGetVoById() {
         DemoLockVo demoLockVo = demoLockService.getVoById(id);
-        Assert.assertNotNull("getVoById success", demoLockVo);
+        Assert.assertNotNull(demoLockVo);
+        List<DemoKey> demoKeyList = demoLockVo.getDemoKeyList();
+        Assert.assertNotNull(demoKeyList);
+        for (DemoKey demoKey : demoKeyList) {
+            Assert.assertTrue(demoLockVo.getId().equals(demoKey.getLockId()));
+        }
     }
 
     @Test
     public void testGetList() {
         List<DemoLock> list = demoLockService.getList(null);
-        Assert.assertNotNull("getList success", list);
-        Assert.assertTrue("getList size > 0", list.size() > 0);
-        for (DemoLock demoLock : list) {
-            System.out.println(demoLock);
-        }
+        Assert.assertNotNull(list);
+        Assert.assertTrue(list.size() > 0);
     }
 
     @Test
     public void testGetVoList() {
         List<DemoLockVo> list = demoLockService.getVoList(null);
-        Assert.assertNotNull("getList success", list);
-        Assert.assertTrue("getList size > 0", list.size() > 0);
+        Assert.assertNotNull(list);
+        Assert.assertTrue(list.size() > 0);
         for (DemoLockVo demoLockVo : list) {
-            System.out.println(demoLockVo);
+            List<DemoKey> demoKeyList = demoLockVo.getDemoKeyList();
+            Assert.assertNotNull(demoKeyList);
+            for (DemoKey demoKey : demoKeyList) {
+                Assert.assertTrue(demoLockVo.getId().equals(demoKey.getLockId()));
+            }
         }
     }
 
@@ -69,21 +84,22 @@ public class DemoLockServiceTest extends BaseServiceTest {
     public void testGetPage() {
         PageInfo<DemoLock> page = demoLockService.getPage(0, 10, null);
         List<DemoLock> list = page.getList();
-        Assert.assertNotNull("getList success", list);
-        Assert.assertTrue("getList size > 0", list.size() > 0);
-        for (DemoLock demoLock : list) {
-            System.out.println(demoLock);
-        }
+        Assert.assertNotNull(list);
+        Assert.assertTrue(list.size() > 0);
     }
 
     @Test
     public void testGetVoPage() {
         PageInfo<DemoLockVo> page = demoLockService.getVoPage(0, 10, null);
         List<DemoLockVo> list = page.getList();
-        Assert.assertNotNull("getList success", list);
-        Assert.assertTrue("getList size > 0", list.size() > 0);
+        Assert.assertNotNull(list);
+        Assert.assertTrue(list.size() > 0);
         for (DemoLockVo demoLockVo : list) {
-            System.out.println(demoLockVo);
+            List<DemoKey> demoKeyList = demoLockVo.getDemoKeyList();
+            Assert.assertNotNull(demoKeyList);
+            for (DemoKey demoKey : demoKeyList) {
+                Assert.assertTrue(demoLockVo.getId().equals(demoKey.getLockId()));
+            }
         }
     }
 
@@ -91,13 +107,13 @@ public class DemoLockServiceTest extends BaseServiceTest {
     public void testUpdateById() {
         DemoLock demoLock = demoLockService.getById(id);
         String updateId = demoLockService.updateById(demoLock);
-        Assert.assertNotNull("updateById success", updateId);
+        Assert.assertNotNull(updateId);
     }
 
     @Test
     public void testDelById() {
         boolean delById = demoLockService.delById(id);
-        Assert.assertTrue("delById success", delById);
+        Assert.assertTrue(delById);
     }
 
     @AfterClass

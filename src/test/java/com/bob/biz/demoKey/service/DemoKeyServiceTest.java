@@ -39,7 +39,6 @@ public class DemoKeyServiceTest extends BaseServiceTest {
         demoKey.setLockId(lockId);
         demoKey.setBrand("三环");
         id = demoKeyService.add(demoKey);
-        demoKeyService.add(demoKey);
     }
 
     @Test
@@ -52,6 +51,9 @@ public class DemoKeyServiceTest extends BaseServiceTest {
     public void testGetVoById() {
         DemoKeyVo demoKeyVo = demoKeyService.getVoById(id);
         Assert.assertNotNull(demoKeyVo);
+        DemoLock demoLock = demoKeyVo.getDemoLock();
+        Assert.assertNotNull(demoLock);
+        Assert.assertTrue(demoLock.getId().equals(demoKeyVo.getLockId()));
     }
 
     @Test
@@ -59,9 +61,6 @@ public class DemoKeyServiceTest extends BaseServiceTest {
         List<DemoKey> list = demoKeyService.getList(null);
         Assert.assertNotNull(list);
         Assert.assertTrue(list.size() > 0);
-        for (DemoKey demoKey : list) {
-            System.out.println(demoKey);
-        }
     }
 
     @Test
@@ -70,7 +69,9 @@ public class DemoKeyServiceTest extends BaseServiceTest {
         Assert.assertNotNull(list);
         Assert.assertTrue(list.size() > 0);
         for (DemoKeyVo demoKeyVo : list) {
-            System.out.println(demoKeyVo);
+            DemoLock demoLock = demoKeyVo.getDemoLock();
+            Assert.assertNotNull(demoLock);
+            Assert.assertTrue(demoLock.getId().equals(demoKeyVo.getLockId()));
         }
     }
 
@@ -80,9 +81,6 @@ public class DemoKeyServiceTest extends BaseServiceTest {
         List<DemoKey> list = page.getList();
         Assert.assertNotNull(list);
         Assert.assertTrue(list.size() > 0);
-        for (DemoKey demoKey : list) {
-            System.out.println(demoKey);
-        }
     }
 
     @Test
@@ -92,7 +90,9 @@ public class DemoKeyServiceTest extends BaseServiceTest {
         Assert.assertNotNull(list);
         Assert.assertTrue(list.size() > 0);
         for (DemoKeyVo demoKeyVo : list) {
-            System.out.println(demoKeyVo);
+            DemoLock demoLock = demoKeyVo.getDemoLock();
+            Assert.assertNotNull(demoLock);
+            Assert.assertTrue(demoLock.getId().equals(demoKeyVo.getLockId()));
         }
     }
 
