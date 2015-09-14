@@ -62,10 +62,8 @@
 		</property>
 	</bean>
 
-
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.bob.biz.*.mapper" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 
 	<bean id="transactionManager"
