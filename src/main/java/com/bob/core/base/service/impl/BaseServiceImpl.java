@@ -79,10 +79,11 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
      * @created 2015年7月23日 上午9:59:23
      */
     @Override
-    public void updateById(M model) {
+    public String updateById(M model) {
         Validate.notNull(model);
         Validate.notNull(model.getId());
         baseMapper.updateByPrimaryKeySelective(model);
+        return model.getId();
     }
 
     @Override

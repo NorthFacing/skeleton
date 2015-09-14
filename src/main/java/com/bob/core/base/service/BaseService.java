@@ -29,7 +29,7 @@ public interface BaseService<M, VO> {
 
     public PageInfo<VO> getVoPage(int pageNum, int pageSize, VO modelVo);
 
-    public void updateById(M model);
+    public String updateById(M model);
 
     public boolean delById(String id);
 
