@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @WebAppConfiguration("src/main/webapp")
 @ContextConfiguration(locations = { "/applicationContext.xml", "/spring-mybatis.xml", "/aop.xml" })
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class BaseServiceTest extends TestCase {
 
     @BeforeClass
