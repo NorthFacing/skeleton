@@ -14,11 +14,11 @@
 		<result column="update_user" property="updateUser" />
 	</resultMap>
 
-	<resultMap id="voResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo"
+	<resultMap id="VoResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo"
 		extends="BaseResultMap">
 	</resultMap>
 
-	<sql id="tabaleName">demoKey as t</sql>
+	<sql id="tabaleName">demo_key as t</sql>
 
 	<sql id="baseColumn">
 		t.id,
@@ -33,8 +33,6 @@
 	<sql id="whereCondition">
 		<where>
 
-			<include refid="com.bob.core.base.mapper.BaseMapper.baseCondition" />
-			
 			<if test=" lockId !=null and lockId !='' ">
 				and t.lock_id = #{lockId}
 			</if>
@@ -45,8 +43,26 @@
 		</where>
 	</sql>
 
-	<select id="getList" parameterType="com.bob.biz.demoKey.model.DemoKey"
+	<select id="getVoById" parameterType="java.lang.String"
+		resultType="com.bob.biz.demoKey.model.DemoKeyVo">
+		select
+		<include refid="baseColumn" />
+		from
+		<include refid="tabaleName" />
+		where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.bob.biz.demoKey.model.DemoKeyVo"
 		resultMap="BaseResultMap">
+		select
+		<include refid="baseColumn" />
+		from
+		<include refid="tabaleName" />
+		<include refid="whereCondition" />
+	</select>
+
+	<select id="getVoList" parameterType="com.bob.biz.demoKey.model.DemoKeyVo"
+		resultMap="VoResultMap">
 		select
 		<include refid="baseColumn" />
 		from

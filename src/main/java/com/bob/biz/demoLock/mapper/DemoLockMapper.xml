@@ -13,11 +13,11 @@
 		<result column="update_user" property="updateUser" />
 	</resultMap>
 
-	<resultMap id="voResultMap" type="com.bob.biz.demoLock.model.DemoLockVo"
+	<resultMap id="VoResultMap" type="com.bob.biz.demoLock.model.DemoLockVo"
 		extends="BaseResultMap">
 	</resultMap>
 
-	<sql id="tabaleName">demoLock as t</sql>
+	<sql id="tabaleName">demo_lock as t</sql>
 
 	<sql id="baseColumn">
 		t.id,
@@ -31,28 +31,33 @@
 	<sql id="whereCondition">
 		<where>
 
-			<include refid="com.bob.core.base.mapper.BaseMapper.baseCondition" />
-			
 			<if test=" brand !=null and brand !='' ">
-				and t.brand = brand
+				and t.brand like '%$brand%'
 			</if>
-			<if test=" createTime !=null and createTime !='' ">
-				and t.create_time = #{createTime}
-			</if>
-			<if test=" createUser !=null and createUser !='' ">
-				and t.create_user = #{createUser}
-			</if>
-			<if test=" updateTime !=null and updateTime !='' ">
-				and t.update_time = #{updateTime}
-			</if>
-			<if test=" updateUser !=null and updateUser !='' ">
-				and t.update_user = #{updateUser}
-			</if>
+
 		</where>
 	</sql>
 
+	<select id="getVoById" parameterType="java.lang.String"
+		resultType="com.bob.biz.demoLock.model.DemoLockVo">
+		select
+		<include refid="baseColumn" />
+		from
+		<include refid="tabaleName" />
+		where id = #{id}
+	</select>
+
 	<select id="getList" parameterType="com.bob.biz.demoLock.model.DemoLockVo"
 		resultMap="BaseResultMap">
+		select
+		<include refid="baseColumn" />
+		from
+		<include refid="tabaleName" />
+		<include refid="whereCondition" />
+	</select>
+
+	<select id="getVoList" parameterType="com.bob.biz.demoLock.model.DemoLockVo"
+		resultMap="VoResultMap">
 		select
 		<include refid="baseColumn" />
 		from
