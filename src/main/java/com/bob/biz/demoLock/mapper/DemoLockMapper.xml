@@ -13,13 +13,8 @@
 		<result column="update_user" property="updateUser" />
 	</resultMap>
 
-	<resultMap id="voResultMap" type="com.bob.biz.demoLock.model.DemoLockVo">
-		<result column="id" property="id" />
-		<result column="brand" property="brand" />
-		<result column="create_time" property="createTime" />
-		<result column="create_user" property="createUser" />
-		<result column="update_time" property="updateTime" />
-		<result column="update_user" property="updateUser" />
+	<resultMap id="voResultMap" type="com.bob.biz.demoLock.model.DemoLockVo"
+		extends="BaseResultMap">
 	</resultMap>
 
 	<sql id="tabaleName">demoLock as t</sql>

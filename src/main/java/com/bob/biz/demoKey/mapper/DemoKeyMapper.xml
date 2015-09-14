@@ -14,14 +14,8 @@
 		<result column="update_user" property="updateUser" />
 	</resultMap>
 
-	<resultMap id="voResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo">
-		<result column="id" property="id" />
-		<result column="lock_id" property="lockId" />
-		<result column="brand" property="brand" />
-		<result column="create_time" property="createTime" />
-		<result column="create_user" property="createUser" />
-		<result column="update_time" property="updateTime" />
-		<result column="update_user" property="updateUser" />
+	<resultMap id="voResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo"
+		extends="BaseResultMap">
 	</resultMap>
 
 	<sql id="tabaleName">demoKey as t</sql>
