@@ -15,6 +15,8 @@
 
 	<resultMap id="VoResultMap" type="com.bob.biz.demoLock.model.DemoLockVo"
 		extends="BaseResultMap">
+		<collection column="id" property="demoKeyList"
+			select="com.bob.biz.demoKey.mapper.DemoKeyMapper.getListByLockId" />
 	</resultMap>
 
 	<sql id="tabaleName">demo_lock as t</sql>
@@ -38,8 +40,17 @@
 		</where>
 	</sql>
 
+	<select id="getById" parameterType="java.lang.String"
+		resultType="com.bob.biz.demoLock.model.DemoLock">
+		select
+		<include refid="baseColumn" />
+		from
+		<include refid="tabaleName" />
+		where id = #{id}
+	</select>
+
 	<select id="getVoById" parameterType="java.lang.String"
-		resultType="com.bob.biz.demoLock.model.DemoLockVo">
+		resultMap="VoResultMap">
 		select
 		<include refid="baseColumn" />
 		from
