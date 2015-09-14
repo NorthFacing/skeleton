@@ -38,9 +38,9 @@ public class DemoLockController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/demoLock/getById", method = RequestMethod.GET)
+    @RequestMapping(value = "/demoLock/getVoById", method = RequestMethod.GET)
     public AjaxResults<?> getById(String id) {
-        return new AjaxResults<DemoLock>(demoLockService.getById(id));
+        return new AjaxResults<DemoLockVo>(demoLockService.getVoById(id));
     }
 
     @RequestMapping(value = "/demoLock/listHtml", method = RequestMethod.GET)
@@ -49,15 +49,16 @@ public class DemoLockController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/demoLock/getList", method = RequestMethod.POST)
+    @RequestMapping(value = "/demoLock/getVoList", method = RequestMethod.GET)
     public AjaxResults<List<?>> getList(DemoLockVo demoLockVo) {
-        return new AjaxResults<List<?>>(demoLockService.getList(demoLockVo));
+        return new AjaxResults<List<?>>(demoLockService.getVoList(demoLockVo));
     }
 
     @ResponseBody
-    @RequestMapping(value = "/demoLock/getPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/demoLock/getVoPage", method = RequestMethod.GET)
     public AjaxResults<PageInfo<?>> getPage(DemoLockVo demoLockVo) {
-        PageInfo<DemoLock> pageInfo = demoLockService.getPage(demoLockVo.getPage(), demoLockVo.getRows(), demoLockVo);
+        PageInfo<DemoLockVo> pageInfo = demoLockService.getVoPage(demoLockVo.getPage(), demoLockVo.getRows(),
+            demoLockVo);
         return new AjaxResults<PageInfo<?>>(pageInfo);
     }
 

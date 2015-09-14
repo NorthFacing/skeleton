@@ -40,24 +40,24 @@ public class DemoKeyController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/demoKey/getById", method = RequestMethod.GET)
-    public AjaxResults<?> getById(String id) {
-        return new AjaxResults<DemoKey>(demoKeyService.getById(id));
+    @RequestMapping(value = "/demoKey/getVoById", method = RequestMethod.GET)
+    public AjaxResults<?> getVoById(String id) {
+        return new AjaxResults<DemoKeyVo>(demoKeyService.getVoById(id));
     }
 
-    @RequestMapping(value = "/demoKey/listHtml", method = RequestMethod.GET)
+    @RequestMapping(value = "/demoKey/list", method = RequestMethod.GET)
     public String listHtml(Model model) {
         return "/demoKey/list";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/demoKey/getList", method = RequestMethod.POST)
+    @RequestMapping(value = "/demoKey/getList", method = RequestMethod.GET)
     public AjaxResults<List<?>> getList(DemoKeyVo demoKeyVo) {
-        return new AjaxResults<List<?>>(demoKeyService.getList(demoKeyVo));
+        return new AjaxResults<List<?>>(demoKeyService.getVoList(demoKeyVo));
     }
 
     @ResponseBody
-    @RequestMapping(value = "/demoKey/getPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/demoKey/getPage", method = RequestMethod.GET)
     public AjaxResults<PageInfo<?>> getPage(DemoKeyVo demoKeyVo) {
         PageInfo<DemoKey> pageInfo = demoKeyService.getPage(demoKeyVo.getPage(), demoKeyVo.getRows(), demoKeyVo);
         return new AjaxResults<PageInfo<?>>(pageInfo);
