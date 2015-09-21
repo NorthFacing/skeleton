@@ -32,47 +32,40 @@
 
 	<sql id="whereCondition">
 		<where>
-
 			<if test=" brand !=null and brand !='' ">
 				and t.brand like '%$brand%'
 			</if>
-
 		</where>
 	</sql>
-
-	<select id="getById" parameterType="java.lang.String"
-		resultType="com.bob.biz.demoLock.model.DemoLock">
+	
+	<sql id="baseSelect">
 		select
 		<include refid="baseColumn" />
 		from
 		<include refid="tabaleName" />
+	</sql>
+
+	<select id="getById" parameterType="java.lang.String"
+		resultType="com.bob.biz.demoLock.model.DemoLock">
+		<include refid="baseSelect" />
 		where id = #{id}
 	</select>
 
 	<select id="getVoById" parameterType="java.lang.String"
 		resultMap="VoResultMap">
-		select
-		<include refid="baseColumn" />
-		from
-		<include refid="tabaleName" />
+		<include refid="baseSelect" />
 		where id = #{id}
 	</select>
 
 	<select id="getList" parameterType="com.bob.biz.demoLock.model.DemoLockVo"
 		resultMap="BaseResultMap">
-		select
-		<include refid="baseColumn" />
-		from
-		<include refid="tabaleName" />
+		<include refid="baseSelect" />
 		<include refid="whereCondition" />
 	</select>
 
 	<select id="getVoList" parameterType="com.bob.biz.demoLock.model.DemoLockVo"
 		resultMap="VoResultMap">
-		select
-		<include refid="baseColumn" />
-		from
-		<include refid="tabaleName" />
+		<include refid="baseSelect" />
 		<include refid="whereCondition" />
 	</select>
 
