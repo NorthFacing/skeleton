@@ -21,7 +21,7 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     public String save(M model) {
         Validate.notNull(model);
         if (StringUtils.isBlank(model.getId())) {
-            baseMapper.insert(model);
+            baseMapper.insertSelective(model);
         } else {
             baseMapper.updateByPrimaryKeySelective(model);
         }
@@ -31,7 +31,7 @@ public class BaseServiceImpl<M extends BaseModel, VO extends M> implements BaseS
     @Override
     public String add(M model) {
         Validate.notNull(model);
-        baseMapper.insert(model);
+        baseMapper.insertSelective(model);
         return model.getId();
     }
 
