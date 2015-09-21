@@ -1,7 +1,5 @@
 package com.bob.biz.demoLock.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,15 +30,15 @@ public class DemoLockController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/save", method = RequestMethod.POST)
-    public AjaxResults<?> save(@Validated DemoLock demoLock) {
+    public AjaxResults save(@Validated DemoLock demoLock) {
         demoLockService.save(demoLock);
         return AjaxResults.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoById", method = RequestMethod.GET)
-    public AjaxResults<?> getById(String id) {
-        return new AjaxResults<DemoLockVo>(demoLockService.getVoById(id));
+    public AjaxResults getById(String id) {
+        return new AjaxResults(demoLockService.getVoById(id));
     }
 
     @RequestMapping(value = "/demoLock/listHtml", method = RequestMethod.GET)
@@ -50,16 +48,16 @@ public class DemoLockController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(DemoLockVo demoLockVo) {
-        return new AjaxResults<List<?>>(demoLockService.getVoList(demoLockVo));
+    public AjaxResults getList(DemoLockVo demoLockVo) {
+        return new AjaxResults(demoLockService.getVoList(demoLockVo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(DemoLockVo demoLockVo) {
+    public AjaxResults getPage(DemoLockVo demoLockVo) {
         PageInfo<DemoLockVo> pageInfo = demoLockService.getVoPage(demoLockVo.getPage(), demoLockVo.getRows(),
             demoLockVo);
-        return new AjaxResults<PageInfo<?>>(pageInfo);
+        return new AjaxResults(pageInfo);
     }
 
 }

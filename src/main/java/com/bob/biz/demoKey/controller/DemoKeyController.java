@@ -1,7 +1,5 @@
 package com.bob.biz.demoKey.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +30,7 @@ public class DemoKeyController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoKey/save", method = RequestMethod.GET)
-    public AjaxResults<?> save(@Validated DemoKey demoKey) {
+    public AjaxResults save(@Validated DemoKey demoKey) {
         demoKey = new DemoKey();
         demoKey.setBrand("三环");
         demoKeyService.save(demoKey);
@@ -41,8 +39,8 @@ public class DemoKeyController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoKey/getVoById", method = RequestMethod.GET)
-    public AjaxResults<?> getVoById(String id) {
-        return new AjaxResults<DemoKeyVo>(demoKeyService.getVoById(id));
+    public AjaxResults getVoById(String id) {
+        return new AjaxResults(demoKeyService.getVoById(id));
     }
 
     @RequestMapping(value = "/demoKey/list", method = RequestMethod.GET)
@@ -52,15 +50,15 @@ public class DemoKeyController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoKey/getList", method = RequestMethod.GET)
-    public AjaxResults<List<?>> getList(DemoKeyVo demoKeyVo) {
-        return new AjaxResults<List<?>>(demoKeyService.getVoList(demoKeyVo));
+    public AjaxResults getList(DemoKeyVo demoKeyVo) {
+        return new AjaxResults(demoKeyService.getVoList(demoKeyVo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/demoKey/getPage", method = RequestMethod.GET)
-    public AjaxResults<PageInfo<?>> getPage(DemoKeyVo demoKeyVo) {
+    public AjaxResults getPage(DemoKeyVo demoKeyVo) {
         PageInfo<DemoKey> pageInfo = demoKeyService.getPage(demoKeyVo.getPage(), demoKeyVo.getRows(), demoKeyVo);
-        return new AjaxResults<PageInfo<?>>(pageInfo);
+        return new AjaxResults(pageInfo);
     }
 
 }
