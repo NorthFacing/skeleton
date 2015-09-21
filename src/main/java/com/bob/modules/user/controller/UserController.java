@@ -1,7 +1,5 @@
 package com.bob.modules.user.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,15 +30,15 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
-    public AjaxResults<?> edit(@Validated User user) {
+    public AjaxResults edit(@Validated User user) {
         userService.save(user);
         return AjaxResults.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/getById", method = RequestMethod.GET)
-    public AjaxResults<?> getById(String id) {
-        return new AjaxResults<User>(userService.getById(id));
+    public AjaxResults getById(String id) {
+        return new AjaxResults(userService.getById(id));
     }
 
     @RequestMapping(value = "/user/listHtml", method = RequestMethod.GET)
@@ -50,15 +48,15 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/user/getList", method = RequestMethod.POST)
-    public AjaxResults<List<?>> getList(UserVo userVo) {
-        return new AjaxResults<List<?>>(userService.getList(userVo));
+    public AjaxResults getList(UserVo userVo) {
+        return new AjaxResults(userService.getList(userVo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/getPage", method = RequestMethod.POST)
-    public AjaxResults<PageInfo<?>> getPage(UserVo userVo) {
+    public AjaxResults getPage(UserVo userVo) {
         PageInfo<User> pageInfo = userService.getPage(userVo.getPage(), userVo.getRows(), userVo);
-        return new AjaxResults<PageInfo<?>>(pageInfo);
+        return new AjaxResults(pageInfo);
     }
 
 }

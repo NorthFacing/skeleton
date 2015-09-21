@@ -32,21 +32,21 @@ public class OrganizationController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/organization/edit", method = RequestMethod.POST)
-    public AjaxResults<?> edit(@Validated Organization organization) {
+    public AjaxResults edit(@Validated Organization organization) {
         organizationService.save(organization);
         return AjaxResults.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/getById", method = RequestMethod.GET)
-    public AjaxResults<?> getById(String id) {
-        return new AjaxResults<Organization>(organizationService.getById(id));
+    public AjaxResults getById(String id) {
+        return new AjaxResults(organizationService.getById(id));
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/getCodeByParentId", method = RequestMethod.GET)
-    public AjaxResults<?> getCodeByParentId(String parentId) {
-        return new AjaxResults<String>(organizationService.getCodeByParentId(parentId));
+    public AjaxResults getCodeByParentId(String parentId) {
+        return new AjaxResults(organizationService.getCodeByParentId(parentId));
     }
 
     @RequestMapping(value = "/organization/listHtml", method = RequestMethod.GET)
@@ -56,22 +56,22 @@ public class OrganizationController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/organization/getPage", method = RequestMethod.POST)
-    public AjaxResults<?> getPage(OrganizationVo organizationVo) {
+    public AjaxResults getPage(OrganizationVo organizationVo) {
         PageInfo<Organization> pageInfo = organizationService.getPage(organizationVo.getPage(),
             organizationVo.getRows(), organizationVo);
-        return new AjaxResults<PageInfo<?>>(pageInfo);
+        return new AjaxResults(pageInfo);
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/getList", method = RequestMethod.POST)
-    public AjaxResults<?> getList(OrganizationVo organizationVo) {
+    public AjaxResults getList(OrganizationVo organizationVo) {
         List<Organization> list = organizationService.getList(organizationVo);
-        return new AjaxResults<List<?>>(list);
+        return new AjaxResults(list);
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/delById", method = RequestMethod.POST)
-    public AjaxResults<?> delById(String id) {
+    public AjaxResults delById(String id) {
         organizationService.delById(id);
         return AjaxResults.success();
     }

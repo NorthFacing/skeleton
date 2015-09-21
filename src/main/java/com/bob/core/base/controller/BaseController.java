@@ -30,16 +30,16 @@ public class BaseController {
      * @throws IOException 
      * @created 2015年7月3日 下午11:54:10
      */
-    public AjaxResults<?> handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
+    public AjaxResults handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
         if (e instanceof IllegalArgumentException) {
             LOG.error(e.getMessage());
             if (ServletUtils.isAjax(request)) {
-                return new AjaxResults<Object>(404, "参数不合法！");
+                return new AjaxResults(404, "参数不合法！");
             }else{
                 response.sendRedirect("/");
             }
         }
-        return new AjaxResults<Object>("程序出错！");
+        return new AjaxResults("程序出错！");
     }
 
 }

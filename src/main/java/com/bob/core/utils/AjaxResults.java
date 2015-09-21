@@ -5,19 +5,18 @@ import com.bob.core.contants.ResultCode;
 /**
  * Ajax操作结果封装类
  * 
- * @param <T>
  * @since v0.0.1
  * @author Bob
  * @created 2015年7月6日 下午2:26:16
  */
-public class AjaxResults<T> {
+public class AjaxResults {
 
     /** 信息码表 */
     private int code;
     /** 信息文字描述 */
     private String msg;
     /** 返回对象 */
-    private T data;
+    private Object data;
 
     /**
      * 操作成功，需要返回对象
@@ -27,7 +26,7 @@ public class AjaxResults<T> {
      * @author Bob
      * @created 2015年7月6日 下午1:48:02
      */
-    public AjaxResults(T data) {
+    public AjaxResults(Object data) {
         this.code = ResultCode.SUCCESS;
         this.data = data;
     }
@@ -56,7 +55,7 @@ public class AjaxResults<T> {
      * @author Bob
      * @created 2015年7月6日 下午1:54:21
      */
-    public AjaxResults(int code, String msg, T data) {
+    public AjaxResults(int code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -69,8 +68,8 @@ public class AjaxResults<T> {
      * @author Bob
      * @created 2015年7月6日 下午1:55:43
      */
-    public static AjaxResults<?> success() {
-        return new AjaxResults<>(ResultCode.SUCCESS);
+    public static AjaxResults success() {
+        return new AjaxResults(ResultCode.SUCCESS);
     }
 
     /**
@@ -80,8 +79,8 @@ public class AjaxResults<T> {
      * @author Bob
      * @created 2015年7月6日 下午2:01:01
      */
-    public static AjaxResults<?> failed() {
-        return new AjaxResults<>(ResultCode.FAILED);
+    public static AjaxResults failed() {
+        return new AjaxResults(ResultCode.FAILED);
     }
 
     public int getCode() {
@@ -100,11 +99,11 @@ public class AjaxResults<T> {
         this.msg = msg;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
