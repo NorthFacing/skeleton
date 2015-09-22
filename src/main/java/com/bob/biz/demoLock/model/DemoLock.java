@@ -1,5 +1,7 @@
 package com.bob.biz.demoLock.model;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+
 import com.bob.core.base.model.BaseModel;
 
 /**
@@ -25,15 +27,6 @@ public class DemoLock extends BaseModel {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("DemoLock");
-        sb.append(" [ ");
-        sb.append("id=").append(this.id).append(", ");
-        sb.append("brand=").append(this.brand).append(", ");
-        sb.append("createTime=").append(this.createTime).append(", ");
-        sb.append("createUser=").append(this.createUser).append(", ");
-        sb.append("updateTime=").append(this.updateTime).append(", ");
-        sb.append("updateUser=").append(this.updateUser);
-        sb.append(" ]");
-        return sb.toString();
+        return ReflectionToStringBuilder.toString(this);
     }
 }

@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+
 import com.bob.core.contants.Constants;
 
 public class BaseModel {
@@ -146,23 +148,7 @@ public class BaseModel {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("DemoModel");
-        sb.append(" [ ");
-        sb.append("id=").append(this.id).append(", ");
-        sb.append("sidx=").append(this.sidx).append(", ");
-        sb.append("sord=").append(this.sord).append(", ");
-        sb.append("rows=").append(this.rows).append(", ");
-        sb.append("page=").append(this.page).append(", ");
-        sb.append("createUser=").append(this.createUser).append(", ");
-        sb.append("createTime=").append(this.createTime).append(", ");
-        sb.append("updateUser=").append(this.updateUser).append(", ");
-        sb.append("updateTime=").append(this.updateTime).append(", ");
-        sb.append("createTimeStart=").append(this.createTimeStart).append(", ");
-        sb.append("createTimeEnd=").append(this.createTimeEnd).append(", ");
-        sb.append("updateTimeStart=").append(this.updateTimeStart).append(", ");
-        sb.append("updateTimeEnd=").append(this.updateTimeEnd).append(", ");
-        sb.append(" ]");
-        return sb.toString();
+        return ReflectionToStringBuilder.toString(this);
     }
 
 }
