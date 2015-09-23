@@ -22,6 +22,8 @@
 		<cglib.version>2.2.2</cglib.version>
 		<!-- persistence-api -->
 		<persistence-api.version>1.0</persistence-api.version>
+		<!-- shiro -->
+		<shiro.version>1.2.4</shiro.version>
 		<!-- mysql -->
 		<mysql.connection.version>5.1.35</mysql.connection.version>
 		<!-- druid -->
@@ -44,7 +46,7 @@
 		<junit.version>4.12</junit.version>
 		<mockito.version>1.10.19</mockito.version>
 		<!-- maven -->
-		<maven.compiler.version>3.3</maven.compiler.version>
+		<maven.compiler.version>2.5.1</maven.compiler.version>
 		<!-- JDK -->
 		<java.version>1.8</java.version>
 		<!-- server -->
@@ -170,6 +172,18 @@
 			<version>${persistence-api.version}</version>
 		</dependency>
 		<!-- persistence-api end -->
+		<!-- shiro start -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<!-- shiro end -->
 		<!-- jdbc start -->
 		<dependency>
 			<groupId>mysql</groupId>
