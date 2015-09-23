@@ -8,6 +8,7 @@
 	<name>Bob</name>
 	<url>stepByMe.com</url>
 	<properties>
+		<jedis.version>2.7.3</jedis.version>
 		<!-- spring -->
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<!-- hibernate.validate -->
@@ -62,6 +63,17 @@
 		<port>8086</port>
 	</properties>
 	<dependencies>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>1.6.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+	
 		<!-- Spring start -->
 		<dependency>
 			<groupId>org.springframework</groupId>

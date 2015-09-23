@@ -49,7 +49,6 @@
 			</array>
 		</property>
 	</bean>
-
 	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.bob.biz.*.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
@@ -61,14 +60,33 @@
 			</value>
 		</property>
 	</bean>
-
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+
+	<!-- redis config start -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+		<property name="testOnReturn" value="${redis.testOnReturn}" />
+	</bean>
+	<bean id="connectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"
+		p:pool-config-ref="poolConfig" />
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean>
+	<bean id="cacheService" class="com.yuantu.cache.redis.RedisCacheService">
+		<property name="prefix" value="usercenter" />
+		<property name="redisTemplate" ref="redisTemplate" />
+	</bean>
+	<!-- redis config end -->
+
 
 </beans>
