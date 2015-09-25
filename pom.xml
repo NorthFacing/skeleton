@@ -10,7 +10,7 @@
 	<properties>
 		<jedis.version>2.7.3</jedis.version>
 		<!-- spring -->
-		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring.version>4.1.7.RELEASE</spring.version>
 		<!-- hibernate.validate -->
 		<hibernate.validate>5.1.3.Final</hibernate.validate>
 		<!-- mybatis -->
@@ -390,26 +390,26 @@
 				</configuration>
 			</plugin>
 			<!-- jetty 插件 -->
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${maven.jetty.version}</version>
-				<configuration>
-					<webApp>
-						<contextPath>/${project.artifactId}</contextPath>
-					</webApp>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>${port}</port>
-						</connector>
-					</connectors>
-					<scanTargets>
-						<scanTarget>target/classes/</scanTarget>
-					</scanTargets>
-					<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
-					<scanIntervalSeconds>2</scanIntervalSeconds>
-				</configuration>
-			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>org.mortbay.jetty</groupId>-->
+				<!--<artifactId>jetty-maven-plugin</artifactId>-->
+				<!--<version>${maven.jetty.version}</version>-->
+				<!--<configuration>-->
+					<!--<webApp>-->
+						<!--<contextPath>/${project.artifactId}</contextPath>-->
+					<!--</webApp>-->
+					<!--<connectors>-->
+						<!--<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">-->
+							<!--<port>${port}</port>-->
+						<!--</connector>-->
+					<!--</connectors>-->
+					<!--<scanTargets>-->
+						<!--<scanTarget>target/classes/</scanTarget>-->
+					<!--</scanTargets>-->
+					<!--<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>-->
+					<!--<scanIntervalSeconds>2</scanIntervalSeconds>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 </project>

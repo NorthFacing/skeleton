@@ -1,6 +1,7 @@
 /target/
 /.settings/
 /bin/
+/*.iml
 .classpath
 .project
 *.log
