@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bob.biz.demoKey.dao.DemoKeyMapper">
+
+	<resultMap id="BaseResultMap" type="com.bob.biz.demoKey.model.DemoKey">
+		<result column="id" property="id" />
+		<result column="lock_id" property="lockId" />
+		<result column="brand" property="brand" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<resultMap id="VoResultMap" type="com.bob.biz.demoKey.model.DemoKeyVo"
+		extends="BaseResultMap">
+		<association column="lock_id" property="demoLock"
+			select="com.bob.biz.demoLock.dao.DemoLockMapper.getById" />
+	</resultMap>
+
+	<sql id="tabaleName">demo_key as t</sql>
+
+	<sql id="baseColumn">
+		t.id,
+		t.lock_id,
+		t.brand,
+		t.create_time,
+		t.create_user,
+		t.update_time,
+		t.update_user
+	</sql>
+
+	<sql id="whereCondition">
+		<where>
+			<if test=" lockId !=null and lockId !='' ">
+				and t.lock_id = #{lockId}
+			</if>
+			<if test=" brand !=null and brand !='' ">
+				and t.brand like '%${brand}%'
+			</if>
+		</where>
+	</sql>
+
+	<sql id="baseSelect">
+		select
+		<include refid="baseColumn" />
+		from
+		<include refid="tabaleName" />
+	</sql>
+
+	<select id="getVoById" parameterType="java.lang.String"
+		resultMap="VoResultMap">
+		<include refid="baseSelect" />
+		where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.bob.biz.demoKey.model.DemoKeyVo"
+		resultMap="BaseResultMap">
+		<include refid="baseSelect" />
+		<include refid="whereCondition" />
+	</select>
+
+	<select id="getListByLockId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		<include refid="baseSelect" />
+		where lock_id = #{lockId}
+	</select>
+
+	<select id="getVoList" parameterType="com.bob.biz.demoKey.model.DemoKeyVo"
+		resultMap="VoResultMap">
+		<include refid="baseSelect" />
+		<include refid="whereCondition" />
+	</select>
+
+</mapper>
