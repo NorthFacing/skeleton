@@ -3,7 +3,7 @@ package com.bob.modules.organization.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bob.modules.organization.mapper.OrganizationMapper;
+import com.bob.modules.organization.dao.OrganizationMapper;
 import com.bob.modules.organization.model.Organization;
 import com.bob.modules.organization.model.OrganizationVo;
 import com.bob.modules.organization.service.OrganizationService;
