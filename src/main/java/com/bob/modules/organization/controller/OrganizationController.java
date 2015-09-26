@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.AjaxResults;
+import com.bob.core.utils.Results;
 import com.bob.modules.organization.model.Organization;
 import com.bob.modules.organization.model.OrganizationVo;
 import com.bob.modules.organization.service.OrganizationService;
@@ -32,21 +32,21 @@ public class OrganizationController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/organization/edit", method = RequestMethod.POST)
-    public AjaxResults edit(@Validated Organization organization) {
+    public Results edit(@Validated Organization organization) {
         organizationService.save(organization);
-        return AjaxResults.success();
+        return Results.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/getById", method = RequestMethod.GET)
-    public AjaxResults getById(String id) {
-        return new AjaxResults(organizationService.getById(id));
+    public Results getById(String id) {
+        return new Results(organizationService.getById(id));
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/getCodeByParentId", method = RequestMethod.GET)
-    public AjaxResults getCodeByParentId(String parentId) {
-        return new AjaxResults(organizationService.getCodeByParentId(parentId));
+    public Results getCodeByParentId(String parentId) {
+        return new Results(organizationService.getCodeByParentId(parentId));
     }
 
     @RequestMapping(value = "/organization/listHtml", method = RequestMethod.GET)
@@ -56,24 +56,24 @@ public class OrganizationController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/organization/getPage", method = RequestMethod.POST)
-    public AjaxResults getPage(OrganizationVo organizationVo) {
+    public Results getPage(OrganizationVo organizationVo) {
         PageInfo<Organization> pageInfo = organizationService.getPage(organizationVo.getPage(),
             organizationVo.getRows(), organizationVo);
-        return new AjaxResults(pageInfo);
+        return new Results(pageInfo);
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/getList", method = RequestMethod.POST)
-    public AjaxResults getList(OrganizationVo organizationVo) {
+    public Results getList(OrganizationVo organizationVo) {
         List<Organization> list = organizationService.getList(organizationVo);
-        return new AjaxResults(list);
+        return new Results(list);
     }
 
     @ResponseBody
     @RequestMapping(value = "/organization/delById", method = RequestMethod.POST)
-    public AjaxResults delById(String id) {
+    public Results delById(String id) {
         organizationService.delById(id);
-        return AjaxResults.success();
+        return Results.success();
     }
 
 }

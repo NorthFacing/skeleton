@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.AjaxResults;
+import com.bob.core.utils.Results;
 import com.bob.modules.user.model.User;
 import com.bob.modules.user.model.UserVo;
 import com.bob.modules.user.service.UserService;
@@ -30,15 +30,15 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
-    public AjaxResults edit(@Validated User user) {
+    public Results edit(@Validated User user) {
         userService.save(user);
-        return AjaxResults.success();
+        return Results.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/getById", method = RequestMethod.GET)
-    public AjaxResults getById(String id) {
-        return new AjaxResults(userService.getById(id));
+    public Results getById(String id) {
+        return new Results(userService.getById(id));
     }
 
     @RequestMapping(value = "/user/listHtml", method = RequestMethod.GET)
@@ -48,15 +48,15 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/user/getList", method = RequestMethod.POST)
-    public AjaxResults getList(UserVo userVo) {
-        return new AjaxResults(userService.getList(userVo));
+    public Results getList(UserVo userVo) {
+        return new Results(userService.getList(userVo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/getPage", method = RequestMethod.POST)
-    public AjaxResults getPage(UserVo userVo) {
+    public Results getPage(UserVo userVo) {
         PageInfo<User> pageInfo = userService.getPage(userVo.getPage(), userVo.getRows(), userVo);
-        return new AjaxResults(pageInfo);
+        return new Results(pageInfo);
     }
 
 }

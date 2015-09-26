@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.AjaxResults;
+import com.bob.core.utils.Results;
 import com.bob.biz.demoLock.model.DemoLock;
 import com.bob.biz.demoLock.model.DemoLockVo;
 import com.bob.biz.demoLock.service.DemoLockService;
@@ -30,15 +30,15 @@ public class DemoLockController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/save", method = RequestMethod.POST)
-    public AjaxResults save(@Validated DemoLock demoLock) {
+    public Results save(@Validated DemoLock demoLock) {
         demoLockService.save(demoLock);
-        return AjaxResults.success();
+        return Results.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoById", method = RequestMethod.GET)
-    public AjaxResults getById(String id) {
-        return new AjaxResults(demoLockService.getVoById(id));
+    public Results getById(String id) {
+        return new Results(demoLockService.getVoById(id));
     }
 
     @RequestMapping(value = "/demoLock/listHtml", method = RequestMethod.GET)
@@ -48,16 +48,16 @@ public class DemoLockController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoList", method = RequestMethod.GET)
-    public AjaxResults getList(DemoLockVo demoLockVo) {
-        return new AjaxResults(demoLockService.getVoList(demoLockVo));
+    public Results getList(DemoLockVo demoLockVo) {
+        return new Results(demoLockService.getVoList(demoLockVo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoPage", method = RequestMethod.GET)
-    public AjaxResults getPage(DemoLockVo demoLockVo) {
+    public Results getPage(DemoLockVo demoLockVo) {
         PageInfo<DemoLockVo> pageInfo = demoLockService.getVoPage(demoLockVo.getPage(), demoLockVo.getRows(),
             demoLockVo);
-        return new AjaxResults(pageInfo);
+        return new Results(pageInfo);
     }
 
 }

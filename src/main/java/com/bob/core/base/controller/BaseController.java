@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bob.core.utils.AjaxResults;
+import com.bob.core.utils.Results;
 import com.bob.core.utils.ServletUtils;
 
 /**
@@ -30,16 +30,16 @@ public class BaseController {
      * @throws IOException 
      * @created 2015年7月3日 下午11:54:10
      */
-    public AjaxResults handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
+    public Results handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
         if (e instanceof IllegalArgumentException) {
             LOG.error(e.getMessage());
             if (ServletUtils.isAjax(request)) {
-                return new AjaxResults(404, "参数不合法！");
+                return new Results(404, "参数不合法！");
             }else{
                 response.sendRedirect("/");
             }
         }
-        return new AjaxResults("程序出错！");
+        return new Results("程序出错！");
     }
 
 }
