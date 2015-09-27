@@ -1,8 +1,8 @@
-package com.bob.modules.organization.mapper;
+package com.bob.modules.organization.dao;
 
 import com.bob.modules.organization.model.Organization;
 import com.bob.modules.organization.model.OrganizationVo;
-import com.bob.core.base.mapper.BaseMapper;
+import com.bob.core.base.dao.BaseMapper;
 
 /**
  * organizationMapper

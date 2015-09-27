@@ -1,8 +1,8 @@
-package com.bob.modules.user.mapper;
+package com.bob.modules.user.dao;
 
 import com.bob.modules.user.model.User;
 import com.bob.modules.user.model.UserVo;
-import com.bob.core.base.mapper.BaseMapper;
+import com.bob.core.base.dao.BaseMapper;
 
 /**
  * userMapper

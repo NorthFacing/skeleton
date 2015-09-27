@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.bob.core.base.mapper.BaseMapper;
+import com.bob.core.base.dao.BaseMapper;
 import com.bob.core.base.model.BaseModel;
 import com.bob.core.base.service.BaseService;
 

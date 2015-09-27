@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.bob.modules.user.mapper.UserMapper">
+<mapper namespace="com.bob.modules.user.dao.UserMapper">
 	<resultMap id="BaseResultMap" type="com.bob.modules.user.model.User">
 		<result column="id" property="id" />
 		<result column="org_id" property="orgId" />

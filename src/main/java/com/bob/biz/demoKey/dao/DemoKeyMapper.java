@@ -1,8 +1,8 @@
-package com.bob.biz.demoKey.mapper;
+package com.bob.biz.demoKey.dao;
 
 import com.bob.biz.demoKey.model.DemoKey;
 import com.bob.biz.demoKey.model.DemoKeyVo;
-import com.bob.core.base.mapper.BaseMapper;
+import com.bob.core.base.dao.BaseMapper;
 
 /**
  * DemoKeyMapper

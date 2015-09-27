@@ -1,8 +1,8 @@
-package com.bob.biz.demoLock.mapper;
+package com.bob.biz.demoLock.dao;
 
 import com.bob.biz.demoLock.model.DemoLock;
 import com.bob.biz.demoLock.model.DemoLockVo;
-import com.bob.core.base.mapper.BaseMapper;
+import com.bob.core.base.dao.BaseMapper;
 
 /**
  * DemoLockMapper

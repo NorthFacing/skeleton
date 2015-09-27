@@ -35,7 +35,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="typeAliasesPackage" value="com.bob.biz.*.model"/>
-        <property name="mapperLocations" value="classpath*:com/bob/biz/**/mapper/*Mapper.xml"></property>
+        <property name="mapperLocations" value="classpath*:com/bob/biz/**/dao/*Mapper.xml"></property>
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageHelper">
