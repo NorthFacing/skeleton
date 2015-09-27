@@ -5,7 +5,6 @@
 	<artifactId>blog4j</artifactId>
 	<packaging>war</packaging>
 	<version>0.1-SNAPSHOT</version>
-	<name>Bob</name>
 	<url>stepByMe.com</url>
 	<properties>
 		<jedis.version>2.7.3</jedis.version>
