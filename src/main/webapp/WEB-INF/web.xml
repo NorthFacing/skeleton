@@ -40,6 +40,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring-admin</servlet-name>
+		<!-- TODO 确认一下url-pattern中的/和/*的区别 -->
 		<url-pattern>/admin/*</url-pattern>
 	</servlet-mapping>
 	<servlet>

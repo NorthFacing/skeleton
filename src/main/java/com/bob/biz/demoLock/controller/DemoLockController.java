@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.Results;
+import com.bob.core.utils.Result;
 import com.bob.biz.demoLock.model.DemoLock;
 import com.bob.biz.demoLock.model.DemoLockVo;
 import com.bob.biz.demoLock.service.DemoLockService;
 
 /**
  * DemoLockController
- * 
- * @since v0.0.1
+ *
  * @author Bob
  * @Date 2015-9-11 14:54:56
+ * @since v0.0.1
  */
 @Controller
 public class DemoLockController extends BaseController {
@@ -30,15 +30,15 @@ public class DemoLockController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/save", method = RequestMethod.POST)
-    public Results save(@Validated DemoLock demoLock) {
+    public Result save(@Validated DemoLock demoLock) {
         demoLockService.save(demoLock);
-        return Results.success();
+        return Result.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoById", method = RequestMethod.GET)
-    public Results getById(String id) {
-        return new Results(demoLockService.getVoById(id));
+    public Result getById(String id) {
+        return Result.success(demoLockService.getVoById(id));
     }
 
     @RequestMapping(value = "/demoLock/listHtml", method = RequestMethod.GET)
@@ -48,16 +48,16 @@ public class DemoLockController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoList", method = RequestMethod.GET)
-    public Results getList(DemoLockVo demoLockVo) {
-        return new Results(demoLockService.getVoList(demoLockVo));
+    public Result getList(DemoLockVo demoLockVo) {
+        return Result.success(demoLockService.getVoList(demoLockVo));
     }
 
     @ResponseBody
     @RequestMapping(value = "/demoLock/getVoPage", method = RequestMethod.GET)
-    public Results getPage(DemoLockVo demoLockVo) {
+    public Result getPage(DemoLockVo demoLockVo) {
         PageInfo<DemoLockVo> pageInfo = demoLockService.getVoPage(demoLockVo.getPage(), demoLockVo.getRows(),
-            demoLockVo);
-        return new Results(pageInfo);
+                demoLockVo);
+        return Result.success(pageInfo);
     }
 
 }
