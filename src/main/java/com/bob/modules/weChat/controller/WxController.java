@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.contants.Config;
+import com.bob.core.contants.WxConfig;
 import com.bob.modules.weChat.utils.WxUtil;
 
 /**
@@ -33,8 +33,8 @@ public class WxController extends BaseController {
     @RequestMapping(value = "/item/home", method = { RequestMethod.GET })
     public void home(Model model, HttpServletRequest request, HttpServletResponse response) {
         try {
-            response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.appId
-                + "&redirect_uri=" + Config.wxUrl + "/cus/item/home.html"
+            response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.appId
+                + "&redirect_uri=" + WxConfig.wxRedirectUrl + "/cus/item/home.html"
                 + "&response_type=code&scope=snsapi_base&state=getOpenId#wechat_redirect");
         } catch (IOException e) {
             LOG.error("获取openId出错：\n" + e);

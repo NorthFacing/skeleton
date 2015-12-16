@@ -351,6 +351,7 @@
         </dependency>
     </dependencies>
 
+    <!--多环境配置-->
     <profiles>
         <profile>
             <id>dev</id>
@@ -359,21 +360,18 @@
             </activation>
             <properties>
                 <runtime.name>dev</runtime.name>
-                <runtime.env>src/main/resources/runtime-env</runtime.env>
             </properties>
         </profile>
         <profile>
             <id>test</id>
             <properties>
                 <runtime.name>test</runtime.name>
-                <runtime.env>src/main/resources/runtime-env</runtime.env>
             </properties>
         </profile>
         <profile>
             <id>pro</id>
             <properties>
                 <runtime.name>pro</runtime.name>
-                <runtime.env>src/main/resources/runtime-env</runtime.env>
             </properties>
         </profile>
     </profiles>
@@ -382,13 +380,16 @@
         <finalName>${project.artifactId}</finalName>
         <directory>target</directory>
         <filters>
-            <filter>src/main/resources/runtime-env/${runtime.name}.properties</filter>
+            <filter>src/main/resources/runtime-env/dev.properties</filter>
         </filters>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <!-- 拷贝资源文件 -->
             <resource>
                 <directory>src/main/resources</directory>
+                <!--必须配置此属性，才能将多环境变量赋值到db.properties-->
+                <filtering>true</filtering>
+                <!--剔除多环境配置的配置文件，所需参数已经赋值到db.properties，此文件不再需要-->
                 <excludes>
                     <exclude>runtime-env/**</exclude>
                 </excludes>

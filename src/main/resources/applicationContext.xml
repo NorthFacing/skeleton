@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-4.1.xsd
-	http://www.springframework.org/schema/aop
-	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-	<!-- <context:property-placeholder location="classpath:config.${env}.properties" /> -->
-	<context:property-placeholder location="classpath:runtime-env/dev.properties" />
+    <context:property-placeholder location="classpath:config.properties"/>
 
-	<context:component-scan base-package="com.bob.biz.*.service" />
+    <context:component-scan base-package="com.bob.biz.*.service"/>
 
-	<bean class="com.bob.core.contants.Config">
-		<property name="wxUrl" value="${wxUrl}" />
-		<property name="appId" value="${appId}" />
-	</bean>
-
+    <!--配置常量初始化(另外一种初始化赋值的方法是在ApplicationListener中执行property读取配置文件，手动解析)-->
+    <bean class="com.bob.core.contants.WxConfig">
+        <property name="appId" value="${wx.appId}"/>
+    </bean>
+    <bean class="com.bob.core.contants.AliConfig">
+    </bean>
+    <bean class="com.bob.core.contants.BizConfig">
+        <property name="appDomain" value="${sys.appDomain}"/>
+    </bean>
 </beans>

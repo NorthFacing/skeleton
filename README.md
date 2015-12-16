@@ -1,4 +1,10 @@
-#skeleton
+# skeleton
+* Spring MVC + myBatis
+* jqGrid
+* jQuery
+* zTree
+* 多环境配置
+
 
 # 项目结构
 
