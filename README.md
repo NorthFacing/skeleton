@@ -1,4 +1,4 @@
-#blog4j
+#skeleton
 
 # 命名规范  
 
