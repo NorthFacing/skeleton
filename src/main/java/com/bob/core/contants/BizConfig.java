@@ -9,4 +9,11 @@ public class BizConfig {
 
     public static String appDomain;
 
+    public static String getAppDomain() {
+        return appDomain;
+    }
+
+    public static void setAppDomain(String appDomain) {
+        BizConfig.appDomain = appDomain;
+    }
 }

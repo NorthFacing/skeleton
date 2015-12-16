@@ -1,70 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-4.1.xsd
-	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
-	http://www.springframework.org/schema/aop
-	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd ">
 
-	<!-- Enable transaction demarcation with annotations -->
-	<tx:annotation-driven />
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-	<aop:aspectj-autoproxy proxy-target-class="false" />
+    <!-- 事务控制开始 -->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="append*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="modify*" propagation="REQUIRED"/>
+            <tx:method name="edit*" propagation="REQUIRED"/>
+            <tx:method name="del*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="remove*" propagation="REQUIRED"/>
+            <tx:method name="repair" propagation="REQUIRED"/>
+            <tx:method name="delAndRepair" propagation="REQUIRED"/>
 
-	<!-- 事务控制开始 -->
-	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="append*" propagation="REQUIRED" />
-			<tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="modify*" propagation="REQUIRED" />
-			<tx:method name="edit*" propagation="REQUIRED" />
-			<tx:method name="del*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="remove*" propagation="REQUIRED" />
-			<tx:method name="repair" propagation="REQUIRED" />
-			<tx:method name="delAndRepair" propagation="REQUIRED" />
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="load*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="search*" propagation="SUPPORTS" read-only="true"/>
 
-			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="load*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="search*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
 
-			<tx:method name="*" propagation="SUPPORTS" />
-		</tx:attributes>
-	</tx:advice>
-	<aop:config>
-		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.bob..service.*Impl.*(..))" />
-		<aop:advisor pointcut-ref="transactionPointcut"
-			advice-ref="transactionAdvice" />
-	</aop:config>
-	<!-- 事务控制结束 -->
+    <aop:config>
+        <aop:pointcut id="transactionPointcut"
+                      expression="execution(* com.bob..service.*Impl.*(..))"/>
+        <aop:advisor pointcut-ref="transactionPointcut"
+                     advice-ref="transactionAdvice"/>
+    </aop:config>
+    <!-- 事务控制结束 -->
 
-	<!-- CCUU 开始 -->
-	<!-- ICCUU：id,createTime,createUser,updateTime,udpateUser -->
-	<bean id="operationAspect" class="com.bob.core.interceptor.CcuuAspect" />
-	<aop:config>
-		<aop:aspect ref="operationAspect">
-			<aop:pointcut
-				expression="(execution(* com.bob..mapper.*Mapper.insert*(..))) or (execution (* tk.mybatis.mapper..*Mapper.insert*(..)))"
-				id="addOperation" />
-			<aop:before pointcut-ref="addOperation" method="insert" />
-		</aop:aspect>
-		<aop:aspect ref="operationAspect">
-			<aop:pointcut id="updateOperation"
-				expression="(execution(* com.bob..mapper.*Mapper.update*(..))) or (execution (* tk.mybatis.mapper..*Mapper.update*(..)))" />
-			<aop:before pointcut-ref="updateOperation" method="update" />
-		</aop:aspect>
-	</aop:config>
-	<!-- CCUU 结束 -->
+    <!-- CCUU 开始 -->
+    <!-- ICCUU：id,createTime,createUser,updateTime,udpateUser -->
+    <bean id="operationAspect" class="com.bob.core.interceptor.CcuuAspect"/>
+    <aop:config>
+        <aop:aspect ref="operationAspect">
+            <aop:pointcut
+                    expression="(execution(* com.bob..mapper.*Mapper.insert*(..))) or (execution (* tk.mybatis.mapper..*Mapper.insert*(..)))"
+                    id="addOperation"/>
+            <aop:before pointcut-ref="addOperation" method="insert"/>
+        </aop:aspect>
+        <aop:aspect ref="operationAspect">
+            <aop:pointcut id="updateOperation"
+                          expression="(execution(* com.bob..mapper.*Mapper.update*(..))) or (execution (* tk.mybatis.mapper..*Mapper.update*(..)))"/>
+            <aop:before pointcut-ref="updateOperation" method="update"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- CCUU 结束 -->
 
 </beans>
