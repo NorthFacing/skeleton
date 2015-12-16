@@ -1,11 +1,12 @@
 package com.bob.core.interceptor;
 
-import java.time.LocalDateTime;
+
+import com.bob.core.base.entity.BaseEntity;
+import com.bob.core.utils.UuidUtil;
 
 import org.aspectj.lang.JoinPoint;
 
-import com.bob.core.base.model.BaseModel;
-import com.bob.core.utils.UuidUtil;
+import java.time.LocalDateTime;
 
 /**
  * 新增/修改 自动补充用户和时间字段
@@ -18,8 +19,8 @@ public class CcuuAspect {
 
     public void insert(JoinPoint jp) {
         Object obj = jp.getArgs()[0];
-        if (obj instanceof BaseModel) {
-            BaseModel model = (BaseModel) obj;
+        if (obj instanceof BaseEntity) {
+            BaseEntity model = (BaseEntity) obj;
             model.setId(UuidUtil.uuid());
             model.setCreateTime(LocalDateTime.now());
             model.setCreateUser("TODO-ADD");
@@ -30,8 +31,8 @@ public class CcuuAspect {
 
     public void update(JoinPoint jp) {
         Object obj = jp.getArgs()[0];
-        if (obj instanceof BaseModel) {
-            BaseModel model = (BaseModel) obj;
+        if (obj instanceof BaseEntity) {
+            BaseEntity model = (BaseEntity) obj;
             model.setUpdateTime(LocalDateTime.now());
             model.setUpdateUser("TODO-UPDATE");
         }
