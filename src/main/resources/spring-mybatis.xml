@@ -29,31 +29,14 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="typeAliasesPackage" value="com.bob.biz.*.model"/>
-        <property name="mapperLocations" value="classpath*:com/bob/biz/**/dao/*Mapper.xml"></property>
-        <property name="plugins">
-            <array>
-                <bean class="com.github.pagehelper.PageHelper">
-                    <property name="properties">
-                        <value>
-                            dialect=mysql
-                            reasonable=true
-                        </value>
-                    </property>
-                </bean>
-            </array>
-        </property>
+        <property name="mapperLocations" value="classpath*:com/bob/**/mapper/*Mapper.xml"></property>
     </bean>
-    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.bob.biz.*.mapper"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <property name="properties">
-            <value>
-                mappers=tk.mybatis.mapper.common.Mapper
-                IDENTITY=MYSQL
-                notEmpty=true
-            </value>
-        </property>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bob.*.*.mapper" />
+        <!-- optional unless there are multiple session factories defined -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
+
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>

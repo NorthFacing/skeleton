@@ -14,21 +14,26 @@
 # 命名规则
 
 ## 新增
-* save(model)
-* add(model);
-* addList(List<model>)
+* save()
+* insert()
+* addList()
 
 ## 查询
-* getById(id);
-* getList(vo);
-* getPage(vo);
+* getById()
+* getVoById()
+* getList()
+* getVoList()
+* getPage()
+* getVoPage()
 
 ## 修改
-* save(model)
-* update(model);
+* save()
+* update()
+* upadteList()
 
 ## 删除
-* delById(id);
+* delById()
+* delByIds()
 
 ## 页面跳转
 * list

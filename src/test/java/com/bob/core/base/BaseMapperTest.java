@@ -1,7 +1,5 @@
 package com.bob.core.base;
 
-import junit.framework.TestCase;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
@@ -17,15 +16,18 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Created by Bob on 2015/12/17.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration("src/main/webapp")
-@ContextConfiguration(locations = { "/applicationContext.xml", "/spring-mybatis.xml", "/aop.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class })
+@ContextConfiguration(locations = {"/applicationContext.xml", "/spring-mybatis.xml", "/aop.xml"})
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-public class BaseServiceTest extends TestCase {
+public abstract class BaseMapperTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BaseServiceTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BaseMapperTest.class);
 
     @BeforeClass
     public static void start() {
@@ -33,7 +35,7 @@ public class BaseServiceTest extends TestCase {
     }
 
     @Test
-    public void test(){
+    public void test() {
         System.out.println();
     }
 
@@ -41,4 +43,5 @@ public class BaseServiceTest extends TestCase {
     public static void end() {
         System.out.println("=====================  end  =======================");
     }
+
 }
