@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.bob.core.base.entity.BaseEntity;
 
-import tk.mybatis.mapper.common.Mapper;
+public interface BaseMapper<E extends BaseEntity, VO> {
 
-public interface BaseMapper<E extends BaseEntity, VO> extends Mapper<E> {
+    E getById(String id);
 
     VO getVoById(String id);
 
     List<E> getList(VO modelVo);
 
     List<VO> getVoList(VO modelVo);
+
+
 
 }
