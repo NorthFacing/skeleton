@@ -18,7 +18,7 @@ public class UuidUtil {
      * @author Bob
      * @created 2015年7月4日 下午1:13:28
      */
-    public static String uuid() {
+    public static String getId() {
         return UUID.randomUUID().toString().toUpperCase().replace("-", "");
     }
 }
