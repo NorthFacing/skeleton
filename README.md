@@ -60,3 +60,9 @@
 
 # 碎碎念
 * 所有的设计模式，都是对语言缺陷的补救措施
+
+
+Preference:
+* [CGLIB](http://www.inspire-software.com/en/index/view/spring-dilema-jdk-proxy-or-cglib-proxy.html)
+* [spring aop proxing](http://docs.spring.io/spring/docs/2.5.x/reference/aop.html#aop-proxying)
+* [CGLIB 和 JDK proxy区别](https://www.google.com/#newwindow=1&q=cglib+jdk+%E5%8C%BA%E5%88%AB)

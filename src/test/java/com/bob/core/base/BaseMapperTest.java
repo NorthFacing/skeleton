@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = {"/applicationContext.xml", "/spring-mybatis.xml", "/aop.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 public abstract class BaseMapperTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(BaseMapperTest.class);

@@ -7,6 +7,8 @@
     <version>0.1-SNAPSHOT</version>
     <url>stepByMe.com</url>
     <properties>
+        <!-- redis -->
+        <spring.redis.version>1.6.0.RELEASE</spring.redis.version>
         <jedis.version>2.7.3</jedis.version>
         <!-- spring -->
         <spring.version>4.1.7.RELEASE</spring.version>
@@ -15,9 +17,9 @@
         <!-- mybatis -->
         <mybatis.version>3.2.8</mybatis.version>
         <!-- pageHelper -->
-        <pageHelper.version>3.4.1</pageHelper.version>
+        <!--<pageHelper.version>3.4.1</pageHelper.version>-->
         <!-- mapper -->
-        <mapper.version>3.2.1</mapper.version>
+        <!--<mapper.version>3.2.1</mapper.version>-->
         <!-- cglib -->
         <cglib.version>2.2.2</cglib.version>
         <!-- persistence-api -->
@@ -65,7 +67,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <version>1.6.0.RELEASE</version>
+            <version>${spring.redis.version}</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
@@ -156,18 +158,18 @@
             <version>1.2.2</version>
         </dependency>
         <!-- pageHelper -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>${pageHelper.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.github.pagehelper</groupId>-->
+            <!--<artifactId>pagehelper</artifactId>-->
+            <!--<version>${pageHelper.version}</version>-->
+        <!--</dependency>-->
         <!-- myBatis end -->
         <!-- 通用Mapper start -->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper</artifactId>
-            <version>${mapper.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>tk.mybatis</groupId>-->
+            <!--<artifactId>mapper</artifactId>-->
+            <!--<version>${mapper.version}</version>-->
+        <!--</dependency>-->
         <!-- 通用Mapper end -->
         <!-- cglib start -->
         <dependency>
@@ -392,6 +394,7 @@
                 <!--剔除多环境配置的配置文件，所需参数已经赋值到db.properties，此文件不再需要-->
                 <excludes>
                     <exclude>runtime-env/**</exclude>
+                    <exclude>log4j.xml</exclude>
                 </excludes>
             </resource>
             <!-- 拷贝Mapper.xml文件 -->

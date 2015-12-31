@@ -3,12 +3,17 @@ package com.bob.core.base.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
-import com.bob.core.contants.Constants;
+import javax.persistence.Id;
+
+/**
+ * 备用注解
+ */
+//import javax.persistence.Column;        // @Column
+//import javax.persistence.Id;            // @Id
+//import javax.persistence.Table;         // @Table
+//import javax.persistence.Transient;     // @Transient
 
 public class BaseEntity implements Serializable {
 

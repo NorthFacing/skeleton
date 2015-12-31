@@ -1,7 +1,6 @@
 package com.bob.core.utils.myBatis;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.jdbc.SelectBuilder;
 
 import java.util.Map;
 
@@ -22,45 +21,47 @@ import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
  */
 public class CRUDTemplate {
 
+    /**
+     * 新增插入方法
+     * <p>
+     * 使用范例:
+     * //    @InsertProvider(type = CRUDTemplate.class, method = "insert")
+     * //    @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = false)  // 使用的UUID，不需要自增主键
+     *
+     * @param obj
+     * @return
+     * @throws Exception
+     */
     public String insert(Object obj) throws Exception {
         BEGIN();
-
         INSERT_INTO(EntityUtil.tablename(obj));
-
-        EntityUtil.caculationColumnList(obj);
-        VALUES(EntityUtil.returnInsertColumnsName(obj),
-                EntityUtil.returnInsertColumnsDefine(obj));
+        EntityUtil.caculatePropertyList(obj);
+        VALUES(EntityUtil.returnInsertColumnsName(obj), EntityUtil.returnInsertColumnsDefine(obj));
         return SQL();
     }
 
     public String update(Object obj) throws Exception {
-        String idname = EntityUtil.id(obj);
-
+        String idName = EntityUtil.getIdName(obj);
         BEGIN();
-
         UPDATE(EntityUtil.tablename(obj));
-        EntityUtil.caculationColumnList(obj);
+        EntityUtil.caculatePropertyList(obj);
         SET(EntityUtil.returnSetDefine(obj));
-        WHERE(idname + "=#{" + idname + "}");
-
+        WHERE(idName + "=#{" + idName + "}");
         return SQL();
     }
 
-     public String delete(Object obj) throws Exception {
-     String idname = EntityUtil.id(obj);
-
-     BEGIN();
-
-     DELETE_FROM(EntityUtil.tablename(obj));
-     WHERE(idname + "=#{" + idname + "}");
-
-     return SQL();
-     }
+    public String delete(Object obj) throws Exception {
+        String idname = EntityUtil.getIdName(obj);
+        BEGIN();
+        DELETE_FROM(EntityUtil.tablename(obj));
+        WHERE(idname + "=#{" + idname + "}");
+        return SQL();
+    }
 
     public String findByEq(Object obj) throws Exception {
         Map map = (Map) obj;
         Object entity = map.get("0");
-        EntityUtil.caculationColumnList(entity);
+        EntityUtil.caculatePropertyList(entity);
         BEGIN(); // Clears ThreadLocal variable
         SELECT(EntityUtil.returnSelectColumnsName(entity));
         FROM(EntityUtil.tablename(entity));
@@ -78,7 +79,7 @@ public class CRUDTemplate {
     public String findBy(Object obj) throws Exception {
 //        Map map = (Map) obj;
 //        Object entity = map.get("0");
-//        EntityUtil.caculationColumnList(entity);
+//        EntityUtil.caculatePropertyList(entity);
 //        SelectBuilder.BEGIN(); // Clears ThreadLocal variable
 //        SelectBuilder.SELECT(EntityUtil.returnSelectColumnsName(entity));
 //        SelectBuilder.FROM(EntityUtil.tablename(entity));
@@ -111,7 +112,7 @@ public class CRUDTemplate {
     public String count(Object obj) throws Exception {
 //        Map map = (Map) obj;
 //        Object entity = map.get("0");
-//        EntityUtil.caculationColumnList(entity);
+//        EntityUtil.caculatePropertyList(entity);
 //        SelectBuilder.BEGIN(); // Clears ThreadLocal variable
 //
 //        String idname = EntityUtil.id(entity);
@@ -130,15 +131,13 @@ public class CRUDTemplate {
     }
 
     public String get(Object obj) throws Exception {
-        EntityUtil.caculationColumnList(obj);
-        String idname = EntityUtil.id(obj);
-
+        EntityUtil.caculatePropertyList(obj);
+        String idName = EntityUtil.getIdName(obj);
         BEGIN();
         SELECT(EntityUtil.returnSelectColumnsName(obj));
-
         FROM(EntityUtil.tablename(obj));
-        WHERE(idname + "=#{" + idname + "}");
-        return SelectBuilder.SQL();
+        WHERE(idName + "=#{" + idName + "}");
+        return SQL();
     }
 
 }

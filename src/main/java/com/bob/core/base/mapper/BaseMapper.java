@@ -3,28 +3,30 @@ package com.bob.core.base.mapper;
 import java.util.List;
 
 import com.bob.core.base.entity.BaseEntity;
+import com.bob.core.utils.myBatis.CRUDTemplate;
 import com.bob.core.utils.page.BaseQuery;
+import org.apache.ibatis.annotations.InsertProvider;
 
 public interface BaseMapper<E extends BaseEntity, VO> {
 
-    // 模板
+    @InsertProvider(type = CRUDTemplate.class, method = "insert")
     void insert(E entity);
 
-    // 模板
+//    @InsertProvider(type = CRUDTemplate.class, method = "update")
     void update(E entity);
 
-    // 模板
     E getById(String id);
+
+    List<E> getList(Object obj);
+
+    List<E> getPage(BaseQuery query);
+
+
+    // 以下是需要在xml中自己实现的方法
 
     VO getVoById(String id);
 
-    // 模板
-    List<E> getList(Object obj);
-
     List<VO> getVoList(Object obj);
-
-    // 模板
-    List<E> getPage(BaseQuery query);
 
     List<VO> getVoPage(BaseQuery query);
 

@@ -10,7 +10,8 @@
             http://www.springframework.org/schema/aop
             http://www.springframework.org/schema/aop/spring-aop.xsd ">
 
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--proxy-target-class="true" 强制使用CGLIB代理 -->
+    <aop:aspectj-autoproxy />
 
     <!-- 事务控制开始 -->
     <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
@@ -52,13 +53,13 @@
     <aop:config>
         <aop:aspect ref="operationAspect">
             <aop:pointcut
-                    expression="(execution(* com.bob..mapper.*Mapper.insert*(..))) or (execution (* tk.mybatis.mapper..*Mapper.insert*(..)))"
+                    expression="(execution(* com.bob..mapper.*Mapper.insert*(..)))"
                     id="addOperation"/>
             <aop:before pointcut-ref="addOperation" method="insert"/>
         </aop:aspect>
         <aop:aspect ref="operationAspect">
             <aop:pointcut id="updateOperation"
-                          expression="(execution(* com.bob..mapper.*Mapper.update*(..))) or (execution (* tk.mybatis.mapper..*Mapper.update*(..)))"/>
+                          expression="(execution(* com.bob..mapper.*Mapper.update*(..)))"/>
             <aop:before pointcut-ref="updateOperation" method="update"/>
         </aop:aspect>
     </aop:config>
