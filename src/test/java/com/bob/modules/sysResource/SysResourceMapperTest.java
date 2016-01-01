@@ -38,7 +38,7 @@ public class SysResourceMapperTest extends BaseMapperTest {
         sysResourceMapper.insert(sysResource);
 
         SysResource select = sysResourceMapper.select(sysResource);
-//        Assert.assertNotNull(select);
+        Assert.assertNotNull(select);
         select = sysResourceMapper.select(new SysResource().setName("name"));
         Assert.assertNotNull(select);
         select = sysResourceMapper.select(new SysResource().setName("name2"));
