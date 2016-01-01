@@ -7,9 +7,6 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Id;
 
-/**
- * 备用注解
- */
 //import javax.persistence.Column;        // @Column
 //import javax.persistence.Id;            // @Id
 //import javax.persistence.Table;         // @Table

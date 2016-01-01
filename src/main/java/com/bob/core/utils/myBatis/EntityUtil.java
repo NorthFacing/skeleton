@@ -1,6 +1,7 @@
 package com.bob.core.utils.myBatis;
 
-import org.apache.commons.lang.StringUtils;
+import com.bob.core.utils.javaUtil.StringUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,23 +11,17 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.time.LocalDateTime;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.bob.core.base.entity.BaseEntity;
 
 /**
  * 解析POJO的类
@@ -37,9 +32,121 @@ public class EntityUtil {
 
     public static final Logger logger = LoggerFactory.getLogger(EntityUtil.class);
 
-    // 用于存放POJO的列信息
-    private static Map<Class, List<PropertyDescriptor>> propertyListMap = new HashMap<>();
-    private static Map<Class, PropertyDescriptor> primaryKeyMap = new HashMap<>();
+    private static Map<Class, TableEntity> tableMap = new HashMap<>();
+
+    public static void perpareTableEntity(Object obj) throws Exception {
+        if (null == obj) {
+            throw new Exception("To get tableName, POJO instance can not be null ! ");
+        }
+        if (tableMap.containsKey(obj.getClass())) {
+            return;
+        }
+        TableEntity tableEntity = new TableEntity();
+        // 解析表名称
+        tableEntity.setTableName(prepareTableName(obj));
+        // 解析出所有有效的field
+        tableEntity.setFieldList(prepareFields(obj, null));
+        // 根据有效Field，拼装全量字段字符串
+        prepareFieldInfo(tableEntity);
+        // TODO 主键
+        // 根据有效Field，整理propertyDescripor
+        tableEntity.setDescriptorList(prepareDescriptor(obj));
+        // 放入缓存
+        tableMap.put(obj.getClass(), tableEntity);
+    }
+
+
+    /**
+     * @param obj
+     * @return
+     * @throws Exception
+     * @Description 所有有效description
+     */
+    private static List<PropertyDescriptor> prepareDescriptor(Object obj) throws Exception {
+        BeanInfo intro = Introspector.getBeanInfo(obj.getClass());
+        PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
+        List<PropertyDescriptor> columnList = new ArrayList<>(propertyDescriptors.length);
+        if (null == tableMap.get(obj.getClass()) || null == tableMap.get(obj.getClass()).getColumnMap()) {
+            return columnList;
+        }
+        Map<String, String> columnMap = tableMap.get(obj.getClass()).getColumnMap();
+        for (PropertyDescriptor p : propertyDescriptors) {
+            if (null == columnMap.get(p.getName())) {
+                columnList.add(p);
+            }
+        }
+        return columnList;
+    }
+
+
+    /**
+     * @param tableEntity
+     * @Descreption 根据实体的有效Field，整理字段
+     * @Author Bob
+     * @Date 2016-01-01 16:01:23
+     */
+    private static void prepareFieldInfo(TableEntity tableEntity) {
+        List<Field> fields = tableEntity.getFieldList();
+        HashMap<String, String> columnMap = new HashMap<>();
+        StringBuffer selectColumnStr = new StringBuffer();
+        for (Field field : fields) {
+            // 实体字段
+            String propertyName = field.getName();
+            // 数据库字段
+            Column colAnno = field.getAnnotation(Column.class);
+            String columnName = "";
+            if (null != colAnno) {
+                columnName = colAnno.name();
+            } else {
+                columnName = camelCase2UnderScore(propertyName);
+            }
+            // 查询语句拼接
+            selectColumnStr.append(columnName).append(" as ").append(propertyName).append(",");
+
+            columnMap.put(propertyName, columnName);
+            // 主键字段
+            Id idColumn = field.getAnnotation(Id.class);
+            if (null != idColumn) {
+                tableEntity.setPrimaryKey(field.getName());
+            }
+        }
+        tableEntity.setSelectColumnStr(StringUtil.subLastComma(selectColumnStr));
+        tableEntity.setColumnMap(columnMap);
+    }
+
+
+    /**
+     * @param obj POJO实例
+     * @return map
+     * key1 -> fieldList
+     * key2 -> keyList
+     * @Descreption 获取POJO中有效的Field字段名称（没有使用@Transient注解的字段）
+     * @Author Bob
+     * @Date 2016-01-01 14:20:00
+     */
+    private static List<Field> prepareFields(Object obj, List<Field> fieldList) {
+        if (null == fieldList) {
+            fieldList = new ArrayList<>();
+        }
+        Class<?> entityClass = obj.getClass();
+        if (entityClass.equals(Object.class)) {
+            return fieldList;
+        }
+        for (Field field : entityClass.getDeclaredFields()) {
+            // 如果没有使用@Transient注解，且不是静态方法，则默认增加
+            if (null == field.getAnnotation(Transient.class) && !Modifier.isStatic(field.getModifiers())) {
+                fieldList.add(field);
+            }
+        }
+        Class<?> superClass = entityClass.getSuperclass();
+        if (superClass != null && !superClass.equals(Object.class)) {
+            // 递归调用，获取父类Field，将父类的Field放在子类Field前面
+            List<Field> superList = prepareFields(superClass, fieldList);
+            fieldList.addAll(superList);
+        }
+        return fieldList;
+    }
+
 
     /**
      * @param obj POJO实例
@@ -49,10 +156,7 @@ public class EntityUtil {
      * @Author Bob
      * @Date 2015-12-31 12:57:00
      */
-    public static String tablename(Object obj) throws Exception {
-        if (null == obj) {
-            throw new Exception("To get tableName, POJO instance can not be null ! ");
-        }
+    public static String prepareTableName(Object obj) throws Exception {
         String tablename = null;
         Class<?> clazz = obj.getClass();
         Table table = clazz.getAnnotation(Table.class);
@@ -66,127 +170,24 @@ public class EntityUtil {
         return tablename;
     }
 
-    /**
-     * @param obj POJO实例
-     * @Descreption 获取实例中所有属性字段
-     * @Author Bob
-     * @Date 2015-12-31 14:26:00
-     */
-    public static void caculatePropertyList(Object obj) {
-        if (propertyListMap.containsKey(obj.getClass())) {
-            return;
-        }
-        BeanInfo intro = null;
-        try {
-            intro = Introspector.getBeanInfo(obj.getClass());
-        } catch (IntrospectionException e) {
-            logger.error(e.getMessage(), e);
-        }
+    //=======================================静态信息获取===============================================
 
-        PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
-        List<PropertyDescriptor> columnList = new ArrayList<>(propertyDescriptors.length);
-        for (PropertyDescriptor p : propertyDescriptors) {
-            // 如果是Class 属性，则舍弃
-            Class<?> clazz = p.getPropertyType();
-            if (clazz.isInstance(Class.class)) {
-                continue;
-            }
-            // 如果使用@Transient注解，则舍弃该字段
-            Method method = p.getReadMethod();
-            if (method.isAnnotationPresent(Transient.class)) {
-                continue;
-            }
-
-
-            Annotation[] annotations = method.getDeclaredAnnotations();
-            for (Annotation anno : annotations) {
-                System.out.println(anno);
-            }
-
-            // 增加字段
-            columnList.add(p);
-
-        }
-        propertyListMap.put(obj.getClass(), columnList);
+    public static String getTableName(Object obj) {
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        return tableEntity.getTableName();
     }
 
-    /**
-     * @param p POJO实例属性
-     * @Descreption 获得列Column的数字库列名
-     * @Author Bob
-     * @Date 2015-12-31 14:28:00
-     */
-    public static String getPropertyColumnName(PropertyDescriptor p) {
-        String columnName = null;
-        Method method = p.getReadMethod();
-        Annotation columnAnnotation = method.getAnnotation(Column.class);
-        // 如果有指定的columnName，按照指定的字段拼接；否认，按照属性名称驼峰转下划线
-        if (null != columnAnnotation) {
-            Column column = (Column) columnAnnotation;
-            String name = column.name();
-            if (StringUtils.isNotBlank(name)) {
-                columnName = name;
-            }
-        } else {
-            columnName = camelCase2UnderScore(p.getName());
-        }
-        logger.info(columnName);
-        return columnName;
+    public static String getPrimaryKey(Object obj) {
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        return tableEntity.getPrimaryKey();
     }
 
-    /**
-     * 获取用于WHERE的 有值字段表
-     *
-     * @return
-     */
-    public static List<WhereColumn> returnWhereColumnsName(Object obj) {
-        Field[] fields = obj.getClass().getDeclaredFields();
-        List<WhereColumn> columnList = new ArrayList<>(fields.length);
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(Column.class) && !isNull(obj, field)) {
-                columnList.add(new WhereColumn(field.getName(), field.getGenericType().equals(String.class)));
-            }
-        }
-        return columnList;
+    public static String getSelectColumnStr(Object obj) {
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        return tableEntity.getSelectColumnStr();
     }
 
-    /**
-     * Where条件信息
-     *
-     * @author henliqi
-     */
-    public static class WhereColumn {
-        public String name;
-        public boolean isString;
-
-        public WhereColumn(String name, boolean isString) {
-            this.name = name;
-            this.isString = isString;
-        }
-    }
-
-    /**
-     * 用于获取Select的字段映射
-     *
-     * @param obj
-     * @return
-     */
-    public static String returnSelectColumnsName(Object obj) {
-        StringBuilder sb = new StringBuilder();
-
-        List<PropertyDescriptor> propertyDescriptorList = propertyListMap.get(obj.getClass());
-
-        for (int i = 0; i < propertyDescriptorList.size(); i++) {
-            PropertyDescriptor p = propertyDescriptorList.get(i);
-            sb.append(getPropertyColumnName(p));
-            sb.append(" as ");
-            sb.append(p.getName());
-            if (i != propertyDescriptorList.size() - 1) {
-                sb.append(" , ");
-            }
-        }
-        return sb.toString();
-    }
+    //========================================动态信息获取==========================================
 
     /**
      * @param obj POJO实例
@@ -194,27 +195,21 @@ public class EntityUtil {
      * @Author Bob
      * @Date 2015-12-31 14:28:00
      */
-    public static String returnInsertColumnsName(Object obj) throws Exception {
-        StringBuilder sb = new StringBuilder();
-
-        List<PropertyDescriptor> propertyDescriptorList = propertyListMap.get(obj.getClass());
-        int i = 0;
-
-        // TODO 主键自增的时候，需要将主键剔除
-//        String idName = getIdName(obj);
-
+    public static String getInsertColumnsName(Object obj) throws Exception {
+        StringBuffer sb = new StringBuffer();
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        Map<String, String> columnMap = tableEntity.getColumnMap();
+        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
         for (PropertyDescriptor p : propertyDescriptorList) {
             if (isNull(obj, p)) {
                 continue;
             }
-            if (i++ != 0) {
-                sb.append(',');
-            }
-            sb.append(getPropertyColumnName(p));
+            sb.append(columnMap.get(p.getName())).append(",");
         }
         logger.info(sb.toString());
-        return sb.toString();
+        return StringUtil.subLastComma(sb);
     }
+
 
     /**
      * @param obj POJO实例
@@ -222,159 +217,66 @@ public class EntityUtil {
      * @Author Bob
      * @Date 2015-12-31 14:28:00
      */
-    public static String returnInsertColumnsDefine(Object obj) {
-        StringBuilder sb = new StringBuilder();
-
-        List<PropertyDescriptor> propertyDescriptorList = propertyListMap.get(obj.getClass());
-        int i = 0;
+    public static String getInsertColumnsDefine(Object obj) {
+        StringBuffer sb = new StringBuffer();
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
         for (PropertyDescriptor p : propertyDescriptorList) {
             String column = p.getName();
             if (isNull(obj, p)) {
                 continue;
             }
-            if (i++ != 0) {
-                sb.append(',');
-            }
-            sb.append("#{").append(column).append('}');
+            sb.append("#{").append(column).append("},");
         }
         logger.info(sb.toString());
-        return sb.toString();
+        return StringUtil.subLastComma(sb);
     }
 
-//    public static String returnWhereDefine(Object obj,
-//                                           List<SearchFilter> searchFilterList) {
-//        StringBuilder sb = new StringBuilder();
-//        // sb.append("name like '%$param2[0].value$%'");
-//        List<PropertyDescriptor> propertyDescriptorList = propertyListMap.get(obj
-//                .getClass());
-//
-//        for (int i = 0; i < searchFilterList.size(); i++) {
-//            SearchFilter searchFilter = searchFilterList.get(i);
-//
-//            for (int j = 0; j < propertyDescriptorList.size(); j++) {
-//                PropertyDescriptor p = propertyDescriptorList.get(j);
-//                if (p.getName().equals(searchFilter.fieldName)) {
-//                    sb.append(getPropertyColumnName(p));
-//                    break;
-//                }
-//            }
-//            switch (searchFilter.operator) {
-//                case EQ:
-//                    sb.append(" = ");
-//                    sb.append("#{param2[" + i + "].value}");
-//                    break;
-//                case LIKE:
-//                    sb.append(" like ");
-//                    // searchFilter.value = "%" + searchFilter.value + "%";
-//                    sb.append("concat(concat('%',#{param2[" + i + "].value}),'%')");
-//                    // sb.append("#{param2["+i+"].value}");
-//                    break;
-//                case GT:
-//                    sb.append(" > ");
-//                    sb.append("#{param2[" + i + "].value}");
-//                    break;
-//                case LT:
-//                    sb.append(" < ");
-//                    sb.append("#{param2[" + i + "].value}");
-//                    break;
-//                case GTE:
-//                    sb.append(" >= ");
-//                    sb.append("#{param2[" + i + "].value}");
-//                    break;
-//                case LTE:
-//                    sb.append(" <= ");
-//                    sb.append("#{param2[" + i + "].value}");
-//                    break;
-//            }
-//
-//            if (i != searchFilterList.size() - 1)
-//                sb.append(" and ");
-//        }
-//        return sb.toString();
-//    }
 
     /**
-     * 用于获取Update Set的字段累加
+     * 用于获取where的字段累加
      *
      * @return
      */
+    public static String returnWhereDefine(Object obj) {
+        StringBuffer sb = new StringBuffer();
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        Map<String, String> columnMap = tableEntity.getColumnMap();
+        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
+        int i = 0;
+        for (PropertyDescriptor p : propertyDescriptorList) {
+            if (isNull(obj, p)) {
+                continue;
+            }
+            String propertyName = p.getName();
+            if (i++ != 0) {
+                sb.append(" and ");
+            }
+            sb.append(columnMap.get(propertyName));
+            sb.append("=#{").append(propertyName).append("}");
+        }
+        return sb.toString();
+    }
 
     public static String returnSetDefine(Object obj) {
-        StringBuilder sb = new StringBuilder();
-
-        List<PropertyDescriptor> propertyDescriptorList = propertyListMap.get(obj.getClass());
-        int i = 0;
+        StringBuffer sb = new StringBuffer();
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        Map<String, String> columnMap = tableEntity.getColumnMap();
+        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
+        ;
         for (PropertyDescriptor p : propertyDescriptorList) {
             if (isNull(obj, p)) {
                 continue;
             }
-
-            Class propertyTypeClass = p.getPropertyType();
-
             String column = p.getName();
-
-            // 不为基本数据类型。为其它的映射bean
-            if (!(propertyTypeClass == Byte.class
-                    || propertyTypeClass == Character.class
-                    || propertyTypeClass == Boolean.class
-                    || propertyTypeClass == Integer.class
-                    || propertyTypeClass == Long.class
-                    || propertyTypeClass == Float.class
-                    || propertyTypeClass == Double.class
-                    || propertyTypeClass == String.class
-                    || propertyTypeClass == Date.class)
-                    || propertyTypeClass == LocalDateTime.class) {
-                try {
-                    BaseEntity o = (BaseEntity) p.getReadMethod().invoke(obj);
-                    column += "." + getIdName(o);
-                } catch (IllegalArgumentException e) {
-                    logger.error(e.getMessage(), e);
-                } catch (IllegalAccessException e) {
-                    logger.error(e.getMessage(), e);
-                } catch (InvocationTargetException e) {
-                    logger.error(e.getMessage(), e);
-                }
-            }
-
-            if (i++ != 0) {
-                sb.append(',');
-            }
-            sb.append(getPropertyColumnName(p));
-            sb.append("=#{").append(column).append('}');
+            sb.append(columnMap.get(p.getName()));
+            sb.append("=#{").append(column).append("},");
         }
-        return sb.toString();
+        logger.info(sb.toString());
+        return StringUtil.subLastComma(sb);
     }
 
-    /**
-     * @param obj POJO实例
-     * @Descreption 获取POJO中的主键字段名
-     * @Author Bob
-     * @Date 2015-12-31 14:28:00
-     */
-    public static String getIdName(Object obj) {
-        String idName = "";
-        try {
-            BeanInfo intro = Introspector.getBeanInfo(obj.getClass());
-            PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
-            for (PropertyDescriptor p : propertyDescriptors) {
-                Method method = p.getReadMethod();
-                if (method.isAnnotationPresent(Id.class)) {
-                    idName = getPropertyColumnName(p);
-                    if (null == idName) {
-                        idName = p.getName();
-                    }
-                    break;
-                }
-            }
-            // 如果没有指定，默认使用 “id” 作为主键
-            if ("" == idName) {
-                idName = "id";
-            }
-        } catch (IntrospectionException e) {
-            throw new RuntimeException("Get idName error... ");
-        }
-        return idName;
-    }
+    //========================================工具类==========================================
 
     private static boolean isNull(Object obj, PropertyDescriptor propertyDescriptor) {
         try {
@@ -391,86 +293,6 @@ public class EntityUtil {
 
     private static boolean isNotNull(Object obj, PropertyDescriptor propertyDescriptor) {
         return !isNull(obj, propertyDescriptor);
-    }
-
-    private static boolean isNull(Object obj, Field field) {
-        try {
-            field.setAccessible(true);
-            return field.get(obj) == null;
-        } catch (SecurityException e) {
-            logger.error(e.getMessage(), e);
-        } catch (IllegalArgumentException e) {
-            logger.error(e.getMessage(), e);
-        } catch (IllegalAccessException e) {
-            logger.error(e.getMessage(), e);
-        }
-        return false;
-    }
-
-    private static boolean isNull(Object obj, String fieldname) {
-        try {
-            Field field = obj.getClass().getDeclaredField(fieldname);
-            return isNull(obj, field);
-        } catch (SecurityException e) {
-            logger.error(e.getMessage(), e);
-        } catch (NoSuchFieldException e) {
-            logger.error(e.getMessage(), e);
-        } catch (IllegalArgumentException e) {
-            logger.error(e.getMessage(), e);
-        }
-
-        return false;
-    }
-
-    /**
-     * 用于获取where的字段累加
-     *
-     * @return
-     */
-    public static String returnWhereDefine(Object obj) {
-        StringBuilder sb = new StringBuilder();
-
-        List<PropertyDescriptor> propertyDescriptorList = propertyListMap.get(obj.getClass());
-
-        int i = 0;
-        for (PropertyDescriptor p : propertyDescriptorList) {
-            if (isNull(obj, p)) {
-                continue;
-            }
-            Class propertyTypeClass = p.getPropertyType();
-
-            String column = p.getName();
-
-            // 不为基本数据类型。为其它的映射bean
-            if (!(propertyTypeClass == Byte.class
-                    || propertyTypeClass == Character.class
-                    || propertyTypeClass == Boolean.class
-                    || propertyTypeClass == Integer.class
-                    || propertyTypeClass == Long.class
-                    || propertyTypeClass == Float.class
-                    || propertyTypeClass == Double.class
-                    || propertyTypeClass == String.class
-                    || propertyTypeClass == Date.class
-                    || propertyTypeClass == LocalDateTime.class)) {
-                try {
-                    BaseEntity o = (BaseEntity) p.getReadMethod().invoke(obj);
-                    column += "." + getIdName(o);
-                } catch (IllegalArgumentException e) {
-                    logger.error(e.getMessage(), e);
-                } catch (IllegalAccessException e) {
-                    logger.error(e.getMessage(), e);
-                } catch (InvocationTargetException e) {
-                    logger.error(e.getMessage(), e);
-                }
-            }
-
-            if (i++ != 0) {
-                sb.append(" and ");
-            }
-            sb.append(getPropertyColumnName(p));
-            sb.append("=#{").append("param1." + column).append("}");
-        }
-        return sb.toString();
     }
 
 
