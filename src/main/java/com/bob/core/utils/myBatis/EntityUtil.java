@@ -45,7 +45,7 @@ public class EntityUtil {
         // 解析表名称
         tableEntity.setTableName(prepareTableName(obj));
         // 解析出所有有效的field
-        tableEntity.setFieldList(prepareFields(obj, null));
+        tableEntity.setFieldList(prepareFields(obj.getClass(), null));
         // 根据有效Field，拼装全量字段字符串
         prepareFieldInfo(tableEntity);
         // TODO 主键
@@ -116,7 +116,7 @@ public class EntityUtil {
 
 
     /**
-     * @param obj POJO实例
+     * @param entityClass POJO实例class
      * @return map
      * key1 -> fieldList
      * key2 -> keyList
@@ -124,17 +124,16 @@ public class EntityUtil {
      * @Author Bob
      * @Date 2016-01-01 14:20:00
      */
-    private static List<Field> prepareFields(Object obj, List<Field> fieldList) {
+    private static List<Field> prepareFields(Class<?> entityClass, List<Field> fieldList) {
         if (null == fieldList) {
             fieldList = new ArrayList<>();
         }
-        Class<?> entityClass = obj.getClass();
         if (entityClass.equals(Object.class)) {
             return fieldList;
         }
         for (Field field : entityClass.getDeclaredFields()) {
             // 如果没有使用@Transient注解，且不是静态方法，则默认增加
-            if (null == field.getAnnotation(Transient.class) && !Modifier.isStatic(field.getModifiers())) {
+            if (null == field.getAnnotation(Transient.class)) {
                 fieldList.add(field);
             }
         }
