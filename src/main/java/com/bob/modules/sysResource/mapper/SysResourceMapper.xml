@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bob.modules.sysResource.mapper.SysResourceMapper">
+    <resultMap id="BaseResultMap" type="com.bob.modules.sysResource.entity.SysResource">
+        <result column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="name" property="name"/>
+        <result column="res_url" property="resUrl"/>
+        <result column="type" property="type"/>
+        <result column="level" property="level"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+    </resultMap>
+
+    <sql id="tabaleName">sys_resource</sql>
+
+    <sql id="baseColumn">
+        id,
+        parent_id,
+        name,
+        res_url,
+        type,
+        level,
+        description,
+        status,
+        create_time,
+        create_user,
+        update_time,
+        update_user
+	</sql>
+
+    <sql id="baseProperty">
+        #{id},
+        #{parentId},
+        #{name},
+        #{resUrl},
+        #{type},
+        #{level},
+        #{description},
+        #{status},
+        #{createTime},
+        #{createUser},
+        #{updateTime},
+        #{updateUser}
+    </sql>
+
+    <!--<insert id="insert" parameterType="com.bob.modules.sysResource.entity.SysResource">-->
+        <!--INSERT INTO-->
+        <!--<include refid="tabaleName"></include>-->
+        <!--(<include refid="baseColumn"></include>)-->
+        <!--VALUES-->
+        <!--(<include refid="baseProperty"></include>)-->
+    <!--</insert>-->
+
+    <select id="getList" parameterType="com.bob.modules.sysResource.entity.SysResourceVo" resultMap="BaseResultMap">
+        select
+        <include refid="baseColumn"></include>
+        from
+        <include refid="tabaleName"></include>
+        <where>
+            <if test=" id !=null and id !='' ">
+                and id = id
+            </if>
+            <if test=" parentId !=null and parentId !='' ">
+                and parent_id = parentId
+            </if>
+            <if test=" name !=null and name !='' ">
+                and name = name
+            </if>
+            <if test=" resUrl !=null and resUrl !='' ">
+                and res_url = resUrl
+            </if>
+            <if test=" type !=null and type !='' ">
+                and type = type
+            </if>
+            <if test=" level !=null and level !='' ">
+                and level = level
+            </if>
+            <if test=" description !=null and description !='' ">
+                and description = description
+            </if>
+            <if test=" status !=null and status !='' ">
+                and status = status
+            </if>
+            <if test=" createTime !=null and createTime !='' ">
+                and create_time = createTime
+            </if>
+            <if test=" createUser !=null and createUser !='' ">
+                and create_user = createUser
+            </if>
+            <if test=" updateTime !=null and updateTime !='' ">
+                and update_time = updateTime
+            </if>
+            <if test=" updateUser !=null and updateUser !='' ">
+                and update_user = updateUser
+            </if>
+        </where>
+    </select>
+
+</mapper>
