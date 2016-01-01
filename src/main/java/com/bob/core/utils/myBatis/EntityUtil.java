@@ -11,11 +11,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +34,10 @@ public class EntityUtil {
 
     private static Map<Class, TableEntity> tableMap = new HashMap<>();
 
-    public static void perpareTableEntity(Object obj) throws Exception {
+    public static void perpareTableEntity(Object obj) {
         if (null == obj) {
-            throw new Exception("To get tableName, POJO instance can not be null ! ");
+            logger.error("To get tableName, POJO instance can not be null ! ");
+            return;
         }
         if (tableMap.containsKey(obj.getClass())) {
             return;
@@ -48,9 +49,8 @@ public class EntityUtil {
         tableEntity.setFieldList(prepareFields(obj.getClass(), null));
         // 根据有效Field，拼装全量字段字符串
         prepareFieldInfo(tableEntity);
-        // TODO 主键
-        // 根据有效Field，整理propertyDescripor
-        tableEntity.setDescriptorList(prepareDescriptor(obj));
+//        // 根据有效Field，整理propertyDescripor
+//        tableEntity.setDescriptorList(prepareDescriptor(obj, tableEntity));
         // 放入缓存
         tableMap.put(obj.getClass(), tableEntity);
     }
@@ -62,21 +62,21 @@ public class EntityUtil {
      * @throws Exception
      * @Description 所有有效description
      */
-    private static List<PropertyDescriptor> prepareDescriptor(Object obj) throws Exception {
-        BeanInfo intro = Introspector.getBeanInfo(obj.getClass());
-        PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
-        List<PropertyDescriptor> columnList = new ArrayList<>(propertyDescriptors.length);
-        if (null == tableMap.get(obj.getClass()) || null == tableMap.get(obj.getClass()).getColumnMap()) {
-            return columnList;
-        }
-        Map<String, String> columnMap = tableMap.get(obj.getClass()).getColumnMap();
-        for (PropertyDescriptor p : propertyDescriptors) {
-            if (null == columnMap.get(p.getName())) {
-                columnList.add(p);
-            }
-        }
-        return columnList;
-    }
+//    private static List<PropertyDescriptor> prepareDescriptor(Object obj, TableEntity tableEntity) throws Exception {
+//        BeanInfo intro = Introspector.getBeanInfo(obj.getClass());
+//        PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
+//        List<PropertyDescriptor> columnList = new ArrayList<>(propertyDescriptors.length);
+//        if (null == tableEntity.getColumnMap() || tableEntity.getColumnMap().size() == 0) {
+//            return columnList;
+//        }
+//        Map<String, String> columnMap = tableEntity.getColumnMap();
+//        for (PropertyDescriptor p : propertyDescriptors) {
+//            if (null != columnMap.get(p.getName())) {
+//                columnList.add(p);
+//            }
+//        }
+//        return columnList;
+//    }
 
 
     /**
@@ -140,8 +140,7 @@ public class EntityUtil {
         Class<?> superClass = entityClass.getSuperclass();
         if (superClass != null && !superClass.equals(Object.class)) {
             // 递归调用，获取父类Field，将父类的Field放在子类Field前面
-            List<Field> superList = prepareFields(superClass, fieldList);
-            fieldList.addAll(superList);
+            prepareFields(superClass, fieldList);
         }
         return fieldList;
     }
@@ -155,7 +154,7 @@ public class EntityUtil {
      * @Author Bob
      * @Date 2015-12-31 12:57:00
      */
-    public static String prepareTableName(Object obj) throws Exception {
+    public static String prepareTableName(Object obj) {
         String tablename = null;
         Class<?> clazz = obj.getClass();
         Table table = clazz.getAnnotation(Table.class);
@@ -194,11 +193,11 @@ public class EntityUtil {
      * @Author Bob
      * @Date 2015-12-31 14:28:00
      */
-    public static String getInsertColumnsName(Object obj) throws Exception {
+    public static String getInsertColumnsName(Object obj) {
         StringBuffer sb = new StringBuffer();
         TableEntity tableEntity = tableMap.get(obj.getClass());
         Map<String, String> columnMap = tableEntity.getColumnMap();
-        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
+        List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
         for (PropertyDescriptor p : propertyDescriptorList) {
             if (isNull(obj, p)) {
                 continue;
@@ -218,8 +217,7 @@ public class EntityUtil {
      */
     public static String getInsertColumnsDefine(Object obj) {
         StringBuffer sb = new StringBuffer();
-        TableEntity tableEntity = tableMap.get(obj.getClass());
-        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
+        List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
         for (PropertyDescriptor p : propertyDescriptorList) {
             String column = p.getName();
             if (isNull(obj, p)) {
@@ -237,11 +235,11 @@ public class EntityUtil {
      *
      * @return
      */
-    public static String returnWhereDefine(Object obj) {
+    public static String getWhereDefine(Object obj) {
         StringBuffer sb = new StringBuffer();
         TableEntity tableEntity = tableMap.get(obj.getClass());
         Map<String, String> columnMap = tableEntity.getColumnMap();
-        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
+        List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
         int i = 0;
         for (PropertyDescriptor p : propertyDescriptorList) {
             if (isNull(obj, p)) {
@@ -257,12 +255,12 @@ public class EntityUtil {
         return sb.toString();
     }
 
-    public static String returnSetDefine(Object obj) {
+    public static String getSetDefine(Object obj) {
         StringBuffer sb = new StringBuffer();
         TableEntity tableEntity = tableMap.get(obj.getClass());
         Map<String, String> columnMap = tableEntity.getColumnMap();
-        List<PropertyDescriptor> propertyDescriptorList = tableEntity.getDescriptorList();
-        ;
+        List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
+
         for (PropertyDescriptor p : propertyDescriptorList) {
             if (isNull(obj, p)) {
                 continue;
@@ -275,7 +273,32 @@ public class EntityUtil {
         return StringUtil.subLastComma(sb);
     }
 
+
     //========================================工具类==========================================
+
+    private static List<PropertyDescriptor> getDescriptorList(Object obj) {
+        List<PropertyDescriptor> columnList = new ArrayList<>();
+
+        TableEntity tableEntity = tableMap.get(obj.getClass());
+        if (null == tableEntity.getColumnMap() || tableEntity.getColumnMap().size() == 0) {
+            return columnList;
+        }
+
+        BeanInfo intro = null;
+        try {
+            intro = Introspector.getBeanInfo(obj.getClass());
+        } catch (IntrospectionException e) {
+            logger.error("Parse propertyDescriptors error: ", e);
+        }
+        PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
+        Map<String, String> columnMap = tableEntity.getColumnMap();
+        for (PropertyDescriptor p : propertyDescriptors) {
+            if (null != columnMap.get(p.getName()) && isNotNull(obj, p)) {
+                columnList.add(p);
+            }
+        }
+        return columnList;
+    }
 
     private static boolean isNull(Object obj, PropertyDescriptor propertyDescriptor) {
         try {

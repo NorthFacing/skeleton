@@ -28,13 +28,7 @@ public class SysResourceMapperTest extends BaseMapperTest {
     @Test
     public void insertTest() throws Exception {
         SysResource sysResource = getSysResource();
-        EntityUtil.prepareFields(sysResource.getClass(), null);
-//        sysResourceMapper.insert(sysResource);
-
-        BaseEntity baseEntity = new BaseEntity();
-
-        EntityUtil.prepareFields(baseEntity.getClass(), null);
-
+        sysResourceMapper.insert(sysResource);
     }
 
 }

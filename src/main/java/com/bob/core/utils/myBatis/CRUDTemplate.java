@@ -31,7 +31,7 @@ public class CRUDTemplate {
 
         BEGIN();
         UPDATE(EntityUtil.getTableName(obj));
-        SET(EntityUtil.returnSetDefine(obj));
+        SET(EntityUtil.getSetDefine(obj));
         WHERE(idName + "=#{" + idName + "}");
         return SQL();
     }
@@ -52,7 +52,7 @@ public class CRUDTemplate {
         BEGIN();
         SELECT(EntityUtil.getSelectColumnStr(obj));
         FROM(EntityUtil.getTableName(obj));
-        WHERE(EntityUtil.returnWhereDefine(obj));
+        WHERE(EntityUtil.getWhereDefine(obj));
         return SQL();
     }
 
@@ -63,7 +63,7 @@ public class CRUDTemplate {
 //        BEGIN(); // Clears ThreadLocal variable
 //        SELECT(EntityUtil.returnSelectColumnsName(entity));
 //        FROM(EntityUtil.getTableName(entity));
-//        String paramString = EntityUtil.returnWhereDefine(entity);
+//        String paramString = EntityUtil.getWhereDefine(entity);
 //        if (StringUtils.isNotEmpty(paramString)) {
 //            WHERE(paramString);
 //        }
@@ -84,7 +84,7 @@ public class CRUDTemplate {
 //        SelectBuilder.FROM(EntityUtil.getTableName(entity));
 //
 //        List<SearchFilter> searchFilterList = (List<SearchFilter>) map.get("1");
-//        String paramString = EntityUtil.returnWhereDefine(entity,
+//        String paramString = EntityUtil.getWhereDefine(entity,
 //                searchFilterList);
 //        if (StringUtils.isNotEmpty(paramString)) {
 //            SelectBuilder.WHERE(paramString);
@@ -120,7 +120,7 @@ public class CRUDTemplate {
 //        SelectBuilder.FROM(EntityUtil.getTableName(entity));
 //
 //        List<SearchFilter> searchFilterList = (List<SearchFilter>) map.get("1");
-//        String paramString = EntityUtil.returnWhereDefine(entity,
+//        String paramString = EntityUtil.getWhereDefine(entity,
 //                searchFilterList);
 //        if (StringUtils.isNotEmpty(paramString)) {
 //            SelectBuilder.WHERE(paramString);

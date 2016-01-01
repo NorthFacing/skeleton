@@ -53,13 +53,13 @@
     <aop:config>
         <aop:aspect ref="operationAspect">
             <aop:pointcut
-                    expression="(execution(* com.bob..mapper.*Mapper.insert*(..)))"
+                    expression="(execution(* com.bob..mapper.*Mapper.insert(..)))"
                     id="addOperation"/>
             <aop:before pointcut-ref="addOperation" method="insert"/>
         </aop:aspect>
         <aop:aspect ref="operationAspect">
             <aop:pointcut id="updateOperation"
-                          expression="(execution(* com.bob..mapper.*Mapper.update*(..)))"/>
+                          expression="(execution(* com.bob..mapper.*Mapper.update(..)))"/>
             <aop:before pointcut-ref="updateOperation" method="update"/>
         </aop:aspect>
     </aop:config>
