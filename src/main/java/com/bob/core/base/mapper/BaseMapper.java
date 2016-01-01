@@ -6,16 +6,19 @@ import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.utils.myBatis.CRUDTemplate;
 import com.bob.core.utils.page.BaseQuery;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
 
 public interface BaseMapper<E extends BaseEntity, VO> {
 
     @InsertProvider(type = CRUDTemplate.class, method = "insert")
     void insert(E entity);
 
-//    @InsertProvider(type = CRUDTemplate.class, method = "update")
+    @UpdateProvider(type = CRUDTemplate.class, method = "update")
     void update(E entity);
 
-    E getById(String id);
+    @SelectProvider(type = CRUDTemplate.class, method = "select")
+    E select(E entity);
 
     List<E> getList(Object obj);
 

@@ -49,35 +49,9 @@ public class EntityUtil {
         tableEntity.setFieldList(prepareFields(obj.getClass(), null));
         // 根据有效Field，拼装全量字段字符串
         prepareFieldInfo(tableEntity);
-//        // 根据有效Field，整理propertyDescripor
-//        tableEntity.setDescriptorList(prepareDescriptor(obj, tableEntity));
         // 放入缓存
         tableMap.put(obj.getClass(), tableEntity);
     }
-
-
-    /**
-     * @param obj
-     * @return
-     * @throws Exception
-     * @Description 所有有效description
-     */
-//    private static List<PropertyDescriptor> prepareDescriptor(Object obj, TableEntity tableEntity) throws Exception {
-//        BeanInfo intro = Introspector.getBeanInfo(obj.getClass());
-//        PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
-//        List<PropertyDescriptor> columnList = new ArrayList<>(propertyDescriptors.length);
-//        if (null == tableEntity.getColumnMap() || tableEntity.getColumnMap().size() == 0) {
-//            return columnList;
-//        }
-//        Map<String, String> columnMap = tableEntity.getColumnMap();
-//        for (PropertyDescriptor p : propertyDescriptors) {
-//            if (null != columnMap.get(p.getName())) {
-//                columnList.add(p);
-//            }
-//        }
-//        return columnList;
-//    }
-
 
     /**
      * @param tableEntity

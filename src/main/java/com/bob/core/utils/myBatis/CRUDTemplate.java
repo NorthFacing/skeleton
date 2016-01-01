@@ -46,7 +46,7 @@ public class CRUDTemplate {
         return SQL();
     }
 
-    public String get(Object obj) throws Exception {
+    public String select(Object obj) throws Exception {
         EntityUtil.perpareTableEntity(obj);
 
         BEGIN();
