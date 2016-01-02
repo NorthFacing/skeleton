@@ -2,7 +2,6 @@ package com.bob.core.base;
 
 import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.base.mapper.BaseMapper;
-import com.bob.modules.sysResource.entity.SysResource;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
