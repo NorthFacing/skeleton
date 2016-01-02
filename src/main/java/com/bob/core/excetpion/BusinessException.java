@@ -3,7 +3,7 @@ package com.bob.core.excetpion;
 public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 6876690910488878402L;
-    
+
     public int code;
     public String msg;
 

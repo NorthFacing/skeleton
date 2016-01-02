@@ -3,18 +3,18 @@ package com.bob.core.cache;
 import java.util.Set;
 
 public interface Cache<V> {
-	String getName();
+    String getName();
 
-	V get(String key);
+    V get(String key);
 
-	void set(String key, V value);
+    void set(String key, V value);
 
-	void set(String key, V value, int expried);
+    void set(String key, V value, int expried);
 
-	boolean del(String key);
+    boolean del(String key);
 
-	void clear();
+    void clear();
 
-	Set<String> keys();
+    Set<String> keys();
 
 }

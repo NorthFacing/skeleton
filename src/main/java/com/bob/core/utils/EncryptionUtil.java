@@ -1,16 +1,15 @@
 package com.bob.core.utils;
 
+import org.springframework.core.io.ClassPathResource;
+
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.springframework.core.io.ClassPathResource;
 
 public class EncryptionUtil {
 

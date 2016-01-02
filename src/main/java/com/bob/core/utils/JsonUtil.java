@@ -1,10 +1,10 @@
 package com.bob.core.utils;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import com.alibaba.fastjson.JSONObject;
 
 public class JsonUtil {
 

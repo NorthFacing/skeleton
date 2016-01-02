@@ -1,12 +1,11 @@
 package com.bob.modules.weChat.service;
 
-import java.util.Arrays;
-
+import com.bob.core.utils.EncoderHandler;
+import com.bob.modules.weChat.vo.CheckModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bob.core.utils.EncoderHandler;
-import com.bob.modules.weChat.vo.CheckModel;
+import java.util.Arrays;
 
 
 @Service
@@ -14,9 +13,8 @@ public class TokenService {
 
     /**
      * 微信开发者验证
-     * 
-     * @param wxAccount
      *
+     * @param wxAccount
      * @param signature
      * @param timestamp
      * @param nonce
@@ -30,7 +28,7 @@ public class TokenService {
         Long nonce = tokenModel.getNonce();
         String echostr = tokenModel.getEchostr();
         if (signature != null && timestamp != null & nonce != null) {
-            String[] str = { wxToken, timestamp + "", nonce + "" };
+            String[] str = {wxToken, timestamp + "", nonce + ""};
             Arrays.sort(str); // 字典序排序
             String bigStr = str[0] + str[1] + str[2];
             // SHA1加密

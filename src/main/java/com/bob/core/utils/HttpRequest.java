@@ -1,5 +1,10 @@
 package com.bob.core.utils;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,12 +18,6 @@ import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 public class HttpRequest {
 
     private static final String DEFAULT_CHARSET = "UTF-8";
@@ -26,7 +25,7 @@ public class HttpRequest {
     public static String httpsGet(String url) {
         StringBuffer bufferRes = null;
         try {
-            TrustManager[] tm = { new MyX509TrustManager() };
+            TrustManager[] tm = {new MyX509TrustManager()};
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
             SSLSocketFactory ssf = sslContext.getSocketFactory();
@@ -67,7 +66,7 @@ public class HttpRequest {
     public static String httpsPost(String url, String params) {
         StringBuffer bufferRes = null;
         try {
-            TrustManager[] tm = { new MyX509TrustManager() };
+            TrustManager[] tm = {new MyX509TrustManager()};
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
             SSLSocketFactory ssf = sslContext.getSocketFactory();
@@ -109,7 +108,7 @@ public class HttpRequest {
 
     public static InputStream httpsGetMediaInputStream(String url) {
         try {
-            TrustManager[] tm = { new MyX509TrustManager() };
+            TrustManager[] tm = {new MyX509TrustManager()};
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
             SSLSocketFactory ssf = sslContext.getSocketFactory();

@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration("src/main/webapp")
-@ContextConfiguration(locations = { "/applicationContext.xml", "/spring-mybatis.xml", "/aop.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class })
+@ContextConfiguration(locations = {"/applicationContext.xml", "/spring-mybatis.xml", "/aop.xml"})
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class BaseServiceTest extends TestCase {
@@ -32,13 +32,13 @@ public class BaseServiceTest extends TestCase {
         System.out.println("=====================  start  =======================");
     }
 
-    @Test
-    public void test(){
-        System.out.println();
-    }
-
     @AfterClass
     public static void end() {
         System.out.println("=====================  end  =======================");
+    }
+
+    @Test
+    public void test() {
+        System.out.println();
     }
 }

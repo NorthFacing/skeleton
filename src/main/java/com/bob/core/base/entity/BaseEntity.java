@@ -1,12 +1,12 @@
 package com.bob.core.base.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Id;
 import javax.persistence.Transient;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 //import javax.persistence.Column;        // @Column
 //import javax.persistence.Id;            // @Id

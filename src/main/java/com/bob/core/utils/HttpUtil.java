@@ -1,5 +1,13 @@
 package com.bob.core.utils;
 
+import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,19 +16,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.alibaba.fastjson.JSONObject;
-
 /**
  * 通用工具类
- * 
+ *
  * @author liufeng
  */
 public class HttpUtil {
@@ -29,10 +27,10 @@ public class HttpUtil {
 
     /**
      * 发送 https 请求
-     * 
-     * @param requestUrl 请求地址
+     *
+     * @param requestUrl    请求地址
      * @param requestMethod 请求方式（GET、POST）
-     * @param outputStr 提交的数据
+     * @param outputStr     提交的数据
      * @return JSONObject（通过 JSONObject.get(key) 的方式获取 JSON 对象的属性值）
      */
     public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
@@ -41,7 +39,7 @@ public class HttpUtil {
 
         try {
             // 创建 SSLContext 对象，并使用我们指定的信任管理器初始化
-            TrustManager[] tm = { new MyX509TrustManager() };
+            TrustManager[] tm = {new MyX509TrustManager()};
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
             // 从上述 SSLContext 对象中得到 SSLSocketFactory 对象
@@ -96,7 +94,7 @@ public class HttpUtil {
 
     /**
      * URL编码（utf-8）
-     * 
+     *
      * @param source
      * @return
      */

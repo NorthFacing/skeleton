@@ -2,7 +2,6 @@ package com.bob.core.base;
 
 import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.base.mapper.BaseMapper;
-
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -45,6 +44,11 @@ public abstract class BaseMapperTest extends AbstractTransactionalJUnit4SpringCo
         logger.debug("=====================  start  =======================");
     }
 
+    @AfterClass
+    public static void end() {
+        logger.debug("=====================  end  =======================");
+    }
+
     public BaseEntity getBaseEntity() {
         BaseEntity baseEntity = new BaseEntity();
         return baseEntity;
@@ -73,11 +77,6 @@ public abstract class BaseMapperTest extends AbstractTransactionalJUnit4SpringCo
         BaseEntity param2 = new BaseEntity();
         param2.setId(param1.getId());
         baseMapper.delete(param2);
-    }
-
-    @AfterClass
-    public static void end() {
-        logger.debug("=====================  end  =======================");
     }
 
 }

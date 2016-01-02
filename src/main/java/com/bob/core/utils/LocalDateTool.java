@@ -10,9 +10,9 @@ public class LocalDateTool {
 
     /**
      * 日期格式化，手动指定格式化样式.
-     * 
+     *
      * @param formatter 格式化形式，比如：yyyy-MM-dd HH:mm:ss
-     * @param d 需要格式化的日期
+     * @param d         需要格式化的日期
      * @return 格式化之后的日期
      * @author Bob
      * @created 2015年6月24日 下午6:34:53
@@ -23,7 +23,7 @@ public class LocalDateTool {
 
     /**
      * 格式化为 yyyy-MM-dd HH:mm:ss 样式.
-     * 
+     *
      * @param d 需要格式化的日期
      * @return 格式化之后的日期
      * @author Bob
@@ -35,7 +35,7 @@ public class LocalDateTool {
 
     /**
      * 将 LocalDateTime 转换为 Date .
-     * 
+     *
      * @param d 需要转换的日期
      * @return 转换后的日期
      * @author Bob

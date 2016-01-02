@@ -1,18 +1,18 @@
 package com.bob.core.filter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-
 /**
  * 请求参数的处理
- * @since v0.0.1
+ *
  * @author Bob
  * @created 2015年7月3日 下午9:27:21
+ * @since v0.0.1
  */
 public class ParameterRequestWrapper extends HttpServletRequestWrapper {
 
@@ -20,11 +20,11 @@ public class ParameterRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 参数进行trim处理
-     * 
+     *
      * @param request
-     * @since v0.0.1
      * @author Bob
      * @created 2015年7月3日 下午9:27:21
+     * @since v0.0.1
      */
     public ParameterRequestWrapper(HttpServletRequest request) {
         super(request);
@@ -34,12 +34,12 @@ public class ParameterRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 参数扩展
-     * 
+     *
      * @param request
      * @param extendParams
-     * @since v0.0.1
      * @author Bob
      * @created 2015年7月3日 下午9:29:32
+     * @since v0.0.1
      */
     public ParameterRequestWrapper(HttpServletRequest request, Map<String, Object> extendParams) {
         this(request);
@@ -71,9 +71,9 @@ public class ParameterRequestWrapper extends HttpServletRequestWrapper {
             if (value instanceof String[]) {
                 params.put(name, (String[]) value);
             } else if (value instanceof String) {
-                params.put(name, new String[] { (String) value });
+                params.put(name, new String[]{(String) value});
             } else {
-                params.put(name, new String[] { String.valueOf(value) });
+                params.put(name, new String[]{String.valueOf(value)});
             }
         }
     }

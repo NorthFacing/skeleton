@@ -2,7 +2,6 @@ package com.bob.core.utils.myBatis;
 
 import com.bob.core.contants.Constants;
 import com.bob.core.utils.javaUtil.StringUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;

@@ -1,5 +1,9 @@
 package com.bob.core.utils;
 
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedTypes;
+
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,24 +11,19 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-import org.apache.ibatis.type.MappedTypes;
-
 /**
- *
  * 支持将DB中的datetime日期字段转换为Java8的LocalDateTime.
  *
- * @since v0.0.1
  * @author Bob
  * @created 2015年7月4日 下午5:55:25
+ * @since v0.0.1
  */
 @MappedTypes(LocalDateTime.class)
 public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, LocalDateTime parameter, JdbcType jdbcType)
-        throws SQLException {
+            throws SQLException {
         ps.setTimestamp(i, Timestamp.valueOf(parameter));
     }
 

@@ -5,17 +5,16 @@ import java.time.LocalDateTime;
 /**
  * Created by Bob on 2015/12/30.
  */
-public class BaseQuery extends PageInfo{
+public class BaseQuery extends PageInfo {
 
+    protected LocalDateTime updateTimeStart;
+    protected LocalDateTime updateTimeEnd;
     // 分页查询字段
     private String sidx;// 排序字段
     private String sord;// 排序方式：DESC、ASC
-
     // 公用时间查询字段
     private LocalDateTime createTimeStart;
     private LocalDateTime createTimeEnd;
-    protected LocalDateTime updateTimeStart;
-    protected LocalDateTime updateTimeEnd;
 
     public String getSidx() {
         return sidx;

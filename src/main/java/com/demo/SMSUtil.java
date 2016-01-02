@@ -118,7 +118,6 @@ public class SMSUtil {
         }
 
 
-
 //        Map<String, String> parameters = Maps.newHashMap();
 //        parameters.put("account", "jiekou-clcs-03");
 //        parameters.put("pswd", "Admin888");

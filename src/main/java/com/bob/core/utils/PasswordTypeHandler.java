@@ -1,17 +1,16 @@
 package com.bob.core.utils;
 
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.crypto.NoSuchPaddingException;
 import java.security.GeneralSecurityException;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.crypto.NoSuchPaddingException;
-
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PasswordTypeHandler extends BaseTypeHandler<String> {
 
@@ -19,7 +18,7 @@ public class PasswordTypeHandler extends BaseTypeHandler<String> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType)
-        throws SQLException {
+            throws SQLException {
         try {
             ps.setBytes(i, EncryptionUtil.encrypt(parameter));
         } catch (NoSuchPaddingException e) {

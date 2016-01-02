@@ -11,11 +11,8 @@ import java.util.Map;
 
 @Service("validateCodeService")
 public class ValidateCodeService {
-    private final static Logger logger = LoggerFactory.getLogger(ValidateCodeService.class);
-
     // 失效时间
     public static final int EXPIRED_TIME = 2 * 60;
-
     // 配置信息
     public static final Map<String, String> PARAMS = new HashMap<String, String>() {
         private static final long serialVersionUID = 2602833692769865296L;
@@ -28,6 +25,18 @@ public class ValidateCodeService {
             put("sms", "场景：{scence}，验证码：{code}，2分钟失效。");
         }
     };
+    private final static Logger logger = LoggerFactory.getLogger(ValidateCodeService.class);
+
+    /**
+     * 测试
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        ValidateCodeService code = new ValidateCodeService();
+//        code.sendValidateCode("18268029586,18626891049", "test");
+        code.sendValidateCode("18268029586", "asdf");
+    }
 
     /**
      * 获取有场景信息的验证码方法
@@ -40,7 +49,7 @@ public class ValidateCodeService {
         try {
             Map<String, String> params = Maps.newHashMap(PARAMS);
             params.put("mobile", phone);
-            params.put("sms", params.get("sms").replace("{code}", code).replace("{scence}",scence));
+            params.put("sms", params.get("sms").replace("{code}", code).replace("{scence}", scence));
             String back = SMSUtil.sendPost("http://115.236.18.150:8088/wmim/SMSSendYD", params);
             logger.info(back);
         } catch (Exception e) {
@@ -49,7 +58,6 @@ public class ValidateCodeService {
         }
         return true;
     }
-
 
     /**
      * 获取验证码方法
@@ -71,17 +79,6 @@ public class ValidateCodeService {
             return false;
         }
         return true;
-    }
-
-    /**
-     * 测试
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        ValidateCodeService code = new ValidateCodeService();
-//        code.sendValidateCode("18268029586,18626891049", "test");
-        code.sendValidateCode("18268029586", "asdf");
     }
 
 }

@@ -1,11 +1,8 @@
 package com.bob.modules.sysResource.entity;
 
+import com.bob.core.base.entity.BaseEntity;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
-import com.bob.core.base.entity.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 public class SysResource extends BaseEntity {
