@@ -6,6 +6,7 @@ import com.bob.modules.sysResource.entity.SysResourceQuery;
 import com.bob.modules.sysResource.entity.SysResourceVo;
 import com.bob.modules.sysResource.mapper.SysResourceMapper;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,53 +29,55 @@ public class SysResourceMapperTest extends BaseMapperTest {
     }
 
     @Test
-    public void insertTest() {
+    public void selectTest() {
         SysResource sysResource = getSysResource();
         sysResourceMapper.insert(sysResource);
-    }
 
-    @Test
-    public void selectTest() {
-        SysResource sysResource = new SysResource();
+        SysResource param1 = new SysResource();
+        param1.setId(sysResource.getId());
 
-        sysResource.setOrderBy("level");
+        SysResource result1 = sysResourceMapper.select(param1);
+        Assert.assertNotNull(result1);
+
+        SysResourceVo result2 = sysResourceMapper.selectVo(param1);
+        Assert.assertNotNull(result2);
 
         List<SysResourceVo> url = sysResourceMapper.selectVoList(sysResource);
         System.out.println(url.size());
         System.out.println(url.toString());
+    }
 
+    @Test
+    public void selectList() {
+        SysResource sysResource = getSysResource();
+        sysResourceMapper.insert(sysResource);
+
+        SysResource param = new SysResource();
+
+        List<SysResource> result3 = sysResourceMapper.selectList(param);
+        Assert.assertNotNull(result3);
+        Assert.assertTrue(result3.size() > 0);
+
+        List<SysResourceVo> result4 = sysResourceMapper.selectVoList(param);
+        Assert.assertNotNull(result4);
+        Assert.assertTrue(result4.size() > 0);
+    }
+
+    @Test
+    public void queryTest() {
+        SysResource sysResource = getSysResource();
+        sysResourceMapper.insert(sysResource);
 
         SysResourceQuery sysResourceQuery = new SysResourceQuery();
 
         Long count = sysResourceMapper.count(sysResourceQuery);
-        System.out.println(count);
+        Assert.assertTrue(count > 0);
 
-        sysResourceQuery.setPageNum(2);
-        sysResourceQuery.setPageSize(20);
         sysResourceQuery.setTotal(count);
 
-        List<SysResource> query = sysResourceMapper.query(sysResourceQuery);
-        System.out.println(query.size());
-        System.out.println(query.toString());
-
-        sysResourceQuery.setResult(query);
-        System.out.println(sysResourceQuery);
-    }
-
-    @Test
-    public void updateTest() {
-        SysResource sysResource = new SysResource();
-        sysResource.setId("9560060BCB2D449FB986FCE320859C0F");
-        sysResource.setType(2);
-        sysResource.setStatus(2);
-        sysResourceMapper.update(sysResource);
-    }
-
-    @Test
-    public void deleteTest(){
-        SysResource sysResource = new SysResource();
-        sysResource.setId("9560060BCB2D449FB986FCE320859C0F");
-        sysResourceMapper.delete(sysResource);
+        List<SysResource> result = sysResourceMapper.query(sysResourceQuery);
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.size() > 0);
     }
 
 }

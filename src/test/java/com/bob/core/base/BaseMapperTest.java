@@ -1,11 +1,17 @@
 package com.bob.core.base;
 
+import com.bob.core.base.entity.BaseEntity;
+import com.bob.core.base.mapper.BaseMapper;
+import com.bob.modules.sysResource.entity.SysResource;
+
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -15,6 +21,8 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by Bob on 2015/12/17.
@@ -27,21 +35,50 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 public abstract class BaseMapperTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BaseMapperTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseMapperTest.class);
+
+    @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    private BaseMapper baseMapper;
 
     @BeforeClass
     public static void start() {
-        System.out.println("=====================  start  =======================");
+        logger.debug("=====================  start  =======================");
+    }
+
+    public BaseEntity getBaseEntity() {
+        BaseEntity baseEntity = new BaseEntity();
+        return baseEntity;
     }
 
     @Test
-    public void test() {
-        System.out.println();
+    public void insertTest() {
+        BaseEntity baseEntity = getBaseEntity();
+        baseMapper.insert(baseEntity);
+        Assert.assertNotNull(baseEntity.getId());
+    }
+
+    @Test
+    public void updateTest() {
+        BaseEntity baseEntity = getBaseEntity();
+        baseMapper.insert(baseEntity);
+        baseEntity.setCreateTime(LocalDateTime.now());
+        baseMapper.update(baseEntity);
+    }
+
+    @Test
+    public void deleteTest() {
+        BaseEntity param1 = getBaseEntity();
+        baseMapper.insert(param1);
+        Assert.assertNotNull(param1.getId());
+        BaseEntity param2 = new BaseEntity();
+        param2.setId(param1.getId());
+        baseMapper.delete(param2);
     }
 
     @AfterClass
     public static void end() {
-        System.out.println("=====================  end  =======================");
+        logger.debug("=====================  end  =======================");
     }
 
 }
