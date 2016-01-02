@@ -22,9 +22,6 @@ public class SysResourceServiceImpl implements SysResourceService {
 
     public void getById(String id){
 
-        sysResourceMapper.getVoById("id");
-        sysResourceMapper.getList(new SysResourceVo());
-        sysResourceMapper.getVoList(new SysResourceVo());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.bob.core.utils.myBatis;
 
+import com.bob.core.contants.Constants;
 import com.bob.core.utils.javaUtil.StringUtil;
 
 import org.slf4j.Logger;
@@ -173,9 +174,6 @@ public class EntityUtil {
         Map<String, String> columnMap = tableEntity.getColumnMap();
         List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
         for (PropertyDescriptor p : propertyDescriptorList) {
-            if (isNull(obj, p)) {
-                continue;
-            }
             sb.append(columnMap.get(p.getName())).append(",");
         }
         logger.info(sb.toString());
@@ -194,9 +192,6 @@ public class EntityUtil {
         List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
         for (PropertyDescriptor p : propertyDescriptorList) {
             String column = p.getName();
-            if (isNull(obj, p)) {
-                continue;
-            }
             sb.append("#{").append(column).append("},");
         }
         logger.info(sb.toString());
@@ -205,28 +200,54 @@ public class EntityUtil {
 
 
     /**
-     * 用于获取where的字段累加
+     * 用于获取where的条件累加
      *
      * @return
      */
     public static String getWhereDefine(Object obj) {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer whereDefine = new StringBuffer();
         TableEntity tableEntity = tableMap.get(obj.getClass());
         Map<String, String> columnMap = tableEntity.getColumnMap();
         List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
         int i = 0;
         for (PropertyDescriptor p : propertyDescriptorList) {
-            if (isNull(obj, p)) {
-                continue;
-            }
             String propertyName = p.getName();
-            if (i++ != 0) {
-                sb.append(" and ");
+            String columnName = columnMap.get(propertyName);
+            if (null != columnName) {
+                if (i++ != 0) {
+                    whereDefine.append(" and ");
+                }
+                whereDefine.append(columnName);
+                whereDefine.append("=#{").append(propertyName).append("}");
             }
-            sb.append(columnMap.get(propertyName));
-            sb.append("=#{").append(propertyName).append("}");
         }
-        return sb.toString();
+        return whereDefine.toString();
+    }
+
+    /**
+     * 用于获取排序字段值
+     *
+     * @return
+     */
+    public static String getOrderBy(Object obj) {
+        BeanInfo intro = null;
+        try {
+            intro = Introspector.getBeanInfo(obj.getClass());
+        } catch (IntrospectionException e) {
+            logger.error("Parse propertyDescriptors error: ", e);
+        }
+        PropertyDescriptor[] propertyDescriptors = intro.getPropertyDescriptors();
+        for (PropertyDescriptor p : propertyDescriptors) {
+            if (Constants.TEMPLATE_ORDER_BY.equals(p.getName())) {
+                try {
+                    Object invoke = p.getReadMethod().invoke(obj);
+                    return invoke.toString();
+                } catch (Exception e) {
+                    logger.error("", e);
+                }
+            }
+        }
+        return null;
     }
 
     public static String getSetDefine(Object obj) {
@@ -246,7 +267,6 @@ public class EntityUtil {
         logger.info(sb.toString());
         return StringUtil.subLastComma(sb);
     }
-
 
     //========================================工具类==========================================
 

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 //import javax.persistence.Column;        // @Column
 //import javax.persistence.Id;            // @Id
@@ -15,11 +16,13 @@ import javax.persistence.Id;
 public class BaseEntity implements Serializable {
 
     @Id
-    protected String id;
-    protected LocalDateTime createTime;
-    protected String createUser;
-    protected LocalDateTime updateTime;
-    protected String updateUser;
+    private String id;
+    private LocalDateTime createTime;
+    private String createUser;
+    private LocalDateTime updateTime;
+    private String updateUser;
+    @Transient
+    private String orderBy; // 排序字段
 
     public String getId() {
         return id;
@@ -63,6 +66,15 @@ public class BaseEntity implements Serializable {
 
     public BaseEntity setUpdateUser(String updateUser) {
         this.updateUser = updateUser;
+        return this;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public BaseEntity setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
         return this;
     }
 

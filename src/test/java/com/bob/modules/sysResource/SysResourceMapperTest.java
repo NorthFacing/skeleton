@@ -1,14 +1,14 @@
 package com.bob.modules.sysResource;
 
 import com.bob.core.base.BaseMapperTest;
-import com.bob.core.base.entity.BaseEntity;
-import com.bob.core.utils.myBatis.EntityUtil;
 import com.bob.modules.sysResource.entity.SysResource;
+import com.bob.modules.sysResource.entity.SysResourceVo;
 import com.bob.modules.sysResource.mapper.SysResourceMapper;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * Created by Bob on 2015/12/31.
@@ -34,24 +34,16 @@ public class SysResourceMapperTest extends BaseMapperTest {
 
     @Test
     public void selectTest() {
-//        SysResource sysResource = getSysResource();
-//        sysResourceMapper.insert(sysResource);
-//
-//        SysResource select = sysResourceMapper.select(sysResource);
-//        Assert.assertNotNull(select);
+        SysResource sysResource = new SysResource();
 
+        sysResource.setOrderBy("level");
 
-
-        SysResource select = sysResourceMapper.select(new SysResource().setName("haizhu"));
-//        Assert.assertNotNull(select);
-        System.out.println(select);
-        select = sysResourceMapper.select(new SysResource().setName("name2"));
-//        Assert.assertNull(select);
-        System.out.println(select);
-        select = sysResourceMapper.select(new SysResource().setLevel(1));
-//        Assert.assertNotNull(select);
-        System.out.println(select);
-
+        List<SysResourceVo> url = sysResourceMapper.selectVoList(sysResource);
+        System.out.println(url.size());
+        System.out.println(url.toString());
+        sysResource.setName("haizhu1");
+        Integer count = sysResourceMapper.count(sysResource);
+        System.out.println(count);
     }
 
     @Test
