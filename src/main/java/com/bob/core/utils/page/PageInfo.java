@@ -14,22 +14,16 @@ import com.bob.core.contants.Constants;
 
 public class PageInfo<T> implements Serializable {
 
-    private int pageNum = Constants.pageNum;// 页码
-    private int pageSize = Constants.pageSize;//页面大小
-    private int startRow;// 起始行
-    private int endRow;// 末行
-    private long total;     //总数
-    private int pages;    // 总页数
+    private Integer pageNum = Constants.pageNum;// 页码
+    private Integer pageSize = Constants.pageSize;//页面大小
+    private Integer startRow;// 起始行
+    private Integer endRow;// 末行
+    private Long total;     //总数
+    private Integer pages;    // 总页数
     private List<T> result;//结果集
 
-    public PageInfo() {
-        super();
-    }
-
-    public PageInfo(int pageNum, int pageSize, int total) {
-
-        this.pageSize = pageSize;
-        this.total = total;
+    public void setTotal(Long total) {
+        this.total = (null == total) ? 0 : total;
         // 计算总页数
         calculatePages();
         // 校验查询的页数
@@ -54,7 +48,7 @@ public class PageInfo<T> implements Serializable {
      *
      * @Param pageNum 页码
      */
-    private void checkPageNum(int pageNum) {
+    private void checkPageNum(Integer pageNum) {
         if (pageNum <= 0) {
             this.pageNum = 1;
         } else if (pageNum > pages) {
@@ -73,27 +67,27 @@ public class PageInfo<T> implements Serializable {
     }
 
 
-    public int getPageNum() {
+    public Integer getPageNum() {
         return pageNum;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public long getTotal() {
+    public Long getTotal() {
         return total;
     }
 
-    public int getPages() {
+    public Integer getPages() {
         return pages;
     }
 
-    public int getEndRow() {
+    public Integer getEndRow() {
         return endRow;
     }
 
-    public int getStartRow() {
+    public Integer getStartRow() {
         return startRow;
     }
 

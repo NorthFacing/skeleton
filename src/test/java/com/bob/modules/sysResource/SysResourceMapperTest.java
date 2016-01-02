@@ -2,6 +2,7 @@ package com.bob.modules.sysResource;
 
 import com.bob.core.base.BaseMapperTest;
 import com.bob.modules.sysResource.entity.SysResource;
+import com.bob.modules.sysResource.entity.SysResourceQuery;
 import com.bob.modules.sysResource.entity.SysResourceVo;
 import com.bob.modules.sysResource.mapper.SysResourceMapper;
 
@@ -41,9 +42,17 @@ public class SysResourceMapperTest extends BaseMapperTest {
         List<SysResourceVo> url = sysResourceMapper.selectVoList(sysResource);
         System.out.println(url.size());
         System.out.println(url.toString());
-        sysResource.setName("haizhu1");
-        Integer count = sysResourceMapper.count(sysResource);
+
+
+        SysResourceQuery sysResourceQuery = new SysResourceQuery();
+
+        Long count = sysResourceMapper.count(sysResourceQuery);
         System.out.println(count);
+        sysResourceQuery.setTotal(count);
+
+        List<SysResource> query = sysResourceMapper.query(sysResourceQuery);
+        System.out.println(query.size());
+        System.out.println(query.toString());
     }
 
     @Test

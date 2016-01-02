@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Bob on 2015/12/30.
  */
-public class BaseQuery<T> extends PageInfo<T>{
+public class BaseQuery extends PageInfo{
 
     // 分页查询字段
     private String sidx;// 排序字段

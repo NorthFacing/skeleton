@@ -50,57 +50,67 @@
         #{updateUser}
     </sql>
 
-    <!--<insert id="insert" parameterType="com.bob.modules.sysResource.entity.SysResource">-->
-        <!--INSERT INTO-->
-        <!--<include refid="tabaleName"></include>-->
-        <!--(<include refid="baseColumn"></include>)-->
-        <!--VALUES-->
-        <!--(<include refid="baseProperty"></include>)-->
-    <!--</insert>-->
+    <sql id="whereCondition">
+        <if test=" id !=null and id !='' ">
+            and id = id
+        </if>
+        <if test=" parentId !=null and parentId !='' ">
+            and parent_id = parentId
+        </if>
+        <if test=" name !=null and name !='' ">
+            and name = name
+        </if>
+        <if test=" resUrl !=null and resUrl !='' ">
+            and res_url = resUrl
+        </if>
+        <if test=" type !=null and type !='' ">
+            and type = type
+        </if>
+        <if test=" level !=null and level !='' ">
+            and level = level
+        </if>
+        <if test=" description !=null and description !='' ">
+            and description = description
+        </if>
+        <if test=" status !=null and status !='' ">
+            and status = status
+        </if>
+        <if test=" createTime !=null and createTime !='' ">
+            and create_time = createTime
+        </if>
+        <if test=" createUser !=null and createUser !='' ">
+            and create_user = createUser
+        </if>
+        <if test=" updateTime !=null and updateTime !='' ">
+            and update_time = updateTime
+        </if>
+        <if test=" updateUser !=null and updateUser !='' ">
+            and update_user = updateUser
+        </if>
+    </sql>
 
-    <select id="getList" parameterType="com.bob.modules.sysResource.entity.SysResourceVo" resultMap="BaseResultMap">
-        select
-        <include refid="baseColumn"></include>
-        from
-        <include refid="tabaleName"></include>
+    <sql id="queryCondition">
         <where>
-            <if test=" id !=null and id !='' ">
-                and id = id
-            </if>
-            <if test=" parentId !=null and parentId !='' ">
-                and parent_id = parentId
-            </if>
-            <if test=" name !=null and name !='' ">
-                and name = name
-            </if>
-            <if test=" resUrl !=null and resUrl !='' ">
-                and res_url = resUrl
-            </if>
-            <if test=" type !=null and type !='' ">
-                and type = type
-            </if>
-            <if test=" level !=null and level !='' ">
-                and level = level
-            </if>
-            <if test=" description !=null and description !='' ">
-                and description = description
-            </if>
-            <if test=" status !=null and status !='' ">
-                and status = status
-            </if>
-            <if test=" createTime !=null and createTime !='' ">
-                and create_time = createTime
-            </if>
-            <if test=" createUser !=null and createUser !='' ">
-                and create_user = createUser
-            </if>
-            <if test=" updateTime !=null and updateTime !='' ">
-                and update_time = updateTime
-            </if>
-            <if test=" updateUser !=null and updateUser !='' ">
-                and update_user = updateUser
+            <if test="name != null">
+                and name = #{name}
             </if>
         </where>
+    </sql>
+
+    <select id="count" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM
+        <include refid="tabaleName"/>
+        <include refid="queryCondition"/>
+    </select>
+
+    <select id="query" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        <include refid="tabaleName"/>
+        <include refid="queryCondition"/>
+        LIMIT #{startRow}, #{endRow}
     </select>
 
 </mapper>

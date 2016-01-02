@@ -56,18 +56,23 @@ public class CRUDTemplate {
         return SQL();
     }
 
-    public String count(Object obj) throws Exception {
-        EntityUtil.perpareTableEntity(obj);
-
-        BEGIN();
-        SELECT("count(*)");
-        FROM(EntityUtil.getTableName(obj));
-        String whereDefine = EntityUtil.getWhereDefine(obj);
-        if (StringUtils.isNotEmpty(whereDefine)) {
-            WHERE(whereDefine);
-        }
-        return SQL();
-    }
+//分页相关的查询一般情况下查询条件都不是相等处理，故暂时不做封装
+//    public String count(Object obj) throws Exception {
+//        EntityUtil.perpareTableEntity(obj);
+//
+//        BEGIN();
+//        SELECT("count(*)");
+//        FROM(EntityUtil.getTableName(obj));
+//        String whereDefine = EntityUtil.getWhereDefine(obj);
+//        if (StringUtils.isNotEmpty(whereDefine)) {
+//            WHERE(whereDefine);
+//        }
+//        return SQL();
+//    }
+//
+//    public String query(Object obj){
+//        return null;
+//    }
 
     public String delete(Object obj) throws Exception {
         EntityUtil.perpareTableEntity(obj);

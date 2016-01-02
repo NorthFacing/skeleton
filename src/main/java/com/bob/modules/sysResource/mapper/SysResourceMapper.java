@@ -4,6 +4,7 @@ import com.bob.core.base.mapper.BaseMapper;
 
 import com.bob.core.utils.myBatis.CRUDTemplate;
 import com.bob.modules.sysResource.entity.SysResource;
+import com.bob.modules.sysResource.entity.SysResourceQuery;
 import com.bob.modules.sysResource.entity.SysResourceVo;
 import org.apache.ibatis.annotations.SelectProvider;
 
@@ -22,5 +23,9 @@ public interface SysResourceMapper extends BaseMapper {
 
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysResourceVo> selectVoList(SysResource entity);
+
+    Long count(SysResourceQuery query);
+
+    List<SysResource> query(SysResourceQuery query);
 
 }
