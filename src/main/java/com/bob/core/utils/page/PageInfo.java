@@ -22,6 +22,14 @@ public class PageInfo<T> implements Serializable {
     private Integer pages;    // 总页数
     private List<T> result;//结果集
 
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
     public void setTotal(Long total) {
         this.total = (null == total) ? 0 : total;
         // 计算总页数

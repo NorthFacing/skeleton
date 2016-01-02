@@ -13,10 +13,10 @@ public interface BaseMapper {
     @UpdateProvider(type = CRUDTemplate.class, method = "update")
     void update(Object entity);
 
-//    @SelectProvider(type= CRUDTemplate.class, method= "count")
-//    Integer count(Object obj);
-
     @DeleteProvider(type = CRUDTemplate.class, method = "delete")
     void delete(Object obj);
+
+//    @SelectProvider(type= CRUDTemplate.class, method= "count")
+//    Integer count(Object obj);
 
 }

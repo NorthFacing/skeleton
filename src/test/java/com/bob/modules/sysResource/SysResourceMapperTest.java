@@ -48,11 +48,17 @@ public class SysResourceMapperTest extends BaseMapperTest {
 
         Long count = sysResourceMapper.count(sysResourceQuery);
         System.out.println(count);
+
+        sysResourceQuery.setPageNum(2);
+        sysResourceQuery.setPageSize(20);
         sysResourceQuery.setTotal(count);
 
         List<SysResource> query = sysResourceMapper.query(sysResourceQuery);
         System.out.println(query.size());
         System.out.println(query.toString());
+
+        sysResourceQuery.setResult(query);
+        System.out.println(sysResourceQuery);
     }
 
     @Test

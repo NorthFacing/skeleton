@@ -52,47 +52,47 @@
 
     <sql id="whereCondition">
         <if test=" id !=null and id !='' ">
-            and id = id
+            AND id = #{id}
         </if>
         <if test=" parentId !=null and parentId !='' ">
-            and parent_id = parentId
+            AND parent_id = #{parentId}
         </if>
         <if test=" name !=null and name !='' ">
-            and name = name
+            AND name = #{name}
         </if>
         <if test=" resUrl !=null and resUrl !='' ">
-            and res_url = resUrl
+            AND res_url = #{resUrl}
         </if>
         <if test=" type !=null and type !='' ">
-            and type = type
+            AND type = #{type}
         </if>
         <if test=" level !=null and level !='' ">
-            and level = level
+            AND level = #{level}
         </if>
         <if test=" description !=null and description !='' ">
-            and description = description
+            AND description = #{description}
         </if>
         <if test=" status !=null and status !='' ">
-            and status = status
+            AND status = #{status}
         </if>
         <if test=" createTime !=null and createTime !='' ">
-            and create_time = createTime
+            AND create_time = #{createTime}
         </if>
         <if test=" createUser !=null and createUser !='' ">
-            and create_user = createUser
+            AND create_user = #{createUser}
         </if>
         <if test=" updateTime !=null and updateTime !='' ">
-            and update_time = updateTime
+            AND update_time = #{updateTime}
         </if>
         <if test=" updateUser !=null and updateUser !='' ">
-            and update_user = updateUser
+            AND update_user = #{updateUser}
         </if>
     </sql>
 
     <sql id="queryCondition">
         <where>
             <if test="name != null">
-                and name = #{name}
+                AND name = #{name}
             </if>
         </where>
     </sql>
@@ -110,7 +110,7 @@
         FROM
         <include refid="tabaleName"/>
         <include refid="queryCondition"/>
-        LIMIT #{startRow}, #{endRow}
+        LIMIT #{startRow}, #{pageSize}
     </select>
 
 </mapper>
