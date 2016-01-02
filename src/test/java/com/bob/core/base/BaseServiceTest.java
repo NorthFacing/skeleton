@@ -2,7 +2,11 @@ package com.bob.core.base;
 
 import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.base.service.BaseService;
+
+import java.time.LocalDateTime;
+
 import junit.framework.TestCase;
+
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -19,8 +23,6 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration("src/main/webapp")

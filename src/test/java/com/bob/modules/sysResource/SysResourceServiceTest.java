@@ -3,6 +3,7 @@ package com.bob.modules.sysResource;
 import com.bob.core.base.BaseServiceTest;
 import com.bob.modules.sysResource.entity.SysResource;
 import com.bob.modules.sysResource.mapper.SysResourceMapper;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
