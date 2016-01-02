@@ -68,3 +68,4 @@ Preference:
 * [CGLIB 和 JDK proxy区别](https://www.google.com/#newwindow=1&q=cglib+jdk+%E5%8C%BA%E5%88%AB)
 
 * [myBatis 源码研究](http://blog.csdn.net/column/details/mybatiscode.html)
+* [myBatis 官网](http://mybatis.org/mybatis-3/index.html)

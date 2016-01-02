@@ -17,6 +17,11 @@ public interface BaseMapper<E extends BaseEntity, VO> {
     @UpdateProvider(type = CRUDTemplate.class, method = "update")
     void update(E entity);
 
+    Integer count();
+
+    // 查询出来的数据，进行封装的时候，不能绑定到具体的实体类，
+    // 只能绑定到BaseEntity，导致数据类型转换错误
+    // 所以，目前只能在各个模块的Mapper中进行复写
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     E select(E entity);
 
