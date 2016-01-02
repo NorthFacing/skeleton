@@ -35,21 +35,6 @@
         update_user
 	</sql>
 
-    <sql id="baseProperty">
-        #{id},
-        #{parentId},
-        #{name},
-        #{resUrl},
-        #{type},
-        #{level},
-        #{description},
-        #{status},
-        #{createTime},
-        #{createUser},
-        #{updateTime},
-        #{updateUser}
-    </sql>
-
     <sql id="whereCondition">
         <if test=" id !=null and id !='' ">
             AND id = #{id}
