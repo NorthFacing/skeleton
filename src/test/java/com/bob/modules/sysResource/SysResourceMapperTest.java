@@ -48,11 +48,18 @@ public class SysResourceMapperTest extends BaseMapperTest {
 
     @Test
     public void updateTest() {
-        SysResource sysResource = getSysResource();
-        sysResourceMapper.insert(sysResource);
-
-        sysResource.setName("updateName");
+        SysResource sysResource = new SysResource();
+        sysResource.setId("9560060BCB2D449FB986FCE320859C0F");
+        sysResource.setType(2);
+        sysResource.setStatus(2);
         sysResourceMapper.update(sysResource);
+    }
+
+    @Test
+    public void deleteTest(){
+        SysResource sysResource = new SysResource();
+        sysResource.setId("9560060BCB2D449FB986FCE320859C0F");
+        sysResourceMapper.delete(sysResource);
     }
 
 }

@@ -39,16 +39,6 @@ public class CRUDTemplate {
         return SQL();
     }
 
-    public String delete(Object obj) throws Exception {
-        EntityUtil.perpareTableEntity(obj);
-        String idname = EntityUtil.getPrimaryKey(obj);
-
-        BEGIN();
-        DELETE_FROM(EntityUtil.getTableName(obj));
-        WHERE(idname + "=#{" + idname + "}");
-        return SQL();
-    }
-
     public String select(Object obj) throws Exception {
         EntityUtil.perpareTableEntity(obj);
 
@@ -76,6 +66,16 @@ public class CRUDTemplate {
         if (StringUtils.isNotEmpty(whereDefine)) {
             WHERE(whereDefine);
         }
+        return SQL();
+    }
+
+    public String delete(Object obj) throws Exception {
+        EntityUtil.perpareTableEntity(obj);
+        String idname = EntityUtil.getPrimaryKey(obj);
+
+        BEGIN();
+        DELETE_FROM(EntityUtil.getTableName(obj));
+        WHERE(idname + "=#{" + idname + "}");
         return SQL();
     }
 
