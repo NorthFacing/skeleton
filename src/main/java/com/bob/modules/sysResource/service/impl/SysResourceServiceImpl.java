@@ -21,8 +21,4 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResource, SysReso
     @Autowired
     private SysResourceMapper sysResourceMapper;
 
-//    public SysResourceServiceImpl(SysResourceMapper baseMapper) {
-//        super(baseMapper);
-//    }
-
 }

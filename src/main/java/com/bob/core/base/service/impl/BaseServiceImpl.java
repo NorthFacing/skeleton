@@ -18,10 +18,6 @@ public class BaseServiceImpl<T extends BaseEntity, V extends T> implements BaseS
     @Autowired
     private BaseMapper baseMapper;
 
-//    public BaseServiceImpl(BaseMapper baseMapper) {
-//        this.baseMapper = baseMapper;
-//    }
-
     @Override
     public void insert(BaseEntity entity) {
         baseMapper.insert(entity);
