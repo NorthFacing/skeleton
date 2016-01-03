@@ -4,6 +4,7 @@ import com.bob.core.base.controller.BaseController;
 import com.bob.modules.sysLoginLog.service.SysLoginLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * SysLoginLogController
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
  * @since v0.0.1
  */
 @Controller
+@RequestMapping("/admin")
 public class SysLoginLogController extends BaseController {
 
     @Autowired
