@@ -28,5 +28,4 @@ public interface BaseService<T extends BaseEntity, V extends T> {
 
     List query(BaseQuery query);
 
-
 }
