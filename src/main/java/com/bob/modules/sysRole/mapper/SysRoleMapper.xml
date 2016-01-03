@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bob.modules.sysRole.mapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.bob.modules.sysRole.entity.SysRole">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+    </resultMap>
+
+    <sql id="tabaleName">sys_role</sql>
+
+    <sql id="baseColumn">
+        id,
+        name,
+        description,
+        status,
+        create_time,
+        create_user,
+        update_time,
+        update_user
+	</sql>
+
+    <sql id="whereCondition">
+        <where>
+            <if test=" id != null ">
+                AND id = #{id}
+            </if>
+            <if test=" name != null ">
+                AND name = #{name}
+            </if>
+            <if test=" description != null ">
+                AND description = #{description}
+            </if>
+            <if test=" status != null ">
+                AND status = #{status}
+            </if>
+            <if test=" createTime != null ">
+                AND create_time = #{createTime}
+            </if>
+            <if test=" createUser != null ">
+                AND create_user = #{createUser}
+            </if>
+            <if test=" updateTime != null ">
+                AND update_time = #{updateTime}
+            </if>
+            <if test=" updateUser != null ">
+                AND update_user = #{updateUser}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="queryCondition">
+        <where>
+        </where>
+    </sql>
+
+    <select id="count" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM
+        <include refid="tabaleName"/>
+        <include refid="queryCondition"/>
+    </select>
+
+    <select id="query" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        <include refid="tabaleName"/>
+        <include refid="queryCondition"/>
+        LIMIT #{startRow}, #{pageSize}
+    </select>
+
+
+</mapper>
