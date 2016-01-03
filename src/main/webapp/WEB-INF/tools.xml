@@ -3,7 +3,7 @@
     <tool>
         <key>localDate</key>
         <scope>application</scope>
-        <class>com.mall.core.utils.LocalDateTool</class>
+        <class>com.bob.core.utils.LocalDateTool</class>
     </tool>
     <tool>
         <key>date</key>

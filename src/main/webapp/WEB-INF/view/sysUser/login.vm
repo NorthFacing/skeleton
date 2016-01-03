@@ -1,4 +1,3 @@
-#set($layout = "/WEB-INF/view/layout/empty.vm")
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +37,7 @@
 </div>
 
 <script src="$!{path}/ext/jQuery/jquery-1.11.3.min.js?staticVersion=$staticVersion" type="text/javascript"></script>
-<script src="$!{path}/ext/other/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
+<script src="$!{path}/ext/other/js/md5.js/other/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
 
 <script type="text/javascript">
     $(function () {

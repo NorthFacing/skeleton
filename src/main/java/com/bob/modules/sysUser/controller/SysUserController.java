@@ -25,5 +25,10 @@ public class SysUserController extends BaseController {
         return "/sysUser/login";
     }
 
+    @RequestMapping(value = "/sysUser/list")
+    public String list(){
+        return "/sysUser/list";
+    }
+
 }
 
