@@ -94,15 +94,15 @@
 
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/error/error.html</location>
+        <location>/errorPage/error.html</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/error/error.html</location>
+        <location>/errorPage/error.html</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/error/error.html</location>
+        <location>/errorPage/error.html</location>
     </error-page>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
