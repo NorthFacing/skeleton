@@ -1,3 +1,4 @@
+#set($layout = "/WEB-INF/view/layout/empty.vm")
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 
     <!-- bootstrap -->
     <link href="$!{path}/ext/bootStrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="$!{path}/resources/css/sysUser/login.css" rel="stylesheet"/>
+    <link href="$!{path}/resources/sysUser/login.css" rel="stylesheet"/>
 
 </head>
 <body>
