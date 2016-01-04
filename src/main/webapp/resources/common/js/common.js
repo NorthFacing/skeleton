@@ -130,9 +130,6 @@ $.fn.extend({
         alert(msg);
     },
     bootgridWrapper:function(options){
-        if(!options.isNotShowNum){
-            $(this).find("thead tr"). prepend("<th data-column-id='gird-num' data-sortable='false' >序号</th>");
-        }
         var that = this,
             opts = $.extend({
                 labels :{
