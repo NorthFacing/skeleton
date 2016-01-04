@@ -8,6 +8,7 @@ import com.bob.modules.sysUser.entity.SysUserQuery;
 import com.bob.modules.sysUser.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +18,7 @@ import java.util.Map;
  * SysUserController
  *
  * @author Bob
- * @Date 2016-1-3 22:44:45
+ * @Date 2016-1-4 16:06:42
  * @since v0.0.1
  */
 @Controller
@@ -27,10 +28,41 @@ public class SysUserController extends BaseController {
     @Autowired
     private SysUserService sysUserService;
 
+    public SysUser select(SysUser entity) {
+        return sysUserService.select(entity);
+    }
+
+    @RequestMapping(value = "/sysUser/add")
+    public String add() {
+        return "/sysUser/edit";
+    }
+
+    @RequestMapping(value = "/sysUser/update")
+    public String update(String id, Model model) {
+        SysUser entity = sysUserService.selectById(id);
+        model.addAttribute("entity", entity);
+        return "/sysUser/edit";
+    }
+
     @RequestMapping(value = "/sysUser/save")
     public Result save(SysUser entity) {
         Result result = Result.fail();
-        return result;
+        sysUserService.save(entity);
+        return result.success();
+    }
+
+    @RequestMapping(value = "/sysUser/view")
+    public String select(String id, Model model) {
+        SysUser entity = sysUserService.selectById(id);
+        model.addAttribute("entity", entity);
+        return "/sysResource/view";
+    }
+
+    @RequestMapping(value = "/sysUser/delete")
+    public Result delete(String id) {
+        Result result = Result.fail();
+        sysUserService.deleteById(id);
+        return result.success();
     }
 
     @RequestMapping(value = "/sysUser/list")
