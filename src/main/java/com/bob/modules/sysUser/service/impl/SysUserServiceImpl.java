@@ -31,7 +31,7 @@ public class SysUserServiceImpl
     }
 
     @Override
-    public BaseMapper<SysUser, SysUserVo, SysUserQuery> getBaseMapper() {
+    public BaseMapper<SysUser, SysUserVo, SysUserQuery> getMapper() {
         return sysUserMapper;
     }
 

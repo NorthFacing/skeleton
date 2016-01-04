@@ -31,7 +31,7 @@ public class SysResourceServiceImpl
     }
 
     @Override
-    public BaseMapper<SysResource, SysResourceVo, SysResourceQuery> getBaseMapper() {
+    public BaseMapper<SysResource, SysResourceVo, SysResourceQuery> getMapper() {
         return sysResourceMapper;
     }
 

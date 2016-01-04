@@ -5,13 +5,12 @@ import com.bob.core.utils.Result;
 import com.bob.core.utils.page.PageUtil;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.entity.SysUserQuery;
-import com.bob.modules.sysUser.entity.SysUserVo;
 import com.bob.modules.sysUser.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,9 +28,8 @@ public class SysUserController extends BaseController {
     private SysUserService sysUserService;
 
     @RequestMapping(value = "/sysUser/save")
-    public Result save(SysUser entity){
+    public Result save(SysUser entity) {
         Result result = Result.fail();
-
         return result;
     }
 
@@ -40,23 +38,9 @@ public class SysUserController extends BaseController {
         return "/sysUser/list";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysUser/pageData")
     public Map<String, Object> pageData(SysUserQuery query) {
-        SysUser entity = new SysUser();
-        entity.setUserName("Bob");
-        sysUserService.save(entity);
-
-        SysUser param1 = new SysUser();
-        param1.setId(entity.getId());
-        SysUser result1 = sysUserService.select(param1);
-        System.out.println(result1);
-        SysUserVo result2 = sysUserService.selectVo(param1);
-        System.out.println(result2);
-        List<SysUser> result3 = sysUserService.selectList(param1);
-        System.out.println(result3);
-        List<SysUserVo> result4 = sysUserService.selectVoList(param1);
-        System.out.println(result4);
-
         query = sysUserService.pageData(query);
         return PageUtil.convertPage(query);
     }

@@ -18,9 +18,15 @@ public interface BaseService<T extends BaseEntity, V extends T, Q extends BaseQu
 
     void delete(T entity);
 
+    void deleteById(String id);
+
     T select(T entity);
 
+    T selectById(String id);
+
     V selectVo(T entity);
+
+    V selectVoById(String id);
 
     List<T> selectList(T entity);
 

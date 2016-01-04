@@ -15,61 +15,92 @@ import java.util.List;
 public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q extends BaseQuery>
         implements BaseService<T, V, Q> {
 
+    /**
+     * 获取实际操作的对象方法，方便操作
+     *
+     * @return entity
+     */
     public abstract T getEntity();
 
-    public abstract BaseMapper<T, V, Q> getBaseMapper();
+    /**
+     * 获取当前操作的mapper的实例对象，方便通用方法中调用，而不会出现类型转换异常的问题。
+     *
+     * @return mapper
+     */
+    public abstract BaseMapper<T, V, Q> getMapper();
 
     @Override
     public String insert(T entity) {
-        getBaseMapper().insert(entity);
+        getMapper().insert(entity);
         return entity.getId();
     }
 
     @Override
     public void update(T entity) {
-        getBaseMapper().update(entity);
+        getMapper().update(entity);
     }
 
     @Override
     public String save(T entity) {
         if (null == entity.getId()) {
-            getBaseMapper().insert(entity);
+            getMapper().insert(entity);
         } else {
-            getBaseMapper().update(entity);
+            getMapper().update(entity);
         }
         return entity.getId();
     }
 
     @Override
     public void delete(T entity) {
-        getBaseMapper().delete(entity);
+        getMapper().delete(entity);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        T entity = getEntity();
+        entity.setId(id);
+        this.delete(entity);
     }
 
     @Override
     public T select(T entity) {
-        return (T) getBaseMapper().select(entity);
+        return getMapper().select(entity);
+    }
+
+    @Override
+    public T selectById(String id) {
+        T entity = getEntity();
+        entity.setId(id);
+        return this.select(entity);
     }
 
     @Override
     public V selectVo(T entity) {
-        return (V) getBaseMapper().selectVo(entity);
+        return getMapper().selectVo(entity);
+    }
+
+    @Override
+    public V selectVoById(String id) {
+        T entity = getEntity();
+        entity.setId(id);
+        return this.selectVo(entity);
     }
 
     @Override
     public List<T> selectList(T entity) {
-        return getBaseMapper().selectList(entity);
+        return getMapper().selectList(entity);
     }
 
     @Override
     public List<V> selectVoList(T entity) {
-        return getBaseMapper().selectVoList(entity);
+        return getMapper().selectVoList(entity);
     }
 
     @Override
     public Q pageData(Q query) {
-        Long count = getBaseMapper().count(query);
+        Long count = getMapper().count(query);
         query.setTotal(count);
-        List list = getBaseMapper().query(query);
+        List list = getMapper().query(query);
         query.setResult(list);
         return query;
     }

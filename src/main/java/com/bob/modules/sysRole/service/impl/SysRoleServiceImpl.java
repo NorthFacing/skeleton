@@ -31,7 +31,7 @@ public class SysRoleServiceImpl
     }
 
     @Override
-    public BaseMapper<SysRole, SysRoleVo, SysRoleQuery> getBaseMapper() {
+    public BaseMapper<SysRole, SysRoleVo, SysRoleQuery> getMapper() {
         return sysRoleMapper;
     }
 

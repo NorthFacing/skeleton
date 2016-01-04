@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface BaseMapper<T extends BaseEntity, V extends T, Q extends BaseQuery> {
 
-
     @InsertProvider(type = CRUDTemplate.class, method = "insert")
     void insert(T entity);
 

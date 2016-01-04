@@ -31,7 +31,7 @@ public class SysOrgnizationServiceImpl
     }
 
     @Override
-    public BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> getBaseMapper() {
+    public BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> getMapper() {
         return sysOrgnizationMapper;
     }
 

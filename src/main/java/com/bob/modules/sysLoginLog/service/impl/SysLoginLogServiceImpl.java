@@ -31,7 +31,7 @@ public class SysLoginLogServiceImpl
     }
 
     @Override
-    public BaseMapper<SysLoginLog, SysLoginLogVo, SysLoginLogQuery> getBaseMapper() {
+    public BaseMapper<SysLoginLog, SysLoginLogVo, SysLoginLogQuery> getMapper() {
         return sysLoginLogMapper;
     }
 }
