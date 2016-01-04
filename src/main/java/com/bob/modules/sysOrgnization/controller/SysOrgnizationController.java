@@ -44,6 +44,7 @@ public class SysOrgnizationController extends BaseController {
         return "/sysOrgnization/edit";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysOrgnization/save")
     public Result save(SysOrgnization entity) {
         Result result = Result.fail();
@@ -58,6 +59,7 @@ public class SysOrgnizationController extends BaseController {
         return "/sysResource/view";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysOrgnization/delete")
     public Result delete(String id) {
         Result result = Result.fail();

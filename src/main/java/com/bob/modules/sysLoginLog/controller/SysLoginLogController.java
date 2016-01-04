@@ -44,6 +44,7 @@ public class SysLoginLogController extends BaseController {
         return "/sysLoginLog/edit";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysLoginLog/save")
     public Result save(SysLoginLog entity) {
         Result result = Result.fail();
@@ -58,6 +59,7 @@ public class SysLoginLogController extends BaseController {
         return "/sysResource/view";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysLoginLog/delete")
     public Result delete(String id) {
         Result result = Result.fail();

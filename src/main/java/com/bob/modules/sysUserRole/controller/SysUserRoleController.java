@@ -44,6 +44,7 @@ public class SysUserRoleController extends BaseController {
         return "/sysUserRole/edit";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysUserRole/save")
     public Result save(SysUserRole entity) {
         Result result = Result.fail();
@@ -58,6 +59,7 @@ public class SysUserRoleController extends BaseController {
         return "/sysResource/view";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysUserRole/delete")
     public Result delete(String id) {
         Result result = Result.fail();

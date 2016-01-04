@@ -44,6 +44,7 @@ public class SysRoleResourceController extends BaseController {
         return "/sysRoleResource/edit";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysRoleResource/save")
     public Result save(SysRoleResource entity) {
         Result result = Result.fail();
@@ -58,6 +59,7 @@ public class SysRoleResourceController extends BaseController {
         return "/sysResource/view";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sysRoleResource/delete")
     public Result delete(String id) {
         Result result = Result.fail();

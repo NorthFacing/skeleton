@@ -41,7 +41,7 @@
             </a>
         </li>
         <li class="submeun">
-            <a href="${path}/admin/role/roleManager">
+            <a href="${path}/admin/sysRole/list">
                 <i class="glyphicon glyphicon-menu-right"></i>
                 角色管理
             </a>
