@@ -18,15 +18,19 @@ import java.util.List;
  */
 public interface SysLoginLogMapper extends BaseMapper<SysLoginLog, SysLoginLogVo, SysLoginLogQuery> {
 
+    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     SysLoginLog select(SysLoginLog entity);
 
+    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     SysLoginLogVo selectVo(SysLoginLog entity);
 
+    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysLoginLog> selectList(SysLoginLog entity);
 
+    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysLoginLogVo> selectVoList(SysLoginLog entity);
 
