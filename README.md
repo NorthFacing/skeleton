@@ -73,3 +73,5 @@ Preference:
 * [给 Android 开发者的 RxJava 详解](http://gank.io/post/560e15be2dca930e00da1083)
 
 * [2015前端组件化框架之路](https://github.com/xufei/blog/issues/19)
+
+* [redis集成](http://blog.csdn.net/zhu_tianwei/article/details/44923001)
