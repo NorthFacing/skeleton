@@ -5,9 +5,10 @@ $(function () {
         url: path + "/admin/sysUser/pageData",
         post: function () {
             return {
-                currentPage: $("#grid-data").bootgrid("getCurrentPage"),
+                pageNum: $("#grid-data").bootgrid("getCurrentPage"),
+                pageSize: $("#grid-data").bootgrid("getRowCount"),
                 //name: $("#name").val() + "",
-                status: 1,
+                status: 1
             };
         },
         formatters: {

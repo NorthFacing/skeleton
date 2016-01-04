@@ -5,7 +5,8 @@ $(function () {
         url: path + "/admin/sysResource/pageData",
         post: function () {
             return {
-                currentPage: $("#grid-data").bootgrid("getCurrentPage"),
+                pageNum: $("#grid-data").bootgrid("getCurrentPage"),
+                pageSize: $("#grid-data").bootgrid("getRowCount"),
                 status: 1,
             };
         },
