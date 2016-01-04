@@ -1,5 +1,6 @@
 package com.bob.modules.sysUser.service.impl;
 
+import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.entity.SysUserQuery;
@@ -17,9 +18,21 @@ import org.springframework.stereotype.Service;
  * @since v0.1
  */
 @Service("sysUserService")
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser, SysUserVo, SysUserQuery> implements SysUserService {
+public class SysUserServiceImpl
+        extends BaseServiceImpl<SysUser, SysUserVo, SysUserQuery>
+        implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Override
+    public SysUser getEntity() {
+        return new SysUser();
+    }
+
+    @Override
+    public BaseMapper<SysUser, SysUserVo, SysUserQuery> getBaseMapper() {
+        return sysUserMapper;
+    }
 
 }

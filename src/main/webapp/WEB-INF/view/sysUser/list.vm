@@ -70,5 +70,7 @@
 
     #parse("/WEB-INF/view/layout/bottom.vm")
 
+<script src="$!{path}/resources/sysUser/list.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+
 </body>
 </html>

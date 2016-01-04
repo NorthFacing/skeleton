@@ -1,5 +1,6 @@
 package com.bob.modules.sysOrgnization.service.impl;
 
+import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysOrgnization.entity.SysOrgnization;
 import com.bob.modules.sysOrgnization.entity.SysOrgnizationQuery;
@@ -17,9 +18,21 @@ import org.springframework.stereotype.Service;
  * @since v0.1
  */
 @Service("sysOrgnizationService")
-public class SysOrgnizationServiceImpl extends BaseServiceImpl<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> implements SysOrgnizationService {
+public class SysOrgnizationServiceImpl
+        extends BaseServiceImpl<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery>
+        implements SysOrgnizationService {
 
     @Autowired
     private SysOrgnizationMapper sysOrgnizationMapper;
+
+    @Override
+    public SysOrgnization getEntity() {
+        return new SysOrgnization();
+    }
+
+    @Override
+    public BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> getBaseMapper() {
+        return sysOrgnizationMapper;
+    }
 
 }

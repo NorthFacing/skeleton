@@ -2,7 +2,7 @@ $(function () {
     $("#grid-data").bootgridWrapper({
         navigation: 2,
         ajax: true,
-        url: path + "/admin/corp/corpManagerData",
+        url: path + "/admin/sysUser/pageData",
         post: function () {
             return {
                 currentPage: $("#grid-data").bootgrid("getCurrentPage"),

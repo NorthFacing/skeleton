@@ -239,9 +239,13 @@ public class EntityUtil {
             if (Constants.TEMPLATE_ORDER_BY.equals(p.getName())) {
                 try {
                     Object invoke = p.getReadMethod().invoke(obj);
-                    return invoke.toString();
+                    if (null != invoke) {
+                        return invoke.toString();
+                    } else {
+                        return null;// 主要作用是为了跳出循环
+                    }
                 } catch (Exception e) {
-                    logger.error("", e);
+                    logger.error("Parse order by", e);
                 }
             }
         }

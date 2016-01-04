@@ -42,13 +42,10 @@ public class SysResourceMapperTest extends BaseMapperTest {
         SysResourceVo result2 = sysResourceMapper.selectVo(param1);
         Assert.assertNotNull(result2);
 
-        List<SysResourceVo> url = sysResourceMapper.selectVoList(sysResource);
-        System.out.println(url.size());
-        System.out.println(url.toString());
     }
 
     @Test
-    public void selectList() {
+    public void selectListTest() {
         SysResource sysResource = getSysResource();
         sysResourceMapper.insert(sysResource);
 

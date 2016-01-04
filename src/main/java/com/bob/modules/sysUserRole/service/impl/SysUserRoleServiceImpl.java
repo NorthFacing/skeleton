@@ -1,5 +1,6 @@
 package com.bob.modules.sysUserRole.service.impl;
 
+import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysUserRole.entity.SysUserRole;
 import com.bob.modules.sysUserRole.entity.SysUserRoleQuery;
@@ -17,9 +18,20 @@ import org.springframework.stereotype.Service;
  * @since v0.1
  */
 @Service("sysUserRoleService")
-public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, SysUserRoleVo, SysUserRoleQuery> implements SysUserRoleService {
+public class SysUserRoleServiceImpl
+        extends BaseServiceImpl<SysUserRole, SysUserRoleVo, SysUserRoleQuery>
+        implements SysUserRoleService {
 
     @Autowired
     private SysUserRoleMapper sysUserRoleMapper;
 
+    @Override
+    public SysUserRole getEntity() {
+        return new SysUserRole();
+    }
+
+    @Override
+    public BaseMapper<SysUserRole, SysUserRoleVo, SysUserRoleQuery> getBaseMapper() {
+        return sysUserRoleMapper;
+    }
 }

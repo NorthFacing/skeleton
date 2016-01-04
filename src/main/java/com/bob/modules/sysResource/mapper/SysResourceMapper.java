@@ -11,19 +11,15 @@ import java.util.List;
 
 public interface SysResourceMapper extends BaseMapper<SysResource, SysResourceVo, SysResourceQuery> {
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     SysResource select(SysResource entity);
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     SysResourceVo selectVo(SysResource entity);
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysResource> selectList(SysResource entity);
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysResourceVo> selectVoList(SysResource entity);
 

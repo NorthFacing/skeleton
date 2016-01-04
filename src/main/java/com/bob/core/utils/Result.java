@@ -46,11 +46,6 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    public static void main(String[] args) {
-        Result<String> result = Result.success();
-        System.out.println(result.toString());
-    }
-
     public Result enumResult(ResultEnums resultEnums) {
         Result result = new Result<>();
         result.setCode(resultEnums.getCode());
@@ -82,6 +77,11 @@ public class Result<T> implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public static void main(String[] args) {
+        Result<String> result = Result.success();
+        System.out.println(result.toString());
     }
 
     @Override

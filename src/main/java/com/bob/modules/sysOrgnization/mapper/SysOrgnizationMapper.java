@@ -18,19 +18,15 @@ import java.util.List;
  */
 public interface SysOrgnizationMapper extends BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> {
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     SysOrgnization select(SysOrgnization entity);
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     SysOrgnizationVo selectVo(SysOrgnization entity);
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysOrgnization> selectList(SysOrgnization entity);
 
-    @Override
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysOrgnizationVo> selectVoList(SysOrgnization entity);
 
