@@ -10,10 +10,10 @@ import com.bob.modules.sysRole.service.SysRoleService;
 import com.bob.modules.sysRoleResource.entity.SysRoleResource;
 import com.bob.modules.sysRoleResource.mapper.SysRoleResourceMapper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +68,12 @@ public class SysRoleServiceImpl
         if (CollectionUtils.isNotEmpty(resourceIds)) {
             ArrayList<SysRoleResource> list = new ArrayList<>();
             for (String roleId : resourceIds) {
-                SysRoleResource srr = new SysRoleResource();
-                srr.setRoleId(entity.getId());
-                srr.setResourceId(roleId);
-                list.add(srr);
+                if(StringUtils.isNotEmpty(roleId)){
+                    SysRoleResource srr = new SysRoleResource();
+                    srr.setRoleId(entity.getId());
+                    srr.setResourceId(roleId);
+                    list.add(srr);
+                }
             }
             sysRoleResourceMapper.insertBatch(list);
         }
