@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.UpdateProvider;
 
 import java.util.List;
 
-public interface BaseMapper<T extends BaseEntity, V extends T> {
+public interface BaseMapper<T extends BaseEntity, V extends T, Q extends BaseQuery> {
 
     @InsertProvider(type = CRUDTemplate.class, method = "insert")
     void insert(T entity);
@@ -30,8 +30,8 @@ public interface BaseMapper<T extends BaseEntity, V extends T> {
     List<V> selectVoList(T entity);
 
     // 分页查询没有使用Java模板，需要在XML中进行配置，xml中配置不会有类型转换异常的问题，不需要覆写
-    Long count(BaseQuery query);
+    Long count(Q query);
 
-    List query(BaseQuery query);
+    List query(Q query);
 
 }
