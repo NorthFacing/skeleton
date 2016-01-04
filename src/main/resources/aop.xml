@@ -62,6 +62,12 @@
                           expression="(execution(* com.bob..mapper.*Mapper.update(..)))"/>
             <aop:before pointcut-ref="updateOperation" method="update"/>
         </aop:aspect>
+        <aop:aspect ref="operationAspect">
+            <aop:pointcut
+                    expression="(execution(* com.bob..mapper.*Mapper.insertBatch(..)))"
+                    id="addBatchOperation"/>
+            <aop:before pointcut-ref="addBatchOperation" method="insertBatch"/>
+        </aop:aspect>
     </aop:config>
     <!-- CCUU 结束 -->
 

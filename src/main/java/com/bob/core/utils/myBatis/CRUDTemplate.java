@@ -28,6 +28,13 @@ public class CRUDTemplate {
         return SQL();
     }
 
+    public String insertBatch(Object obj) throws Exception{
+        EntityUtil.perpareTableEntity(obj);
+
+        BEGIN();
+        return SQL();
+    }
+
     public String update(Object obj) throws Exception {
         EntityUtil.perpareTableEntity(obj);
         String idName = EntityUtil.getPrimaryKey(obj);
