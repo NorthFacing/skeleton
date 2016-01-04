@@ -14,12 +14,19 @@ public class Constants {
     /**
      * 默认查询页码
      */
-    public static final Integer pageNum = 1;
+    public static final Integer PAGE_NUM = 1;
     /**
      * 默认每个页面查询数量
      */
-    public static final Integer pageSize = 10;
+    public static final Integer PAGE_SIZE = 10;
 
     public static final String TEMPLATE_ORDER_BY = "orderBy";
+
+    /**
+     * 权限类型
+     */
+    public static final Integer RES_TYPE_MODULE = 1;// 模块名称
+    public static final Integer RES_TYPE_MENU = 2;// 菜单
+    public static final Integer RES_TYPE_PERMISSION = 3;// 权限
 
 }

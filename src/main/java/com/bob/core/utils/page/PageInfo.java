@@ -13,8 +13,8 @@ import java.util.List;
 
 public class PageInfo<T> implements Serializable {
 
-    private Integer pageNum = Constants.pageNum;// 页码
-    private Integer pageSize = Constants.pageSize;//页面大小
+    private Integer pageNum = Constants.PAGE_NUM;// 页码
+    private Integer pageSize = Constants.PAGE_SIZE;//页面大小
     private Integer startRow;// 起始行
     private Integer endRow;// 末行
     private Long total;     //总数
