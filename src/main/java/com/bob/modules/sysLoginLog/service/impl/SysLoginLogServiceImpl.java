@@ -2,6 +2,7 @@ package com.bob.modules.sysLoginLog.service.impl;
 
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysLoginLog.entity.SysLoginLog;
+import com.bob.modules.sysLoginLog.entity.SysLoginLogQuery;
 import com.bob.modules.sysLoginLog.entity.SysLoginLogVo;
 import com.bob.modules.sysLoginLog.mapper.SysLoginLogMapper;
 import com.bob.modules.sysLoginLog.service.SysLoginLogService;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @since v0.1
  */
 @Service("sysLoginLogService")
-public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLog, SysLoginLogVo> implements SysLoginLogService {
+public class SysLoginLogServiceImpl extends BaseServiceImpl<SysLoginLog, SysLoginLogVo, SysLoginLogQuery> implements SysLoginLogService {
 
     @Autowired
     private SysLoginLogMapper sysLoginLogMapper;

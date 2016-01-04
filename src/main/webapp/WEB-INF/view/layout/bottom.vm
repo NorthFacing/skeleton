@@ -12,6 +12,8 @@
 <script src="$!{path}/ext/bootStrap/js/respond.min.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
 <![endif]-->
 
+<script type="text/javascript" src="$!{path}/ext/bootgrid/jquery.bootgrid.min.js"></script>
+
 <script src="$!{path}/ext/artDialog/dialog-min.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
 
 <script src="$!{path}/ext/other/js/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>

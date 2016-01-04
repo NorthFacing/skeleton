@@ -2,6 +2,7 @@ package com.bob.modules.sysResource.service.impl;
 
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysResource.entity.SysResource;
+import com.bob.modules.sysResource.entity.SysResourceQuery;
 import com.bob.modules.sysResource.entity.SysResourceVo;
 import com.bob.modules.sysResource.mapper.SysResourceMapper;
 import com.bob.modules.sysResource.service.SysResourceService;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @since v0.0.1
  */
 @Service("sysResourceService")
-public class SysResourceServiceImpl extends BaseServiceImpl<SysResource, SysResourceVo> implements SysResourceService {
+public class SysResourceServiceImpl extends BaseServiceImpl<SysResource, SysResourceVo, SysResourceQuery> implements SysResourceService {
 
     @Autowired
     private SysResourceMapper sysResourceMapper;

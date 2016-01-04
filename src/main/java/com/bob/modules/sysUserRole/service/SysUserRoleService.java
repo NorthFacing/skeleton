@@ -2,6 +2,7 @@ package com.bob.modules.sysUserRole.service;
 
 import com.bob.core.base.service.BaseService;
 import com.bob.modules.sysUserRole.entity.SysUserRole;
+import com.bob.modules.sysUserRole.entity.SysUserRoleQuery;
 import com.bob.modules.sysUserRole.entity.SysUserRoleVo;
 
 /**
@@ -11,6 +12,6 @@ import com.bob.modules.sysUserRole.entity.SysUserRoleVo;
  * @Date 2016-1-3 22:44:45
  * @since v0.0.1
  */
-public interface SysUserRoleService extends BaseService<SysUserRole, SysUserRoleVo> {
+public interface SysUserRoleService extends BaseService<SysUserRole, SysUserRoleVo, SysUserRoleQuery> {
 
 }

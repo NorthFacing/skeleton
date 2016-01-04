@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Bob on 2015/12/30.
  */
-public interface BaseService<T extends BaseEntity, V extends T> {
+public interface BaseService<T extends BaseEntity, V extends T, Q extends BaseQuery> {
 
     void insert(BaseEntity entity);
 
@@ -24,8 +24,8 @@ public interface BaseService<T extends BaseEntity, V extends T> {
 
     List<V> selectVoList(BaseEntity entity);
 
-    Long count(BaseQuery query);
+    Long count(Q query);
 
-    List query(BaseQuery query);
+    Q query(Q query);
 
 }

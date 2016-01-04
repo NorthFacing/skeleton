@@ -1,6 +1,6 @@
 // contextPath 全局变量
-var contextPath = window.location.pathname.split("/")[1];
-var path = "/" + contextPath;
+//var contextPath = window.location.pathname.split("/")[1];
+//var path = "/" + contextPath;
 
 var CommonUtil = {
     stringUtil: {
@@ -123,3 +123,24 @@ var CommonUI = {
         alertDialog.showModal();
     }
 };
+
+
+$.fn.extend({
+    test:function(msg){
+        alert(msg);
+    },
+    bootgridWrapper:function(options){
+        if(!options.isNotShowNum){
+            $(this).find("thead tr"). prepend("<th data-column-id='gird-num' data-sortable='false' >序号</th>");
+        }
+        var that = this,
+            opts = $.extend({
+                labels :{
+                    infos: "显示第 {{ctx.start}} 到第 {{ctx.end}} 条记录，总共 {{ctx.total}} 条记录",
+                    noResults: "没有数据！"
+                }
+            },options);
+        var bg = $(this).bootgrid(opts);
+        return bg;
+    }
+});

@@ -35,7 +35,7 @@
             </a>
         </li>
         <li class="submeun">
-            <a href="${path}/admin/adminUsers/userManager">
+            <a href="${path}/admin/sysUser/list">
                 <i class="glyphicon glyphicon-menu-right"></i>
                 用户管理
             </a>

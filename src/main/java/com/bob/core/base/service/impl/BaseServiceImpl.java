@@ -4,7 +4,6 @@ import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.BaseService;
 import com.bob.core.utils.page.BaseQuery;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * Created by Bob on 2016/1/3.
  */
 @Service("baseService")
-public class BaseServiceImpl<T extends BaseEntity, V extends T> implements BaseService<T, V> {
+public class BaseServiceImpl<T extends BaseEntity, V extends T, Q extends BaseQuery> implements BaseService<T, V, Q> {
 
     @Autowired
     private BaseMapper baseMapper;
@@ -55,13 +54,15 @@ public class BaseServiceImpl<T extends BaseEntity, V extends T> implements BaseS
     }
 
     @Override
-    public Long count(BaseQuery query) {
+    public Long count(Q query) {
         return baseMapper.count(query);
     }
 
     @Override
-    public List query(BaseQuery query) {
-        return baseMapper.query(query);
+    public Q query(Q query) {
+        List list = baseMapper.query(query);
+        query.setResult(list);
+        return query;
     }
 
 }
