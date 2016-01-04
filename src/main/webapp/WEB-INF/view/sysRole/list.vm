@@ -51,9 +51,6 @@
                     <th data-column-id="id" data-sortable="false" data-identifier="true" data-visible="false">ID
                     </th>
                     <th data-column-id="name" data-sortable="false" data-formatter="nameFormatter">名称</th>
-                    <th data-column-id="resUrl" data-sortable="false" data-formatter="typeFormatter">资源路径</th>
-                    <th data-column-id="type" data-sortable="false" data-formatter="typeFormatter">类型</th>
-                    <th data-column-id="level" data-sortable="false" data-formatter="typeFormatter">层级</th>
                     <th data-column-id="description" data-sortable="false" data-formatter="typeFormatter">描述</th>
                     <th data-formatter="status" data-sortable="false">状态</th>
                     <th data-formatter="commands" data-sortable="false">操作</th>
