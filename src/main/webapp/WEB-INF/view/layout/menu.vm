@@ -47,7 +47,7 @@
             </a>
         </li>
         <li class="submeun">
-            <a href="${path}/admin/permission/permissionManager">
+            <a href="${path}/admin/sysResource/list">
                 <i class="glyphicon glyphicon-menu-right"></i>
                 权限管理
             </a>

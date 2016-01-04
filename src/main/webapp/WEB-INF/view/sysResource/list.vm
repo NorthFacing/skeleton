@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    #parse("/WEB-INF/view/layout/base.vm")
+    #parse("/WEB-INF/view/layout/header.vm")
+    <title>医院管理</title>
+</head>
+<body>
+<div class="container-fluid">
+    #parse("/WEB-INF/view/layout/navbar.vm")
+    <div class="row">
+        <div class="col-md-2">
+            #parse("/WEB-INF/view/layout/menu.vm")
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><i class="glyphicon glyphicon-home"></i></li>
+                    <li><a href="$!{path}/admin/login">首页</a></li>
+                    <li><a href="#">医院管理</a></li>
+                </ol>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="status">医院等级</label>
+                            <select class="form-control" id="type">
+                                <option value="">全部</option>
+                                <option value="1">省级医院</option>
+                                <option value="2">市级医院</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">医院名称</label>
+                            <input type="text" class="form-control" placeholder="医院名称" id="name">
+                        </div>
+                        <a class="btn btn-info" href="#" role="button" id="search-btn">
+                            <i class="glyphicon glyphicon-search"></i>
+                            查询
+                        </a>
+                        <a class="btn btn-info" href="$!{path}/admin/corp/editCorp" role="button" id="add-btn">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            新增
+                        </a>
+                </div>
+                </form>
+            </div>
+
+            <table id="grid-data" class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th data-column-id="id" data-sortable="false" data-identifier="true" data-visible="false">ID
+                    </th>
+                    <th data-column-id="name" data-sortable="false" data-formatter="nameFormatter">名称</th>
+                    <th data-column-id="resUrl" data-sortable="false" data-formatter="typeFormatter">资源路径</th>
+                    <th data-column-id="type" data-sortable="false" data-formatter="typeFormatter">类型</th>
+                    <th data-column-id="level" data-sortable="false" data-formatter="typeFormatter">层级</th>
+                    <th data-column-id="description" data-sortable="false" data-formatter="typeFormatter">描述</th>
+                    <th data-formatter="status" data-sortable="false">状态</th>
+                    <th data-formatter="commands" data-sortable="false">操作</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+    #parse("/WEB-INF/view/layout/bottom.vm")
+
+<script src="$!{path}/resources/sysResource/list.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+
+</body>
+</html>
