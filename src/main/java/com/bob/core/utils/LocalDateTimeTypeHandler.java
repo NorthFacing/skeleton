@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  *
  * @author Bob
  * @created 2015年7月4日 下午5:55:25
- * @since v0.0.1
+ * @since v0.1
  */
 @MappedTypes(LocalDateTime.class)
 public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> {

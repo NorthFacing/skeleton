@@ -19,7 +19,7 @@ import java.io.IOException;
  *
  * @author Bob
  * @Date 2015-8-3 13:53:31
- * @since v0.0.1
+ * @since v0.1
  */
 @Controller
 public class WxController extends BaseController {

@@ -10,7 +10,7 @@ import com.bob.modules.sysOrgnization.entity.SysOrgnizationVo;
  *
  * @author Bob
  * @Date 2016-1-3 22:55:44
- * @since v0.0.1
+ * @since v0.1
  */
 public interface SysOrgnizationService extends BaseService<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> {
 

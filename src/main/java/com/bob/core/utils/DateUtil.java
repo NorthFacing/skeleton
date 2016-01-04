@@ -9,7 +9,7 @@ import java.util.Random;
  *
  * @author Bob
  * @created 2015年8月4日 上午11:56:49
- * @since v0.0.1
+ * @since v0.1
  */
 public class DateUtil {
 
@@ -19,7 +19,7 @@ public class DateUtil {
      * @return
      * @author Bob
      * @created 2015年8月19日 上午10:46:44
-     * @since v0.0.1
+     * @since v0.1
      */
     public static Date getNow() {
         return new Date();
@@ -30,7 +30,7 @@ public class DateUtil {
      *
      * @author Bob
      * @created 2015年8月19日 上午10:46:19
-     * @since v0.0.1
+     * @since v0.1
      */
     public static Long getTime() {
         return getNow().getTime();
@@ -43,7 +43,7 @@ public class DateUtil {
      * @param pattern 样式
      * @author Bob
      * @created 2015年8月19日 上午10:36:35
-     * @since v0.0.1
+     * @since v0.1
      */
     public static String format(Date date, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);

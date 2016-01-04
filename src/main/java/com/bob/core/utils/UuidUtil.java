@@ -7,7 +7,7 @@ import java.util.UUID;
  *
  * @author Bob
  * @created 2015年7月4日 下午1:13:10
- * @since v0.0.1
+ * @since v0.1
  */
 public class UuidUtil {
 
@@ -16,7 +16,7 @@ public class UuidUtil {
      *
      * @author Bob
      * @created 2015年7月4日 下午1:13:28
-     * @since v0.0.1
+     * @since v0.1
      */
     public static String getId() {
         return UUID.randomUUID().toString().toUpperCase().replace("-", "");

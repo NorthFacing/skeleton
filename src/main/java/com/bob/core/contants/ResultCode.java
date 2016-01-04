@@ -5,7 +5,7 @@ package com.bob.core.contants;
  *
  * @author Bob
  * @created 2015年7月6日 下午1:00:48
- * @since v0.0.1
+ * @since v0.1
  */
 public class ResultCode {
 

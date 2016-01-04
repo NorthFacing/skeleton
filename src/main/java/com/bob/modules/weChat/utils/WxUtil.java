@@ -39,7 +39,7 @@ public class WxUtil {
      *
      * @author Bob
      * @created 2015年8月19日 下午4:24:58
-     * @since v0.0.1
+     * @since v0.1
      */
     public static boolean checkOpenId(HttpServletRequest request) {
         boolean exist = false;

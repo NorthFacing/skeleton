@@ -11,7 +11,7 @@ import com.bob.modules.sysRoleResource.entity.SysRoleResourceVo;
  *
  * @author Bob
  * @Date 2016-1-3 22:44:45
- * @since v0.0.1
+ * @since v0.1
  */
 public interface SysRoleResourceService extends BaseService<SysRoleResource, SysRoleResourceVo, SysRoleResourceQuery> {
 

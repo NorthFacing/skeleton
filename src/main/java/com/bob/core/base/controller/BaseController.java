@@ -15,7 +15,7 @@ import java.io.IOException;
  *
  * @author Bob
  * @created 2015年7月3日 下午6:11:56
- * @since v0.0.1
+ * @since v0.1
  */
 public class BaseController {
 
@@ -27,7 +27,7 @@ public class BaseController {
      * @throws IOException
      * @author Bob
      * @created 2015年7月3日 下午11:54:10
-     * @since v0.0.1
+     * @since v0.1
      */
     public Result handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
         Result result = Result.fail();

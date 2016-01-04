@@ -10,7 +10,7 @@ import com.bob.modules.sysRole.entity.SysRoleVo;
  *
  * @author Bob
  * @Date 2016-1-3 22:44:45
- * @since v0.0.1
+ * @since v0.1
  */
 public interface SysRoleService extends BaseService<SysRole, SysRoleVo, SysRoleQuery> {
 

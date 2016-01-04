@@ -12,7 +12,7 @@ import java.util.Set;
  *
  * @author Bob
  * @created 2015年7月3日 下午9:27:21
- * @since v0.0.1
+ * @since v0.1
  */
 public class ParameterRequestWrapper extends HttpServletRequestWrapper {
 
@@ -24,7 +24,7 @@ public class ParameterRequestWrapper extends HttpServletRequestWrapper {
      * @param request
      * @author Bob
      * @created 2015年7月3日 下午9:27:21
-     * @since v0.0.1
+     * @since v0.1
      */
     public ParameterRequestWrapper(HttpServletRequest request) {
         super(request);
@@ -39,7 +39,7 @@ public class ParameterRequestWrapper extends HttpServletRequestWrapper {
      * @param extendParams
      * @author Bob
      * @created 2015年7月3日 下午9:29:32
-     * @since v0.0.1
+     * @since v0.1
      */
     public ParameterRequestWrapper(HttpServletRequest request, Map<String, Object> extendParams) {
         this(request);
