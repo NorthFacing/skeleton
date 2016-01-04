@@ -4,7 +4,6 @@ import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.BaseService;
 import com.bob.core.utils.page.BaseQuery;
-import com.bob.modules.sysRole.entity.SysRoleVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
