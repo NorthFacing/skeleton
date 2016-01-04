@@ -7,7 +7,7 @@
 
     <!-- bootstrap -->
     <link href="$!{path}/ext/bootStrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="$!{path}/resources/sysUser/login.css" rel="stylesheet"/>
+    <link href="$!{path}/resources/login/login.css" rel="stylesheet"/>
 
 </head>
 <body>
@@ -37,7 +37,7 @@
 </div>
 
 <script src="$!{path}/ext/jQuery/jquery-1.11.3.min.js?staticVersion=$staticVersion" type="text/javascript"></script>
-<script src="$!{path}/ext/other/js/md5.js/other/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
+<script src="$!{path}/ext/other/js/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
 
 <script type="text/javascript">
     $(function () {

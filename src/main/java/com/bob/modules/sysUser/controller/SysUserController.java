@@ -20,11 +20,6 @@ public class SysUserController extends BaseController {
     @Autowired
     private SysUserService sysUserService;
 
-    @RequestMapping(value = "/login")
-    public String login(){
-        return "/sysUser/login";
-    }
-
     @RequestMapping(value = "/sysUser/list")
     public String list(){
         return "/sysUser/list";
