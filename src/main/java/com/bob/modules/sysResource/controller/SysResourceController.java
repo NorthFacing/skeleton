@@ -24,8 +24,8 @@ public class SysResourceController extends BaseController {
     @Autowired
     private SysResourceService sysResourceService;
 
-    public SysResource select(SysResource sysResource) {
-        return sysResourceService.select(sysResource);
+    public SysResource select(SysResource entity) {
+        return sysResourceService.select(entity);
     }
 
     @RequestMapping(value = "/sysResource/add")
@@ -72,6 +72,5 @@ public class SysResourceController extends BaseController {
         query = sysResourceService.pageData(query);
         return PageUtil.convertPage(query);
     }
-
 
 }
