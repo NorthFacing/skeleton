@@ -22,7 +22,10 @@
             </div>
             <div class="row">
                 <form id="form" class="form-horizontal" action="#" method="POST">
-                    <input type="hidden" id="entityId" name="id" value="$!{entity.id}"/>
+                    <input type="hidden" id="entityId" name="id" value=""/>
+                    <input type="text" name="resourceIds" value=""/>
+                    <input type="text" name="resourceIds" value=""/>
+                    <input type="text" name="resourceIds" value=""/>
 
                     <div class="form-group ">
                         <label class="col-sm-2 control-label"><span class="required"> * </span>名称：</label>

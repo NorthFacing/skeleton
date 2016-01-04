@@ -5,6 +5,7 @@ import com.bob.core.utils.Result;
 import com.bob.core.utils.page.PageUtil;
 import com.bob.modules.sysRole.entity.SysRole;
 import com.bob.modules.sysRole.entity.SysRoleQuery;
+import com.bob.modules.sysRole.entity.SysRoleVo;
 import com.bob.modules.sysRole.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,9 +47,9 @@ public class SysRoleController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/sysRole/save")
-    public Result save(SysRole entity) {
+    public Result save(SysRoleVo entity) {
         Result result = Result.fail();
-        sysRoleService.save(entity);
+        sysRoleService.saveVo(entity);
         return result.success();
     }
 

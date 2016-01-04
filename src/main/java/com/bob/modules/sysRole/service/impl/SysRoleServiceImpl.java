@@ -7,8 +7,16 @@ import com.bob.modules.sysRole.entity.SysRoleQuery;
 import com.bob.modules.sysRole.entity.SysRoleVo;
 import com.bob.modules.sysRole.mapper.SysRoleMapper;
 import com.bob.modules.sysRole.service.SysRoleService;
+import com.bob.modules.sysRoleResource.entity.SysRoleResource;
+import com.bob.modules.sysRoleResource.mapper.SysRoleResourceMapper;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SysRoleServiceImpl
@@ -24,6 +32,8 @@ public class SysRoleServiceImpl
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+    @Autowired
+    private SysRoleResourceMapper sysRoleResourceMapper;
 
     @Override
     public SysRole getEntity() {
@@ -33,6 +43,38 @@ public class SysRoleServiceImpl
     @Override
     public BaseMapper<SysRole, SysRoleVo, SysRoleQuery> getMapper() {
         return sysRoleMapper;
+    }
+
+    @Override
+    public String saveVo(SysRoleVo entity) {
+        SysRole role = this.getEntity();
+        BeanUtils.copyProperties(entity, role);
+        // 保存角色
+        if (StringUtils.isEmpty(entity.getId())) {
+            sysRoleMapper.insert(role);
+        } else {
+            sysRoleMapper.update(role);
+            sysRoleResourceMapper.deleteByRoleId(entity.getId());
+        }
+        // id赋值，为了下面的方法少传一个参数
+        entity.setId(role.getId());
+        // 保存角色和权限关联关系
+        insertRoleResource(entity);
+        return entity.getId();
+    }
+
+    private void insertRoleResource(SysRoleVo entity) {
+        List<String> resourceIds = entity.getResourceIds();
+        if (CollectionUtils.isNotEmpty(resourceIds)) {
+            ArrayList<SysRoleResource> list = new ArrayList<>();
+            for (String roleId : resourceIds) {
+                SysRoleResource srr = new SysRoleResource();
+                srr.setRoleId(entity.getId());
+                srr.setResourceId(roleId);
+                list.add(srr);
+            }
+            sysRoleResourceMapper.insertBatch(list);
+        }
     }
 
 }

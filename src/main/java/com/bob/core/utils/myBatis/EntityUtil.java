@@ -259,10 +259,10 @@ public class EntityUtil {
         List<PropertyDescriptor> propertyDescriptorList = getDescriptorList(obj);
 
         for (PropertyDescriptor p : propertyDescriptorList) {
-            if (isNull(obj, p)) {
+            String column = p.getName();
+            if (isNull(obj, p) || column.equals(getPrimaryKey(obj))) {
                 continue;
             }
-            String column = p.getName();
             sb.append(columnMap.get(p.getName()));
             sb.append("=#{").append(column).append("},");
         }

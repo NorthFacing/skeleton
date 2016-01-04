@@ -14,4 +14,6 @@ import com.bob.modules.sysRole.entity.SysRoleVo;
  */
 public interface SysRoleService extends BaseService<SysRole, SysRoleVo, SysRoleQuery> {
 
+    String saveVo(SysRoleVo entity);
+
 }

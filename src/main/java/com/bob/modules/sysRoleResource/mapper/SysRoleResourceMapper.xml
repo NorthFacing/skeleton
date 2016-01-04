@@ -77,5 +77,19 @@
         LIMIT #{startRow}, #{pageSize}
     </select>
 
-
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO
+        <include refid="tabaleName"/>
+        (<include refid="baseColumn"/>)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.roleId},#{item.resourceId},#{item.status},#{item.createTime},#{item.createUser},#{item.updateTime},#{item.updateUser})
+        </foreach>
+    </insert>
+    
+    <delete id="deleteByRoleId" parameterType="java.lang.String">
+        DELETE FROM 
+        <include refid="tabaleName"/>
+        WHERE role_id = #{value}
+    </delete>
 </mapper>
