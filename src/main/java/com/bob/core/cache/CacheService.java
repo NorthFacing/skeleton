@@ -5,16 +5,6 @@ package com.bob.core.cache;
  */
 public interface CacheService {
 
-    public static final int SECOND = 1;
-    public static final int MINUTE = 60 * SECOND;
-    public static final int HOUR = 60 * MINUTE;
-    public static final int DAY = 24 * HOUR;
-    public static final int WEEK = 7 * DAY;
-
-    <V> Cache<V> getCache(String cacheName);
-
-    <V> Cache<V> getCache(String cacheName, int expried);
-
     /**
      * <pre>
      * 返回缓存默认过期时间

@@ -2,6 +2,7 @@ package com.bob.modules.sysRole.service.impl;
 
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
+import com.bob.core.cache.CacheService;
 import com.bob.modules.sysRole.entity.SysRole;
 import com.bob.modules.sysRole.entity.SysRoleQuery;
 import com.bob.modules.sysRole.entity.SysRoleVo;
@@ -34,6 +35,8 @@ public class SysRoleServiceImpl
     private SysRoleMapper sysRoleMapper;
     @Autowired
     private SysRoleResourceMapper sysRoleResourceMapper;
+    @Autowired
+    private CacheService cacheService;
 
     @Override
     public SysRole getEntity() {
@@ -68,7 +71,7 @@ public class SysRoleServiceImpl
         if (CollectionUtils.isNotEmpty(resourceIds)) {
             ArrayList<SysRoleResource> list = new ArrayList<>();
             for (String roleId : resourceIds) {
-                if(StringUtils.isNotEmpty(roleId)){
+                if (StringUtils.isNotEmpty(roleId)) {
                     SysRoleResource srr = new SysRoleResource();
                     srr.setRoleId(entity.getId());
                     srr.setResourceId(roleId);

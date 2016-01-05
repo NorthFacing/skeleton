@@ -1,6 +1,7 @@
 package com.bob.core.cache;
 
 import com.bob.modules.sysUser.entity.SysUser;
+import org.apache.commons.lang.SerializationUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -26,7 +27,7 @@ public class rediesTest {
 
         Integer port = 6379;
 
-        String password = null;
+        String password = "BobZhu";
 
         final JedisPool pool = new JedisPool(config, host, port, 3000, password);
 
@@ -47,18 +48,17 @@ public class rediesTest {
                 System.out.println(str);
             }
 
-
             SysUser user = new SysUser();
             user.setUserName("Bob");
             String key = "bob";
             try {
-                jedis.set(key.getBytes(), SerializeUtil.serialize(user));
+                jedis.set(key.getBytes(), SerializationUtils.serialize(user));
                 jedis.expire(key.getBytes(), 100);
                 byte[] value = jedis.get(key.getBytes());
                 if (null == value) {
                     return;
                 }
-                SysUser result = (SysUser) SerializeUtil.unserialize(value);
+                SysUser result = (SysUser) SerializationUtils.deserialize(value);
                 System.out.println(result);
 
             } catch (Exception e) {

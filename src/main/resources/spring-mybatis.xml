@@ -58,8 +58,8 @@
     <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
     </bean>
-    <bean id="cacheService" class="com.bob.core.cache.RedisCacheService">
-        <property name="prefix" value="usercenter"/>
+    <bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheService">
+        <property name="prefix" value="selekton"/>
         <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
     <!-- redis config end -->
