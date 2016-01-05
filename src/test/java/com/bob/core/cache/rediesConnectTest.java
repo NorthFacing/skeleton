@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by Bob on 2016/1/4.
  */
-public class rediesTest {
+public class rediesConnectTest {
 
     public static void main(String[] args) {
 
