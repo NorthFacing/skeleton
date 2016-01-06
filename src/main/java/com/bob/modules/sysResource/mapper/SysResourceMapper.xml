@@ -7,9 +7,12 @@
         <result column="id" property="id"/>
         <result column="parent_id" property="parentId"/>
         <result column="name" property="name"/>
-        <result column="res_url" property="resUrl"/>
         <result column="type" property="type"/>
-        <result column="level" property="level"/>
+        <result column="shiro_key" property="shiroKey"/>
+        <result column="res_url" property="resUrl"/>
+        <result column="res_level" property="resLevel"/>
+        <result column="res_priority" property="resPriority"/>
+        <result column="res_code" property="resCode"/>
         <result column="description" property="description"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
@@ -24,9 +27,12 @@
         id,
         parent_id,
         name,
-        res_url,
         type,
-        level,
+        shiro_key,
+        res_url,
+        res_level,
+        res_priority,
+        res_code,
         description,
         status,
         create_time,
@@ -36,42 +42,53 @@
     </sql>
 
     <sql id="whereCondition">
-        <if test=" id !=null and id !='' ">
-            AND id = #{id}
-        </if>
-        <if test=" parentId !=null and parentId !='' ">
-            AND parent_id = #{parentId}
-        </if>
-        <if test=" name !=null and name !='' ">
-            AND name = #{name}
-        </if>
-        <if test=" resUrl !=null and resUrl !='' ">
-            AND res_url = #{resUrl}
-        </if>
-        <if test=" type !=null and type !='' ">
-            AND type = #{type}
-        </if>
-        <if test=" level !=null and level !='' ">
-            AND level = #{level}
-        </if>
-        <if test=" description !=null and description !='' ">
-            AND description = #{description}
-        </if>
-        <if test=" status !=null and status !='' ">
-            AND status = #{status}
-        </if>
-        <if test=" createTime !=null and createTime !='' ">
-            AND create_time = #{createTime}
-        </if>
-        <if test=" createUser !=null and createUser !='' ">
-            AND create_user = #{createUser}
-        </if>
-        <if test=" updateTime !=null and updateTime !='' ">
-            AND update_time = #{updateTime}
-        </if>
-        <if test=" updateUser !=null and updateUser !='' ">
-            AND update_user = #{updateUser}
-        </if>
+        <where>
+            <if test=" id != null ">
+                AND id = #{id}
+            </if>
+            <if test=" parentId != null ">
+                AND parent_id = #{parentId}
+            </if>
+            <if test=" name != null ">
+                AND name = #{name}
+            </if>
+            <if test=" type != null ">
+                AND type = #{type}
+            </if>
+            <if test=" shiroKey != null ">
+                AND shiro_key = #{shiroKey}
+            </if>
+            <if test=" resUrl != null ">
+                AND res_url = #{resUrl}
+            </if>
+            <if test=" resLevel != null ">
+                AND res_level = #{resLevel}
+            </if>
+            <if test=" resPriority != null ">
+                AND res_priority = #{resPriority}
+            </if>
+            <if test=" resCode != null ">
+                AND res_code = #{resCode}
+            </if>
+            <if test=" description != null ">
+                AND description = #{description}
+            </if>
+            <if test=" status != null ">
+                AND status = #{status}
+            </if>
+            <if test=" createTime != null ">
+                AND create_time = #{createTime}
+            </if>
+            <if test=" createUser != null ">
+                AND create_user = #{createUser}
+            </if>
+            <if test=" updateTime != null ">
+                AND update_time = #{updateTime}
+            </if>
+            <if test=" updateUser != null ">
+                AND update_user = #{updateUser}
+            </if>
+        </where>
     </sql>
 
     <sql id="queryCondition">
@@ -96,6 +113,32 @@
         <include refid="tabaleName"/>
         <include refid="queryCondition"/>
         LIMIT #{startRow}, #{pageSize}
+    </select>
+
+
+    <select id="getResourcesByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            sr.id,
+            sr.parent_id,
+            sr.name,
+            sr.type,
+            sr.shiro_key,
+            sr.res_url,
+            sr.res_level,
+            sr.res_priority,
+            sr.res_code,
+            sr.description,
+            sr.status
+        FROM sys_resource sr
+        LEFT JOIN sys_role_resource srr
+        ON srr.resource_id = sr.id
+        WHERE srr.role_id IN (
+            SELECT r.id
+            FROM sys_user_role ur
+            LEFT JOIN  sys_role r
+            ON ur.role_id = r.id
+            WHERE ur.id = #{value}
+        )
     </select>
 
 </mapper>

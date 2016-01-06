@@ -30,4 +30,6 @@ public interface SysUserMapper extends BaseMapper<SysUser, SysUserVo, SysUserQue
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysUserVo> selectVoList(SysUser entity);
 
+    SysUser getByUserName(String name);
+
 }

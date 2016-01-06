@@ -16,4 +16,9 @@ public class LoginController extends BaseController {
         return "/login/login";
     }
 
+    @RequestMapping(value = "/doLogin")
+    public String doLogin(){
+        return "/login/loginSuc";
+    }
+
 }

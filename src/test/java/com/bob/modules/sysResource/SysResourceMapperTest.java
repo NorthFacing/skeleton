@@ -24,7 +24,7 @@ public class SysResourceMapperTest extends BaseMapperTest {
     private SysResource getSysResource() {
         SysResource sysResource = new SysResource();
         sysResource.setName("name");
-        sysResource.setLevel(1);
+        sysResource.setResLevel(1);
         return sysResource;
     }
 

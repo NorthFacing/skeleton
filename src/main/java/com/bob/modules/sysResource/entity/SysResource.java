@@ -3,15 +3,23 @@ package com.bob.modules.sysResource.entity;
 import com.bob.core.base.entity.BaseEntity;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
-import javax.persistence.Transient;
-
+/**
+ * SysResource
+ *
+ * @author Bob
+ * @Date 2016-1-6 16:03:06
+ * @since v0.1
+ */
 public class SysResource extends BaseEntity {
 
     private String parentId;    //  父节点ID
     private String name;    //  名称
-    private String resUrl;    //  资源路径
-    private Integer type;    //  类型
-    private Integer level;    //  层级
+    private String type;    //  类型：1，菜单权限；2，按钮权限
+    private String shiroKey;    //  shiro判断资源权限标识符
+    private String resUrl;    //  菜单路径（菜单类型时必填）
+    private Integer resLevel;    //  菜单层级（菜单类型时必填）
+    private Integer resPriority;    //  菜单顺序（菜单类型时必填）
+    private String resCode;    //  菜单CODE（自动生成）
     private String description;    //  描述
     private Integer status;    //  状态
 
@@ -19,7 +27,6 @@ public class SysResource extends BaseEntity {
     /**
      * 父节点ID
      */
-    @Transient
     public String getParentId() {
         return parentId;
     }
@@ -33,7 +40,6 @@ public class SysResource extends BaseEntity {
     /**
      * 名称
      */
-    @Transient
     public String getName() {
         return name;
     }
@@ -45,9 +51,34 @@ public class SysResource extends BaseEntity {
 
 
     /**
-     * 资源路径
+     * 类型：1，菜单权限；2，按钮权限
      */
-    @Transient
+    public String getType() {
+        return type;
+    }
+
+    public SysResource setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+
+    /**
+     * shiro判断资源权限标识符
+     */
+    public String getShiroKey() {
+        return shiroKey;
+    }
+
+    public SysResource setShiroKey(String shiroKey) {
+        this.shiroKey = shiroKey;
+        return this;
+    }
+
+
+    /**
+     * 菜单路径（菜单类型时必填）
+     */
     public String getResUrl() {
         return resUrl;
     }
@@ -59,29 +90,40 @@ public class SysResource extends BaseEntity {
 
 
     /**
-     * 类型
+     * 菜单层级（菜单类型时必填）
      */
-    @Transient
-    public Integer getType() {
-        return type;
+    public Integer getResLevel() {
+        return resLevel;
     }
 
-    public SysResource setType(Integer type) {
-        this.type = type;
+    public SysResource setResLevel(Integer resLevel) {
+        this.resLevel = resLevel;
         return this;
     }
 
 
     /**
-     * 层级
+     * 菜单顺序（菜单类型时必填）
      */
-    @Transient
-    public Integer getLevel() {
-        return level;
+    public Integer getResPriority() {
+        return resPriority;
     }
 
-    public SysResource setLevel(Integer level) {
-        this.level = level;
+    public SysResource setResPriority(Integer resPriority) {
+        this.resPriority = resPriority;
+        return this;
+    }
+
+
+    /**
+     * 菜单CODE（自动生成）
+     */
+    public String getResCode() {
+        return resCode;
+    }
+
+    public SysResource setResCode(String resCode) {
+        this.resCode = resCode;
         return this;
     }
 
@@ -89,7 +131,6 @@ public class SysResource extends BaseEntity {
     /**
      * 描述
      */
-    @Transient
     public String getDescription() {
         return description;
     }

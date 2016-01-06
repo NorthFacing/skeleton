@@ -30,4 +30,6 @@ public interface SysRoleMapper extends BaseMapper<SysRole, SysRoleVo, SysRoleQue
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysRoleVo> selectVoList(SysRole entity);
 
+    List<SysRole> getRolesByUserId(String uId);
+
 }

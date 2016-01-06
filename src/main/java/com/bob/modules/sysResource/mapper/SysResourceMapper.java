@@ -23,4 +23,6 @@ public interface SysResourceMapper extends BaseMapper<SysResource, SysResourceVo
     @SelectProvider(type = CRUDTemplate.class, method = "select")
     List<SysResourceVo> selectVoList(SysResource entity);
 
+    List<SysResource> getResourcesByUserId(String uId);
+
 }
