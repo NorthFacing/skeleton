@@ -8,9 +8,9 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            classpath:spring-shiro.xml;
             classpath:applicationContext.xml;
             classpath:spring-mybatis.xml;
-            classpath:spring-shiro.xml;
             classpath:aop.xml
         </param-value>
     </context-param>
@@ -27,20 +27,24 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
 
-    <servlet>
-        <servlet-name>spring-mvc</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- shiro 安全过滤器 -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <async-supported>true</async-supported>
         <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring-servlet.xml</param-value>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
         </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>spring-mvc</servlet-name>
-        <!-- TODO 确认一下url-pattern中的/和/*的区别 -->
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
 
     <filter>
         <filter-name>encoding</filter-name>
@@ -71,20 +75,20 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- shiro 安全过滤器 -->
-    <filter>
-        <filter-name>shiroFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-        <async-supported>true</async-supported>
+    <servlet>
+        <servlet-name>spring-mvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
-            <param-name>targetFilterLifecycle</param-name>
-            <param-value>true</param-value>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-servlet.xml</param-value>
         </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>shiroFilter</filter-name>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring-mvc</servlet-name>
+        <!-- TODO 确认一下url-pattern中的/和/*的区别 -->
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </servlet-mapping>
 
     <context-param>
         <param-name>log4jConfigLocation</param-name>

@@ -23,8 +23,6 @@
     <bean id="myRealm" class="com.bob.modules.login.realm.UserRealm">
     </bean>
 
-
-
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!--override these for application-specific URLs if you like:-->
@@ -40,12 +38,19 @@
             </util:map>
         </property> -->
         <property name="filterChainDefinitions">
+            <!--按照从上到下的顺序进行匹配，自要通过就不再往下进行-->
             <value>
+                <!--资源文件放行-->
+                /ext/** = anon
+                /resources/** = anon
+                <!--登陆操作放行-->
+                /admin/loginAction = anon
+                <!-- more URL-to-FilterChain definitions here-->
                 <!-- some example chain definitions:-->
                 <!--/admin/** = authc, roles[admin]-->
                 <!--/docs/** = authc, perms[document:read]-->
+                <!-- 其余全部需要登录 -->
                 /** = authc
-                <!-- more URL-to-FilterChain definitions here-->
             </value>
         </property>
     </bean>

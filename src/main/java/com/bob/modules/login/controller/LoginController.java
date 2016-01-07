@@ -1,8 +1,22 @@
 package com.bob.modules.login.controller;
 
 import com.bob.core.base.controller.BaseController;
+import com.bob.core.utils.LocalDateTool;
+import com.bob.modules.sysLoginLog.entity.SysLoginLog;
+import com.bob.modules.sysLoginLog.service.SysLoginLogService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Bob on 2016/1/4.
@@ -10,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/admin")
 public class LoginController extends BaseController {
+    @Autowired
+    private SysLoginLogService sysLoginLogService;
 
     @RequestMapping(value = "/login")
     public String login() {
@@ -17,7 +33,49 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value = "/loginAction")
-    public String loginAction() {
+    public String loginAction(String username, String password, HttpServletRequest request) {
+        try {
+            if (!request.getMethod().equals("POST")) {
+                request.setAttribute("error", "支持POST方法提交！");
+            }
+            if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+                request.setAttribute("error", "用户名或密码不能为空！");
+                return "/login";
+            }
+            // 想要得到 SecurityUtils.getSubject()　的对象．．访问地址必须跟ｓｈｉｒｏ的拦截地址内．不然后会报空指针
+            Subject user = SecurityUtils.getSubject();
+            // 用户输入的账号和密码,,存到UsernamePasswordToken对象中..然后由shiro内部认证对比,
+            // 认证执行者交由ShiroDbRealm中doGetAuthenticationInfo处理
+            // 当以上认证成功后会向下执行,认证失败会抛出异常
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            try {
+                user.login(token);
+            } catch (LockedAccountException lae) {
+                token.clear();
+                request.setAttribute("error", "用户已经被锁定不能登录，请与管理员联系！");
+                return "/admin/login";
+            } catch (ExcessiveAttemptsException e) {
+                token.clear();
+                request.setAttribute("error", "账号：" + username + " 登录失败次数过多,锁定10分钟!");
+                return "/admin/login";
+            } catch (AuthenticationException e) {
+                token.clear();
+                request.setAttribute("error", "用户或密码不正确！");
+                return "/admin/login";
+            }
+            SysLoginLog loginLog = new SysLoginLog();
+            Session session = SecurityUtils.getSubject().getSession();
+            loginLog.setLoginTime(LocalDateTool.getNow());
+            loginLog.setUserId((String) session.getAttribute("userSessionId"));
+            loginLog.setUserName(username);
+            loginLog.setLoginIp(session.getHost());
+            sysLoginLogService.insert(loginLog);
+            request.removeAttribute("error");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "登录异常，请联系管理员！");
+            return "/admin/login";
+        }
         return "/login/loginSuc";
     }
 

@@ -45,4 +45,12 @@ public class LocalDateTool {
         Instant instant = d.atZone(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
     }
+
+    /**
+     *
+     * @return
+     */
+    public static LocalDateTime getNow(){
+        return LocalDateTime.now();
+    }
 }

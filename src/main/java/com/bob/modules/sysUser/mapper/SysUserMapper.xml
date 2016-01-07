@@ -92,5 +92,12 @@
         LIMIT #{startRow}, #{pageSize}
     </select>
 
+    <select id="getByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        <include refid="tabaleName"/>
+        WHERE user_name = #{value}
+    </select>
 
 </mapper>

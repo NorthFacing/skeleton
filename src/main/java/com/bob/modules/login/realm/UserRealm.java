@@ -44,15 +44,19 @@ public class UserRealm extends AuthorizingRealm {
 
         SysUser user = sysUserService.getByUserName(username);
 
-        if (user == null) {
+        if (user == null || StatusCode.DELETE == user.getStatus()) {
             throw new UnknownAccountException();//没找到帐号
         }
 
-        if (StatusCode.USE != user.getStatus()) {
+        if (StatusCode.DISABLE == user.getStatus()) {
             throw new LockedAccountException(); //帐号锁定
         }
 
-        //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
+        if (StatusCode.DISABLE == user.getStatus()) {
+            throw new LockedAccountException(); //帐号锁定
+        }
+
+        //交给AuthenticatingRealm 使用 CredentialsMatcher 进行密码匹配，如果觉得人家的不好可以自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUserName(), //用户名
                 user.getPassWord(), //密码
