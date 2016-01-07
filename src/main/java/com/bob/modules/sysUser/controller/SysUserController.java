@@ -6,6 +6,8 @@ import com.bob.core.utils.page.PageUtil;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.entity.SysUserQuery;
 import com.bob.modules.sysUser.service.SysUserService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +34,13 @@ public class SysUserController extends BaseController {
         return sysUserService.select(entity);
     }
 
+    @RequiresPermissions("sysUser:add")
     @RequestMapping(value = "/sysUser/add")
     public String add() {
         return "/sysUser/edit";
     }
 
+    @RequiresPermissions("sysUser:update")
     @RequestMapping(value = "/sysUser/update")
     public String update(String id, Model model) {
         SysUser entity = sysUserService.selectById(id);
@@ -44,6 +48,7 @@ public class SysUserController extends BaseController {
         return "/sysUser/edit";
     }
 
+    @RequiresPermissions(value = {"sysUser:add", "sysUser:update"}, logical = Logical.OR)
     @ResponseBody
     @RequestMapping(value = "/sysUser/save")
     public Result save(SysUser entity) {
@@ -52,6 +57,7 @@ public class SysUserController extends BaseController {
         return result.success();
     }
 
+    @RequiresPermissions("sysUser:view")
     @RequestMapping(value = "/sysUser/view")
     public String select(String id, Model model) {
         SysUser entity = sysUserService.selectById(id);
@@ -59,6 +65,7 @@ public class SysUserController extends BaseController {
         return "/sysResource/view";
     }
 
+    @RequiresPermissions("sysUser:delete")
     @ResponseBody
     @RequestMapping(value = "/sysUser/delete")
     public Result delete(String id) {
@@ -67,11 +74,13 @@ public class SysUserController extends BaseController {
         return result.success();
     }
 
+    @RequiresPermissions("sysUser:list")
     @RequestMapping(value = "/sysUser/list")
     public String list() {
         return "/sysUser/list";
     }
 
+    @RequiresPermissions("sysUser:list")
     @ResponseBody
     @RequestMapping(value = "/sysUser/pageData")
     public Map<String, Object> pageData(SysUserQuery query) {
