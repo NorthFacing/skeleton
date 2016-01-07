@@ -8,6 +8,7 @@
         <result column="user_name" property="userName"/>
         <result column="nick_name" property="nickName"/>
         <result column="pass_word" property="passWord"/>
+        <result column="salt" property="salt"/>
         <result column="dep_id" property="depId"/>
         <result column="dep_code" property="depCode"/>
         <result column="status" property="status"/>
@@ -24,6 +25,7 @@
         user_name,
         nick_name,
         pass_word,
+        salt,
         dep_id,
         dep_code,
         status,
@@ -46,6 +48,9 @@
             </if>
             <if test=" passWord != null ">
                 AND pass_word = #{passWord}
+            </if>
+            <if test=" salt != null ">
+                AND salt = #{salt}
             </if>
             <if test=" depId != null ">
                 AND dep_id = #{depId}

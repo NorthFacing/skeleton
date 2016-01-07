@@ -7,7 +7,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
  * SysUser
  *
  * @author Bob
- * @Date 2016-1-3 22:44:45
+ * @Date 2016-1-7 16:13:50
  * @since v0.1
  */
 public class SysUser extends BaseEntity {
@@ -15,6 +15,7 @@ public class SysUser extends BaseEntity {
     private String userName;    //  用户名/登录名
     private String nickName;    //  昵称/显示名
     private String passWord;    //  密码
+    private String salt;    //  加密盐
     private String depId;    //  归属部门ID
     private String depCode;    //  归属部门CODE
     private Integer status;    //  状态
@@ -55,6 +56,19 @@ public class SysUser extends BaseEntity {
 
     public SysUser setPassWord(String passWord) {
         this.passWord = passWord;
+        return this;
+    }
+
+
+    /**
+     * 加密盐
+     */
+    public String getSalt() {
+        return salt;
+    }
+
+    public SysUser setSalt(String salt) {
+        this.salt = salt;
         return this;
     }
 

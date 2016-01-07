@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
             }
             if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
                 request.setAttribute("error", "用户名或密码不能为空！");
-                return "/login";
+                return "/login/login";
             }
             // 想要得到 SecurityUtils.getSubject()　的对象．．访问地址必须跟ｓｈｉｒｏ的拦截地址内．不然后会报空指针
             Subject user = SecurityUtils.getSubject();
@@ -53,15 +53,15 @@ public class LoginController extends BaseController {
             } catch (LockedAccountException lae) {
                 token.clear();
                 request.setAttribute("error", "用户已经被锁定不能登录，请与管理员联系！");
-                return "/admin/login";
+                return "/login/login";
             } catch (ExcessiveAttemptsException e) {
                 token.clear();
                 request.setAttribute("error", "账号：" + username + " 登录失败次数过多,锁定10分钟!");
-                return "/admin/login";
+                return "/login/login";
             } catch (AuthenticationException e) {
                 token.clear();
                 request.setAttribute("error", "用户或密码不正确！");
-                return "/admin/login";
+                return "/login/login";
             }
             SysLoginLog loginLog = new SysLoginLog();
             Session session = SecurityUtils.getSubject().getSession();
@@ -74,7 +74,7 @@ public class LoginController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "登录异常，请联系管理员！");
-            return "/admin/login";
+            return "/login/login";
         }
         return "/login/loginSuc";
     }
