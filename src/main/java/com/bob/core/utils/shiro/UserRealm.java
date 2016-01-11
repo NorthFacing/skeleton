@@ -1,7 +1,6 @@
-package com.bob.modules.login.realm;
+package com.bob.core.utils.shiro;
 
 import com.bob.core.contants.StatusCode;
-import com.bob.core.utils.shiro.PasswordHelper;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.service.SysUserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -57,7 +56,8 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 username, // 用户名
                 user.getPassWord(), // 密码
-                ByteSource.Util.bytes(PasswordHelper.ENCRYPT + username + user.getSalt()),// salt = constant + username + salt
+                // salt = constant + username + salt
+                ByteSource.Util.bytes(PasswordHelper.ENCRYPT + username + user.getSalt()),
                 getName() // realm name
         );
         return authenticationInfo;

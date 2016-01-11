@@ -32,7 +32,7 @@
 
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
     <!-- security datasource: -->
-    <bean id="myRealm" class="com.bob.modules.login.realm.UserRealm">
+    <bean id="myRealm" class="com.bob.core.utils.shiro.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
 
