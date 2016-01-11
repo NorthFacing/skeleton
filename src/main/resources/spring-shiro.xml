@@ -3,21 +3,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
-    <!-- They will automatically be acquired by the 'shiroFilter' bean above and made available -->
-    <!-- to the 'filterChainDefinitions' property.  Or you can manually/explicitly add them     -->
-    <!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for more details.       -->
-
-    <!--如果要使用缓存，在这里进行配置-->
+    <!-- 密码校验规则。另外：如果要使用缓存，在这里进行配置-->
     <!--<bean id="credentialsMatcher" class="com.bob.core.utils.shiro.RetryLimitHashedCredentialsMatcher">-->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
         <!-- hashAlgorithmName必须的，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。
         这里使用MD5 storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
         hashIterations迭代次数，默认值是1。 -->
         <!--<constructor-arg ref="cacheManager"/>-->
-        <property name="hashAlgorithmName" value="md5"/>
-        <property name="hashIterations" value="2"/>
+        <property name="hashAlgorithmName" value="md5"/><!--需要和PasswordHelper中的参数配置一致-->
+        <property name="hashIterations" value="2"/><!--需要和PasswordHelper中的参数配置一致-->
         <property name="storedCredentialsHexEncoded" value="true"/>
+    </bean>
+
+    <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
+    <!-- security datasource: -->
+    <bean id="myRealm" class="com.bob.core.utils.shiro.UserRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -28,14 +29,10 @@
         <!-- <property name="sessionMode" value="native"/> -->
     </bean>
 
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-
-    <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
-    <!-- security datasource: -->
-    <bean id="myRealm" class="com.bob.core.utils.shiro.UserRealm">
-        <property name="credentialsMatcher" ref="credentialsMatcher"/>
-    </bean>
-
+    <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
+    <!-- They will automatically be acquired by the 'shiroFilter' bean above and made available -->
+    <!-- to the 'filterChainDefinitions' property.  Or you can manually/explicitly add them     -->
+    <!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for more details.       -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!--override these for application-specific URLs if you like:-->
@@ -67,5 +64,8 @@
             </value>
         </property>
     </bean>
+
+    <!--这个有什么作用？-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
 </beans>
