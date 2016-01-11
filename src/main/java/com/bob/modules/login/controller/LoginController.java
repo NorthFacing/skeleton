@@ -9,6 +9,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -35,14 +36,11 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/loginAction")
     public String loginAction(String username, String password, HttpServletRequest request) {
         try {
-            if (!request.getMethod().equals("POST")) {
-                request.setAttribute("error", "支持POST方法提交！");
-            }
             if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
                 request.setAttribute("error", "用户名或密码不能为空！");
                 return "/login/login";
             }
-            // 想要得到 SecurityUtils.getSubject()　的对象．．访问地址必须跟ｓｈｉｒｏ的拦截地址内．不然后会报空指针
+            // 想要得到 SecurityUtils.getSubject()的对象．．访问地址必须跟 shiro 的拦截地址内．不然后会报空指针
             Subject user = SecurityUtils.getSubject();
             // 用户输入的账号和密码,,存到UsernamePasswordToken对象中..然后由shiro内部认证对比,
             // 认证执行者交由ShiroDbRealm中doGetAuthenticationInfo处理
@@ -50,26 +48,26 @@ public class LoginController extends BaseController {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             try {
                 user.login(token);
+            } catch (UnknownAccountException uae) {
+                token.clear();
+                request.setAttribute("error", "账号不存在，请联系管理员！");
+                return "/login/login";
             } catch (LockedAccountException lae) {
                 token.clear();
-                request.setAttribute("error", "用户已经被锁定不能登录，请与管理员联系！");
+                request.setAttribute("error", "用户已经被锁定不能登录，请联系管理员！");
                 return "/login/login";
             } catch (ExcessiveAttemptsException e) {
                 token.clear();
-                request.setAttribute("error", "账号：" + username + " 登录失败次数过多,锁定10分钟!");
+                request.setAttribute("error", "登录失败次数过多,锁定10分钟!");
                 return "/login/login";
             } catch (AuthenticationException e) {
                 token.clear();
                 request.setAttribute("error", "用户或密码不正确！");
                 return "/login/login";
             }
-            SysLoginLog loginLog = new SysLoginLog();
-            Session session = SecurityUtils.getSubject().getSession();
-            loginLog.setLoginTime(LocalDateTool.getNow());
-            loginLog.setUserId((String) session.getAttribute("userSessionId"));
-            loginLog.setUserName(username);
-            loginLog.setLoginIp(session.getHost());
-            sysLoginLogService.insert(loginLog);
+            // 记录登陆操作记录
+            saveLoginLog(username);
+
             request.removeAttribute("error");
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,6 +75,16 @@ public class LoginController extends BaseController {
             return "/login/login";
         }
         return "/login/loginSuc";
+    }
+
+    private void saveLoginLog(String username) {
+        SysLoginLog loginLog = new SysLoginLog();
+        Session session = SecurityUtils.getSubject().getSession();
+        loginLog.setLoginTime(LocalDateTool.getNow());
+        loginLog.setUserId((String) session.getAttribute("userSessionId"));
+        loginLog.setUserName(username);
+        loginLog.setLoginIp(session.getHost());
+        sysLoginLogService.insert(loginLog);
     }
 
 }

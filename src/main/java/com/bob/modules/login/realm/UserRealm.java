@@ -1,6 +1,7 @@
 package com.bob.modules.login.realm;
 
 import com.bob.core.contants.StatusCode;
+import com.bob.core.utils.shiro.PasswordHelper;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.service.SysUserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -16,11 +17,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
- */
+
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
@@ -56,11 +53,11 @@ public class UserRealm extends AuthorizingRealm {
             throw new LockedAccountException(); //帐号锁定
         }
 
-        //交给AuthenticatingRealm 使用 CredentialsMatcher 进行密码匹配，如果觉得人家的不好可以自定义实现
+        //交给AuthenticatingRealm 使用 CredentialsMatcher 进行密码匹配
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 username, // 用户名
                 user.getPassWord(), // 密码
-                ByteSource.Util.bytes(username + "" + user.getSalt()),// salt=username+salt
+                ByteSource.Util.bytes(PasswordHelper.ENCRYPT + username + user.getSalt()),// salt = constant + username + salt
                 getName() // realm name
         );
         return authenticationInfo;

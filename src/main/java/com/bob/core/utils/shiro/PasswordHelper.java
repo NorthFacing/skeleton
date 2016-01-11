@@ -8,6 +8,7 @@ import org.apache.shiro.util.ByteSource;
 
 public class PasswordHelper {
     private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
+    public static final String ENCRYPT = "Bob-";
     private String algorithmName = "md5";
     private int hashIterations = 2;
 
@@ -16,7 +17,7 @@ public class PasswordHelper {
         entity.setSalt(salt);
         String newPassword = new SimpleHash(algorithmName,
                 entity.getPassWord(),
-                ByteSource.Util.bytes(entity.getUserName() + salt),
+                ByteSource.Util.bytes(ENCRYPT + entity.getUserName() + salt),
                 hashIterations).toHex();
         entity.setPassWord(newPassword);
     }
