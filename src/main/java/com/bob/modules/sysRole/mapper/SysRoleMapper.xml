@@ -83,7 +83,7 @@
             r.name,
             r.description,
             r.status
-        FROM sys_user__role ur
+        FROM sys_user_role ur
         LEFT JOIN  sys_role r
         ON ur.role_id = r.id
         WHERE ur.id = #{value}
