@@ -6,7 +6,7 @@ import com.bob.modules.sysUser.service.SysUserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,7 +16,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+/**
+ * Realm有多个策略，比如至少一个通过的策略就可以用于 账号/手机号/邮箱 + 密码 至少有一个通过就通过的验证方案
+ */
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
@@ -29,8 +31,8 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setRoles(sysUserService.getRolesNameByUserId(username));
         authorizationInfo.setStringPermissions(sysUserService.getResourcesNameByUserId(username));
-        return authorizationInfo;
 
+        return authorizationInfo;
     }
 
     @Override
@@ -41,22 +43,22 @@ public class UserRealm extends AuthorizingRealm {
         SysUser user = sysUserService.getByUserName(username);
 
         if (user == null || StatusCode.DELETE == user.getStatus()) {
-            throw new UnknownAccountException();//没找到帐号
+            throw new UnknownAccountException();//没找到帐号或者是删除状态
         }
 
         if (StatusCode.DISABLE == user.getStatus()) {
-            throw new LockedAccountException(); //帐号锁定
+            throw new DisabledAccountException(); //帐号禁用（账号是禁用状态）
         }
-
-        if (StatusCode.DISABLE == user.getStatus()) {
-            throw new LockedAccountException(); //帐号锁定
-        }
+//        锁定应该是使用缓存自动判断的吧？
+//        if (StatusCode.LOCKED == user.getStatus()) {
+//            throw new LockedAccountException(); //帐号锁定（登陆错误次数过多导致账号锁定）
+//        }
 
         //交给AuthenticatingRealm 使用 CredentialsMatcher 进行密码匹配
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 username, // 用户名
                 user.getPassWord(), // 密码
-                // salt = constant + username + salt
+                // salt = 系统常量 + username + salt
                 ByteSource.Util.bytes(PasswordHelper.ENCRYPT + username + user.getSalt()),
                 getName() // realm name
         );
