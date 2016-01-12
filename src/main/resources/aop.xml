@@ -10,7 +10,7 @@
             http://www.springframework.org/schema/aop
             http://www.springframework.org/schema/aop/spring-aop.xsd ">
 
-    <!--proxy-target-class="true" 强制使用CGLIB代理 -->
+    <!--如果添加【proxy-target-class="true"】 强制使用CGLIB代理 -->
     <aop:aspectj-autoproxy/>
 
     <!-- 事务控制开始 -->
