@@ -5,7 +5,7 @@ package com.bob.core.contants;
  */
 public class StatusCode {
     // 正常使用状态
-    public static final Integer USE = 1;
+    public static final Integer NORMAL = 1;
     // 已删除
     public static final Integer DELETE = 2;
     // 禁用状态
