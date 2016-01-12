@@ -7,6 +7,7 @@ import com.bob.modules.sysLoginLog.service.SysLoginLogService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -54,7 +55,11 @@ public class LoginController extends BaseController {
                 return "/login/login";
             } catch (LockedAccountException lae) {
                 token.clear();
-                request.setAttribute("error", "用户已经被锁定不能登录，请联系管理员！");
+                request.setAttribute("error", "用户已经被锁定，请联系管理员！");
+                return "/login/login";
+            } catch (DisabledAccountException dae) {
+                token.clear();
+                request.setAttribute("error", "用户已经被删除，请联系管理员！");
                 return "/login/login";
             } catch (ExcessiveAttemptsException e) {
                 token.clear();
@@ -62,7 +67,7 @@ public class LoginController extends BaseController {
                 return "/login/login";
             } catch (AuthenticationException e) {
                 token.clear();
-                request.setAttribute("error", "用户或密码不正确！");
+                request.setAttribute("error", "用户或密码错误！");
                 return "/login/login";
             }
             // 记录登陆操作记录
