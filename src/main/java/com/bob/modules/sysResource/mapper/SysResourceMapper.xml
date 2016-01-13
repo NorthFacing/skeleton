@@ -141,4 +141,12 @@
         )
     </select>
 
+    <select id="getAllResources" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        <include refid="tabaleName"/>
+    </select>
+
+
 </mapper>

@@ -55,7 +55,7 @@
                 /resources/** = anon
                 <!--登陆操作放行-->
                 /admin/loginAction = anon
-                /admin/sysUser/* = authc, perms[sysUser:list]
+                <!--/admin/sysUser/* = authc, perms[sysUser:list]-->
                 <!-- more URL-to-FilterChain definitions here-->
                 <!-- some example chain definitions:-->
                 <!--/admin/** = authc, roles[admin]-->

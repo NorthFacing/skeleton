@@ -89,5 +89,11 @@
         WHERE ur.id = #{value}
     </select>
 
+    <select id="getAllRoles" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        <include refid="tabaleName"/>
+    </select>
 
 </mapper>

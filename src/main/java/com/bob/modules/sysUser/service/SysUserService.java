@@ -23,9 +23,13 @@ public interface SysUserService extends BaseService<SysUser, SysUserVo, SysUserQ
 
     Set<String> getRolesNameByUserId(String id);
 
-    List<SysResource> getResourcesByUserId(String id);
+    Set<String> getAllRolesName();
 
-    Set<String> getResourcesNameByUserId(String id);
+    List<SysResource> getPermissionsByUserId(String id);
+
+    Set<String> getPermissionsNameByUserId(String id);
+
+    Set<String> getAllPermissions();
 
     SysUser getByUserName(String name);
 }

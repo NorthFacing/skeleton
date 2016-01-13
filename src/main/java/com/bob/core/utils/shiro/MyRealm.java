@@ -30,12 +30,15 @@ public class MyRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
         SysUser user = sysUserService.getByUserName(username);
-        if(null ==user){
+        if (null == user) {                                     // 一般只要登陆成功就不会出现找不到用户的情况，这里只是作为加强验证
             return authorizationInfo;
+        } else if ("admin".equals(user.getUserName())) {        // 如果是admin账号，作为超级管理员，拥有所有角色和所有权限
+            authorizationInfo.setRoles(sysUserService.getAllRolesName());
+            authorizationInfo.setStringPermissions(sysUserService.getAllPermissions());
+        } else {                                                // 一般账号，只查询赋予的角色和权限
+            authorizationInfo.setRoles(sysUserService.getRolesNameByUserId(user.getId()));
+            authorizationInfo.setStringPermissions(sysUserService.getPermissionsNameByUserId(user.getId()));
         }
-
-        authorizationInfo.setRoles(sysUserService.getRolesNameByUserId(user.getId()));
-        authorizationInfo.setStringPermissions(sysUserService.getResourcesNameByUserId(user.getId()));
 
         return authorizationInfo;
     }

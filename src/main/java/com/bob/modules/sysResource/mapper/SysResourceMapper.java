@@ -25,4 +25,6 @@ public interface SysResourceMapper extends BaseMapper<SysResource, SysResourceVo
 
     List<SysResource> getResourcesByUserId(String uId);
 
+    List<SysResource> getAllResources();
+
 }

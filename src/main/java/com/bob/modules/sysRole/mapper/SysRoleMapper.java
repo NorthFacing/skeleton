@@ -32,4 +32,6 @@ public interface SysRoleMapper extends BaseMapper<SysRole, SysRoleVo, SysRoleQue
 
     List<SysRole> getRolesByUserId(String uId);
 
+    List<SysRole> getAllRoles();
+
 }
