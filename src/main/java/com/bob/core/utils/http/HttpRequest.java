@@ -1,4 +1,4 @@
-package com.bob.core.utils;
+package com.bob.core.utils.http;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -206,18 +206,5 @@ public class HttpRequest {
             }
         }
         return sb.toString();
-    }
-}
-
-class MyX509TrustManager implements X509TrustManager {
-
-    public X509Certificate[] getAcceptedIssuers() {
-        return null;
-    }
-
-    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-    }
-
-    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
     }
 }

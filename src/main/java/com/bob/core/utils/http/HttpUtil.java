@@ -1,4 +1,4 @@
-package com.bob.core.utils;
+package com.bob.core.utils.http;
 
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -69,7 +69,7 @@ public class HttpUtil {
             InputStream inputStream = conn.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String str = null;
+            String str;
             StringBuffer buffer = new StringBuffer();
 
             while ((str = bufferedReader.readLine()) != null) {
@@ -80,7 +80,6 @@ public class HttpUtil {
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
-            inputStream = null;
             conn.disconnect();
             jsonObject = JSONObject.parseObject(buffer.toString());
         } catch (ConnectException ce) {
