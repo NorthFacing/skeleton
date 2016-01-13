@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Realm有多个策略，比如至少一个通过的策略就可以用于 账号/手机号/邮箱 + 密码 至少有一个通过就通过的验证方案
  */
-public class UserRealm extends AuthorizingRealm {
+public class MyRealm extends AuthorizingRealm {
 
     @Autowired
     private SysUserService sysUserService;
@@ -27,10 +27,15 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String) principals.getPrimaryPrincipal();
-
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setRoles(sysUserService.getRolesNameByUserId(username));
-        authorizationInfo.setStringPermissions(sysUserService.getResourcesNameByUserId(username));
+
+        SysUser user = sysUserService.getByUserName(username);
+        if(null ==user){
+            return authorizationInfo;
+        }
+
+        authorizationInfo.setRoles(sysUserService.getRolesNameByUserId(user.getId()));
+        authorizationInfo.setStringPermissions(sysUserService.getResourcesNameByUserId(user.getId()));
 
         return authorizationInfo;
     }

@@ -17,7 +17,7 @@
 
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
     <!-- security datasource: -->
-    <bean id="myRealm" class="com.bob.core.utils.shiro.UserRealm">
+    <bean id="myRealm" class="com.bob.core.utils.shiro.MyRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
 
@@ -55,6 +55,7 @@
                 /resources/** = anon
                 <!--登陆操作放行-->
                 /admin/loginAction = anon
+                /admin/sysUser/* = authc, perms[sysUser:list]
                 <!-- more URL-to-FilterChain definitions here-->
                 <!-- some example chain definitions:-->
                 <!--/admin/** = authc, roles[admin]-->
