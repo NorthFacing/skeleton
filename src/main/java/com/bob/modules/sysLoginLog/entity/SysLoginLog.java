@@ -14,26 +14,11 @@ import java.time.LocalDateTime;
  */
 public class SysLoginLog extends BaseEntity {
 
-    private String iD;    //  ID
     private String userId;    //  用户ID
     private String userName;    //  用户名
     private LocalDateTime loginTime;    //  登陆时间
     private String loginIp;    //  登陆IP
     private Integer status;    //  状态
-
-
-    /**
-     * ID
-     */
-    public String getID() {
-        return iD;
-    }
-
-    public SysLoginLog setID(String iD) {
-        this.iD = iD;
-        return this;
-    }
-
 
     /**
      * 用户ID
