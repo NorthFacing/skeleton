@@ -58,10 +58,19 @@
     <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
     </bean>
-    <bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheService">
+    <bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheImpl">
         <property name="prefix" value="selekton"/>
         <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
     <!-- redis config end -->
+    <!--<bean id="cacheManager" class="com.bob.core.cache.redis.CacheImpl">-->
+        <!--<property name="prefix" value="selekton"/>-->
+        <!--<property name="expired" value="0"/>-->
+        <!--<constructor-arg index="0" value="poolConfig"/>-->
+        <!--<constructor-arg index="1" value="${redis.host}"/>-->
+        <!--<constructor-arg index="2" value= "${redis.port}"/>-->
+        <!--<constructor-arg index="3" value= "${redis.pass}"/>-->
+        <!--<constructor-arg index="4" value= "0"/>-->
+    <!--</bean>-->
 
 </beans>

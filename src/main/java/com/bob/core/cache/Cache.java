@@ -1,9 +1,11 @@
 package com.bob.core.cache;
 
+import java.util.Set;
+
 /**
  * 缓存服务接口定义
  */
-public interface CacheService {
+public interface Cache {
 
     /**
      * <pre>
@@ -88,10 +90,21 @@ public interface CacheService {
 
     /**
      * <pre>
+     * 获取所有缓存的key
+     * @param cacheName
+     * @return int
+     */
+    Set<String> getKeys(String cacheName);
+
+    /**
+     * <pre>
      * 清除缓存
      * @param cacheName
      * @return int
      */
-    int clearCache(final String cacheName);
+    long clearCache(final String cacheName);
 
+    void flushDB();
+
+    Long dbSize();
 }

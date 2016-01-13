@@ -8,31 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by Bob on 2016/1/5.
  */
-public class RedisCacheServiceTest extends BaseServiceTest {
+public class RedisCacheImplTest extends BaseServiceTest {
+
     @Autowired
-    private CacheService cacheService;
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    private Cache cache;
 
     @Test
     public void setTest() {
-        cacheService.set("Bob", "Bob");
+        cache.set("Bob", "Bob");
     }
 
     @Test
     public void getTest() {
-        cacheService.set("Bob", "Bob");
-        String bob = cacheService.get("Bob");
+        cache.set("Bob", "Bob");
+        String bob = cache.get("Bob");
         Assert.assertNotNull(bob);
         System.out.println(bob);
     }
 
     @Test
     public void delTest() {
-        cacheService.set("Bob", "Bob");
-        String bob = cacheService.get("Bob");
+        cache.set("Bob", "Bob");
+        String bob = cache.get("Bob");
         Assert.assertNotNull(bob);
         System.out.println(bob);
-        cacheService.del("Bob");
-        bob = cacheService.get("Bob");
+        cache.del("Bob");
+        bob = cache.get("Bob");
         Assert.assertNull(bob);
     }
 }

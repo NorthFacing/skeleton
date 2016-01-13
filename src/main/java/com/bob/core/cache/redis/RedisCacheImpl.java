@@ -1,6 +1,6 @@
 package com.bob.core.cache.redis;
 
-import com.bob.core.cache.CacheService;
+import com.bob.core.cache.Cache;
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -18,8 +18,8 @@ import java.util.Set;
 /**
  * Redis缓存包装实现
  */
-public class RedisCacheService implements CacheService {
-    public static Logger logger = LoggerFactory.getLogger(RedisCacheService.class);
+public class RedisCacheImpl implements Cache {
+    public static Logger logger = LoggerFactory.getLogger(RedisCacheImpl.class);
     private static final String DEFAULT_CACHE_NAME = "_def";
     private static final String CONNECTOR = ":";
     private String prefix = "";
@@ -107,7 +107,7 @@ public class RedisCacheService implements CacheService {
                 byte[] _value = null;
                 try {
                     if (!(value instanceof Serializable)) {
-                        throw new IllegalArgumentException(RedisCacheService.class.getSimpleName() + " requires a Serializable payload "
+                        throw new IllegalArgumentException(RedisCacheImpl.class.getSimpleName() + " requires a Serializable payload "
                                 + "but received an object of type [" + value.getClass().getName() + "]");
                     }
                     _value = SerializationUtils.serialize((Serializable) value);
@@ -130,9 +130,6 @@ public class RedisCacheService implements CacheService {
 
     @Override
     public boolean del(final String cacheName, final String key) {
-        if (StringUtils.isBlank(key)) {
-            throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
-        }
         return redisTemplate.execute(new RedisCallback<Boolean>() {
             @Override
             public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
@@ -141,7 +138,8 @@ public class RedisCacheService implements CacheService {
         });
     }
 
-    public Set<String> keys(final String cacheName) {
+    @Override
+    public Set<String> getKeys(final String cacheName) {
         if (StringUtils.isBlank(cacheName)) {
             throw new IllegalArgumentException("The cache name：'" + cacheName + "' is invalid.");
         }
@@ -160,7 +158,7 @@ public class RedisCacheService implements CacheService {
     }
 
     @Override
-    public int clearCache(final String cacheName) {
+    public long clearCache(final String cacheName) {
         if (StringUtils.isBlank(cacheName)) {
             throw new IllegalArgumentException("The cache name：'" + cacheName + "' is invalid.");
         }
@@ -183,6 +181,16 @@ public class RedisCacheService implements CacheService {
                 return connection.del(_keys).intValue();
             }
         });
+    }
+
+    @Override
+    public void flushDB() {
+
+    }
+
+    @Override
+    public Long dbSize() {
+        return null;
     }
 
     private byte[] assemblyKey(String cacheName, String key) {

@@ -24,9 +24,10 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
         <property name="realm" ref="myRealm"/>
-        <!-- By default the servlet container sessions will be used.  Uncomment this line
-             to use shiro's native sessions (see the JavaDoc for more): -->
-        <!-- <property name="sessionMode" value="native"/> -->
+        <!--&lt;!&ndash; sessionManager &ndash;&gt;-->
+        <!--<property name="sessionManager" ref="shiroSessionManager"/>-->
+        <!--&lt;!&ndash; cache &ndash;&gt;-->
+        <!--<property name="cacheManager" ref="shiroCacheManager"/>-->
     </bean>
 
     <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
@@ -67,5 +68,27 @@
     </bean>
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!--<bean id="shiroRedisManager" class="com.bob.core.utils.shiro.redis.ShiroRedisManager">-->
+        <!--<property name="host" value="${redis.host}"/>-->
+        <!--<property name="port" value="${redis.port}"/>-->
+        <!--<property name="expire" value="1800"/>-->
+        <!--&lt;!&ndash; optional properties:        &ndash;&gt;-->
+        <!--<property name="timeout" value="10000"/>-->
+        <!--<property name="password" value="${redis.pass}"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; cacheManager &ndash;&gt;-->
+    <!--<bean id="shiroCacheManager" class="com.bob.core.utils.shiro.redis.RedisCacheManager">-->
+        <!--<property name="shiroRedisManager" ref="shiroRedisManager"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;session缓存配置：ref="cache"配置于spring-mybatis.xml中&ndash;&gt;-->
+    <!--<bean id="redisSessionDAO" class="com.bob.core.utils.shiro.redis.RedisSessionDAO">-->
+        <!--<property name="shiroRedisManager" ref="shiroRedisManager"/>-->
+    <!--</bean>-->
+    <!--<bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">-->
+        <!--<property name="sessionDAO" ref="redisSessionDAO"/>-->
+    <!--</bean>-->
 
 </beans>
