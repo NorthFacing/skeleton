@@ -34,7 +34,7 @@ public class BaseController {
         if (e instanceof IllegalArgumentException) {
             LOG.error(e.getMessage());
             if (ServletUtils.isAjax(request)) {
-                result.enumResult(ResultEnums.OK);
+                result.enumResult(ResultEnums.SUCCESS);
             } else {
                 response.sendRedirect("/");
             }

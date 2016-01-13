@@ -19,29 +19,29 @@ public class Result<T> implements Serializable {
 
     public static Result fail() {
         Result result = new Result<>();
-        result.setCode(ResultEnums.DEFAULT_ERROR.getCode());
-        result.setMsg(ResultEnums.DEFAULT_ERROR.getMsg());
+        result.setCode(ResultEnums.ERROR.getCode());
+        result.setMsg(ResultEnums.ERROR.getMsg());
         return result;
     }
 
     public static Result fail(String msg) {
         Result result = new Result<>();
-        result.setCode(ResultEnums.DEFAULT_ERROR.getCode());
+        result.setCode(ResultEnums.ERROR.getCode());
         result.setMsg(msg);
         return result;
     }
 
     public static Result success() {
         Result result = new Result();
-        result.setCode(ResultEnums.OK.getCode());
-        result.setMsg(ResultEnums.OK.getMsg());
+        result.setCode(ResultEnums.SUCCESS.getCode());
+        result.setMsg(ResultEnums.SUCCESS.getMsg());
         return result;
     }
 
     public static <V> Result<V> success(V data) {
         Result result = new Result<>();
-        result.setCode(ResultEnums.OK.getCode());
-        result.setMsg(ResultEnums.OK.getMsg());
+        result.setCode(ResultEnums.SUCCESS.getCode());
+        result.setMsg(ResultEnums.SUCCESS.getMsg());
         result.setData(data);
         return result;
     }
@@ -59,8 +59,8 @@ public class Result<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
-        this.setMsg(ResultEnums.OK.getMsg());
-        this.setCode(ResultEnums.OK.getCode());
+        this.setMsg(ResultEnums.SUCCESS.getMsg());
+        this.setCode(ResultEnums.SUCCESS.getCode());
     }
 
     public String getMsg() {

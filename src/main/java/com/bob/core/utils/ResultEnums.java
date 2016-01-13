@@ -1,9 +1,9 @@
 package com.bob.core.utils;
 
 public enum ResultEnums {
-    OK("200", "成功"),
+    SUCCESS("200", "成功"),
 
-    DEFAULT_ERROR("400", "系统出错");
+    ERROR("400", "系统出错");
 
     private String code;
     private String msg;
