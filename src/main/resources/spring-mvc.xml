@@ -90,7 +90,8 @@
         <property name="maxInMemorySize" value="40960"/>
     </bean>
 
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!--shiro 注解配置相关-->
+    <!--只能放在spring-mvc.xml这个文件中，不能放在spring-shiro.xml中，不然会报错或注解无效-->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor">
         <property name="proxyTargetClass" value="false" />
@@ -98,6 +99,7 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+    <!--shiro 注解配置相关-->
 
 </beans>
 

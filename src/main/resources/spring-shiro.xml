@@ -35,7 +35,7 @@
     <!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for more details.       -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <!--override these for application-specific URLs if you like:-->
+        <!-- 必须配置loginUrl，不然会系统启动后，不能正确访问的话，会一直重新跳转 -->
         <property name="loginUrl" value="/admin/login"/>
         <!--<property name="successUrl" value="/admin/login/loginSuc"/>-->
         <!--<property name="unauthorizedUrl" value="/unauthorized.jsp"/> -->
@@ -65,5 +65,7 @@
             </value>
         </property>
     </bean>
+
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
 </beans>

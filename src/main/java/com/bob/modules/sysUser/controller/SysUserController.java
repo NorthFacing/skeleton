@@ -6,7 +6,6 @@ import com.bob.core.utils.page.PageUtil;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.entity.SysUserQuery;
 import com.bob.modules.sysUser.service.SysUserService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
