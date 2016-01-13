@@ -85,9 +85,7 @@ public class SysUserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/sysUser/pageData")
     public Map<String, Object> pageData(SysUserQuery query) {
-        if(SecurityUtils.getSubject().isPermitted("sysUser:list")){
-            query = sysUserService.pageData(query);
-        }
+        query = sysUserService.pageData(query);
         return PageUtil.convertPage(query);
     }
 

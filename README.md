@@ -59,6 +59,10 @@
 * index.html 和 error.html 的跳转
 * shiro 对于 admin 账号权限的放行，目前通过查询所有roles和所有permissions的方法类实现放行
 
+# shiro
+* SecurityUtils.getSubject().isPermitted("sysUser:list")
+
+
 # 碎碎念
 * 所有的设计模式，都是对语言缺陷的补救措施
 
