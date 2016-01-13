@@ -19,6 +19,8 @@ import java.util.Set;
  */
 public interface SysUserService extends BaseService<SysUser, SysUserVo, SysUserQuery> {
 
+    SysUser getByUserName(String name);
+
     List<SysRole> getRolesByUserId(String uId);
 
     Set<String> getRolesNameByUserId(String id);
@@ -30,6 +32,4 @@ public interface SysUserService extends BaseService<SysUser, SysUserVo, SysUserQ
     Set<String> getPermissionsNameByUserId(String id);
 
     Set<String> getAllPermissions();
-
-    SysUser getByUserName(String name);
 }

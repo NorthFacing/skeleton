@@ -46,6 +46,15 @@ public class SysUserServiceImpl
     }
 
     @Override
+    public BaseMapper<SysUser, SysUserVo, SysUserQuery> getMapper() {
+        return sysUserMapper;
+    }
+
+    public SysUser getByUserName(String name) {
+        return sysUserMapper.getByUserName(name);
+    }
+
+    @Override
     public List<SysRole> getRolesByUserId(String uId) {
         if (StringUtils.isNotEmpty(uId)) {
             return sysRoleMapper.getRolesByUserId(uId);
@@ -57,9 +66,7 @@ public class SysUserServiceImpl
     public Set<String> getRolesNameByUserId(String uId) {
         Set<String> names = new HashSet<>();
         List<SysRole> roles = this.getRolesByUserId(uId);
-        for (SysRole role : roles) {
-            names.add(role.getName());
-        }
+        prepareRoles(roles, names);
         return names;
     }
 
@@ -67,12 +74,18 @@ public class SysUserServiceImpl
     public Set<String> getAllRolesName() {
         List<SysRole> roles = sysRoleMapper.getAllRoles();
         Set<String> names = new HashSet<>();
+        prepareRoles(roles, names);
+        return names;
+    }
+
+    private void prepareRoles(List<SysRole> roles, Set<String> names) {
         if (CollectionUtils.isNotEmpty(roles)) {
             for (SysRole role : roles) {
-                names.add(role.getName());
+                if (null != role.getName()) {
+                    names.add(role.getName());
+                }
             }
         }
-        return names;
     }
 
 
@@ -86,34 +99,28 @@ public class SysUserServiceImpl
 
     @Override
     public Set<String> getPermissionsNameByUserId(String uId) {
-        Set<String> names = new HashSet<>();
+        Set<String> shiroKey = new HashSet<>();
         List<SysResource> resources = this.getPermissionsByUserId(uId);
-        for (SysResource resource : resources) {
-            names.add(resource.getShiroKey());
-        }
-        return names;
+        preparePermission(resources, shiroKey);
+        return shiroKey;
     }
 
     @Override
     public Set<String> getAllPermissions() {
         List<SysResource> resources = sysResourceMapper.getAllResources();
         Set<String> shiroKey = new HashSet<>();
-        if (CollectionUtils.isNotEmpty(resources)) {
-            for (SysResource resource : resources) {
-                shiroKey.add(resource.getShiroKey());
-            }
-        }
+        preparePermission(resources, shiroKey);
         return shiroKey;
     }
 
-
-    public SysUser getByUserName(String name) {
-        return sysUserMapper.getByUserName(name);
-    }
-
-    @Override
-    public BaseMapper<SysUser, SysUserVo, SysUserQuery> getMapper() {
-        return sysUserMapper;
+    private void preparePermission(List<SysResource> resources, Set<String> shiroKey) {
+        if (CollectionUtils.isNotEmpty(resources)) {
+            for (SysResource resource : resources) {
+                if (null != resource.getShiroKey()) {
+                    shiroKey.add(resource.getShiroKey());
+                }
+            }
+        }
     }
 
 }
