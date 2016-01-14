@@ -23,7 +23,7 @@ public class rediesConnectTest {
         config.setTestOnBorrow(false);
         config.setTestOnReturn(false);
 
-        String host = "192.168.220.129";
+        String host = "192.168.31.128";
 
         Integer port = 6379;
 

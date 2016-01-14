@@ -24,10 +24,10 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
         <property name="realm" ref="myRealm"/>
-        <!--&lt;!&ndash; sessionManager &ndash;&gt;-->
-        <!--<property name="sessionManager" ref="shiroSessionManager"/>-->
-        <!--&lt;!&ndash; cache &ndash;&gt;-->
-        <!--<property name="cacheManager" ref="shiroCacheManager"/>-->
+        <!-- sessionManager -->
+        <property name="sessionManager" ref="shiroSessionManager"/>
+        <!-- cache -->
+        <property name="cacheManager" ref="shiroCacheManager"/>
     </bean>
 
     <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
@@ -69,26 +69,49 @@
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-    <!--<bean id="shiroRedisManager" class="com.bob.core.utils.shiro.redis.ShiroRedisManager">-->
-        <!--<property name="host" value="${redis.host}"/>-->
-        <!--<property name="port" value="${redis.port}"/>-->
-        <!--<property name="expire" value="1800"/>-->
-        <!--&lt;!&ndash; optional properties:        &ndash;&gt;-->
-        <!--<property name="timeout" value="10000"/>-->
-        <!--<property name="password" value="${redis.pass}"/>-->
-    <!--</bean>-->
+    <bean id="shiroRedisManager" class="com.bob.core.utils.shiro.redis.ShiroRedisManager">
+        <property name="host" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="expire" value="1800"/>
+        <!-- optional properties:        -->
+        <property name="timeout" value="10000"/>
+        <property name="password" value="${redis.pass}"/>
+    </bean>
 
-    <!--&lt;!&ndash; cacheManager &ndash;&gt;-->
-    <!--<bean id="shiroCacheManager" class="com.bob.core.utils.shiro.redis.RedisCacheManager">-->
-        <!--<property name="shiroRedisManager" ref="shiroRedisManager"/>-->
-    <!--</bean>-->
+    <!-- cacheManager -->
+    <bean id="shiroCacheManager" class="com.bob.core.utils.shiro.redis.RedisCacheManager">
+        <property name="shiroRedisManager" ref="shiroRedisManager"/>
+    </bean>
 
-    <!--&lt;!&ndash;session缓存配置：ref="cache"配置于spring-mybatis.xml中&ndash;&gt;-->
-    <!--<bean id="redisSessionDAO" class="com.bob.core.utils.shiro.redis.RedisSessionDAO">-->
-        <!--<property name="shiroRedisManager" ref="shiroRedisManager"/>-->
-    <!--</bean>-->
-    <!--<bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">-->
-        <!--<property name="sessionDAO" ref="redisSessionDAO"/>-->
-    <!--</bean>-->
+    <!-- cookie -->
+    <bean id="shiroSessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!--设置 Cookie 名字，默认为 JSESSIONID-->
+        <property name="name" value="sid"/>
+        <!--设置 Cookie 的域名，默认空，即当前访问的域名-->
+        <!--<property name="domain" value=""/>-->
+        <!--设置 Cookie 的路径，默认空，即存储在域名根下-->
+        <!--<property name="path" value=""/>-->
+        <!--设置 Cookie 的过期时间，秒为单位，默认-1 表示关闭浏览器时过期 Cookie-->
+        <property name="maxAge" value="1800"/>
+        <!--如果设置为 true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击； -->
+        <!--此特性需要实现了 Servlet 2.5 MR6及以上版本的规范的 Servlet 容器支持-->
+        <property name="httpOnly" value="true"/>
+    </bean>
+
+    <!--sessionDao缓存配置：ref="cache"配置于spring-mybatis.xml中-->
+    <bean id="redisSessionDAO" class="com.bob.core.utils.shiro.redis.RedisSessionDAO">
+        <property name="shiroRedisManager" ref="shiroRedisManager"/>
+    </bean>
+
+     <!-- sessionManager -->
+    <bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="redisSessionDAO"/>
+        <!--sessionManager 创建会话 Cookie 的模板-->
+        <property name="sessionIdCookie" ref="shiroSessionIdCookie"/>
+        <!--是否启用/禁用 Session Id Cookie，默认是启用的；-->
+        <!--如果禁用后将不会设置 Session Id Cookie，即默认使用了 Servlet 容器的 JSESSIONID，-->
+        <!--且通过 URL 重写（URL 中的“;JSESSIONID=id”部分）保存 Session Id。-->
+        <property name="sessionIdCookieEnabled" value="true"/>
+    </bean>
 
 </beans>

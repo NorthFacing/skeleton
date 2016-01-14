@@ -11,63 +11,64 @@ import java.util.concurrent.ConcurrentMap;
 
 public class RedisCacheManager implements CacheManager {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(RedisCacheManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisCacheManager.class);
 
-	// fast lookup by name map
-	private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();
+    // fast lookup by name map
+    private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();
 
-	private ShiroRedisManager shiroRedisManager;
+    private ShiroRedisManager shiroRedisManager;
 
-	/**
-	 * The Redis key prefix for caches 
-	 */
-	private String keyPrefix = "shiro_redis_cache:";
-	
-	/**
-	 * Returns the Redis session keys
-	 * prefix.
-	 * @return The prefix
-	 */
-	public String getKeyPrefix() {
-		return keyPrefix;
-	}
+    /**
+     * The Redis key prefix for caches
+     */
+    private String keyPrefix = "shiro_redis_cache:";
 
-	/**
-	 * Sets the Redis sessions key 
-	 * prefix.
-	 * @param keyPrefix The prefix
-	 */
-	public void setKeyPrefix(String keyPrefix) {
-		this.keyPrefix = keyPrefix;
-	}
-	
-	@Override
-	public <K, V> Cache<K, V> getCache(String name) throws CacheException {
-		logger.debug("获取名称为: " + name + " 的RedisCache实例");
-		
-		Cache c = caches.get(name);
-		
-		if (c == null) {
+    /**
+     * Returns the Redis session keys
+     * prefix.
+     *
+     * @return The prefix
+     */
+    public String getKeyPrefix() {
+        return keyPrefix;
+    }
 
-			// initialize the Redis manager instance
-			shiroRedisManager.init();
-			
-			// create a new cache instance
-			c = new RedisCache<K, V>(shiroRedisManager, keyPrefix);
-			
-			// add it to the cache collection
-			caches.put(name, c);
-		}
-		return c;
-	}
+    /**
+     * Sets the Redis sessions key
+     * prefix.
+     *
+     * @param keyPrefix The prefix
+     */
+    public void setKeyPrefix(String keyPrefix) {
+        this.keyPrefix = keyPrefix;
+    }
 
-	public ShiroRedisManager getShiroRedisManager() {
-		return shiroRedisManager;
-	}
+    @Override
+    public <K, V> Cache<K, V> getCache(String name) throws CacheException {
+        logger.debug("获取名称为: " + name + " 的RedisCache实例");
 
-	public void setShiroRedisManager(ShiroRedisManager shiroRedisManager) {
-		this.shiroRedisManager = shiroRedisManager;
-	}
+        Cache c = caches.get(name);
+
+        if (c == null) {
+
+            // initialize the Redis manager instance
+            shiroRedisManager.init();
+
+            // create a new cache instance
+            c = new RedisCache<K, V>(shiroRedisManager, keyPrefix);
+
+            // add it to the cache collection
+            caches.put(name, c);
+        }
+        return c;
+    }
+
+    public ShiroRedisManager getShiroRedisManager() {
+        return shiroRedisManager;
+    }
+
+    public void setShiroRedisManager(ShiroRedisManager shiroRedisManager) {
+        this.shiroRedisManager = shiroRedisManager;
+    }
 
 }
