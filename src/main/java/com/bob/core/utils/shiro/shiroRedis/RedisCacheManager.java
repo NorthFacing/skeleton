@@ -1,5 +1,6 @@
-package com.bob.core.utils.shiro.redis;
+package com.bob.core.utils.shiro.shiroRedis;
 
+import com.bob.core.cache.redis.ShiroRedisImpl;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
@@ -9,14 +10,17 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * 使用RedisCacheManager替换shiro默认缓存管理
+ */
 public class RedisCacheManager implements CacheManager {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisCacheManager.class);
 
     // fast lookup by name map
-    private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();
+    private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<>();
 
-    private ShiroRedisManager shiroRedisManager;
+    private ShiroRedisImpl shiroRedisImpl;
 
     /**
      * The Redis key prefix for caches
@@ -52,10 +56,10 @@ public class RedisCacheManager implements CacheManager {
         if (c == null) {
 
             // initialize the Redis manager instance
-            shiroRedisManager.init();
+            shiroRedisImpl.init();
 
             // create a new cache instance
-            c = new RedisCache<K, V>(shiroRedisManager, keyPrefix);
+            c = new RedisCache<K, V>(shiroRedisImpl, keyPrefix);
 
             // add it to the cache collection
             caches.put(name, c);
@@ -63,12 +67,12 @@ public class RedisCacheManager implements CacheManager {
         return c;
     }
 
-    public ShiroRedisManager getShiroRedisManager() {
-        return shiroRedisManager;
+    public ShiroRedisImpl getShiroRedisImpl() {
+        return shiroRedisImpl;
     }
 
-    public void setShiroRedisManager(ShiroRedisManager shiroRedisManager) {
-        this.shiroRedisManager = shiroRedisManager;
+    public void setShiroRedisImpl(ShiroRedisImpl shiroRedisImpl) {
+        this.shiroRedisImpl = shiroRedisImpl;
     }
 
 }

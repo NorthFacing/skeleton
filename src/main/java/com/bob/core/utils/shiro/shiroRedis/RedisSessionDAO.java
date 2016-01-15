@@ -1,10 +1,6 @@
-package com.bob.core.utils.shiro.redis;
+package com.bob.core.utils.shiro.shiroRedis;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import com.bob.core.cache.redis.ShiroRedisImpl;
 import com.bob.core.utils.javaUtil.SerializeUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -12,17 +8,20 @@ import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * 使用RedisSessionDAO替换shiro默认session管理
+ */
 public class RedisSessionDAO extends AbstractSessionDAO {
 
     private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
-    /**
-     * shiro-redis的session对象前缀
-     */
-    private ShiroRedisManager shiroRedisManager;
 
-    /**
-     * The Redis key prefix for the sessions
-     */
+    private ShiroRedisImpl shiroRedisImpl;
+
     private String keyPrefix = "shiro_redis_session:";
 
     @Override
@@ -32,39 +31,40 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     /**
      * save session
+     *
      * @param session
      * @throws UnknownSessionException
      */
-    private void saveSession(Session session) throws UnknownSessionException{
-        if(session == null || session.getId() == null){
+    private void saveSession(Session session) throws UnknownSessionException {
+        if (session == null || session.getId() == null) {
             logger.error("session or session id is null");
             return;
         }
 
         byte[] key = getByteKey(session.getId());
         byte[] value = SerializeUtils.serialize(session);
-        session.setTimeout(shiroRedisManager.getExpire()*1000);
-        this.shiroRedisManager.set(key, value, shiroRedisManager.getExpire());
+        session.setTimeout(shiroRedisImpl.getExpired() * 1000);
+        this.shiroRedisImpl.set(key, value, shiroRedisImpl.getExpired());
     }
 
     @Override
     public void delete(Session session) {
-        if(session == null || session.getId() == null){
+        if (session == null || session.getId() == null) {
             logger.error("session or session id is null");
             return;
         }
-        shiroRedisManager.del(this.getByteKey(session.getId()));
+        shiroRedisImpl.del(this.getByteKey(session.getId()));
 
     }
 
     @Override
     public Collection<Session> getActiveSessions() {
-        Set<Session> sessions = new HashSet<Session>();
+        Set<Session> sessions = new HashSet<>();
 
-        Set<byte[]> keys = shiroRedisManager.keys(this.keyPrefix + "*");
-        if(keys != null && keys.size()>0){
-            for(byte[] key:keys){
-                Session s = (Session)SerializeUtils.deserialize(shiroRedisManager.get(key));
+        Set<byte[]> keys = shiroRedisImpl.byteKeys(this.keyPrefix + "*");
+        if (keys != null && keys.size() > 0) {
+            for (byte[] key : keys) {
+                Session s = (Session) SerializeUtils.deserialize(shiroRedisImpl.get(key));
                 sessions.add(s);
             }
         }
@@ -82,41 +82,43 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Override
     protected Session doReadSession(Serializable sessionId) {
-        if(sessionId == null){
+        if (sessionId == null) {
             logger.error("session id is null");
             return null;
         }
 
-        Session s = (Session)SerializeUtils.deserialize(shiroRedisManager.get(this.getByteKey(sessionId)));
+        Session s = (Session) SerializeUtils.deserialize(shiroRedisImpl.get(this.getByteKey(sessionId)));
         return s;
     }
 
     /**
      * 获得byte[]型的key
+     *
      * @param sessionId
      * @return
      */
-    private byte[] getByteKey(Serializable sessionId){
+    private byte[] getByteKey(Serializable sessionId) {
         String preKey = this.keyPrefix + sessionId;
         return preKey.getBytes();
     }
 
-    public ShiroRedisManager getShiroRedisManager() {
-        return shiroRedisManager;
+    public ShiroRedisImpl getShiroRedisImpl() {
+        return shiroRedisImpl;
     }
 
-    public void setShiroRedisManager(ShiroRedisManager shiroRedisManager) {
-        this.shiroRedisManager = shiroRedisManager;
+    public void setShiroRedisImpl(ShiroRedisImpl shiroRedisImpl) {
+        this.shiroRedisImpl = shiroRedisImpl;
 
         /**
          * 初始化redisManager
          */
-        this.shiroRedisManager.init();
+        this.shiroRedisImpl.init();
     }
 
     /**
      * Returns the Redis session keys
      * prefix.
+     *
      * @return The prefix
      */
     public String getKeyPrefix() {
@@ -126,6 +128,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     /**
      * Sets the Redis sessions key
      * prefix.
+     *
      * @param keyPrefix The prefix
      */
     public void setKeyPrefix(String keyPrefix) {

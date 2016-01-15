@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Redis缓存包装实现
+ * Redis缓存包装实现：spring实现（作为备份，未使用）
  */
 public class RedisCacheImpl implements Cache {
     public static Logger logger = LoggerFactory.getLogger(RedisCacheImpl.class);
@@ -28,16 +28,6 @@ public class RedisCacheImpl implements Cache {
 
     public void setRedisTemplate(RedisTemplate<Serializable, Serializable> redisTemplate) {
         this.redisTemplate = redisTemplate;
-    }
-
-    @Override
-    public int getDefaultExpried() {
-        return expried;
-    }
-
-    @Override
-    public void setDefaultExpried(int defaultExpried) {
-        this.expried = defaultExpried;
     }
 
     public String getPrefix() {
@@ -139,20 +129,26 @@ public class RedisCacheImpl implements Cache {
     }
 
     @Override
-    public Set<String> getKeys(final String cacheName) {
+    public Set<String> keys(String cacheName) {
+        Set<byte[]> _keyset = this.byteKeys(cacheName);
+        Set<String> _keys = new HashSet<>();
+        for (byte[] _key : _keyset) {
+            _keys.add(redisTemplate.getStringSerializer().deserialize(_key));
+        }
+        return _keys;
+    }
+
+    @Override
+    public Set<byte[]> byteKeys(String cacheName) {
         if (StringUtils.isBlank(cacheName)) {
             throw new IllegalArgumentException("The cache name：'" + cacheName + "' is invalid.");
         }
-        return redisTemplate.execute(new RedisCallback<Set<String>>() {
+        return redisTemplate.execute(new RedisCallback<Set<byte[]>>() {
             @Override
-            public Set<String> doInRedis(RedisConnection connection) throws DataAccessException {
+            public Set<byte[]> doInRedis(RedisConnection connection) throws DataAccessException {
                 byte[] _key_pattern = redisTemplate.getStringSerializer().serialize(cacheName + CONNECTOR + "*");
                 Set<byte[]> _keyset = connection.keys(_key_pattern);
-                Set<String> _keys = new HashSet<>();
-                for (byte[] _key : _keyset) {
-                    _keys.add(redisTemplate.getStringSerializer().deserialize(_key));
-                }
-                return _keys;
+                return _keyset;
             }
         });
     }
@@ -185,11 +181,20 @@ public class RedisCacheImpl implements Cache {
 
     @Override
     public void flushDB() {
-
+        try {
+            throw new Exception("Todo impl");
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
     @Override
     public Long dbSize() {
+        try {
+            throw new Exception("Todo impl");
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
         return null;
     }
 

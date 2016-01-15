@@ -1,5 +1,6 @@
-package com.bob.core.utils.shiro.redis;
+package com.bob.core.utils.shiro.shiroRedis;
 
+import com.bob.core.cache.redis.ShiroRedisImpl;
 import com.bob.core.utils.javaUtil.SerializeUtils;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
@@ -14,6 +15,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 使用RedisCache替换shiro默认缓存实现
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class RedisCache<K, V> implements Cache<K, V> {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -21,57 +28,53 @@ public class RedisCache<K, V> implements Cache<K, V> {
     /**
      * The wrapped Jedis instance.
      */
-    private ShiroRedisManager cache;
+    private ShiroRedisImpl shiroRedisImpl;
 
     /**
-     * The Redis key prefix for the sessions
+     * The Redis key nameSpace for the sessions
      */
-    private String keyPrefix = "shiro_redis_session:";
+    private String nameSpace = "shiro_redis_session";
 
     /**
-     * Returns the Redis session keys
-     * prefix.
+     * Returns the Redis session keys nameSpace.
      *
-     * @return The prefix
+     * @return The nameSpace
      */
-    public String getKeyPrefix() {
-        return keyPrefix;
+    public String getNameSpace() {
+        return nameSpace;
     }
 
     /**
-     * Sets the Redis sessions key
-     * prefix.
+     * Sets the Redis sessions key nameSpace.
      *
-     * @param keyPrefix The prefix
+     * @param nameSpace The nameSpace
      */
-    public void setKeyPrefix(String keyPrefix) {
-        this.keyPrefix = keyPrefix;
+    public void setNameSpace(String nameSpace) {
+        this.nameSpace = nameSpace;
     }
 
     /**
      * 通过一个JedisManager实例构造RedisCache
      */
-    public RedisCache(ShiroRedisManager cache) {
-        if (cache == null) {
+    public RedisCache(ShiroRedisImpl shiroRedisImpl) {
+        if (shiroRedisImpl == null) {
             throw new IllegalArgumentException("Cache argument cannot be null.");
         }
-        this.cache = cache;
+        this.shiroRedisImpl = shiroRedisImpl;
     }
 
     /**
      * Constructs a cache instance with the specified
-     * Redis manager and using a custom key prefix.
+     * Redis manager and using a custom key nameSpace.
      *
-     * @param cache  The cache manager instance
-     * @param prefix The Redis key prefix
+     * @param shiroRedisImpl The cache manager instance
+     * @param nameSpace      The Redis key nameSpace
      */
-    public RedisCache(ShiroRedisManager cache,
-                      String prefix) {
+    public RedisCache(ShiroRedisImpl shiroRedisImpl, String nameSpace) {
 
-        this(cache);
-
-        // set the prefix
-        this.keyPrefix = prefix;
+        this(shiroRedisImpl);
+        // set the nameSpace
+        this.nameSpace = nameSpace;
     }
 
     /**
@@ -82,7 +85,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
      */
     private byte[] getByteKey(K key) {
         if (key instanceof String) {
-            String preKey = this.keyPrefix + key;
+            String preKey = this.nameSpace + key;
             return preKey.getBytes();
         } else {
             return SerializeUtils.serialize(key);
@@ -96,8 +99,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
             if (key == null) {
                 return null;
             } else {
-                byte[] rawValue = cache.get(getByteKey(key));
-                @SuppressWarnings("unchecked")
+                byte[] rawValue = shiroRedisImpl.get(getByteKey(key));
                 V value = (V) SerializeUtils.deserialize(rawValue);
                 return value;
             }
@@ -109,9 +111,10 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
     @Override
     public V put(K key, V value) throws CacheException {
+        System.out.println("key:value --> " + key + ":" + value);
         logger.debug("根据key从存储 key [" + key + "]");
         try {
-            cache.set(getByteKey(key), SerializeUtils.serialize(value));
+            shiroRedisImpl.set(getByteKey(key), SerializeUtils.serialize(value));
             return value;
         } catch (Throwable t) {
             throw new CacheException(t);
@@ -123,7 +126,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
         logger.debug("从redis中删除 key [" + key + "]");
         try {
             V previous = get(key);
-            cache.del(getByteKey(key));
+            shiroRedisImpl.del(getByteKey(key));
             return previous;
         } catch (Throwable t) {
             throw new CacheException(t);
@@ -134,7 +137,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
     public void clear() throws CacheException {
         logger.debug("从redis中删除所有元素");
         try {
-            cache.flushDB();
+            shiroRedisImpl.flushDB();
         } catch (Throwable t) {
             throw new CacheException(t);
         }
@@ -143,18 +146,17 @@ public class RedisCache<K, V> implements Cache<K, V> {
     @Override
     public int size() {
         try {
-            Long longSize = new Long(cache.dbSize());
+            Long longSize = new Long(shiroRedisImpl.dbSize());
             return longSize.intValue();
         } catch (Throwable t) {
             throw new CacheException(t);
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Set<K> keys() {
         try {
-            Set<byte[]> keys = cache.keys(this.keyPrefix + "*");
+            Set<byte[]> keys = shiroRedisImpl.byteKeys(this.nameSpace + "*");
             if (CollectionUtils.isEmpty(keys)) {
                 return Collections.emptySet();
             } else {
@@ -172,11 +174,10 @@ public class RedisCache<K, V> implements Cache<K, V> {
     @Override
     public Collection<V> values() {
         try {
-            Set<byte[]> keys = cache.keys(this.keyPrefix + "*");
+            Set<byte[]> keys = shiroRedisImpl.byteKeys(this.nameSpace + "*");
             if (!CollectionUtils.isEmpty(keys)) {
                 List<V> values = new ArrayList<V>(keys.size());
                 for (byte[] key : keys) {
-                    @SuppressWarnings("unchecked")
                     V value = get((K) key);
                     if (value != null) {
                         values.add(value);

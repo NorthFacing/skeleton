@@ -9,18 +9,6 @@ public interface Cache {
 
     /**
      * <pre>
-     * 返回缓存默认过期时间
-     */
-    int getDefaultExpried();
-
-    /**
-     * <pre>
-     * 设置缓存默认过期时间（单位:秒）
-     */
-    void setDefaultExpried(int defaultExpried);
-
-    /**
-     * <pre>
      * 返回指定key的缓存值
      * @return T 缓存数据
      */
@@ -94,7 +82,9 @@ public interface Cache {
      * @param cacheName
      * @return int
      */
-    Set<String> getKeys(String cacheName);
+    Set<byte[]> byteKeys(String cacheName);
+
+    Set<String> keys(String cacheName);
 
     /**
      * <pre>
