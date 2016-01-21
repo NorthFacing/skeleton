@@ -33,45 +33,44 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class BaseMockTest extends TestCase {
 
-    @Autowired
-    WebApplicationContext wac;
+  public MockMvc mockMvc;
+  @Autowired
+  WebApplicationContext wac;
 
-    public MockMvc mockMvc;
+  @Before
+  public void setup() {
+    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+  }
 
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    }
+  public JSONObject restJsonPost(String uri, Object obj) throws Exception {
+    String result = mockMvc.perform
+        (
+            post(uri, "json")
+                .characterEncoding("UTF-8")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JSONObject.toJSONString(obj))
+        )
+        .andDo(print())
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
 
-    public JSONObject restJsonPost(String uri, Object obj) throws Exception {
-        String result = mockMvc.perform
-                (
-                        post(uri, "json")
-                                .characterEncoding("UTF-8")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(JSONObject.toJSONString(obj))
-                )
-                .andDo(print())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+    return JSONObject.parseObject(result);
+  }
 
-        return JSONObject.parseObject(result);
-    }
+  public JSONObject restJsonGet(String uri, Object obj) throws Exception {
+    String result = mockMvc.perform
+        (
+            get(uri, "json")
+                .characterEncoding("UTF-8")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JSONObject.toJSONString(obj).getBytes())
+        )
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
 
-    public JSONObject restJsonGet(String uri, Object obj) throws Exception {
-        String result = mockMvc.perform
-                (
-                        get(uri, "json")
-                                .characterEncoding("UTF-8")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(JSONObject.toJSONString(obj).getBytes())
-                )
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        return JSONObject.parseObject(result);
-    }
+    return JSONObject.parseObject(result);
+  }
 
 }

@@ -11,24 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Bob on 2016/1/4.
  */
 public class SysRoleServiceTest extends BaseServiceTest {
-    @Autowired
-    private SysRoleService sysRoleService;
+  @Autowired
+  private SysRoleService sysRoleService;
 
-    private SysRole getSysRole() {
-        SysRole entity = new SysRole();
-        entity.setName("name");
-        return entity;
-    }
+  private SysRole getSysRole() {
+    SysRole entity = new SysRole();
+    entity.setName("name");
+    return entity;
+  }
 
-    private SysRoleVo getSysRoleVo() {
-        SysRoleVo entity = new SysRoleVo();
-        entity.setName("name");
-        return entity;
-    }
+  private SysRoleVo getSysRoleVo() {
+    SysRoleVo entity = new SysRoleVo();
+    entity.setName("name");
+    return entity;
+  }
 
-    @Test
-    public void saveTest() {
+  @Test
+  public void saveTest() {
 
-    }
+  }
 
 }

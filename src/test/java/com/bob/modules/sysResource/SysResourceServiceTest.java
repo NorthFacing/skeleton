@@ -2,7 +2,6 @@ package com.bob.modules.sysResource;
 
 import com.bob.core.base.BaseServiceTest;
 import com.bob.modules.sysResource.entity.SysResource;
-import com.bob.modules.sysResource.entity.SysResourceVo;
 import com.bob.modules.sysResource.service.SysResourceService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,36 +14,36 @@ import java.util.List;
  */
 public class SysResourceServiceTest extends BaseServiceTest {
 
-    @Autowired
-    private SysResourceService sysResourceService;
+  @Autowired
+  private SysResourceService sysResourceService;
 
-    private SysResource getSysResource() {
-        SysResource sysResource = new SysResource();
-        sysResource.setName("Test");
-        return sysResource;
-    }
+  private SysResource getSysResource() {
+    SysResource sysResource = new SysResource();
+    sysResource.setName("Test");
+    return sysResource;
+  }
 
-    @Test
-    public void selectTest() {
-        SysResource sysResource = getSysResource();
-        sysResourceService.insert(sysResource);
+  @Test
+  public void selectTest() {
+    SysResource sysResource = getSysResource();
+    sysResourceService.insert(sysResource);
 
-        SysResource param = new SysResource();
-        param.setId(sysResource.getId());
-        SysResource result = sysResourceService.select(param);
-        Assert.assertNotNull(result);
-    }
+    SysResource param = new SysResource();
+    param.setId(sysResource.getId());
+    SysResource result = sysResourceService.select(param);
+    Assert.assertNotNull(result);
+  }
 
-    @Test
-    public void selectListTest() {
-        SysResource sysResource = getSysResource();
-        sysResourceService.insert(sysResource);
+  @Test
+  public void selectListTest() {
+    SysResource sysResource = getSysResource();
+    sysResourceService.insert(sysResource);
 
-        SysResource param = new SysResource();
+    SysResource param = new SysResource();
 
-        List<SysResource> result = sysResourceService.selectList(param);
-        Assert.assertNotNull(result);
-        Assert.assertTrue(result.size() > 0);
+    List<SysResource> result = sysResourceService.selectList(param);
+    Assert.assertNotNull(result);
+    Assert.assertTrue(result.size() > 0);
 
-    }
+  }
 }

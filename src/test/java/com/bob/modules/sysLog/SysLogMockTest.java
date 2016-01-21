@@ -12,12 +12,12 @@ import org.junit.Test;
  */
 public class SysLogMockTest extends BaseMockTest {
 
-    @Test
-    public void saveTest() throws Exception {
-        SysLoginLog sysLoginLog = new SysLoginLog();
-        sysLoginLog.setUserName("mockTest");
-        JSONObject result = restJsonPost("/admin/sysLoginLog/save", sysLoginLog);
-        Assert.assertTrue(ResultEnums.SUCCESS.getCode() == result.get("code"));
-    }
+  @Test
+  public void saveTest() throws Exception {
+    SysLoginLog sysLoginLog = new SysLoginLog();
+    sysLoginLog.setUserName("mockTest");
+    JSONObject result = restJsonPost("/admin/sysLoginLog/save", sysLoginLog);
+    Assert.assertTrue(ResultEnums.SUCCESS.getCode() == result.get("code"));
+  }
 
 }

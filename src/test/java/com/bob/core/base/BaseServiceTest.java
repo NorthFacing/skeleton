@@ -1,7 +1,6 @@
 package com.bob.core.base;
 
 import junit.framework.TestCase;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -24,16 +23,16 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class BaseServiceTest extends TestCase {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseServiceTest.class);
+  private static final Logger logger = LoggerFactory.getLogger(BaseServiceTest.class);
 
-    @BeforeClass
-    public static void start() {
-        logger.debug("=====================  start  =======================");
-    }
+  @BeforeClass
+  public static void start() {
+    logger.debug("=====================  start  =======================");
+  }
 
-    @AfterClass
-    public static void end() {
-        logger.debug("=====================  end  =======================");
-    }
+  @AfterClass
+  public static void end() {
+    logger.debug("=====================  end  =======================");
+  }
 
 }

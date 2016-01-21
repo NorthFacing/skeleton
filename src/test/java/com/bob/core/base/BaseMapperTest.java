@@ -33,50 +33,50 @@ import java.time.LocalDateTime;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 public abstract class BaseMapperTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseMapperTest.class);
+  private static final Logger logger = LoggerFactory.getLogger(BaseMapperTest.class);
 
-    @Autowired
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    private BaseMapper baseMapper;
+  @Autowired
+  @SuppressWarnings("SpringJavaAutowiringInspection")
+  private BaseMapper baseMapper;
 
-    @BeforeClass
-    public static void start() {
-        logger.debug("=====================  start  =======================");
-    }
+  @BeforeClass
+  public static void start() {
+    logger.debug("=====================  start  =======================");
+  }
 
-    @AfterClass
-    public static void end() {
-        logger.debug("=====================  end  =======================");
-    }
+  @AfterClass
+  public static void end() {
+    logger.debug("=====================  end  =======================");
+  }
 
-    public BaseEntity getBaseEntity() {
-        BaseEntity baseEntity = new BaseEntity();
-        return baseEntity;
-    }
+  public BaseEntity getBaseEntity() {
+    BaseEntity baseEntity = new BaseEntity();
+    return baseEntity;
+  }
 
-    @Test
-    public void insertTest() {
-        BaseEntity baseEntity = getBaseEntity();
-        baseMapper.insert(baseEntity);
-        Assert.assertNotNull(baseEntity.getId());
-    }
+  @Test
+  public void insertTest() {
+    BaseEntity baseEntity = getBaseEntity();
+    baseMapper.insert(baseEntity);
+    Assert.assertNotNull(baseEntity.getId());
+  }
 
-    @Test
-    public void updateTest() {
-        BaseEntity baseEntity = getBaseEntity();
-        baseMapper.insert(baseEntity);
-        baseEntity.setCreateTime(LocalDateTime.now());
-        baseMapper.update(baseEntity);
-    }
+  @Test
+  public void updateTest() {
+    BaseEntity baseEntity = getBaseEntity();
+    baseMapper.insert(baseEntity);
+    baseEntity.setCreateTime(LocalDateTime.now());
+    baseMapper.update(baseEntity);
+  }
 
-    @Test
-    public void deleteTest() {
-        BaseEntity param1 = getBaseEntity();
-        baseMapper.insert(param1);
-        Assert.assertNotNull(param1.getId());
-        BaseEntity param2 = new BaseEntity();
-        param2.setId(param1.getId());
-        baseMapper.delete(param2);
-    }
+  @Test
+  public void deleteTest() {
+    BaseEntity param1 = getBaseEntity();
+    baseMapper.insert(param1);
+    Assert.assertNotNull(param1.getId());
+    BaseEntity param2 = new BaseEntity();
+    param2.setId(param1.getId());
+    baseMapper.delete(param2);
+  }
 
 }

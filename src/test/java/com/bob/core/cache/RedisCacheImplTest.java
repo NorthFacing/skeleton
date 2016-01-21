@@ -10,31 +10,31 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class RedisCacheImplTest extends BaseServiceTest {
 
-    @Autowired
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    private Cache cache;
+  @Autowired
+  @SuppressWarnings("SpringJavaAutowiringInspection")
+  private Cache cache;
 
-    @Test
-    public void setTest() {
-        cache.set("Bob", "Bob");
-    }
+  @Test
+  public void setTest() {
+    cache.set("Bob", "Bob");
+  }
 
-    @Test
-    public void getTest() {
-        cache.set("Bob", "Bob");
-        String bob = cache.get("Bob");
-        Assert.assertNotNull(bob);
-        System.out.println(bob);
-    }
+  @Test
+  public void getTest() {
+    cache.set("Bob", "Bob");
+    String bob = cache.get("Bob");
+    Assert.assertNotNull(bob);
+    System.out.println(bob);
+  }
 
-    @Test
-    public void delTest() {
-        cache.set("Bob", "Bob");
-        String bob = cache.get("Bob");
-        Assert.assertNotNull(bob);
-        System.out.println(bob);
-        cache.del("Bob");
-        bob = cache.get("Bob");
-        Assert.assertNull(bob);
-    }
+  @Test
+  public void delTest() {
+    cache.set("Bob", "Bob");
+    String bob = cache.get("Bob");
+    Assert.assertNotNull(bob);
+    System.out.println(bob);
+    cache.del("Bob");
+    bob = cache.get("Bob");
+    Assert.assertNull(bob);
+  }
 }
