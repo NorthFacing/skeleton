@@ -44,6 +44,7 @@ public class RedisCacheImpl implements Cache {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T get(final String cacheName, final String key) {
         if (StringUtils.isBlank(key)) {
             throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");

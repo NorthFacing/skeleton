@@ -23,6 +23,7 @@ public class CcuuAspect {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void insertBatch(JoinPoint jp) {
         Object obj = jp.getArgs()[0];
         if (obj instanceof List) {

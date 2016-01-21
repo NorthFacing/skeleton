@@ -70,11 +70,13 @@ public class ShiroRedisImpl implements Cache {
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public Object get(String key) {
         return this.get(null, key);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Object get(String nameSpace, String key) {
         if (StringUtils.isBlank(key)) {
             throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
