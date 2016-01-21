@@ -21,58 +21,58 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class SysResourceController extends BaseController {
 
-    @Autowired
-    private SysResourceService sysResourceService;
+  @Autowired
+  private SysResourceService sysResourceService;
 
-    public SysResource select(SysResource entity) {
-        return sysResourceService.select(entity);
-    }
+  public SysResource select(SysResource entity) {
+    return sysResourceService.select(entity);
+  }
 
-    @RequestMapping(value = "/sysResource/add")
-    public String add() {
-        return "/sysResource/edit";
-    }
+  @RequestMapping(value = "/sysResource/add")
+  public String add() {
+    return "/sysResource/edit";
+  }
 
-    @RequestMapping(value = "/sysResource/update")
-    public String update(String id, Model model) {
-        SysResource entity = sysResourceService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysResource/edit";
-    }
+  @RequestMapping(value = "/sysResource/update")
+  public String update(String id, Model model) {
+    SysResource entity = sysResourceService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysResource/edit";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysResource/save")
-    public Result save(SysResource entity) {
-        Result result = Result.fail();
-        sysResourceService.save(entity);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysResource/save")
+  public Result save(SysResource entity) {
+    Result result = Result.fail();
+    sysResourceService.save(entity);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysResource/view")
-    public String select(String id, Model model) {
-        SysResource entity = sysResourceService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysResource/view";
-    }
+  @RequestMapping(value = "/sysResource/view")
+  public String select(String id, Model model) {
+    SysResource entity = sysResourceService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysResource/view";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysResource/delete")
-    public Result delete(String id) {
-        Result result = Result.fail();
-        sysResourceService.deleteById(id);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysResource/delete")
+  public Result delete(String id) {
+    Result result = Result.fail();
+    sysResourceService.deleteById(id);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysResource/list")
-    public String list() {
-        return "/sysResource/list";
-    }
+  @RequestMapping(value = "/sysResource/list")
+  public String list() {
+    return "/sysResource/list";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysResource/pageData")
-    public Map<String, Object> pageData(SysResourceQuery query) {
-        query = sysResourceService.pageData(query);
-        return PageUtil.convertPage(query);
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysResource/pageData")
+  public Map<String, Object> pageData(SysResourceQuery query) {
+    query = sysResourceService.pageData(query);
+    return PageUtil.convertPage(query);
+  }
 
 }

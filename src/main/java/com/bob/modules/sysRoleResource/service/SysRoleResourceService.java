@@ -1,7 +1,6 @@
 package com.bob.modules.sysRoleResource.service;
 
 import com.bob.core.base.service.BaseService;
-import com.bob.core.utils.page.BaseQuery;
 import com.bob.modules.sysRoleResource.entity.SysRoleResource;
 import com.bob.modules.sysRoleResource.entity.SysRoleResourceQuery;
 import com.bob.modules.sysRoleResource.entity.SysRoleResourceVo;

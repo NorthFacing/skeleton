@@ -12,8 +12,8 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 public class SysOrgnizationVo extends SysOrgnization {
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 }

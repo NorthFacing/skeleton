@@ -19,20 +19,20 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysRoleResourceService")
 public class SysRoleResourceServiceImpl
-        extends BaseServiceImpl<SysRoleResource, SysRoleResourceVo, SysRoleResourceQuery>
-        implements SysRoleResourceService {
+    extends BaseServiceImpl<SysRoleResource, SysRoleResourceVo, SysRoleResourceQuery>
+    implements SysRoleResourceService {
 
-    @Autowired
-    private SysRoleResourceMapper sysRoleResourceMapper;
+  @Autowired
+  private SysRoleResourceMapper sysRoleResourceMapper;
 
-    @Override
-    public SysRoleResource getEntity() {
-        return new SysRoleResource();
-    }
+  @Override
+  public SysRoleResource getEntity() {
+    return new SysRoleResource();
+  }
 
-    @Override
-    public BaseMapper<SysRoleResource, SysRoleResourceVo, SysRoleResourceQuery> getMapper() {
-        return sysRoleResourceMapper;
-    }
+  @Override
+  public BaseMapper<SysRoleResource, SysRoleResourceVo, SysRoleResourceQuery> getMapper() {
+    return sysRoleResourceMapper;
+  }
 
 }

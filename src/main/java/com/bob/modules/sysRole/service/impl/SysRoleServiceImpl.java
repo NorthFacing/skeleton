@@ -27,56 +27,56 @@ import java.util.List;
  */
 @Service("sysRoleService")
 public class SysRoleServiceImpl
-        extends BaseServiceImpl<SysRole, SysRoleVo, SysRoleQuery>
-        implements SysRoleService {
+    extends BaseServiceImpl<SysRole, SysRoleVo, SysRoleQuery>
+    implements SysRoleService {
 
-    @Autowired
-    private SysRoleMapper sysRoleMapper;
-    @Autowired
-    private SysRoleResourceMapper sysRoleResourceMapper;
+  @Autowired
+  private SysRoleMapper sysRoleMapper;
+  @Autowired
+  private SysRoleResourceMapper sysRoleResourceMapper;
 
-    @Override
-    public SysRole getEntity() {
-        return new SysRole();
+  @Override
+  public SysRole getEntity() {
+    return new SysRole();
+  }
+
+  @Override
+  public BaseMapper<SysRole, SysRoleVo, SysRoleQuery> getMapper() {
+    return sysRoleMapper;
+  }
+
+  @Override
+  public String saveVo(SysRoleVo entity) {
+    SysRole role = this.getEntity();
+    BeanUtils.copyProperties(entity, role);
+    // 保存角色
+    if (StringUtils.isEmpty(entity.getId())) {
+      sysRoleMapper.insert(role);
+    } else {
+      sysRoleMapper.update(role);
+      sysRoleResourceMapper.deleteByRoleId(entity.getId());
     }
+    // id赋值，为了下面的方法少传一个参数
+    entity.setId(role.getId());
+    // 保存角色和权限关联关系
+    insertRoleResource(entity);
+    return entity.getId();
+  }
 
-    @Override
-    public BaseMapper<SysRole, SysRoleVo, SysRoleQuery> getMapper() {
-        return sysRoleMapper;
-    }
-
-    @Override
-    public String saveVo(SysRoleVo entity) {
-        SysRole role = this.getEntity();
-        BeanUtils.copyProperties(entity, role);
-        // 保存角色
-        if (StringUtils.isEmpty(entity.getId())) {
-            sysRoleMapper.insert(role);
-        } else {
-            sysRoleMapper.update(role);
-            sysRoleResourceMapper.deleteByRoleId(entity.getId());
+  private void insertRoleResource(SysRoleVo entity) {
+    List<String> resourceIds = entity.getResourceIds();
+    if (CollectionUtils.isNotEmpty(resourceIds)) {
+      ArrayList<SysRoleResource> list = new ArrayList<>();
+      for (String roleId : resourceIds) {
+        if (StringUtils.isNotEmpty(roleId)) {
+          SysRoleResource srr = new SysRoleResource();
+          srr.setRoleId(entity.getId());
+          srr.setResourceId(roleId);
+          list.add(srr);
         }
-        // id赋值，为了下面的方法少传一个参数
-        entity.setId(role.getId());
-        // 保存角色和权限关联关系
-        insertRoleResource(entity);
-        return entity.getId();
+      }
+      sysRoleResourceMapper.insertBatch(list);
     }
-
-    private void insertRoleResource(SysRoleVo entity) {
-        List<String> resourceIds = entity.getResourceIds();
-        if (CollectionUtils.isNotEmpty(resourceIds)) {
-            ArrayList<SysRoleResource> list = new ArrayList<>();
-            for (String roleId : resourceIds) {
-                if (StringUtils.isNotEmpty(roleId)) {
-                    SysRoleResource srr = new SysRoleResource();
-                    srr.setRoleId(entity.getId());
-                    srr.setResourceId(roleId);
-                    list.add(srr);
-                }
-            }
-            sysRoleResourceMapper.insertBatch(list);
-        }
-    }
+  }
 
 }

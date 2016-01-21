@@ -19,19 +19,19 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysLoginLogService")
 public class SysLoginLogServiceImpl
-        extends BaseServiceImpl<SysLoginLog, SysLoginLogVo, SysLoginLogQuery>
-        implements SysLoginLogService {
+    extends BaseServiceImpl<SysLoginLog, SysLoginLogVo, SysLoginLogQuery>
+    implements SysLoginLogService {
 
-    @Autowired
-    private SysLoginLogMapper sysLoginLogMapper;
+  @Autowired
+  private SysLoginLogMapper sysLoginLogMapper;
 
-    @Override
-    public SysLoginLog getEntity() {
-        return new SysLoginLog();
-    }
+  @Override
+  public SysLoginLog getEntity() {
+    return new SysLoginLog();
+  }
 
-    @Override
-    public BaseMapper<SysLoginLog, SysLoginLogVo, SysLoginLogQuery> getMapper() {
-        return sysLoginLogMapper;
-    }
+  @Override
+  public BaseMapper<SysLoginLog, SysLoginLogVo, SysLoginLogQuery> getMapper() {
+    return sysLoginLogMapper;
+  }
 }

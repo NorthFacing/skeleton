@@ -24,45 +24,45 @@ import java.io.IOException;
 @Controller
 public class WxController extends BaseController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WxController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(WxController.class);
 
-    /*** =========================== 以下是首页 =========================== **/
-    /**
-     * 首页
-     */
-    @RequestMapping(value = "/item/home", method = {RequestMethod.GET})
-    public void home(Model model, HttpServletRequest request, HttpServletResponse response) {
-        try {
-            response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.appId
-                    + "&redirect_uri=" + WxConfig.wxRedirectUrl + "/cus/item/home.html"
-                    + "&response_type=code&scope=snsapi_base&state=getOpenId#wechat_redirect");
-        } catch (IOException e) {
-            LOG.error("获取openId出错：\n" + e);
-        }
+  /*** =========================== 以下是首页 =========================== **/
+  /**
+   * 首页
+   */
+  @RequestMapping(value = "/item/home", method = {RequestMethod.GET})
+  public void home(Model model, HttpServletRequest request, HttpServletResponse response) {
+    try {
+      response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.appId
+          + "&redirect_uri=" + WxConfig.wxRedirectUrl + "/cus/item/home.html"
+          + "&response_type=code&scope=snsapi_base&state=getOpenId#wechat_redirect");
+    } catch (IOException e) {
+      LOG.error("获取openId出错：\n" + e);
     }
+  }
 
-    /**
-     * 首页重定向页
-     */
-    @RequestMapping(value = "/item/home.html", method = {RequestMethod.GET})
-    public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
-        boolean openId = WxUtil.checkOpenId(request);
-        if (!openId) {
-            openId = WxUtil.setOpenIdToCookie(request, response);
-        }
-        if (openId) {
-            return "/item/home";
-        } else {
-            return "/item/getCodeError";
-        }
+  /**
+   * 首页重定向页
+   */
+  @RequestMapping(value = "/item/home.html", method = {RequestMethod.GET})
+  public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+    boolean openId = WxUtil.checkOpenId(request);
+    if (!openId) {
+      openId = WxUtil.setOpenIdToCookie(request, response);
     }
+    if (openId) {
+      return "/item/home";
+    } else {
+      return "/item/getCodeError";
+    }
+  }
 
-    /**
-     * 首页网页测试
-     */
-    @RequestMapping(value = "/item/homeTest", method = {RequestMethod.GET})
-    public String homeTest(Model model, HttpServletRequest request, HttpServletResponse response) {
-        return "/item/home";
-    }
+  /**
+   * 首页网页测试
+   */
+  @RequestMapping(value = "/item/homeTest", method = {RequestMethod.GET})
+  public String homeTest(Model model, HttpServletRequest request, HttpServletResponse response) {
+    return "/item/home";
+  }
 
 }

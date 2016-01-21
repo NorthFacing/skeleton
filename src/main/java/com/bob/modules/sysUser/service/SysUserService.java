@@ -19,17 +19,17 @@ import java.util.Set;
  */
 public interface SysUserService extends BaseService<SysUser, SysUserVo, SysUserQuery> {
 
-    SysUser getByUserName(String name);
+  SysUser getByUserName(String name);
 
-    List<SysRole> getRolesByUserId(String uId);
+  List<SysRole> getRolesByUserId(String uId);
 
-    Set<String> getRolesNameByUserId(String id);
+  Set<String> getRolesNameByUserId(String id);
 
-    Set<String> getAllRolesName();
+  Set<String> getAllRolesName();
 
-    List<SysResource> getPermissionsByUserId(String id);
+  List<SysResource> getPermissionsByUserId(String id);
 
-    Set<String> getPermissionsNameByUserId(String id);
+  Set<String> getPermissionsNameByUserId(String id);
 
-    Set<String> getAllPermissions();
+  Set<String> getAllPermissions();
 }

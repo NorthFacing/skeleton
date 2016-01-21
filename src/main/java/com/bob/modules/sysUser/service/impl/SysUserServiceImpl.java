@@ -30,97 +30,97 @@ import java.util.Set;
  */
 @Service("sysUserService")
 public class SysUserServiceImpl
-        extends BaseServiceImpl<SysUser, SysUserVo, SysUserQuery>
-        implements SysUserService {
+    extends BaseServiceImpl<SysUser, SysUserVo, SysUserQuery>
+    implements SysUserService {
 
-    @Autowired
-    private SysUserMapper sysUserMapper;
-    @Autowired
-    private SysRoleMapper sysRoleMapper;
-    @Autowired
-    private SysResourceMapper sysResourceMapper;
+  @Autowired
+  private SysUserMapper sysUserMapper;
+  @Autowired
+  private SysRoleMapper sysRoleMapper;
+  @Autowired
+  private SysResourceMapper sysResourceMapper;
 
-    @Override
-    public SysUser getEntity() {
-        return new SysUser();
+  @Override
+  public SysUser getEntity() {
+    return new SysUser();
+  }
+
+  @Override
+  public BaseMapper<SysUser, SysUserVo, SysUserQuery> getMapper() {
+    return sysUserMapper;
+  }
+
+  public SysUser getByUserName(String name) {
+    return sysUserMapper.getByUserName(name);
+  }
+
+  @Override
+  public List<SysRole> getRolesByUserId(String uId) {
+    if (StringUtils.isNotEmpty(uId)) {
+      return sysRoleMapper.getRolesByUserId(uId);
     }
+    return new ArrayList<>();
+  }
 
-    @Override
-    public BaseMapper<SysUser, SysUserVo, SysUserQuery> getMapper() {
-        return sysUserMapper;
-    }
+  @Override
+  public Set<String> getRolesNameByUserId(String uId) {
+    Set<String> names = new HashSet<>();
+    List<SysRole> roles = this.getRolesByUserId(uId);
+    prepareRoles(roles, names);
+    return names;
+  }
 
-    public SysUser getByUserName(String name) {
-        return sysUserMapper.getByUserName(name);
-    }
+  @Override
+  public Set<String> getAllRolesName() {
+    List<SysRole> roles = sysRoleMapper.getAllRoles();
+    Set<String> names = new HashSet<>();
+    prepareRoles(roles, names);
+    return names;
+  }
 
-    @Override
-    public List<SysRole> getRolesByUserId(String uId) {
-        if (StringUtils.isNotEmpty(uId)) {
-            return sysRoleMapper.getRolesByUserId(uId);
+  private void prepareRoles(List<SysRole> roles, Set<String> names) {
+    if (CollectionUtils.isNotEmpty(roles)) {
+      for (SysRole role : roles) {
+        if (null != role.getName()) {
+          names.add(role.getName());
         }
-        return new ArrayList<>();
+      }
     }
+  }
 
-    @Override
-    public Set<String> getRolesNameByUserId(String uId) {
-        Set<String> names = new HashSet<>();
-        List<SysRole> roles = this.getRolesByUserId(uId);
-        prepareRoles(roles, names);
-        return names;
+
+  @Override
+  public List<SysResource> getPermissionsByUserId(String uId) {
+    if (StringUtils.isNotEmpty(uId)) {
+      return sysResourceMapper.getResourcesByUserId(uId);
     }
+    return new ArrayList<>();
+  }
 
-    @Override
-    public Set<String> getAllRolesName() {
-        List<SysRole> roles = sysRoleMapper.getAllRoles();
-        Set<String> names = new HashSet<>();
-        prepareRoles(roles, names);
-        return names;
-    }
+  @Override
+  public Set<String> getPermissionsNameByUserId(String uId) {
+    Set<String> shiroKey = new HashSet<>();
+    List<SysResource> resources = this.getPermissionsByUserId(uId);
+    preparePermission(resources, shiroKey);
+    return shiroKey;
+  }
 
-    private void prepareRoles(List<SysRole> roles, Set<String> names) {
-        if (CollectionUtils.isNotEmpty(roles)) {
-            for (SysRole role : roles) {
-                if (null != role.getName()) {
-                    names.add(role.getName());
-                }
-            }
+  @Override
+  public Set<String> getAllPermissions() {
+    List<SysResource> resources = sysResourceMapper.getAllResources();
+    Set<String> shiroKey = new HashSet<>();
+    preparePermission(resources, shiroKey);
+    return shiroKey;
+  }
+
+  private void preparePermission(List<SysResource> resources, Set<String> shiroKey) {
+    if (CollectionUtils.isNotEmpty(resources)) {
+      for (SysResource resource : resources) {
+        if (null != resource.getShiroKey()) {
+          shiroKey.add(resource.getShiroKey());
         }
+      }
     }
-
-
-    @Override
-    public List<SysResource> getPermissionsByUserId(String uId) {
-        if (StringUtils.isNotEmpty(uId)) {
-            return sysResourceMapper.getResourcesByUserId(uId);
-        }
-        return new ArrayList<>();
-    }
-
-    @Override
-    public Set<String> getPermissionsNameByUserId(String uId) {
-        Set<String> shiroKey = new HashSet<>();
-        List<SysResource> resources = this.getPermissionsByUserId(uId);
-        preparePermission(resources, shiroKey);
-        return shiroKey;
-    }
-
-    @Override
-    public Set<String> getAllPermissions() {
-        List<SysResource> resources = sysResourceMapper.getAllResources();
-        Set<String> shiroKey = new HashSet<>();
-        preparePermission(resources, shiroKey);
-        return shiroKey;
-    }
-
-    private void preparePermission(List<SysResource> resources, Set<String> shiroKey) {
-        if (CollectionUtils.isNotEmpty(resources)) {
-            for (SysResource resource : resources) {
-                if (null != resource.getShiroKey()) {
-                    shiroKey.add(resource.getShiroKey());
-                }
-            }
-        }
-    }
+  }
 
 }

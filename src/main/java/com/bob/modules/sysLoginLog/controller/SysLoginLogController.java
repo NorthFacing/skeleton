@@ -25,59 +25,59 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class SysLoginLogController extends BaseController {
 
-    @Autowired
-    private SysLoginLogService sysLoginLogService;
+  @Autowired
+  private SysLoginLogService sysLoginLogService;
 
-    public SysLoginLog select(SysLoginLog entity) {
-        return sysLoginLogService.select(entity);
-    }
+  public SysLoginLog select(SysLoginLog entity) {
+    return sysLoginLogService.select(entity);
+  }
 
-    @RequestMapping(value = "/sysLoginLog/add")
-    public String add() {
-        return "/sysLoginLog/edit";
-    }
+  @RequestMapping(value = "/sysLoginLog/add")
+  public String add() {
+    return "/sysLoginLog/edit";
+  }
 
-    @RequestMapping(value = "/sysLoginLog/update")
-    public String update(String id, Model model) {
-        SysLoginLog entity = sysLoginLogService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysLoginLog/edit";
-    }
+  @RequestMapping(value = "/sysLoginLog/update")
+  public String update(String id, Model model) {
+    SysLoginLog entity = sysLoginLogService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysLoginLog/edit";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysLoginLog/save")
-    public Result save(SysLoginLog entity) {
-        Result result = Result.fail();
-        sysLoginLogService.save(entity);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysLoginLog/save")
+  public Result save(SysLoginLog entity) {
+    Result result = Result.fail();
+    sysLoginLogService.save(entity);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysLoginLog/view")
-    public String select(String id, Model model) {
-        SysLoginLog entity = sysLoginLogService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysResource/view";
-    }
+  @RequestMapping(value = "/sysLoginLog/view")
+  public String select(String id, Model model) {
+    SysLoginLog entity = sysLoginLogService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysResource/view";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysLoginLog/delete")
-    public Result delete(String id) {
-        Result result = Result.fail();
-        sysLoginLogService.deleteById(id);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysLoginLog/delete")
+  public Result delete(String id) {
+    Result result = Result.fail();
+    sysLoginLogService.deleteById(id);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysLoginLog/list")
-    public String list() {
-        return "/sysLoginLog/list";
-    }
+  @RequestMapping(value = "/sysLoginLog/list")
+  public String list() {
+    return "/sysLoginLog/list";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysLoginLog/pageData")
-    public Map<String, Object> pageData(SysLoginLogQuery query) {
-        query = sysLoginLogService.pageData(query);
-        return PageUtil.convertPage(query);
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysLoginLog/pageData")
+  public Map<String, Object> pageData(SysLoginLogQuery query) {
+    query = sysLoginLogService.pageData(query);
+    return PageUtil.convertPage(query);
+  }
 
 }
 

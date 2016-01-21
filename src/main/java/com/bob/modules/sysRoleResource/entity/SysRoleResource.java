@@ -12,52 +12,52 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
  */
 public class SysRoleResource extends BaseEntity {
 
-    private String roleId;    //  角色ID
-    private String resourceId;    //  权限ID
-    private Integer status;    //  状态
+  private String roleId;    //  角色ID
+  private String resourceId;    //  权限ID
+  private Integer status;    //  状态
 
 
-    /**
-     * 角色ID
-     */
-    public String getRoleId() {
-        return roleId;
-    }
+  /**
+   * 角色ID
+   */
+  public String getRoleId() {
+    return roleId;
+  }
 
-    public SysRoleResource setRoleId(String roleId) {
-        this.roleId = roleId;
-        return this;
-    }
-
-
-    /**
-     * 权限ID
-     */
-    public String getResourceId() {
-        return resourceId;
-    }
-
-    public SysRoleResource setResourceId(String resourceId) {
-        this.resourceId = resourceId;
-        return this;
-    }
+  public SysRoleResource setRoleId(String roleId) {
+    this.roleId = roleId;
+    return this;
+  }
 
 
-    /**
-     * 状态
-     */
-    public Integer getStatus() {
-        return status;
-    }
+  /**
+   * 权限ID
+   */
+  public String getResourceId() {
+    return resourceId;
+  }
 
-    public SysRoleResource setStatus(Integer status) {
-        this.status = status;
-        return this;
-    }
+  public SysRoleResource setResourceId(String resourceId) {
+    this.resourceId = resourceId;
+    return this;
+  }
 
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  /**
+   * 状态
+   */
+  public Integer getStatus() {
+    return status;
+  }
+
+  public SysRoleResource setStatus(Integer status) {
+    this.status = status;
+    return this;
+  }
+
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 }

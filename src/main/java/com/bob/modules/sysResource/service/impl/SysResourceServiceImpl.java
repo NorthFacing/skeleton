@@ -19,20 +19,20 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysResourceService")
 public class SysResourceServiceImpl
-        extends BaseServiceImpl<SysResource, SysResourceVo, SysResourceQuery>
-        implements SysResourceService {
+    extends BaseServiceImpl<SysResource, SysResourceVo, SysResourceQuery>
+    implements SysResourceService {
 
-    @Autowired
-    private SysResourceMapper sysResourceMapper;
+  @Autowired
+  private SysResourceMapper sysResourceMapper;
 
-    @Override
-    public SysResource getEntity() {
-        return new SysResource();
-    }
+  @Override
+  public SysResource getEntity() {
+    return new SysResource();
+  }
 
-    @Override
-    public BaseMapper<SysResource, SysResourceVo, SysResourceQuery> getMapper() {
-        return sysResourceMapper;
-    }
+  @Override
+  public BaseMapper<SysResource, SysResourceVo, SysResourceQuery> getMapper() {
+    return sysResourceMapper;
+  }
 
 }

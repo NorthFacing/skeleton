@@ -19,19 +19,19 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysUserRoleService")
 public class SysUserRoleServiceImpl
-        extends BaseServiceImpl<SysUserRole, SysUserRoleVo, SysUserRoleQuery>
-        implements SysUserRoleService {
+    extends BaseServiceImpl<SysUserRole, SysUserRoleVo, SysUserRoleQuery>
+    implements SysUserRoleService {
 
-    @Autowired
-    private SysUserRoleMapper sysUserRoleMapper;
+  @Autowired
+  private SysUserRoleMapper sysUserRoleMapper;
 
-    @Override
-    public SysUserRole getEntity() {
-        return new SysUserRole();
-    }
+  @Override
+  public SysUserRole getEntity() {
+    return new SysUserRole();
+  }
 
-    @Override
-    public BaseMapper<SysUserRole, SysUserRoleVo, SysUserRoleQuery> getMapper() {
-        return sysUserRoleMapper;
-    }
+  @Override
+  public BaseMapper<SysUserRole, SysUserRoleVo, SysUserRoleQuery> getMapper() {
+    return sysUserRoleMapper;
+  }
 }

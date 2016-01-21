@@ -18,20 +18,20 @@ import java.util.List;
  */
 public interface SysRoleMapper extends BaseMapper<SysRole, SysRoleVo, SysRoleQuery> {
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    SysRole select(SysRole entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  SysRole select(SysRole entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    SysRoleVo selectVo(SysRole entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  SysRoleVo selectVo(SysRole entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    List<SysRole> selectList(SysRole entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  List<SysRole> selectList(SysRole entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    List<SysRoleVo> selectVoList(SysRole entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  List<SysRoleVo> selectVoList(SysRole entity);
 
-    List<SysRole> getRolesByUserId(String uId);
+  List<SysRole> getRolesByUserId(String uId);
 
-    List<SysRole> getAllRoles();
+  List<SysRole> getAllRoles();
 
 }

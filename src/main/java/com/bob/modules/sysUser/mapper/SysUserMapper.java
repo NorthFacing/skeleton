@@ -18,18 +18,18 @@ import java.util.List;
  */
 public interface SysUserMapper extends BaseMapper<SysUser, SysUserVo, SysUserQuery> {
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    SysUser select(SysUser entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  SysUser select(SysUser entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    SysUserVo selectVo(SysUser entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  SysUserVo selectVo(SysUser entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    List<SysUser> selectList(SysUser entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  List<SysUser> selectList(SysUser entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    List<SysUserVo> selectVoList(SysUser entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  List<SysUserVo> selectVoList(SysUser entity);
 
-    SysUser getByUserName(String name);
+  SysUser getByUserName(String name);
 
 }

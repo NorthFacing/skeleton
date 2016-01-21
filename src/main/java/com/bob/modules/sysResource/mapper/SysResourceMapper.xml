@@ -118,26 +118,26 @@
 
     <select id="getResourcesByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT
-            sr.id,
-            sr.parent_id,
-            sr.name,
-            sr.type,
-            sr.shiro_key,
-            sr.res_url,
-            sr.res_level,
-            sr.res_priority,
-            sr.res_code,
-            sr.description,
-            sr.status
+        sr.id,
+        sr.parent_id,
+        sr.name,
+        sr.type,
+        sr.shiro_key,
+        sr.res_url,
+        sr.res_level,
+        sr.res_priority,
+        sr.res_code,
+        sr.description,
+        sr.status
         FROM sys_resource sr
         LEFT JOIN sys_role_resource srr
         ON srr.resource_id = sr.id
         WHERE srr.role_id IN (
-            SELECT r.id
-            FROM sys_user_role ur
-            LEFT JOIN  sys_role r
-            ON ur.role_id = r.id
-            WHERE ur.id = #{value}
+        SELECT r.id
+        FROM sys_user_role ur
+        LEFT JOIN sys_role r
+        ON ur.role_id = r.id
+        WHERE ur.id = #{value}
         )
     </select>
 

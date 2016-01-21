@@ -18,16 +18,16 @@ import java.util.List;
  */
 public interface SysOrgnizationMapper extends BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> {
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    SysOrgnization select(SysOrgnization entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  SysOrgnization select(SysOrgnization entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    SysOrgnizationVo selectVo(SysOrgnization entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  SysOrgnizationVo selectVo(SysOrgnization entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    List<SysOrgnization> selectList(SysOrgnization entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  List<SysOrgnization> selectList(SysOrgnization entity);
 
-    @SelectProvider(type = CRUDTemplate.class, method = "select")
-    List<SysOrgnizationVo> selectVoList(SysOrgnization entity);
+  @SelectProvider(type = CRUDTemplate.class, method = "select")
+  List<SysOrgnizationVo> selectVoList(SysOrgnization entity);
 
 }

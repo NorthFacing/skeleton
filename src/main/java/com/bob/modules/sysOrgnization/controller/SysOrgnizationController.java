@@ -25,59 +25,59 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class SysOrgnizationController extends BaseController {
 
-    @Autowired
-    private SysOrgnizationService sysOrgnizationService;
+  @Autowired
+  private SysOrgnizationService sysOrgnizationService;
 
-    public SysOrgnization select(SysOrgnization entity) {
-        return sysOrgnizationService.select(entity);
-    }
+  public SysOrgnization select(SysOrgnization entity) {
+    return sysOrgnizationService.select(entity);
+  }
 
-    @RequestMapping(value = "/sysOrgnization/add")
-    public String add() {
-        return "/sysOrgnization/edit";
-    }
+  @RequestMapping(value = "/sysOrgnization/add")
+  public String add() {
+    return "/sysOrgnization/edit";
+  }
 
-    @RequestMapping(value = "/sysOrgnization/update")
-    public String update(String id, Model model) {
-        SysOrgnization entity = sysOrgnizationService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysOrgnization/edit";
-    }
+  @RequestMapping(value = "/sysOrgnization/update")
+  public String update(String id, Model model) {
+    SysOrgnization entity = sysOrgnizationService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysOrgnization/edit";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysOrgnization/save")
-    public Result save(SysOrgnization entity) {
-        Result result = Result.fail();
-        sysOrgnizationService.save(entity);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysOrgnization/save")
+  public Result save(SysOrgnization entity) {
+    Result result = Result.fail();
+    sysOrgnizationService.save(entity);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysOrgnization/view")
-    public String select(String id, Model model) {
-        SysOrgnization entity = sysOrgnizationService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysResource/view";
-    }
+  @RequestMapping(value = "/sysOrgnization/view")
+  public String select(String id, Model model) {
+    SysOrgnization entity = sysOrgnizationService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysResource/view";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysOrgnization/delete")
-    public Result delete(String id) {
-        Result result = Result.fail();
-        sysOrgnizationService.deleteById(id);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysOrgnization/delete")
+  public Result delete(String id) {
+    Result result = Result.fail();
+    sysOrgnizationService.deleteById(id);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysOrgnization/list")
-    public String list() {
-        return "/sysOrgnization/list";
-    }
+  @RequestMapping(value = "/sysOrgnization/list")
+  public String list() {
+    return "/sysOrgnization/list";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysOrgnization/pageData")
-    public Map<String, Object> pageData(SysOrgnizationQuery query) {
-        query = sysOrgnizationService.pageData(query);
-        return PageUtil.convertPage(query);
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysOrgnization/pageData")
+  public Map<String, Object> pageData(SysOrgnizationQuery query) {
+    query = sysOrgnizationService.pageData(query);
+    return PageUtil.convertPage(query);
+  }
 
 }
 

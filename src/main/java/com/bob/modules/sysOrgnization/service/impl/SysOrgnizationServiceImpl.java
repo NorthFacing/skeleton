@@ -19,20 +19,20 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysOrgnizationService")
 public class SysOrgnizationServiceImpl
-        extends BaseServiceImpl<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery>
-        implements SysOrgnizationService {
+    extends BaseServiceImpl<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery>
+    implements SysOrgnizationService {
 
-    @Autowired
-    private SysOrgnizationMapper sysOrgnizationMapper;
+  @Autowired
+  private SysOrgnizationMapper sysOrgnizationMapper;
 
-    @Override
-    public SysOrgnization getEntity() {
-        return new SysOrgnization();
-    }
+  @Override
+  public SysOrgnization getEntity() {
+    return new SysOrgnization();
+  }
 
-    @Override
-    public BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> getMapper() {
-        return sysOrgnizationMapper;
-    }
+  @Override
+  public BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> getMapper() {
+    return sysOrgnizationMapper;
+  }
 
 }

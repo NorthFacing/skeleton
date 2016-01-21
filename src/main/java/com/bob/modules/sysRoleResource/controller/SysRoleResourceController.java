@@ -25,59 +25,59 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class SysRoleResourceController extends BaseController {
 
-    @Autowired
-    private SysRoleResourceService sysRoleResourceService;
+  @Autowired
+  private SysRoleResourceService sysRoleResourceService;
 
-    public SysRoleResource select(SysRoleResource entity) {
-        return sysRoleResourceService.select(entity);
-    }
+  public SysRoleResource select(SysRoleResource entity) {
+    return sysRoleResourceService.select(entity);
+  }
 
-    @RequestMapping(value = "/sysRoleResource/add")
-    public String add() {
-        return "/sysRoleResource/edit";
-    }
+  @RequestMapping(value = "/sysRoleResource/add")
+  public String add() {
+    return "/sysRoleResource/edit";
+  }
 
-    @RequestMapping(value = "/sysRoleResource/update")
-    public String update(String id, Model model) {
-        SysRoleResource entity = sysRoleResourceService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysRoleResource/edit";
-    }
+  @RequestMapping(value = "/sysRoleResource/update")
+  public String update(String id, Model model) {
+    SysRoleResource entity = sysRoleResourceService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysRoleResource/edit";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysRoleResource/save")
-    public Result save(SysRoleResource entity) {
-        Result result = Result.fail();
-        sysRoleResourceService.save(entity);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysRoleResource/save")
+  public Result save(SysRoleResource entity) {
+    Result result = Result.fail();
+    sysRoleResourceService.save(entity);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysRoleResource/view")
-    public String select(String id, Model model) {
-        SysRoleResource entity = sysRoleResourceService.selectById(id);
-        model.addAttribute("entity", entity);
-        return "/sysResource/view";
-    }
+  @RequestMapping(value = "/sysRoleResource/view")
+  public String select(String id, Model model) {
+    SysRoleResource entity = sysRoleResourceService.selectById(id);
+    model.addAttribute("entity", entity);
+    return "/sysResource/view";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysRoleResource/delete")
-    public Result delete(String id) {
-        Result result = Result.fail();
-        sysRoleResourceService.deleteById(id);
-        return result.success();
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysRoleResource/delete")
+  public Result delete(String id) {
+    Result result = Result.fail();
+    sysRoleResourceService.deleteById(id);
+    return result.success();
+  }
 
-    @RequestMapping(value = "/sysRoleResource/list")
-    public String list() {
-        return "/sysRoleResource/list";
-    }
+  @RequestMapping(value = "/sysRoleResource/list")
+  public String list() {
+    return "/sysRoleResource/list";
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/sysRoleResource/pageData")
-    public Map<String, Object> pageData(SysRoleResourceQuery query) {
-        query = sysRoleResourceService.pageData(query);
-        return PageUtil.convertPage(query);
-    }
+  @ResponseBody
+  @RequestMapping(value = "/sysRoleResource/pageData")
+  public Map<String, Object> pageData(SysRoleResourceQuery query) {
+    query = sysRoleResourceService.pageData(query);
+    return PageUtil.convertPage(query);
+  }
 
 }
 
