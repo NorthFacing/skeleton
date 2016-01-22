@@ -17,6 +17,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +36,7 @@ public class LoginController extends BaseController {
   }
 
   @RequestMapping(value = "/loginAction")
-  public String loginAction(String username, String password, HttpServletRequest request) {
+  public String loginAction(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
     try {
       if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
         request.setAttribute("error", "用户名或密码不能为空！");

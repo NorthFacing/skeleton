@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -39,7 +40,7 @@ public class SysRoleController extends BaseController {
   }
 
   @RequestMapping(value = "/sysRole/update")
-  public String update(String id, Model model) {
+  public String update(Model model,@RequestParam String id) {
     SysRole entity = sysRoleService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysRole/edit";
@@ -54,7 +55,7 @@ public class SysRoleController extends BaseController {
   }
 
   @RequestMapping(value = "/sysRole/view")
-  public String select(String id, Model model) {
+  public String select(Model model,@RequestParam String id) {
     SysRole entity = sysRoleService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysResource/view";
@@ -62,7 +63,7 @@ public class SysRoleController extends BaseController {
 
   @ResponseBody
   @RequestMapping(value = "/sysRole/delete")
-  public Result delete(String id) {
+  public Result delete(@RequestParam String id) {
     Result result = Result.fail();
     sysRoleService.deleteById(id);
     return result.success();

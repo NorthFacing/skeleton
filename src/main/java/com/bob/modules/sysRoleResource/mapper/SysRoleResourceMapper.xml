@@ -86,9 +86,9 @@
             (#{item.id},#{item.roleId},#{item.resourceId},#{item.status},#{item.createTime},#{item.createUser},#{item.updateTime},#{item.updateUser})
         </foreach>
     </insert>
-    
+
     <delete id="deleteByRoleId" parameterType="java.lang.String">
-        DELETE FROM 
+        DELETE FROM
         <include refid="tabaleName"/>
         WHERE role_id = #{value}
     </delete>

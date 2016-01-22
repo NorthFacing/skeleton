@@ -16,23 +16,23 @@ import java.text.ParseException;
 @RequestMapping("/wechat")
 public class TokenController {
 
-    @Autowired
-    private TokenService tokenService;
+  @Autowired
+  private TokenService tokenService;
 
-    /**
-     * 开发者模式token校验
-     *
-     * @param wxAccount  开发者url后缀
-     * @param response
-     * @param tokenModel
-     * @throws ParseException
-     * @throws IOException
-     */
-    @RequestMapping(value = "/check/{wxToken}", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
-    public
-    @ResponseBody
-    String validate(@PathVariable("wxToken") String wxToken, CheckModel tokenModel)
-            throws ParseException, IOException {
-        return tokenService.validate(wxToken, tokenModel);
-    }
+  /**
+   * 开发者模式token校验
+   *
+   * @param wxAccount  开发者url后缀
+   * @param response
+   * @param tokenModel
+   * @throws ParseException
+   * @throws IOException
+   */
+  @RequestMapping(value = "/check/{wxToken}", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
+  public
+  @ResponseBody
+  String validate(@PathVariable("wxToken") String wxToken, CheckModel tokenModel)
+      throws ParseException, IOException {
+    return tokenService.validate(wxToken, tokenModel);
+  }
 }

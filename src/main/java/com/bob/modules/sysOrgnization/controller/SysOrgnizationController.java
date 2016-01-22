@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -38,7 +39,7 @@ public class SysOrgnizationController extends BaseController {
   }
 
   @RequestMapping(value = "/sysOrgnization/update")
-  public String update(String id, Model model) {
+  public String update(Model model, @RequestParam String id) {
     SysOrgnization entity = sysOrgnizationService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysOrgnization/edit";
@@ -53,7 +54,7 @@ public class SysOrgnizationController extends BaseController {
   }
 
   @RequestMapping(value = "/sysOrgnization/view")
-  public String select(String id, Model model) {
+  public String select(Model model, @RequestParam String id) {
     SysOrgnization entity = sysOrgnizationService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysResource/view";
@@ -61,7 +62,7 @@ public class SysOrgnizationController extends BaseController {
 
   @ResponseBody
   @RequestMapping(value = "/sysOrgnization/delete")
-  public Result delete(String id) {
+  public Result delete(@RequestParam String id) {
     Result result = Result.fail();
     sysOrgnizationService.deleteById(id);
     return result.success();
