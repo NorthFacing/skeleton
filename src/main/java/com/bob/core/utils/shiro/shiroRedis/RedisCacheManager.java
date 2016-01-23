@@ -20,51 +20,32 @@ public class RedisCacheManager implements CacheManager {
     // fast lookup by name map
     private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<>();
 
+    // The Redis key prefix for caches
+    private String nameSpace = "shiro_redis_cache:";
+    // 缓存实例
     private ShiroRedisImpl shiroRedisImpl;
-
-    /**
-     * The Redis key prefix for caches
-     */
-    private String keyPrefix = "shiro_redis_cache:";
-
-    /**
-     * Returns the Redis session keys
-     * prefix.
-     *
-     * @return The prefix
-     */
-    public String getKeyPrefix() {
-        return keyPrefix;
-    }
-
-    /**
-     * Sets the Redis sessions key
-     * prefix.
-     *
-     * @param keyPrefix The prefix
-     */
-    public void setKeyPrefix(String keyPrefix) {
-        this.keyPrefix = keyPrefix;
-    }
 
     @Override
     public <K, V> Cache<K, V> getCache(String name) throws CacheException {
         logger.debug("获取名称为: " + name + " 的RedisCache实例");
-
         Cache c = caches.get(name);
-
         if (c == null) {
-
             // initialize the Redis manager instance
             shiroRedisImpl.init();
-
             // create a new cache instance
-            c = new RedisCache<K, V>(shiroRedisImpl, keyPrefix);
-
+            c = new RedisCache<K, V>(shiroRedisImpl, nameSpace);
             // add it to the cache collection
             caches.put(name, c);
         }
         return c;
+    }
+
+    public String getNameSpace() {
+        return nameSpace;
+    }
+
+    public void setNameSpace(String nameSpace) {
+        this.nameSpace = nameSpace;
     }
 
     public ShiroRedisImpl getShiroRedisImpl() {

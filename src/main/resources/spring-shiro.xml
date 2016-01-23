@@ -72,15 +72,15 @@
     <bean id="shiroRedisImpl" class="com.bob.core.cache.redis.ShiroRedisImpl">
         <property name="host" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
-        <property name="expired" value="1800"/>
-        <!-- optional properties:        -->
-        <property name="timeout" value="10000"/>
         <property name="password" value="${redis.pass}"/>
+        <property name="expired" value="1800"/>
+        <property name="timeout" value="10000"/>
     </bean>
 
     <!-- cacheManager -->
     <bean id="shiroCacheManager" class="com.bob.core.utils.shiro.shiroRedis.RedisCacheManager">
         <property name="shiroRedisImpl" ref="shiroRedisImpl"/>
+        <property name="nameSpace" value="shiro_redis_cache:"></property>
     </bean>
 
     <!-- cookie -->
@@ -98,9 +98,14 @@
         <property name="httpOnly" value="true"/>
     </bean>
 
+    <!-- 会话ID生成器 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
     <!--sessionDao缓存配置：ref="cache"配置于spring-mybatis.xml中-->
     <bean id="redisSessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisSessionDAO">
         <property name="shiroRedisImpl" ref="shiroRedisImpl"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+        <property name="nameSpace" value="shiro_redis_session:"></property>
     </bean>
 
      <!-- sessionManager -->
