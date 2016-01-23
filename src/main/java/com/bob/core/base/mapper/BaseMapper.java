@@ -12,13 +12,13 @@ import java.util.List;
 public interface BaseMapper<T extends BaseEntity, V extends T, Q extends BaseQuery> {
 
     @InsertProvider(type = CRUDTemplate.class, method = "insert")
-    void insert(T entity);
+    Integer insert(T entity);
 
     @UpdateProvider(type = CRUDTemplate.class, method = "update")
-    void update(T entity);
+    Integer update(T entity);
 
     @DeleteProvider(type = CRUDTemplate.class, method = "delete")
-    void delete(T entity);
+    Integer delete(T entity);
 
     // 以下方法需要在各自的Mapper中覆写实现才可以使用，因为在BaseMapper中类型转换异常
     T select(T entity);

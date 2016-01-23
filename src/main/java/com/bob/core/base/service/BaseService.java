@@ -10,28 +10,28 @@ import java.util.List;
  */
 public interface BaseService<T extends BaseEntity, V extends T, Q extends BaseQuery> {
 
-    String insert(T entity);
+  String insert(T entity);
 
-    void update(T entity);
+  Integer update(T entity);
 
-    String save(T entity);
+  String save(T entity);
 
-    void delete(T entity);
+  Integer delete(T entity);
 
-    void deleteById(String id);
+  Integer deleteById(String id);
 
-    T select(T entity);
+  T select(T entity);
 
-    T selectById(String id);
+  T selectById(String id);
 
-    V selectVo(T entity);
+  V selectVo(T entity);
 
-    V selectVoById(String id);
+  V selectVoById(String id);
 
-    List<T> selectList(T entity);
+  List<T> selectList(T entity);
 
-    List<V> selectVoList(T entity);
+  List<V> selectVoList(T entity);
 
-    Q pageData(Q query);
+  Q pageData(Q query);
 
 }
