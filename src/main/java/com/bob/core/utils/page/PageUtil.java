@@ -11,7 +11,7 @@ public class PageUtil {
         Map<String, Object> result = new HashMap<>();
         result.put("current", baseQuery.getPageNum());
         result.put("rowCount", baseQuery.getPageSize());
-        result.put("total", baseQuery.getTotal());
+        result.put("total", baseQuery.getTotalCount());
         result.put("rows", baseQuery.getResult());
         return result;
     }

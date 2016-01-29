@@ -1,6 +1,6 @@
 package com.bob.modules.weChat.service;
 
-import com.bob.core.utils.EncoderHandler;
+import com.bob.core.utils.encrypt.EncoderHandler;
 import com.bob.modules.weChat.vo.CheckModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -7,30 +7,11 @@ import java.time.LocalDateTime;
  */
 public class BaseQuery extends PageInfo {
 
-    protected LocalDateTime updateTimeStart;
-    protected LocalDateTime updateTimeEnd;
     // 分页查询字段
-    private String sidx;// 排序字段
-    private String sord;// 排序方式：DESC、ASC
-    // 公用时间查询字段
+    protected LocalDateTime updateTimeEnd;
+    protected LocalDateTime updateTimeStart;
     private LocalDateTime createTimeStart;
     private LocalDateTime createTimeEnd;
-
-    public String getSidx() {
-        return sidx;
-    }
-
-    public void setSidx(String sidx) {
-        this.sidx = sidx;
-    }
-
-    public String getSord() {
-        return sord;
-    }
-
-    public void setSord(String sord) {
-        this.sord = sord;
-    }
 
     public LocalDateTime getCreateTimeStart() {
         return createTimeStart;

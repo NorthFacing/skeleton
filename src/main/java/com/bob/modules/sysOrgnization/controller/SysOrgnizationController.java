@@ -1,8 +1,7 @@
 package com.bob.modules.sysOrgnization.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.Result;
-import com.bob.core.utils.page.PageUtil;
+import com.bob.core.utils.web.Result;
 import com.bob.modules.sysOrgnization.entity.SysOrgnization;
 import com.bob.modules.sysOrgnization.entity.SysOrgnizationQuery;
 import com.bob.modules.sysOrgnization.service.SysOrgnizationService;
@@ -12,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * SysOrgnizationController
@@ -75,9 +72,9 @@ public class SysOrgnizationController extends BaseController {
 
   @ResponseBody
   @RequestMapping(value = "/sysOrgnization/pageData")
-  public Map<String, Object> pageData(SysOrgnizationQuery query) {
+  public Result<SysOrgnizationQuery> pageData(SysOrgnizationQuery query) {
     query = sysOrgnizationService.pageData(query);
-    return PageUtil.convertPage(query);
+    return Result.success(query);
   }
 
 }

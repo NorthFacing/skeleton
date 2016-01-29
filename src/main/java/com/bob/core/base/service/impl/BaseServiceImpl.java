@@ -3,7 +3,7 @@ package com.bob.core.base.service.impl;
 import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.BaseService;
-import com.bob.core.utils.page.BaseQuery;
+import com.bob.core.utils.page.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Bob on 2016/1/3.
  */
 @Service("baseService")
-public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q extends BaseQuery>
+public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q extends PageInfo>
     implements BaseService<T, V, Q> {
 
   /**
@@ -100,7 +100,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q exten
   @Override
   public Q pageData(Q query) {
     Long count = getMapper().count(query);
-    query.setTotal(count);
+    query.setTotalCount(count);
     List list = getMapper().query(query);
     query.setResult(list);
     return query;

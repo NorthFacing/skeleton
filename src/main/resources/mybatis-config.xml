@@ -22,6 +22,6 @@
         <setting name="defaultStatementTimeout" value="25000"/>
     </settings>
     <typeHandlers>
-        <typeHandler handler="com.bob.core.utils.LocalDateTimeTypeHandler"/>
+        <typeHandler handler="com.bob.core.utils.myBatis.LocalDateTimeTypeHandler"/>
     </typeHandlers>
 </configuration>

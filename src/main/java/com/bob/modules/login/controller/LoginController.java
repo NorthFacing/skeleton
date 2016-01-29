@@ -1,7 +1,7 @@
 package com.bob.modules.login.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.LocalDateTool;
+import com.bob.core.utils.javaUtil.LocalDateTool;
 import com.bob.modules.sysLoginLog.entity.SysLoginLog;
 import com.bob.modules.sysLoginLog.service.SysLoginLogService;
 import org.apache.commons.lang.StringUtils;

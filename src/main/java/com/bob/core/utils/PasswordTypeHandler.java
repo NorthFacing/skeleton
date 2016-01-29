@@ -1,5 +1,6 @@
 package com.bob.core.utils;
 
+import com.bob.core.utils.encrypt.EncryptionUtil;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.slf4j.Logger;

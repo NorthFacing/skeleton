@@ -1,4 +1,4 @@
-package com.bob.core.utils;
+package com.bob.core.utils.encrypt;
 
 import java.security.MessageDigest;
 

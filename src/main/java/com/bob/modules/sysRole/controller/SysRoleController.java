@@ -1,8 +1,7 @@
 package com.bob.modules.sysRole.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.Result;
-import com.bob.core.utils.page.PageUtil;
+import com.bob.core.utils.web.Result;
 import com.bob.modules.sysRole.entity.SysRole;
 import com.bob.modules.sysRole.entity.SysRoleQuery;
 import com.bob.modules.sysRole.entity.SysRoleVo;
@@ -13,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * SysRoleController
@@ -76,9 +73,9 @@ public class SysRoleController extends BaseController {
 
   @ResponseBody
   @RequestMapping(value = "/sysRole/pageData")
-  public Map<String, Object> pageData(SysRoleQuery query) {
+  public Result<SysRoleQuery> pageData(SysRoleQuery query) {
     query = sysRoleService.pageData(query);
-    return PageUtil.convertPage(query);
+    return Result.success(query);
   }
 
 }

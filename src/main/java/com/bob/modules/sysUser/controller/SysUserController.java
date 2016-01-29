@@ -1,8 +1,7 @@
 package com.bob.modules.sysUser.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.Result;
-import com.bob.core.utils.page.PageUtil;
+import com.bob.core.utils.web.Result;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.entity.SysUserQuery;
 import com.bob.modules.sysUser.service.SysUserService;
@@ -14,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * SysUserController
@@ -84,9 +81,9 @@ public class SysUserController extends BaseController {
   @RequiresPermissions("sysUser:list")
   @ResponseBody
   @RequestMapping(value = "/sysUser/pageData")
-  public Map<String, Object> pageData(SysUserQuery query) {
+  public Result<SysUserQuery> pageData(SysUserQuery query) {
     query = sysUserService.pageData(query);
-    return PageUtil.convertPage(query);
+    return Result.success(query);
   }
 
 }

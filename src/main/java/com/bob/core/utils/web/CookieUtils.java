@@ -1,4 +1,4 @@
-package com.bob.core.utils;
+package com.bob.core.utils.web;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;

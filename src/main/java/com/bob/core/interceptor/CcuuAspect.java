@@ -1,7 +1,7 @@
 package com.bob.core.interceptor;
 
 import com.bob.core.base.entity.BaseEntity;
-import com.bob.core.utils.UuidUtil;
+import com.bob.core.utils.javaUtil.UuidUtil;
 import org.aspectj.lang.JoinPoint;
 
 import java.time.LocalDateTime;

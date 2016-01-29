@@ -17,8 +17,8 @@ public class PageInfo<T> implements Serializable {
     private Integer pageSize = Constants.PAGE_SIZE;//页面大小
     private Integer startRow;// 起始行
     private Integer endRow;// 末行
-    private Long total;     //总数
-    private Integer pages;    // 总页数
+    private Long totalCount;     //总数
+    private Integer totalPage;    // 总页数
     private List<T> result;//结果集
 
     /**
@@ -26,9 +26,9 @@ public class PageInfo<T> implements Serializable {
      */
     private void calculatePages() {
         if (pageSize > 0) {
-            pages = (int) (total / pageSize + ((total % pageSize == 0) ? 0 : 1));
+            totalPage = (int) (totalCount / pageSize + ((totalCount % pageSize == 0) ? 0 : 1));
         } else {
-            pages = 0;
+            totalPage = 0;
         }
     }
 
@@ -40,8 +40,8 @@ public class PageInfo<T> implements Serializable {
     private void checkPageNum(Integer pageNum) {
         if (pageNum <= 0) {
             this.pageNum = 1;
-        } else if (pageNum > pages) {
-            this.pageNum = pages;
+        } else if (pageNum > totalPage) {
+            this.pageNum = totalPage;
         } else {
             this.pageNum = pageNum;
         }
@@ -71,12 +71,12 @@ public class PageInfo<T> implements Serializable {
         this.pageSize = pageSize;
     }
 
-    public Long getTotal() {
-        return total;
+    public Long getTotalCount() {
+        return totalCount;
     }
 
-    public void setTotal(Long total) {
-        this.total = (null == total) ? 0 : total;
+    public void setTotalCount(Long totalCount) {
+        this.totalCount = (null == totalCount) ? 0 : totalCount;
         // 计算总页数
         calculatePages();
         // 校验查询的页数
@@ -85,8 +85,8 @@ public class PageInfo<T> implements Serializable {
         calculateStartAndEndRow();
     }
 
-    public Integer getPages() {
-        return pages;
+    public Integer getTotalPage() {
+        return totalPage;
     }
 
     public Integer getEndRow() {

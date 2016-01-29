@@ -1,14 +1,14 @@
 package com.bob.core.base.service;
 
 import com.bob.core.base.entity.BaseEntity;
-import com.bob.core.utils.page.BaseQuery;
+import com.bob.core.utils.page.PageInfo;
 
 import java.util.List;
 
 /**
  * Created by Bob on 2015/12/30.
  */
-public interface BaseService<T extends BaseEntity, V extends T, Q extends BaseQuery> {
+public interface BaseService<T extends BaseEntity, V extends T, Q extends PageInfo> {
 
   String insert(T entity);
 

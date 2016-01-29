@@ -1,4 +1,4 @@
-package com.bob.core.utils;
+package com.bob.core.utils.javaUtil;
 
 public class RandomUtil {
 

@@ -1,8 +1,8 @@
 package com.bob.core.base.controller;
 
-import com.bob.core.utils.Result;
-import com.bob.core.utils.ResultEnums;
-import com.bob.core.utils.ServletUtils;
+import com.bob.core.utils.web.Result;
+import com.bob.core.utils.web.ResultEnums;
+import com.bob.core.utils.web.ServletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package com.bob.core.utils;
+package com.bob.core.utils.web;
 
 public enum ResultEnums {
     SUCCESS("200", "成功"),

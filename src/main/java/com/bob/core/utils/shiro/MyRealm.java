@@ -32,11 +32,13 @@ public class MyRealm extends AuthorizingRealm {
     SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
     Session session = SecurityUtils.getSubject().getSession();
-    SysUser user = (SysUser) session.getAttribute("user");
-
-    if (null == user) {                                     // 一般只要登陆成功就不会出现找不到用户的情况，这里只是作为加强验证
+    Object obj = session.getAttribute("user");
+    if (null == obj) {                                     // 一般只要登陆成功就不会出现找不到用户的情况，这里只是作为加强验证
       return authorizationInfo;
-    } else if ("admin".equals(user.getUserName())) {        // 如果是admin账号，作为超级管理员，拥有所有角色和所有权限
+    }
+
+    SysUser user = (SysUser) obj;
+    if ("admin".equals(user.getUserName())) {              // 如果是admin账号，作为超级管理员，拥有所有角色和所有权限
       authorizationInfo.setRoles(sysUserService.getAllRolesName());
       authorizationInfo.setStringPermissions(sysUserService.getAllPermissions());
     } else {                                                // 一般账号，只查询赋予的角色和权限
@@ -85,24 +87,23 @@ public class MyRealm extends AuthorizingRealm {
     // 这里暂且手动插入redis缓存，后面排查原因
 
 
-
     return authenticationInfo;
   }
 
-  @Override
-  public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
-    super.clearCachedAuthorizationInfo(principals);
-  }
-
-  @Override
-  public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
-    super.clearCachedAuthenticationInfo(principals);
-  }
-
-  @Override
-  public void clearCache(PrincipalCollection principals) {
-    super.clearCache(principals);
-  }
+//  @Override
+//  public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+//    super.clearCachedAuthorizationInfo(principals);
+//  }
+//
+//  @Override
+//  public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
+//    super.clearCachedAuthenticationInfo(principals);
+//  }
+//
+//  @Override
+//  public void clearCache(PrincipalCollection principals) {
+//    super.clearCache(principals);
+//  }
 
   public void clearAllCachedAuthorizationInfo() {
     getAuthorizationCache().clear();

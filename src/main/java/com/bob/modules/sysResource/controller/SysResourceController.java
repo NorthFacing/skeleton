@@ -1,8 +1,7 @@
 package com.bob.modules.sysResource.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.Result;
-import com.bob.core.utils.page.PageUtil;
+import com.bob.core.utils.web.Result;
 import com.bob.modules.sysResource.entity.SysResource;
 import com.bob.modules.sysResource.entity.SysResourceQuery;
 import com.bob.modules.sysResource.service.SysResourceService;
@@ -12,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * Created by Bob on 2016/1/3.
@@ -71,9 +68,9 @@ public class SysResourceController extends BaseController {
 
   @ResponseBody
   @RequestMapping(value = "/sysResource/pageData")
-  public Map<String, Object> pageData(SysResourceQuery query) {
+  public Result<SysResourceQuery> pageData(SysResourceQuery query) {
     query = sysResourceService.pageData(query);
-    return PageUtil.convertPage(query);
+    return Result.success(query);
   }
 
 }

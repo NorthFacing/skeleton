@@ -1,8 +1,7 @@
 package com.bob.modules.sysUserRole.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.Result;
-import com.bob.core.utils.page.PageUtil;
+import com.bob.core.utils.web.Result;
 import com.bob.modules.sysUserRole.entity.SysUserRole;
 import com.bob.modules.sysUserRole.entity.SysUserRoleQuery;
 import com.bob.modules.sysUserRole.service.SysUserRoleService;
@@ -12,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * SysUserRoleController
@@ -39,7 +36,7 @@ public class SysUserRoleController extends BaseController {
   }
 
   @RequestMapping(value = "/sysUserRole/update")
-  public String update(Model model,@RequestParam String id) {
+  public String update(Model model, @RequestParam String id) {
     SysUserRole entity = sysUserRoleService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysUserRole/edit";
@@ -54,7 +51,7 @@ public class SysUserRoleController extends BaseController {
   }
 
   @RequestMapping(value = "/sysUserRole/view")
-  public String select(Model model,@RequestParam String id) {
+  public String select(Model model, @RequestParam String id) {
     SysUserRole entity = sysUserRoleService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysResource/view";
@@ -75,9 +72,9 @@ public class SysUserRoleController extends BaseController {
 
   @ResponseBody
   @RequestMapping(value = "/sysUserRole/pageData")
-  public Map<String, Object> pageData(SysUserRoleQuery query) {
+  public Result<SysUserRoleQuery> pageData(SysUserRoleQuery query) {
     query = sysUserRoleService.pageData(query);
-    return PageUtil.convertPage(query);
+    return Result.success(query);
   }
 
 }
