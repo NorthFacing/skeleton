@@ -1,6 +1,7 @@
-package com.bob.core.cache;
+package com.bob.core.cacheTest;
 
 import com.bob.core.base.BaseServiceTest;
+import com.bob.core.cache.CacheService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,33 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by Bob on 2016/1/5.
  */
-public class RedisCacheImplTest extends BaseServiceTest {
+public class RedisCacheServiceImplTest extends BaseServiceTest {
 
   @Autowired
   @SuppressWarnings("SpringJavaAutowiringInspection")
-  private Cache cache;
+  private CacheService cacheService;
 
   @Test
   public void setTest() {
-    cache.set("Bob", "Bob");
+    cacheService.set("Bob", "Bob");
   }
 
   @Test
   public void getTest() {
-    cache.set("Bob", "Bob");
-    String bob = cache.get("Bob");
+    cacheService.set("Bob", "Bob");
+    String bob = cacheService.get("Bob");
     Assert.assertNotNull(bob);
     System.out.println(bob);
   }
 
   @Test
   public void delTest() {
-    cache.set("Bob", "Bob");
-    String bob = cache.get("Bob");
+    cacheService.set("Bob", "Bob");
+    String bob = cacheService.get("Bob");
     Assert.assertNotNull(bob);
     System.out.println(bob);
-    cache.del("Bob");
-    bob = cache.get("Bob");
+    cacheService.del("Bob");
+    bob = cacheService.get("Bob");
     Assert.assertNull(bob);
   }
 }

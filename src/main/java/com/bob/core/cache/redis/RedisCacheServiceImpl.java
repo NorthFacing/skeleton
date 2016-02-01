@@ -1,6 +1,6 @@
 package com.bob.core.cache.redis;
 
-import com.bob.core.cache.Cache;
+import com.bob.core.cache.CacheService;
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -16,8 +16,9 @@ import java.util.Set;
 /**
  * Redis缓存包装实现：spring实现（作为备份，未使用）
  */
-public class RedisCacheImpl implements Cache {
-    public static Logger logger = LoggerFactory.getLogger(RedisCacheImpl.class);
+//@Service("cacheService")
+public class RedisCacheServiceImpl implements CacheService {
+    public static Logger logger = LoggerFactory.getLogger(RedisCacheServiceImpl.class);
     private static final String DEFAULT_CACHE_NAME = "_def";
     private static final String CONNECTOR = ":";
     private String prefix = "";
@@ -91,7 +92,7 @@ public class RedisCacheImpl implements Cache {
             byte[] _value = null;
             try {
                 if (!(value instanceof Serializable)) {
-                    throw new IllegalArgumentException(RedisCacheImpl.class.getSimpleName() + " requires a Serializable payload "
+                    throw new IllegalArgumentException(RedisCacheServiceImpl.class.getSimpleName() + " requires a Serializable payload "
                             + "but received an object of type [" + value.getClass().getName() + "]");
                 }
                 _value = SerializationUtils.serialize((Serializable) value);

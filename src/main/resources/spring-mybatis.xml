@@ -45,16 +45,15 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-
-
     <!--缓存配置在shiro配置文件中了，用于和shiro进行共用-->
     <!-- redis config start -->
-    <!--<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-        <!--<property name="maxIdle" value="${redis.maxIdle}"/>-->
-        <!--<property name="maxTotal" value="${redis.maxTotal}"/>-->
-        <!--<property name="testOnBorrow" value="${redis.testOnBorrow}"/>-->
-        <!--<property name="testOnReturn" value="${redis.testOnReturn}"/>-->
-    <!--</bean>-->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+    </bean>
+
     <!--<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
           <!--p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"-->
           <!--p:pool-config-ref="poolConfig"/>-->
@@ -62,20 +61,18 @@
     <!--<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
         <!--<property name="connectionFactory" ref="jedisConnectionFactory"/>-->
     <!--</bean>-->
-    <!--<bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheImpl">-->
+    <!--<bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheServiceImpliceImpl">-->
         <!--<property name="prefix" value="selekton"/>-->
         <!--<property name="redisTemplate" ref="redisTemplate"/>-->
     <!--</bean>-->
 
-    <!-- redis config end -->
-    <!--<bean id="cacheManager" class="com.bob.core.cache.redis.CacheImpl">-->
-    <!--<property name="prefix" value="selekton"/>-->
-    <!--<property name="expired" value="0"/>-->
-    <!--<constructor-arg index="0" value="poolConfig"/>-->
-    <!--<constructor-arg index="1" value="${redis.host}"/>-->
-    <!--<constructor-arg index="2" value= "${redis.port}"/>-->
-    <!--<constructor-arg index="3" value= "${redis.pass}"/>-->
-    <!--<constructor-arg index="4" value= "0"/>-->
-    <!--</bean>-->
+    <bean id="shiroRedisImpl" class="com.bob.core.cache.redis.ShiroRedisImpl">
+        <property name="poolConfig" ref="poolConfig"/>
+        <property name="host" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.pass}"/>
+        <property name="expired" value="1800"/>
+        <property name="timeout" value="10000"/>
+    </bean>
 
 </beans>

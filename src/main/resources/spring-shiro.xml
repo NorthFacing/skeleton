@@ -74,14 +74,6 @@
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-    <bean id="shiroRedisImpl" class="com.bob.core.cache.redis.ShiroRedisImpl">
-        <property name="host" value="${redis.host}"/>
-        <property name="port" value="${redis.port}"/>
-        <property name="password" value="${redis.pass}"/>
-        <property name="expired" value="1800"/>
-        <property name="timeout" value="10000"/>
-    </bean>
-
     <!-- cacheManager -->
     <bean id="shiroCacheManager" class="com.bob.core.utils.shiro.shiroRedis.RedisCacheManager">
         <property name="shiroRedisImpl" ref="shiroRedisImpl"/>

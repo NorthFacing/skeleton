@@ -2,7 +2,7 @@ package com.bob.modules.sysLog;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bob.core.base.BaseMockTest;
-import com.bob.core.utils.ResultEnums;
+import com.bob.core.utils.web.ResultEnums;
 import com.bob.modules.sysLoginLog.entity.SysLoginLog;
 import org.junit.Assert;
 import org.junit.Test;

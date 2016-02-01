@@ -1,4 +1,4 @@
-package com.bob.core.cache;
+package com.bob.core.cacheTest;
 
 import com.bob.modules.sysUser.entity.SysUser;
 import org.apache.commons.lang.SerializationUtils;
@@ -23,7 +23,7 @@ public class rediesConnectTest {
     config.setTestOnBorrow(false);
     config.setTestOnReturn(false);
 
-    String host = "192.168.31.128";
+    String host = "192.168.31.130";
 
     Integer port = 6379;
 

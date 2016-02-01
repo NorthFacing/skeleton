@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * 缓存服务接口定义
  */
-public interface Cache {
+public interface CacheService {
 
     /**
      * <pre>

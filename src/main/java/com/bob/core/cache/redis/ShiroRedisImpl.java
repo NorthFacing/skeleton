@@ -1,15 +1,18 @@
 package com.bob.core.cache.redis;
 
-import com.bob.core.cache.Cache;
+import com.bob.core.cache.CacheService;
 import com.bob.core.utils.javaUtil.SerializeUtils;
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,12 +21,13 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * Redis缓存实现：jedis实现
  */
-public class ShiroRedisImpl implements Cache {
+@Service("cacheService")
+public class ShiroRedisImpl implements CacheService {
 
   private Logger logger = LoggerFactory.getLogger(ShiroRedisImpl.class);
 
-  private String host = "127.0.0.1";
-  private int port = 6379;
+  private String host = "";
+  private int port = 0;
   private String password = "";
   //timeout for jedis try to connect to redis server, not expire time! In milliseconds
   // 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException；
@@ -38,9 +42,10 @@ public class ShiroRedisImpl implements Cache {
   private static JedisPool jedisPool = null;
   // 最大空闲连接数, 应用自己评估，不要超过KVStore每个实例最大的连接数，
   // 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例，默认值也是8。
-  private int MAX_IDLE = 100;
+//  private int MAX_IDLE = 100;
   // 最大连接数, 应用自己评估，不要超过KVStore每个实例最大的连接数
-  private int MAX_TOTAL = 300;
+//  private int MAX_TOTAL = 300;
+  private JedisPoolConfig poolConfig;
 
   private final ConcurrentMap<String, ShiroRedisImpl> caches = new ConcurrentHashMap<>();
 
@@ -49,30 +54,34 @@ public class ShiroRedisImpl implements Cache {
 
   /**
    * 初始化方法
+   *
+   * @Note PostConstruct 表示bean初始化之后调用此方法
    */
+  @PostConstruct
   public void init() {
     logger.debug("ShiroRedisImpl进行初始化");
-    JedisPoolConfig config = new JedisPoolConfig();
-    // 最大空闲连接数, 应用自己评估，不要超过KVStore每个实例最大的连接数
-    config.setMaxIdle(MAX_IDLE);
-    // 最大连接数, 应用自己评估，不要超过KVStore每个实例最大的连接数
-    config.setMaxTotal(MAX_TOTAL);
-    config.setTestOnBorrow(false);
-    config.setTestOnReturn(false);
+//    JedisPoolConfig config = new JedisPoolConfig();
+//    config.setMaxIdle(MAX_IDLE);
+//    config.setMaxTotal(MAX_TOTAL);
+//    config.setTestOnBorrow(false);
+//    config.setTestOnReturn(false);
     if (jedisPool == null) {
       if (password != null && !"".equals(password)) {
-        jedisPool = new JedisPool(config, host, port, timeout, password);
+        jedisPool = new JedisPool(poolConfig, host, port, timeout, password);
       } else if (timeout != 0) {
-        jedisPool = new JedisPool(config, host, port, timeout);
+        jedisPool = new JedisPool(poolConfig, host, port, timeout);
       } else {
-        jedisPool = new JedisPool(config, host, port);
+        jedisPool = new JedisPool(poolConfig, host, port);
       }
     }
   }
 
   /**
    * 销毁方法
+   *
+   * @Note PreDestroy 表示bean被销毁之前调用此方法
    */
+  @PreDestroy
   public void destroy() {
     logger.debug("ShiroRedisImpl销毁jedisPool");
     jedisPool.destroy();
@@ -351,11 +360,21 @@ public class ShiroRedisImpl implements Cache {
 
   // *****************************************以下是setter和getter方法*****************************************
 
+
+  public JedisPoolConfig getPoolConfig() {
+    return poolConfig;
+  }
+
+  public void setPoolConfig(JedisPoolConfig poolConfig) {
+    this.poolConfig = poolConfig;
+  }
+
   public String getHost() {
     return host;
   }
 
   public void setHost(String host) {
+    logger.debug("host赋值：{}", host);
     this.host = host;
   }
 
