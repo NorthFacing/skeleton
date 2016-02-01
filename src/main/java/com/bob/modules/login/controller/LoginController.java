@@ -64,7 +64,7 @@ public class LoginController extends BaseController {
         return "/login/login";
       } catch (ExcessiveAttemptsException e) {
         token.clear();
-        request.setAttribute("error", "登录失败次数过多,锁定10分钟!");
+        request.setAttribute("error", "登录失败次数过多，锁定10分钟!");
         return "/login/login";
       } catch (AuthenticationException e) {
         token.clear();
