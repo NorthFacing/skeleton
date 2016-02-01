@@ -1,6 +1,7 @@
 package com.bob.core.cache.redis;
 
 import com.bob.core.cache.CacheService;
+import com.bob.core.contants.Constants;
 import com.bob.core.utils.javaUtil.SerializeUtils;
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
@@ -35,16 +36,12 @@ public class ShiroRedisImpl implements CacheService {
   // 0 - never expire
   private int expired = 0;
 
-  private String prefix = "";
+  public static String prefix = Constants.PROJECT_NAME;
   public static final String CONNECTOR = ":";
   public static final String DEFAULT_NAME_SPACE = "defNameSpace";
 
   private static JedisPool jedisPool = null;
-  // 最大空闲连接数, 应用自己评估，不要超过KVStore每个实例最大的连接数，
-  // 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例，默认值也是8。
-//  private int MAX_IDLE = 100;
-  // 最大连接数, 应用自己评估，不要超过KVStore每个实例最大的连接数
-//  private int MAX_TOTAL = 300;
+
   private JedisPoolConfig poolConfig;
 
   private final ConcurrentMap<String, ShiroRedisImpl> caches = new ConcurrentHashMap<>();
@@ -60,11 +57,6 @@ public class ShiroRedisImpl implements CacheService {
   @PostConstruct
   public void init() {
     logger.debug("ShiroRedisImpl进行初始化");
-//    JedisPoolConfig config = new JedisPoolConfig();
-//    config.setMaxIdle(MAX_IDLE);
-//    config.setMaxTotal(MAX_TOTAL);
-//    config.setTestOnBorrow(false);
-//    config.setTestOnReturn(false);
     if (jedisPool == null) {
       if (password != null && !"".equals(password)) {
         jedisPool = new JedisPool(poolConfig, host, port, timeout, password);
@@ -374,7 +366,6 @@ public class ShiroRedisImpl implements CacheService {
   }
 
   public void setHost(String host) {
-    logger.debug("host赋值：{}", host);
     this.host = host;
   }
 

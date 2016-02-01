@@ -9,7 +9,8 @@ package com.bob.core.contants;
  */
 public class Constants {
 
-    /**  */
+
+    public static final String PROJECT_NAME = "skeleton";
 
     /**
      * 默认查询页码

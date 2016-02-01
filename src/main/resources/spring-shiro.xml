@@ -19,11 +19,11 @@
     <!-- security datasource: -->
     <bean id="myRealm" class="com.bob.core.utils.shiro.MyRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-        <property name="cachingEnabled" value="true"/>
-        <property name="authenticationCachingEnabled" value="true"/>
-        <property name="authenticationCacheName" value="authenticationCache"/>
-        <property name="authorizationCachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>
+        <!--<property name="cachingEnabled" value="true"/>-->
+        <!--<property name="authenticationCachingEnabled" value="true"/>-->
+        <!--<property name="authenticationCacheName" value="authenticationCache"/>-->
+        <!--<property name="authorizationCachingEnabled" value="true"/>-->
+        <!--<property name="authorizationCacheName" value="authorizationCache"/>-->
     </bean>
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -102,7 +102,7 @@
     <bean id="redisSessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisSessionDAO">
         <property name="shiroRedisImpl" ref="shiroRedisImpl"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-        <property name="nameSpace" value="shiro_redis_session:"></property>
+        <property name="nameSpace" value="shiro_redis_session"></property>
     </bean>
 
      <!-- sessionManager -->

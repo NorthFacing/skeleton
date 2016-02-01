@@ -1,5 +1,6 @@
 package com.bob.core.utils.shiro;
 
+import com.bob.core.contants.Constants;
 import com.bob.modules.sysUser.entity.SysUser;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -8,7 +9,7 @@ import org.apache.shiro.util.ByteSource;
 
 public class PasswordHelper {
   private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-  public static final String ENCRYPT = "Bob-";
+  public static final String ENCRYPT = Constants.PROJECT_NAME;
   private String algorithmName = "md5";
   private int hashIterations = 2;
 
@@ -26,7 +27,7 @@ public class PasswordHelper {
     PasswordHelper passwordHelper = new PasswordHelper();
     SysUser entity = new SysUser();
     entity.setUserName("admin");
-    entity.setPassWord("123456");
+    entity.setPassWord("admin");
     passwordHelper.encryptPassword(entity);
     System.out.println("salt:\n" + entity.getSalt());
     System.out.println("password:\n" + entity.getPassWord());

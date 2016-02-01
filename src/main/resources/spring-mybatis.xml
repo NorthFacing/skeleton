@@ -71,8 +71,8 @@
         <property name="host" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
         <property name="password" value="${redis.pass}"/>
-        <property name="expired" value="1800"/>
-        <property name="timeout" value="10000"/>
+        <property name="expired" value="${redis.expired}"/>
+        <property name="timeout" value="${redis.timeout}"/>
     </bean>
 
 </beans>
