@@ -27,7 +27,7 @@ public class PasswordHelper {
     PasswordHelper passwordHelper = new PasswordHelper();
     SysUser entity = new SysUser();
     entity.setUserName("admin");
-    // 21232f297a57a5a743894a0e4a801fc3 是 使用js的md5加密之后的值：
+    // "21232f297a57a5a743894a0e4a801fc3" 是 "admin"使用js的md5加密之后的值：
     entity.setPassWord("21232f297a57a5a743894a0e4a801fc3");
     passwordHelper.encryptPassword(entity);
     System.out.println("salt:\n" + entity.getSalt());
