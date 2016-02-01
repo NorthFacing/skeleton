@@ -61,7 +61,7 @@
             $("#errormsg").html("请输入用户名密码!");
             return;
         }
-//        $("#password").val(hex_md5($("#password").val()));
+        $("#password").val(hex_md5($("#password").val()));
         $("#loginform").submit();
     }
 </script>
