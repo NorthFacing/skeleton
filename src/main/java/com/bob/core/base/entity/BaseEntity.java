@@ -21,8 +21,6 @@ public class BaseEntity implements Serializable {
     private String createUser;
     private LocalDateTime updateTime;
     private String updateUser;
-    @Transient
-    private String orderBy; // 排序字段
 
     public String getId() {
         return id;
@@ -66,15 +64,6 @@ public class BaseEntity implements Serializable {
 
     public BaseEntity setUpdateUser(String updateUser) {
         this.updateUser = updateUser;
-        return this;
-    }
-
-    public String getOrderBy() {
-        return orderBy;
-    }
-
-    public BaseEntity setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
         return this;
     }
 
