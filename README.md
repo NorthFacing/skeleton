@@ -5,40 +5,10 @@
 * zTree
 * 多环境配置
 
-
 # 项目结构
 
 ##
 
-
-# 命名规则
-
-## 新增
-* save()
-* insert()
-* addList()
-
-## 查询
-* getById()
-* getVoById()
-* getList()
-* getVoList()
-* getPage()
-* getVoPage()
-
-## 修改
-* save()
-* update()
-* upadteList()
-
-## 删除
-* delById()
-* delByIds()
-
-## 页面跳转
-* list
-* edit
-* view
 
 
 
