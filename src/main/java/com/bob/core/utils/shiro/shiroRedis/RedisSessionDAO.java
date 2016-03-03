@@ -13,12 +13,16 @@ import java.io.Serializable;
 
 /**
  * 使用RedisSessionDAO替换shiro默认session管理
+ *
+ * @Note 继承AbstractSessionDAO实现的时候，doReadSession方法调用过于频繁，所以改为通过集成CachingSessionDAO来实现。
+ * @Warn 注意，本地缓存通过EhCache实现，失效时间一定要远小于Redis失效时间，
+ * 这样本地失效后，会访问Redis读取，并重新设置Redis上会话数据的过期时间。
  */
 public class RedisSessionDAO extends CachingSessionDAO {
 
   private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
 
-  private String nameSpace = "shiro_redis_session:";
+  private String nameSpace = "shiro_redis_session";
 
   private ShiroRedisImpl shiroRedisImpl;
 
