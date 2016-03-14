@@ -27,6 +27,9 @@ public class Constants {
 
   public static final String TEMPLATE_ORDER_BY = "orderBy";
 
+  public static final String SESSSION_ID_KEY = "sessionId";
+  public static final String SESSSION_OBJ_KEY = "sessionOdj";
+
   /**
    * 权限类型
    */

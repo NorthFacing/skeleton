@@ -9,10 +9,8 @@ import java.util.Map;
 
 /**
  * request 全局请求会话<br>
- * 用户存储用户相关信息
- * 
- * @since v#{version}
- * @author zhangxf
+ * 用户存储用户相关信息<br>
+ * 此类可以在velocity的工具类中直接调用
  * @created 2015年10月24日 下午10:14:58
  */
 @SuppressWarnings("all")

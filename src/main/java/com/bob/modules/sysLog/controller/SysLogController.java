@@ -1,8 +1,8 @@
 package com.bob.modules.sysLog.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.Result;
 import com.bob.core.utils.page.PageUtil;
+import com.bob.core.utils.web.Result;
 import com.bob.modules.sysLog.entity.SysLog;
 import com.bob.modules.sysLog.entity.SysLogQuery;
 import com.bob.modules.sysLog.service.SysLogService;
