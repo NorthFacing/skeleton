@@ -51,23 +51,18 @@
 
     <!-- CCUU 开始 -->
     <!-- ICCUU：id,createTime,createUser,updateTime,udpateUser -->
-    <bean id="operationAspect" class="com.bob.core.interceptor.CcuuAspect"/>
+    <bean id="operationAspect" class="com.bob.core.aspect.CcuuAspect"/>
     <aop:config>
         <aop:aspect ref="operationAspect">
-            <aop:pointcut
-                    expression="(execution(* com.bob..mapper.*Mapper.insert(..)))"
-                    id="addOperation"/>
+            <aop:pointcut id="addOperation" expression="(execution(* com.bob..mapper.*Mapper.insert(..)))"/>
             <aop:before pointcut-ref="addOperation" method="insert"/>
         </aop:aspect>
         <aop:aspect ref="operationAspect">
-            <aop:pointcut id="updateOperation"
-                          expression="(execution(* com.bob..mapper.*Mapper.update(..)))"/>
+            <aop:pointcut id="updateOperation" expression="(execution(* com.bob..mapper.*Mapper.update(..)))"/>
             <aop:before pointcut-ref="updateOperation" method="update"/>
         </aop:aspect>
         <aop:aspect ref="operationAspect">
-            <aop:pointcut
-                    expression="(execution(* com.bob..mapper.*Mapper.insertBatch(..)))"
-                    id="addBatchOperation"/>
+            <aop:pointcut id="addBatchOperation" expression="(execution(* com.bob..mapper.*Mapper.insertBatch(..)))"/>
             <aop:before pointcut-ref="addBatchOperation" method="insertBatch"/>
         </aop:aspect>
     </aop:config>
