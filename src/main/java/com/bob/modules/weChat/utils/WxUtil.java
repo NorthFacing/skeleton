@@ -1,6 +1,5 @@
 package com.bob.modules.weChat.utils;
 
-import com.bob.core.contants.ResultCode;
 import com.bob.core.utils.JsonUtil;
 import com.bob.core.utils.http.HttpRequest;
 import org.dom4j.Document;
@@ -25,7 +24,7 @@ public class WxUtil {
    */
   public static boolean setOpenIdToCookie(HttpServletRequest request, HttpServletResponse response) {
     String openId = getOpenId(request);
-    if (openId == null || openId == ResultCode.STR_FAILED) {
+    if (openId == null) {
       return false;
     }
     Cookie cookie = new Cookie("openId", openId);
@@ -64,7 +63,7 @@ public class WxUtil {
   public static String getOpenId(HttpServletRequest request) {
     String code = request.getParameter("code");
     if (code == null) {
-      return ResultCode.STR_FAILED;
+      return null;
     }
     String openId = getOpenId(code);
     return openId;
@@ -72,8 +71,8 @@ public class WxUtil {
 
   public static String getOpenId(String code) {
     String url = "https://api.weixin.qq.com/sns/oauth2/access_token"
-        + "?appid=wx9384e04d490c6dce&secret=24b5879f0a654926bcd8745b2114968e&code=" + code
-        + "&grant_type=authorization_code";
+            + "?appid=wx9384e04d490c6dce&secret=24b5879f0a654926bcd8745b2114968e&code=" + code
+            + "&grant_type=authorization_code";
     String sd = HttpRequest.httpsPost(url, null);
     Map<String, Object> m = JsonUtil.getMap4Json(sd);
     return (String) m.get("openid");
