@@ -17,11 +17,6 @@ import java.time.LocalDateTime;
 
 /**
  * 自动注入bean 验证规则拦截器
- * TODO Comment.
- *
- * @author zhangxf
- * @created 2015年10月28日 上午7:42:26
- * @since v#{version}
  */
 public class SysLogInterceptor implements HandlerInterceptor {
 

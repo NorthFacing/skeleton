@@ -45,7 +45,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <!--自动日志记录拦截器 -->
-            <bean class="com.yuantu.core.interceptor.SysLogInterceptor" />
+            <bean class="com.bob.core.interceptor.SysLogInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 

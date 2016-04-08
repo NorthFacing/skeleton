@@ -1,0 +1,100 @@
+[
+  {
+    "url": "/admin/schRule/add/save",
+    "module": "排班模板",
+    "oprType": "新增",
+    "oprName":"新增排班模板"
+  },
+  {
+    "url": "/admin/schRule/update/save",
+    "module": "排班模板",
+    "oprType": "修改",
+    "oprName":"修改排班模板"
+  },
+  {
+    "url": "/admin/schRule/del",
+    "module": "排班模板",
+    "oprType": "删除",
+    "oprName":"删除排班模板"
+  },
+  {
+    "url": "/admin/schRule/generate",
+    "module": "排班模板",
+    "oprType": "生成排班",
+    "oprName":"生成普通排班",
+    "idName":"schRuleId"
+  },
+
+
+
+
+  {
+    "url": "/admin/schRule/add/saveSepical",
+    "module": "特殊排班",
+    "oprType": "新增",
+    "oprName":"新增特殊排班"
+  },
+  {
+    "url": "/admin/schRule/update/saveSepical",
+    "module": "特殊排班",
+    "oprType": "修改",
+    "oprName":"修改特殊排班"
+  },
+  {
+    "url": "/admin/schRule/delSepical",
+    "module": "特殊排班",
+    "oprType": "删除",
+    "oprName":"删除特殊排班"
+  },
+  {
+    "url": "/admin/schRule/generateSepical",
+    "module": "特殊排班",
+    "oprType": "生成排班",
+    "oprName":"生成特殊排班",
+    "idName":"schRuleId"
+  },
+
+
+
+
+  {
+    "url": "/admin/schResult/update/save",
+    "module": "排班结果",
+    "oprType": "修改",
+    "oprName":"修改排班"
+  },
+  {
+    "url": "/admin/schResult/update/close",
+    "module": "排班结果",
+    "oprType": "修改",
+    "oprName":"停止排班"
+  },
+  {
+    "url": "/admin/schResult/update/open",
+    "module": "排班结果",
+    "oprType": "修改",
+    "oprName":"启用排班"
+  },
+  {
+    "url": "/admin/schResult/del",
+    "module": "排班结果",
+    "oprType": "删除",
+    "oprName":"删除排班"
+  },
+
+
+
+
+  {
+    "url": "/admin/numSource/update/save",
+    "module": "排班明细",
+    "oprType": "修改",
+    "oprName":"启用排班"
+  },
+  {
+    "url": "/admin/numSource/del",
+    "module": "排班明细",
+    "oprType": "删除",
+    "oprName":"启用排班"
+  }
+]
