@@ -51,7 +51,7 @@
 
     <!-- CCUU 开始 -->
     <!-- ICCUU：id,createTime,createUser,updateTime,udpateUser -->
-    <bean id="operationAspect" class="com.bob.core.aspect.CcuuAspect"/>
+    <bean id="operationAspect" class="com.bob.core.interceptor.CcuuAspect"/>
     <aop:config>
         <aop:aspect ref="operationAspect">
             <aop:pointcut id="addOperation" expression="(execution(* com.bob..mapper.*Mapper.insert(..)))"/>

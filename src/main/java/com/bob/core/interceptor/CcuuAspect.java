@@ -1,4 +1,4 @@
-package com.bob.core.aspect;
+package com.bob.core.interceptor;
 
 import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.utils.javaUtil.UuidUtil;
