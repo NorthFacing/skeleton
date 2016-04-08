@@ -77,7 +77,7 @@
     <!-- cacheManager -->
     <bean id="shiroCacheManager" class="com.bob.core.utils.shiro.shiroRedis.RedisCacheManager">
         <property name="shiroRedisImpl" ref="shiroRedisImpl"/>
-        <property name="nameSpace" value="shiro_redis_cache:"></property>
+        <property name="nameSpace" value="shiro_redis_cache"></property>
     </bean>
 
     <!-- cookie -->
