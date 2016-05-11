@@ -1,0 +1,23 @@
+#set($title="操作记录")
+
+<!-- btns -->
+<div class="row-fluid">
+    <div class="span12">
+        <form class="form-search">
+            <input class="input-small search-query" type="text" placeholder="productCode" id="s_productCode" />
+            <input class="input-large search-query" type="text" placeholder="machineId" id="s_machineId" />
+            <button type="button" class="btn" onClick="search()">查询</button>
+        </form>
+    </div>
+</div>
+
+<!-- list -->
+<div class="col-md-12">
+    <div id="operaterecordGrid">
+        <table id="operaterecordList"></table>
+        <div id="operaterecordPager"></div>
+    </div>
+</div>
+
+<script src="$!{path}/resources/operaterecord/list.js"></script>
+

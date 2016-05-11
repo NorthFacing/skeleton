@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <toolbox>
     <tool>
-        <key>localDate</key>
-        <scope>application</scope>
-        <class>com.bob.core.utils.javaUtil.LocalDateTool</class>
-    </tool>
-    <tool>
         <key>date</key>
         <scope>application</scope>
         <class>org.apache.velocity.tools.generic.DateTool</class>

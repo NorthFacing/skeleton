@@ -1,31 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.bob</groupId>
+    <groupId>com.joyoung</groupId>
     <artifactId>skeleton</artifactId>
     <packaging>war</packaging>
     <version>0.1-SNAPSHOT</version>
-    <url>https://github.com/NorthFacing/skeleton</url>
     <properties>
-        <!-- redis -->
-        <spring.redis.version>1.6.0.RELEASE</spring.redis.version>
-        <jedis.version>2.7.3</jedis.version>
         <!-- spring -->
         <spring.version>4.1.7.RELEASE</spring.version>
         <!-- hibernate.validate -->
         <hibernate.validate>5.1.3.Final</hibernate.validate>
         <!-- mybatis -->
         <mybatis.version>3.2.8</mybatis.version>
-        <!-- pageHelper -->
-        <!--<pageHelper.version>3.4.1</pageHelper.version>-->
-        <!-- mapper -->
-        <!--<mapper.version>3.2.1</mapper.version>-->
         <!-- cglib -->
         <cglib.version>2.2.2</cglib.version>
         <!-- persistence-api -->
         <persistence-api.version>1.0</persistence-api.version>
-        <!-- shiro -->
-        <shiro.version>1.2.4</shiro.version>
         <!-- mysql -->
         <mysql.connection.version>5.1.35</mysql.connection.version>
         <!-- druid -->
@@ -51,32 +41,16 @@
         <maven.compiler.version>2.5.1</maven.compiler.version>
         <!-- JDK -->
         <!--开发时JDK版本使用1.8，可以使用最新的JDK语法，比如lambda表达式等-->
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>1.6</jdk.version>
         <!--编译目标仍然是1.6，保证低版本JDK可以运行-->
         <compiler.version>1.6</compiler.version>
         <!-- server -->
         <maven.tomcat7.version>2.2</maven.tomcat7.version>
         <maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
-        <!-- ueditor -->
-        <codec.version>1.9</codec.version>
-        <fileupload.version>1.3.1</fileupload.version>
-        <io.version>2.4</io.version>
-        <json.version>20140107</json.version>
-        <ueditor.version>1.1.1</ueditor.version>
 
         <port>8086</port>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-            <version>${spring.redis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>${jedis.version}</version>
-        </dependency>
 
         <!-- Spring start -->
         <dependency>
@@ -160,20 +134,6 @@
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.2</version>
         </dependency>
-        <!-- pageHelper -->
-        <!--<dependency>-->
-        <!--<groupId>com.github.pagehelper</groupId>-->
-        <!--<artifactId>pagehelper</artifactId>-->
-        <!--<version>${pageHelper.version}</version>-->
-        <!--</dependency>-->
-        <!-- myBatis end -->
-        <!-- 通用Mapper start -->
-        <!--<dependency>-->
-        <!--<groupId>tk.mybatis</groupId>-->
-        <!--<artifactId>mapper</artifactId>-->
-        <!--<version>${mapper.version}</version>-->
-        <!--</dependency>-->
-        <!-- 通用Mapper end -->
         <!-- cglib start -->
         <dependency>
             <groupId>cglib</groupId>
@@ -188,33 +148,6 @@
             <version>${persistence-api.version}</version>
         </dependency>
         <!-- persistence-api end -->
-        <!-- shiro start -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-web</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-quartz</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <!-- shiro end -->
         <!-- jdbc start -->
         <dependency>
             <groupId>mysql</groupId>
@@ -323,42 +256,6 @@
             <scope>test</scope>
         </dependency>
         <!-- test end -->
-        <!-- ueditor start -->
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>${codec.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>${fileupload.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${io.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>${json.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baidu</groupId>
-            <artifactId>ueditor</artifactId>
-            <version>${ueditor.version}</version>
-        </dependency>
-        <!-- ueditor end -->
-
-        <!-- 发送短信验证码时依赖包 -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>19.0-rc1</version>
-        </dependency>
-        <!-- 发送短信验证码时依赖包 -->
-
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream-benchmark</artifactId>
@@ -369,21 +266,6 @@
             <artifactId>jdom</artifactId>
             <version>1.1</version>
         </dependency>
-
-        <!-- sigar 系统监控 -->
-        <dependency>
-            <groupId>org.fusesource</groupId>
-            <artifactId>sigar</artifactId>
-            <version>1.6.4</version>
-        </dependency>
-
-        <!-- 证书管理 -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.47</version>
-        </dependency>
-
     </dependencies>
 
     <!--多环境配置-->
@@ -464,7 +346,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <warName>${project.build.finalName}</warName>
+                    <warName>jyCmsDev</warName>
                     <webappDirectory>${project.build.directory}/${runtime.name}-${project.build.finalName}
                     </webappDirectory>
                     <!--<encoding>${project.build.sourceEncoding}</encoding>-->
@@ -480,27 +362,6 @@
                     <port>${port}</port>
                 </configuration>
             </plugin>
-            <!-- jetty 插件 -->
-            <!--<plugin>-->
-            <!--<groupId>org.mortbay.jetty</groupId>-->
-            <!--<artifactId>jetty-maven-plugin</artifactId>-->
-            <!--<version>${maven.jetty.version}</version>-->
-            <!--<configuration>-->
-            <!--<webApp>-->
-            <!--<contextPath>/${project.artifactId}</contextPath>-->
-            <!--</webApp>-->
-            <!--<connectors>-->
-            <!--<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">-->
-            <!--<port>${port}</port>-->
-            <!--</connector>-->
-            <!--</connectors>-->
-            <!--<scanTargets>-->
-            <!--<scanTarget>target/classes/</scanTarget>-->
-            <!--</scanTargets>-->
-            <!--<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>-->
-            <!--<scanIntervalSeconds>2</scanIntervalSeconds>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 </project>
