@@ -3,6 +3,7 @@
 /target/
 /.settings/
 /bin/
+/src/main/resources/rebel.xml
 .classpath
 .project
 *.log

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bob.modules.sysResource.mapper.SysResourceMapper">
+    <resultMap id="BaseResultMap" type="com.bob.modules.sysResource.entity.SysResource">
+        <result column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="shiro_key" property="shiroKey"/>
+        <result column="res_url" property="resUrl"/>
+        <result column="res_level" property="resLevel"/>
+        <result column="res_priority" property="resPriority"/>
+        <result column="res_code" property="resCode"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+    </resultMap>
+
+    <sql id="tabaleName">sys_resource</sql>
+
+    <sql id="baseColumn">
+        id,
+        parent_id,
+        name,
+        type,
+        shiro_key,
+        res_url,
+        res_level,
+        res_priority,
+        res_code,
+        description,
+        status,
+        create_time,
+        create_user,
+        update_time,
+        update_user
+    </sql>
+
+    <sql id="whereCondition">
+        <where>
+            <if test=" id != null ">
+                AND id = #{id}
+            </if>
+            <if test=" parentId != null ">
+                AND parent_id = #{parentId}
+            </if>
+            <if test=" name != null ">
+                AND name = #{name}
+            </if>
+            <if test=" type != null ">
+                AND type = #{type}
+            </if>
+            <if test=" shiroKey != null ">
+                AND shiro_key = #{shiroKey}
+            </if>
+            <if test=" resUrl != null ">
+                AND res_url = #{resUrl}
+            </if>
+            <if test=" resLevel != null ">
+                AND res_level = #{resLevel}
+            </if>
+            <if test=" resPriority != null ">
+                AND res_priority = #{resPriority}
+            </if>
+            <if test=" resCode != null ">
+                AND res_code = #{resCode}
+            </if>
+            <if test=" description != null ">
+                AND description = #{description}
+            </if>
+            <if test=" status != null ">
+                AND status = #{status}
+            </if>
+            <if test=" createTime != null ">
+                AND create_time = #{createTime}
+            </if>
+            <if test=" createUser != null ">
+                AND create_user = #{createUser}
+            </if>
+            <if test=" updateTime != null ">
+                AND update_time = #{updateTime}
+            </if>
+            <if test=" updateUser != null ">
+                AND update_user = #{updateUser}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="queryCondition">
+        <where>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+        </where>
+    </sql>
+
+    <select id="count" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM
+        <include refid="tabaleName"/>
+        <include refid="queryCondition"/>
+    </select>
+
+    <select id="query" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        <include refid="tabaleName"/>
+        <include refid="queryCondition"/>
+        LIMIT #{startRow}, #{pageSize}
+    </select>
+
+
+    <select id="getResourcesByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        sr.id,
+        sr.parent_id,
+        sr.name,
+        sr.type,
+        sr.shiro_key,
+        sr.res_url,
+        sr.res_level,
+        sr.res_priority,
+        sr.res_code,
+        sr.description,
+        sr.status
+        FROM sys_resource sr
+        LEFT JOIN sys_role_resource srr
+        ON srr.resource_id = sr.id
+        WHERE srr.role_id IN (
+        SELECT r.id
+        FROM sys_user_role ur
+        LEFT JOIN sys_role r
+        ON ur.role_id = r.id
+        WHERE ur.id = #{value}
+        )
+    </select>
+
+    <select id="getAllResources" resultMap="BaseResultMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM
+        <include refid="tabaleName"/>
+    </select>
+
+
+</mapper>

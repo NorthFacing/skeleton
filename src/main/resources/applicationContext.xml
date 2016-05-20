@@ -9,6 +9,11 @@
 
     <context:property-placeholder location="classpath:config.properties"/>
 
-    <context:component-scan base-package="com.joyoung.*.*.service"/>
+    <context:component-scan base-package="com.bob.*.*.service"/>
+
+    <!--配置常量初始化(另外一种初始化赋值的方法是在ApplicationListener中执行property读取配置文件，手动解析)-->
+    <bean class="com.bob.core.contants.BizConfig">
+        <!--<property name="appDomain" value="${sys.appDomain}"/>-->
+    </bean>
 
 </beans>

@@ -37,6 +37,8 @@
         <!-- test -->
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
+        <!-- sigar -->
+        <sigar.version>1.6.4</sigar.version>
         <!-- maven -->
         <maven.compiler.version>2.5.1</maven.compiler.version>
         <!-- JDK -->
@@ -256,6 +258,14 @@
             <scope>test</scope>
         </dependency>
         <!-- test end -->
+        <!-- sigar start -->
+        <dependency>
+            <groupId>org.fusesource</groupId>
+            <artifactId>sigar</artifactId>
+            <version>${sigar.version}</version>
+        </dependency>
+        <!-- sigar end -->
+
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream-benchmark</artifactId>
