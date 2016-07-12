@@ -16,7 +16,7 @@ import java.util.List;
  * @Date 2016-1-3 22:44:45
  * @since v0.1
  */
-public interface SysLoginLogMapper extends BaseMapper<SysLoginLog, SysLoginLogVo, SysLoginLogQuery> {
+public interface SysLoginLogMapper extends BaseMapper<SysLoginLog> {
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
   SysLoginLog select(SysLoginLog entity);

@@ -16,7 +16,7 @@ import java.util.List;
  * @Date 2016-1-3 22:44:45
  * @since v0.1
  */
-public interface SysRoleMapper extends BaseMapper<SysRole, SysRoleVo, SysRoleQuery> {
+public interface SysRoleMapper extends BaseMapper<SysRole> {
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
   SysRole select(SysRole entity);

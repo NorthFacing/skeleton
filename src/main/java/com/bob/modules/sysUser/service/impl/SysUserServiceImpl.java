@@ -7,8 +7,6 @@ import com.bob.modules.sysResource.mapper.SysResourceMapper;
 import com.bob.modules.sysRole.entity.SysRole;
 import com.bob.modules.sysRole.mapper.SysRoleMapper;
 import com.bob.modules.sysUser.entity.SysUser;
-import com.bob.modules.sysUser.entity.SysUserQuery;
-import com.bob.modules.sysUser.entity.SysUserVo;
 import com.bob.modules.sysUser.mapper.SysUserMapper;
 import com.bob.modules.sysUser.service.SysUserService;
 import org.apache.commons.collections.CollectionUtils;
@@ -30,7 +28,7 @@ import java.util.Set;
  */
 @Service("sysUserService")
 public class SysUserServiceImpl
-    extends BaseServiceImpl<SysUser, SysUserVo, SysUserQuery>
+    extends BaseServiceImpl<SysUser>
     implements SysUserService {
 
   @Autowired
@@ -46,7 +44,7 @@ public class SysUserServiceImpl
   }
 
   @Override
-  public BaseMapper<SysUser, SysUserVo, SysUserQuery> getMapper() {
+  public BaseMapper<SysUser> getMapper() {
     return sysUserMapper;
   }
 

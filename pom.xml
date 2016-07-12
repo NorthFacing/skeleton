@@ -53,7 +53,7 @@
         <!--开发时JDK版本使用1.8，可以使用最新的JDK语法，比如lambda表达式等-->
         <jdk.version>1.8</jdk.version>
         <!--编译目标仍然是1.6，保证低版本JDK可以运行-->
-        <compiler.version>1.6</compiler.version>
+        <compiler.version>1.8</compiler.version>
         <!-- server -->
         <maven.tomcat7.version>2.2</maven.tomcat7.version>
         <maven.jetty.version>8.1.16.v20140903</maven.jetty.version>

@@ -3,7 +3,6 @@ package com.bob.modules.sysRole.service.impl;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysRole.entity.SysRole;
-import com.bob.modules.sysRole.entity.SysRoleQuery;
 import com.bob.modules.sysRole.entity.SysRoleVo;
 import com.bob.modules.sysRole.mapper.SysRoleMapper;
 import com.bob.modules.sysRole.service.SysRoleService;
@@ -27,7 +26,7 @@ import java.util.List;
  */
 @Service("sysRoleService")
 public class SysRoleServiceImpl
-    extends BaseServiceImpl<SysRole, SysRoleVo, SysRoleQuery>
+    extends BaseServiceImpl<SysRole>
     implements SysRoleService {
 
   @Autowired
@@ -41,7 +40,7 @@ public class SysRoleServiceImpl
   }
 
   @Override
-  public BaseMapper<SysRole, SysRoleVo, SysRoleQuery> getMapper() {
+  public BaseMapper<SysRole> getMapper() {
     return sysRoleMapper;
   }
 

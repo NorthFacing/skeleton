@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
-public interface SysResourceMapper extends BaseMapper<SysResource, SysResourceVo, SysResourceQuery> {
+public interface SysResourceMapper extends BaseMapper<SysResource> {
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
   SysResource select(SysResource entity);

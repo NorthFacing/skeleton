@@ -1,7 +1,6 @@
 package com.bob.modules.sysLog.controller;
 
 import com.bob.core.base.controller.BaseController;
-import com.bob.core.utils.page.PageUtil;
 import com.bob.core.utils.web.Result;
 import com.bob.modules.sysLog.entity.SysLog;
 import com.bob.modules.sysLog.entity.SysLogQuery;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * SysLogController

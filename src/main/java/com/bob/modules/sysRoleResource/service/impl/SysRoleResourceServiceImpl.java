@@ -3,8 +3,6 @@ package com.bob.modules.sysRoleResource.service.impl;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysRoleResource.entity.SysRoleResource;
-import com.bob.modules.sysRoleResource.entity.SysRoleResourceQuery;
-import com.bob.modules.sysRoleResource.entity.SysRoleResourceVo;
 import com.bob.modules.sysRoleResource.mapper.SysRoleResourceMapper;
 import com.bob.modules.sysRoleResource.service.SysRoleResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysRoleResourceService")
 public class SysRoleResourceServiceImpl
-    extends BaseServiceImpl<SysRoleResource, SysRoleResourceVo, SysRoleResourceQuery>
+    extends BaseServiceImpl<SysRoleResource>
     implements SysRoleResourceService {
 
   @Autowired
@@ -31,7 +29,7 @@ public class SysRoleResourceServiceImpl
   }
 
   @Override
-  public BaseMapper<SysRoleResource, SysRoleResourceVo, SysRoleResourceQuery> getMapper() {
+  public BaseMapper<SysRoleResource> getMapper() {
     return sysRoleResourceMapper;
   }
 

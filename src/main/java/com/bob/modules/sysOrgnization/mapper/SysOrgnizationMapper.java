@@ -16,7 +16,7 @@ import java.util.List;
  * @Date 2016-1-3 22:55:44
  * @since v0.1
  */
-public interface SysOrgnizationMapper extends BaseMapper<SysOrgnization, SysOrgnizationVo, SysOrgnizationQuery> {
+public interface SysOrgnizationMapper extends BaseMapper<SysOrgnization> {
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
   SysOrgnization select(SysOrgnization entity);

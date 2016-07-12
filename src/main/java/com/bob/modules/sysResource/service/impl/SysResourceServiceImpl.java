@@ -3,8 +3,6 @@ package com.bob.modules.sysResource.service.impl;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysResource.entity.SysResource;
-import com.bob.modules.sysResource.entity.SysResourceQuery;
-import com.bob.modules.sysResource.entity.SysResourceVo;
 import com.bob.modules.sysResource.mapper.SysResourceMapper;
 import com.bob.modules.sysResource.service.SysResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysResourceService")
 public class SysResourceServiceImpl
-    extends BaseServiceImpl<SysResource, SysResourceVo, SysResourceQuery>
+    extends BaseServiceImpl<SysResource>
     implements SysResourceService {
 
   @Autowired
@@ -31,7 +29,7 @@ public class SysResourceServiceImpl
   }
 
   @Override
-  public BaseMapper<SysResource, SysResourceVo, SysResourceQuery> getMapper() {
+  public BaseMapper<SysResource> getMapper() {
     return sysResourceMapper;
   }
 

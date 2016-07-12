@@ -5,15 +5,15 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import javax.persistence.Id;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class BaseEntity implements Serializable {
 
     @Id
     private String id;
-    private Date createTime;
+    private LocalDateTime createTime;
     private String createUser;
-    private Date updateTime;
+    private LocalDateTime updateTime;
     private String updateUser;
 
     public String getId() {
@@ -25,11 +25,11 @@ public class BaseEntity implements Serializable {
         return this;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public BaseEntity setCreateTime(Date createTime) {
+    public BaseEntity setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -43,11 +43,11 @@ public class BaseEntity implements Serializable {
         return this;
     }
 
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public BaseEntity setUpdateTime(Date updateTime) {
+    public BaseEntity setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
         return this;
     }

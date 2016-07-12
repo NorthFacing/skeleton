@@ -3,8 +3,6 @@ package com.bob.modules.sysLog.service.impl;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysLog.entity.SysLog;
-import com.bob.modules.sysLog.entity.SysLogQuery;
-import com.bob.modules.sysLog.entity.SysLogVo;
 import com.bob.modules.sysLog.mapper.SysLogMapper;
 import com.bob.modules.sysLog.service.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("SysLogService")
 public class SysLogServiceImpl
-        extends BaseServiceImpl<SysLog, SysLogVo, SysLogQuery>
+        extends BaseServiceImpl<SysLog>
         implements SysLogService {
 
   @Autowired
@@ -27,7 +25,7 @@ public class SysLogServiceImpl
   }
 
   @Override
-  public BaseMapper<SysLog, SysLogVo, SysLogQuery> getMapper() {
+  public BaseMapper<SysLog> getMapper() {
     return sysLogMapper;
   }
 }

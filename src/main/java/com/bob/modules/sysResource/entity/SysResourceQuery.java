@@ -1,11 +1,11 @@
 package com.bob.modules.sysResource.entity;
 
-import com.bob.core.utils.page.PageInfo;
+import com.bob.core.utils.page.BaseQuery;
 
 /**
  * Created by Bob on 2016/1/2.
  */
-public class SysResourceQuery extends PageInfo {
+public class SysResourceQuery extends BaseQuery {
 
   private String name;
 

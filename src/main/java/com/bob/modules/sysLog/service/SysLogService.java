@@ -12,6 +12,6 @@ import com.bob.modules.sysLog.entity.SysLogVo;
  * @Date 2016-3-3 9:27:06
  * @since v0.0.1
  */
-public interface SysLogService extends BaseService<SysLog, SysLogVo, SysLogQuery> {
+public interface SysLogService extends BaseService<SysLog> {
 
 }

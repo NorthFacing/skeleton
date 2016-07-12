@@ -16,7 +16,7 @@ import java.util.List;
  * @Date 2016-1-3 22:44:45
  * @since v0.1
  */
-public interface SysUserMapper extends BaseMapper<SysUser, SysUserVo, SysUserQuery> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
   SysUser select(SysUser entity);
