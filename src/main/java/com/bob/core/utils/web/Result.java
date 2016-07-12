@@ -18,14 +18,14 @@ public class Result<T> implements Serializable {
 
 
     public static Result fail() {
-        Result result = new Result<>();
+        Result result = new Result();
         result.setCode(ResultEnums.ERROR.getCode());
         result.setMsg(ResultEnums.ERROR.getMsg());
         return result;
     }
 
     public static Result fail(String msg) {
-        Result result = new Result<>();
+        Result result = new Result();
         result.setCode(ResultEnums.ERROR.getCode());
         result.setMsg(msg);
         return result;
@@ -39,18 +39,23 @@ public class Result<T> implements Serializable {
     }
 
     public static <V> Result<V> success(V data) {
-        Result result = new Result<>();
+        Result result = new Result();
         result.setCode(ResultEnums.SUCCESS.getCode());
         result.setMsg(ResultEnums.SUCCESS.getMsg());
         result.setData(data);
         return result;
     }
 
+    public Result toSuccess() {
+        this.setCode(ResultEnums.SUCCESS.getCode());
+        this.setMsg(ResultEnums.SUCCESS.getMsg());
+        return this;
+    }
+
     public Result enumResult(ResultEnums resultEnums) {
-        Result result = new Result<>();
-        result.setCode(resultEnums.getCode());
-        result.setMsg(resultEnums.getMsg());
-        return result;
+        this.setCode(resultEnums.getCode());
+        this.setMsg(resultEnums.getMsg());
+        return this;
     }
 
     public T getData() {

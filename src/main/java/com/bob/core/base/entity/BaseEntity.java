@@ -3,23 +3,17 @@ package com.bob.core.base.entity;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-
-//import javax.persistence.Column;        // @Column
-//import javax.persistence.Id;            // @Id
-//import javax.persistence.Table;         // @Table
-//import javax.persistence.Transient;     // @Transient
+import java.util.Date;
 
 public class BaseEntity implements Serializable {
 
     @Id
     private String id;
-    private LocalDateTime createTime;
+    private Date createTime;
     private String createUser;
-    private LocalDateTime updateTime;
+    private Date updateTime;
     private String updateUser;
 
     public String getId() {
@@ -31,11 +25,11 @@ public class BaseEntity implements Serializable {
         return this;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public BaseEntity setCreateTime(LocalDateTime createTime) {
+    public BaseEntity setCreateTime(Date createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -49,11 +43,11 @@ public class BaseEntity implements Serializable {
         return this;
     }
 
-    public LocalDateTime getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public BaseEntity setUpdateTime(LocalDateTime updateTime) {
+    public BaseEntity setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
         return this;
     }
