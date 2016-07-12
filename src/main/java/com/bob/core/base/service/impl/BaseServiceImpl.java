@@ -3,7 +3,8 @@ package com.bob.core.base.service.impl;
 import com.bob.core.base.entity.BaseEntity;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.base.service.BaseService;
-import com.bob.core.utils.page.PageInfo;
+import com.bob.core.utils.page.BaseQuery;
+import com.bob.core.utils.web.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,7 @@ import java.util.List;
  * Created by Bob on 2016/1/3.
  */
 @Service("baseService")
-public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q extends PageInfo>
-    implements BaseService<T, V, Q> {
+public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
 
   /**
    * 获取实际操作的对象方法，方便操作
@@ -28,39 +28,42 @@ public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q exten
    *
    * @return mapper
    */
-  public abstract BaseMapper<T, V, Q> getMapper();
+  public abstract BaseMapper<T> getMapper();
 
   @Override
-  public String insert(T entity) {
+  public Result<String> insert(T entity) {
     getMapper().insert(entity);
-    return entity.getId();
+    return Result.success(entity.getId());
   }
 
   @Override
-  public Integer update(T entity) {
-    return getMapper().update(entity);
+  public Result<String> update(T entity) {
+    getMapper().update(entity);
+    return Result.success();
   }
 
   @Override
-  public String save(T entity) {
+  public Result<String> save(T entity) {
     if (StringUtils.isEmpty(entity.getId())) {
       getMapper().insert(entity);
     } else {
       getMapper().update(entity);
     }
-    return entity.getId();
+    return Result.success(entity.getId());
   }
 
   @Override
-  public Integer delete(T entity) {
-    return getMapper().delete(entity);
+  public Result<String> delete(T entity) {
+    getMapper().delete(entity);
+    return Result.success();
   }
 
   @Override
-  public Integer deleteById(String id) {
+  public Result<String> deleteById(String id) {
     T entity = getEntity();
     entity.setId(id);
-    return this.delete(entity);
+    this.delete(entity);
+    return Result.success();
   }
 
   @Override
@@ -76,12 +79,12 @@ public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q exten
   }
 
   @Override
-  public V selectVo(T entity) {
+  public <V extends T> V selectVo(T entity) {
     return getMapper().selectVo(entity);
   }
 
   @Override
-  public V selectVoById(String id) {
+  public <V extends T> V selectVoById(String id) {
     T entity = getEntity();
     entity.setId(id);
     return this.selectVo(entity);
@@ -93,12 +96,12 @@ public abstract class BaseServiceImpl<T extends BaseEntity, V extends T, Q exten
   }
 
   @Override
-  public List<V> selectVoList(T entity) {
+  public <V extends T> List<V> selectVoList(T entity) {
     return getMapper().selectVoList(entity);
   }
 
   @Override
-  public Q pageData(Q query) {
+  public <Q extends BaseQuery> Q pageData(Q query) {
     Long count = getMapper().count(query);
     query.setTotalCount(count);
     List list = getMapper().query(query);
