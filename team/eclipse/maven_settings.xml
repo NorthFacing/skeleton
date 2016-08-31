@@ -1,123 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-	<localRepository>D:/java/repository</localRepository>
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <localRepository>D:/java/repository</localRepository>
 
-	<pluginGroups>
-	</pluginGroups>
+    <pluginGroups>
+    </pluginGroups>
 
-	<servers>
-		<server>
-			<id>Bob-nexus-releases</id>
-			<username>admin</username>
-			<password>admin123</password>
-		</server>
-		<server>
-			<id>Bob-nexus-snapshot</id>
-			<username>admin</username>
-			<password>admin123</password>
-		</server>
-	</servers>
+    <servers>
+        <server>
+            <id>Bob-nexus-releases</id>
+            <username>admin</username>
+            <password>admin123</password>
+        </server>
+        <server>
+            <id>Bob-nexus-snapshot</id>
+            <username>admin</username>
+            <password>admin123</password>
+        </server>
+    </servers>
 
-	<mirrors>
-		<mirror>
-			<id>Bob-nexus-mirror</id>
-			<mirrorOf>*</mirrorOf>
-			<name>Bob Public Repositories</name>
-			<url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
-		</mirror>
-	</mirrors>
+    <mirrors>
+        <mirror>
+            <id>Bob-nexus-mirror</id>
+            <mirrorOf>*</mirrorOf>
+            <name>Bob Public Repositories</name>
+            <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
+        </mirror>
+    </mirrors>
 
-	<profiles>
-		<profile>
-			<id>Bob-nexus-profile</id>
-			<repositories>
-				<repository>
-					<id>Bob-repository-public</id>
-					<url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-				<repository>
-					<id>Bob-repository-snapshots</id>
-					<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-		</profile>
+    <profiles>
+        <profile>
+            <id>Bob-nexus-profile</id>
+            <repositories>
+                <repository>
+                    <id>Bob-repository-public</id>
+                    <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>Bob-repository-snapshots</id>
+                    <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
 
-		<profile>
-			<id>jdk-1.8</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<jdk>1.8</jdk>
-			</activation>
-			<properties>
-				<maven.compiler.source>1.8</maven.compiler.source>
-				<maven.compiler.target>1.8</maven.compiler.target>
-				<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-			</properties>
-		</profile>
-	</profiles>
+        <profile>
+            <id>jdk-1.8</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
+    </profiles>
 
-	<activeProfiles>
-		<activeProfile>Bob-nexus-profile</activeProfile>
-	</activeProfiles>
+    <activeProfiles>
+        <activeProfile>Bob-nexus-profile</activeProfile>
+    </activeProfiles>
 
-	<!-- 以下配置是项目中的pom文件中的配置，这里只是作为备份，并没有实际用处 -->
-	<!-- 打包上传到私服的配置 start -->
-	<distributionManagement>
-		<repository>
-			<!-- 名称要和server中的名称一致 -->
-			<id>Bob-nexus-releases</id>
-			<!-- 需要上传的私服地址 -->
-			<url>http://127.0.0.1:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>Bob-nexus-snapshot</id>
-			<url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-	<!-- 打包上传到私服的配置 end -->
+    <!-- 以下配置是项目中的pom文件中的配置，这里只是作为备份，并没有实际用处 -->
+    <!-- 打包上传到私服的配置 start -->
+    <distributionManagement>
+        <repository>
+            <!-- 名称要和server中的名称一致 -->
+            <id>Bob-nexus-releases</id>
+            <!-- 需要上传的私服地址 -->
+            <url>http://127.0.0.1:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>Bob-nexus-snapshot</id>
+            <url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <!-- 打包上传到私服的配置 end -->
 
-	<!-- 只在本项目中起作用的私服配置 start -->
-	<repositories>
-		<repository>
-			<id>nexus</id>
-			<name>my-nexus-repository</name>
-			<url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>nexus</id>
-			<name>my-nexus-repository</name>
-			<url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-	<!-- 只在本项目中起作用的私服配置 end -->
+    <!-- 只在本项目中起作用的私服配置 start -->
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>my-nexus-repository</name>
+            <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>my-nexus-repository</name>
+            <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    <!-- 只在本项目中起作用的私服配置 end -->
 
 
 </settings>

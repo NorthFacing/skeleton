@@ -12,7 +12,7 @@
 # 启动测试
 
 登陆：
-
+admin/admin
 
 访问：
 http://localhost:8080/skeleton/admin/sysResource/list

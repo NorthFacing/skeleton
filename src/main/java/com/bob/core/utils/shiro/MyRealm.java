@@ -76,11 +76,11 @@ public class MyRealm extends AuthorizingRealm {
 
     //交给AuthenticatingRealm 使用 CredentialsMatcher 进行密码匹配
     SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-        username, // 用户名
-        user.getPassWord(), // 密码
-        // salt = 系统常量 + username + salt
-        ByteSource.Util.bytes(PasswordHelper.ENCRYPT + username + user.getSalt()),
-        getName() // realm name
+            username, // 用户名
+            user.getPassWord(), // 密码
+            // salt = 系统常量 + username + salt
+            ByteSource.Util.bytes(PasswordHelper.ENCRYPT + username + user.getSalt()),
+            getName() // realm name
     );
 
     // TODO 当配置访问路径权限的时候，会根据用户名去redis查找对象，如果找不到就会报空指针异常

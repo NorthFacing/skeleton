@@ -43,9 +43,9 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**" />
+            <mvc:mapping path="/**"/>
             <!--自动日志记录拦截器 -->
-            <bean class="com.bob.core.interceptor.SysLogInterceptor" />
+            <bean class="com.bob.core.interceptor.SysLogInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -78,13 +78,13 @@
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/><!-- 视图文件的前缀，即存放的路径 -->
-        <property name="suffix" value=".vm" /><!-- 视图文件的后缀名 -->
+        <property name="suffix" value=".vm"/><!-- 视图文件的后缀名 -->
         <property name="toolboxConfigLocation" value="/WEB-INF/tools.xml"/><!--toolbox配置文件路径 -->
         <property name="contentType" value="text/html;charset=UTF-8"/>
         <property name="exposeSpringMacroHelpers" value="true"/><!--是否使用spring对宏定义的支持 -->
         <property name="exposeRequestAttributes" value="true"/><!--是否开放request属性 -->
         <property name="requestContextAttribute" value="rc"/><!--request属性引用名称 -->
-        <property name="layoutUrl" value="/WEB-INF/view/layout/empty.vm" />
+        <property name="layoutUrl" value="/WEB-INF/view/layout/empty.vm"/>
     </bean>
     <!-- velocity end -->
 
@@ -102,7 +102,7 @@
     <!--警告：只能放在spring-mvc.xml这个文件中，不能放在spring-shiro.xml中，不然会报错或注解无效-->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor">
-        <property name="proxyTargetClass" value="false" />
+        <property name="proxyTargetClass" value="false"/>
     </bean>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>

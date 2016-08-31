@@ -34,8 +34,8 @@ public class WxController extends BaseController {
   public void home(Model model, HttpServletRequest request, HttpServletResponse response) {
     try {
       response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxConfig.appId
-          + "&redirect_uri=" + WxConfig.wxRedirectUrl + "/cus/item/home.html"
-          + "&response_type=code&scope=snsapi_base&state=getOpenId#wechat_redirect");
+              + "&redirect_uri=" + WxConfig.wxRedirectUrl + "/cus/item/home.html"
+              + "&response_type=code&scope=snsapi_base&state=getOpenId#wechat_redirect");
     } catch (IOException e) {
       LOG.error("获取openId出错：\n" + e);
     }

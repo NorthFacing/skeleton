@@ -19,8 +19,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.HashSet;
 import java.util.Set;
-//import java.util.concurrent.ConcurrentHashMap;
-//import java.util.concurrent.ConcurrentMap;
 
 /**
  * Redis缓存实现：jedis实现
@@ -42,8 +40,6 @@ public class CacheRedisImpl implements CacheService {
   private static JedisPool jedisPool = null;
 
   private JedisPoolConfig poolConfig;
-
-//  private final ConcurrentMap<String, CacheRedisImpl> caches = new ConcurrentHashMap<>();
 
   public CacheRedisImpl() {
   }

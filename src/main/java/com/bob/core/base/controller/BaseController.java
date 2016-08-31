@@ -19,27 +19,27 @@ import java.io.IOException;
  */
 public class BaseController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
-    /**
-     * 异常处理
-     *
-     * @throws IOException
-     * @author Bob
-     * @created 2015年7月3日 下午11:54:10
-     * @since v0.1
-     */
-    public Result handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
-        Result result = Result.fail();
-        if (e instanceof IllegalArgumentException) {
-            LOG.error(e.getMessage());
-            if (ServletUtils.isAjax(request)) {
-                result.enumResult(ResultEnums.SUCCESS);
-            } else {
-                response.sendRedirect("/");
-            }
-        }
-        return result;
+  /**
+   * 异常处理
+   *
+   * @throws IOException
+   * @author Bob
+   * @created 2015年7月3日 下午11:54:10
+   * @since v0.1
+   */
+  public Result handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
+    Result result = Result.fail();
+    if (e instanceof IllegalArgumentException) {
+      LOG.error(e.getMessage());
+      if (ServletUtils.isAjax(request)) {
+        result.enumResult(ResultEnums.SUCCESS);
+      } else {
+        response.sendRedirect("/");
+      }
     }
+    return result;
+  }
 
 }

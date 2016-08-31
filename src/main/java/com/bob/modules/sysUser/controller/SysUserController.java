@@ -40,7 +40,7 @@ public class SysUserController extends BaseController {
 
   @RequiresPermissions("sysUser:update")
   @RequestMapping(value = "/sysUser/update")
-  public String update(Model model,@RequestParam String id) {
+  public String update(Model model, @RequestParam String id) {
     SysUser entity = sysUserService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysUser/edit";
@@ -57,7 +57,7 @@ public class SysUserController extends BaseController {
 
   @RequiresPermissions("sysUser:view")
   @RequestMapping(value = "/sysUser/view")
-  public String select(Model model,@RequestParam String id) {
+  public String select(Model model, @RequestParam String id) {
     SysUser entity = sysUserService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysResource/view";

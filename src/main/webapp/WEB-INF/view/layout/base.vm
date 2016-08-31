@@ -3,5 +3,5 @@
 
 ## 项目路径
 <script type="text/javascript">
-    var path = "$!{path}";
+  var path = "$!{path}";
 </script>

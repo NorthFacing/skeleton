@@ -37,7 +37,7 @@ public class SysRoleController extends BaseController {
   }
 
   @RequestMapping(value = "/sysRole/update")
-  public String update(Model model,@RequestParam String id) {
+  public String update(Model model, @RequestParam String id) {
     SysRole entity = sysRoleService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysRole/edit";
@@ -52,7 +52,7 @@ public class SysRoleController extends BaseController {
   }
 
   @RequestMapping(value = "/sysRole/view")
-  public String select(Model model,@RequestParam String id) {
+  public String select(Model model, @RequestParam String id) {
     SysRole entity = sysRoleService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysResource/view";

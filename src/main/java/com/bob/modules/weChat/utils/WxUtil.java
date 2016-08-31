@@ -3,6 +3,7 @@ package com.bob.modules.weChat.utils;
 //import com.bob.core.utils.JsonUtil;
 //import com.bob.core.utils.http.HttpClientUtil;
 //import com.bob.core.utils.http.HttpRequest;
+
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;

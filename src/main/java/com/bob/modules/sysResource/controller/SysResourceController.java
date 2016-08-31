@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 /**
  * Created by Bob on 2016/1/3.
  */
@@ -32,7 +34,7 @@ public class SysResourceController extends BaseController {
   }
 
   @RequestMapping(value = "/sysResource/update")
-  public String update(Model model,@RequestParam String id) {
+  public String update(Model model, @RequestParam String id) {
     SysResource entity = sysResourceService.selectById(id);
     model.addAttribute("entity", entity);
     return "/sysResource/edit";
@@ -68,9 +70,19 @@ public class SysResourceController extends BaseController {
 
   @ResponseBody
   @RequestMapping(value = "/sysResource/pageData")
-  public Result<SysResourceQuery> pageData(SysResourceQuery query) {
-    query = sysResourceService.pageData(query);
-    return Result.success(query);
+  public SysResourceQuery pageData(SysResourceQuery query) {
+    query.setCurrent(1);
+    query.setRowCount(10);
+    query.setTotal(200l);
+    ArrayList<SysResource> resources = new ArrayList<>();
+    for (int i=0;i<10;i++){
+      SysResource sysResource = new SysResource();
+      sysResource.setName("name"+i);
+      sysResource.setDescription("test");
+      resources.add(sysResource);
+    }
+    query.setRows(resources);
+    return query;
   }
 
 }

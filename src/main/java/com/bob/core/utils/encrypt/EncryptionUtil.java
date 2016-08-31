@@ -13,37 +13,37 @@ import java.security.GeneralSecurityException;
 
 public class EncryptionUtil {
 
-    private static SecretKeySpec skeySpec;
+  private static SecretKeySpec skeySpec;
 
-    static {
-        try {
-            ClassPathResource res = new ClassPathResource("key.key");
-            if (res != null) {
-                File file = res.getFile();
-                FileInputStream input = new FileInputStream(file);
-                byte[] in = new byte[(int) file.length()];
-                input.read(in);
-                skeySpec = new SecretKeySpec(in, "AES");
-                input.close();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+  static {
+    try {
+      ClassPathResource res = new ClassPathResource("key.key");
+      if (res != null) {
+        File file = res.getFile();
+        FileInputStream input = new FileInputStream(file);
+        byte[] in = new byte[(int) file.length()];
+        input.read(in);
+        skeySpec = new SecretKeySpec(in, "AES");
+        input.close();
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 
-    public static byte[] encrypt(String input) throws GeneralSecurityException, NoSuchPaddingException {
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        return cipher.doFinal(input.getBytes());
+  public static byte[] encrypt(String input) throws GeneralSecurityException, NoSuchPaddingException {
+    Cipher cipher = Cipher.getInstance("AES");
+    cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+    return cipher.doFinal(input.getBytes());
 
-    }
+  }
 
-    public static String decrypt(byte[] input) throws GeneralSecurityException, NoSuchPaddingException {
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-        return new String(cipher.doFinal(input));
-    }
+  public static String decrypt(byte[] input) throws GeneralSecurityException, NoSuchPaddingException {
+    Cipher cipher = Cipher.getInstance("AES");
+    cipher.init(Cipher.DECRYPT_MODE, skeySpec);
+    return new String(cipher.doFinal(input));
+  }
 
 }

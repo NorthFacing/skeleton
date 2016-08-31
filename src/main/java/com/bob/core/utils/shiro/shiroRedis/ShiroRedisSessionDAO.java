@@ -108,9 +108,6 @@ public class ShiroRedisSessionDAO extends CachingSessionDAO {
 
   public void setShiroRedisImpl(CacheRedisImpl cacheRedisImpl) {
     this.redisImpl = cacheRedisImpl;
-    // TODO 这里不需要初始化了吧
-    // 初始化redisManager
-//    this.redisImpl.init();
   }
 
   public void setNameSpace(String sessionNameSpace) {

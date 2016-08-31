@@ -16,39 +16,39 @@ import java.util.List;
  */
 public class CcuuAspect {
 
-    public void insert(JoinPoint jp) {
-        Object obj = jp.getArgs()[0];
-        if (obj instanceof BaseEntity) {
-            iccuu(obj);
-        }
+  public void insert(JoinPoint jp) {
+    Object obj = jp.getArgs()[0];
+    if (obj instanceof BaseEntity) {
+      iccuu(obj);
     }
+  }
 
-    @SuppressWarnings("unchecked")
-    public void insertBatch(JoinPoint jp) {
-        Object obj = jp.getArgs()[0];
-        if (obj instanceof List) {
-            for (Object model : (List<BaseEntity>) obj) {
-                iccuu(model);
-            }
-        }
+  @SuppressWarnings("unchecked")
+  public void insertBatch(JoinPoint jp) {
+    Object obj = jp.getArgs()[0];
+    if (obj instanceof List) {
+      for (Object model : (List<BaseEntity>) obj) {
+        iccuu(model);
+      }
     }
+  }
 
-    private void iccuu(Object obj) {
-        BaseEntity entity = (BaseEntity) obj;
-        entity.setId(UuidUtil.getId());
-        entity.setCreateTime(LocalDateTime.now());
-        entity.setCreateUser("admin");
-        entity.setUpdateTime(LocalDateTime.now());
-        entity.setUpdateUser("admin");
-    }
+  private void iccuu(Object obj) {
+    BaseEntity entity = (BaseEntity) obj;
+    entity.setId(UuidUtil.getId());
+    entity.setCreateTime(LocalDateTime.now());
+    entity.setCreateUser("admin");
+    entity.setUpdateTime(LocalDateTime.now());
+    entity.setUpdateUser("admin");
+  }
 
-    public void update(JoinPoint jp) {
-        Object obj = jp.getArgs()[0];
-        if (obj instanceof BaseEntity) {
-            BaseEntity entity = (BaseEntity) obj;
-            entity.setUpdateTime(LocalDateTime.now());
-            entity.setUpdateUser("admin");
-        }
+  public void update(JoinPoint jp) {
+    Object obj = jp.getArgs()[0];
+    if (obj instanceof BaseEntity) {
+      BaseEntity entity = (BaseEntity) obj;
+      entity.setUpdateTime(LocalDateTime.now());
+      entity.setUpdateUser("admin");
     }
+  }
 
 }

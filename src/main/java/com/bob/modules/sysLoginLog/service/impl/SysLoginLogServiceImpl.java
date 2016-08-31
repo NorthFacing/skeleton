@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysLoginLogService")
 public class SysLoginLogServiceImpl
-    extends BaseServiceImpl<SysLoginLog>
-    implements SysLoginLogService {
+        extends BaseServiceImpl<SysLoginLog>
+        implements SysLoginLogService {
 
   @Autowired
   private SysLoginLogMapper sysLoginLogMapper;

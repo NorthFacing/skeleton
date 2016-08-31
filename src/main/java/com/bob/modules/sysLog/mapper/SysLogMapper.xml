@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bob.modules.sysLog.mapper.SysLogMapper">
-	<resultMap id="BaseResultMap" type="com.bob.modules.sysLog.entity.SysLog">
-		   <result column="id" property="id" />
-		   <result column="corp_id" property="corpId" />
-		   <result column="user_id" property="userId" />
-		   <result column="user_name" property="userName" />
-		   <result column="user_ip" property="userIp" />
-		   <result column="data_id" property="dataId" />
-		   <result column="opr_name" property="oprName" />
-		   <result column="opr_type" property="oprType" />
-		   <result column="opr_time" property="oprTime" />
-		   <result column="module" property="module" />
-		   <result column="url" property="url" />
-		   <result column="in_params" property="inParams" />
-		   <result column="out_params" property="outParams" />
-		   <result column="create_time" property="createTime" />
-		   <result column="create_user" property="createUser" />
-	</resultMap>
+    <resultMap id="BaseResultMap" type="com.bob.modules.sysLog.entity.SysLog">
+        <result column="id" property="id"/>
+        <result column="corp_id" property="corpId"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_ip" property="userIp"/>
+        <result column="data_id" property="dataId"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="opr_type" property="oprType"/>
+        <result column="opr_time" property="oprTime"/>
+        <result column="module" property="module"/>
+        <result column="url" property="url"/>
+        <result column="in_params" property="inParams"/>
+        <result column="out_params" property="outParams"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+    </resultMap>
 
-	<sql id="tabaleName">sys_log</sql>
+    <sql id="tabaleName">sys_log</sql>
 
-	<sql id="baseColumn">
-				id,
-				corp_id,
-				user_id,
-				user_name,
-				user_ip,
-				data_id,
-				opr_name,
-				opr_type,
-				opr_time,
-				module,
-				url,
-				in_params,
-				out_params,
-				create_time,
-				create_user
-	</sql>
+    <sql id="baseColumn">
+        id,
+        corp_id,
+        user_id,
+        user_name,
+        user_ip,
+        data_id,
+        opr_name,
+        opr_type,
+        opr_time,
+        module,
+        url,
+        in_params,
+        out_params,
+        create_time,
+        create_user
+    </sql>
 
     <sql id="whereCondition">
         <where>
@@ -89,7 +89,7 @@
                 AND create_user = #{createUser}
             </if>
         </where>
-	</sql>
+    </sql>
 
     <sql id="queryCondition">
         <where>

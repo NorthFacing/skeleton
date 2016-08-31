@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysResourceService")
 public class SysResourceServiceImpl
-    extends BaseServiceImpl<SysResource>
-    implements SysResourceService {
+        extends BaseServiceImpl<SysResource>
+        implements SysResourceService {
 
   @Autowired
   private SysResourceMapper sysResourceMapper;

@@ -1,71 +1,71 @@
 <div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-sidebar">
-        <li class="active">
-            <a href="javascript:;">
-                <i class="glyphicon glyphicon-home"></i>
-                &nbsp;&nbsp;医院管理
-                <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        <li id="menu_1" class="submeun">
-            <a href="${path}/admin/corpUnion/unionManager">
-                <i class="glyphicon glyphicon-menu-right"></i>
-                医联体管理
-            </a>
-        </li>
-        <li class="submeun">
-            <a href="${path}/admin/corp/corpManager">
-                <i class="glyphicon glyphicon-menu-right"></i>
-                医院管理
-            </a>
-        </li>
-        <li class="submeun">
-            <a href="${path}/admin/classify/classifyManager">
-                <i class="glyphicon glyphicon-menu-right"></i>
-                栏目管理
-            </a>
-        </li>
-    </ul>
-    <ul class="nav nav-sidebar">
-        <li class="active">
-            <a href="javascript:;">
-                <i class="glyphicon glyphicon-wrench"></i>
-                &nbsp;&nbsp;系统配置管理
-                <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        <li class="submeun">
-            <a href="${path}/admin/sysUser/list">
-                <i class="glyphicon glyphicon-menu-right"></i>
-                用户管理
-            </a>
-        </li>
-        <li class="submeun">
-            <a href="${path}/admin/sysRole/list">
-                <i class="glyphicon glyphicon-menu-right"></i>
-                角色管理
-            </a>
-        </li>
-        <li class="submeun">
-            <a href="${path}/admin/sysResource/list">
-                <i class="glyphicon glyphicon-menu-right"></i>
-                权限管理
-            </a>
-        </li>
-    </ul>
-    <ul class="nav nav-sidebar">
-        <li class="active">
-            <a href="javascript:;">
-                <i class="glyphicon glyphicon-list-alt"></i>
-                &nbsp;&nbsp;医院信息
-                <span class="sr-only">(current)</span>
-            </a>
-        </li>
-        <li class="submeun">
-            <a href="${path}/admin/myCorp/myCorp">
-                <i class="glyphicon glyphicon-menu-right"></i>
-                医院
-            </a>
-        </li>
-    </ul>
+  <ul class="nav nav-sidebar">
+    <li class="active">
+      <a href="javascript:;">
+        <i class="glyphicon glyphicon-home"></i>
+        &nbsp;&nbsp;医院管理
+        <span class="sr-only">(current)</span>
+      </a>
+    </li>
+    <li id="menu_1" class="submeun">
+      <a href="${path}/admin/corpUnion/unionManager">
+        <i class="glyphicon glyphicon-menu-right"></i>
+        医联体管理
+      </a>
+    </li>
+    <li class="submeun">
+      <a href="${path}/admin/corp/corpManager">
+        <i class="glyphicon glyphicon-menu-right"></i>
+        医院管理
+      </a>
+    </li>
+    <li class="submeun">
+      <a href="${path}/admin/classify/classifyManager">
+        <i class="glyphicon glyphicon-menu-right"></i>
+        栏目管理
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-sidebar">
+    <li class="active">
+      <a href="javascript:;">
+        <i class="glyphicon glyphicon-wrench"></i>
+        &nbsp;&nbsp;系统配置管理
+        <span class="sr-only">(current)</span>
+      </a>
+    </li>
+    <li class="submeun">
+      <a href="${path}/admin/sysUser/list">
+        <i class="glyphicon glyphicon-menu-right"></i>
+        用户管理
+      </a>
+    </li>
+    <li class="submeun">
+      <a href="${path}/admin/sysRole/list">
+        <i class="glyphicon glyphicon-menu-right"></i>
+        角色管理
+      </a>
+    </li>
+    <li class="submeun">
+      <a href="${path}/admin/sysResource/list">
+        <i class="glyphicon glyphicon-menu-right"></i>
+        权限管理
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-sidebar">
+    <li class="active">
+      <a href="javascript:;">
+        <i class="glyphicon glyphicon-list-alt"></i>
+        &nbsp;&nbsp;医院信息
+        <span class="sr-only">(current)</span>
+      </a>
+    </li>
+    <li class="submeun">
+      <a href="${path}/admin/myCorp/myCorp">
+        <i class="glyphicon glyphicon-menu-right"></i>
+        医院
+      </a>
+    </li>
+  </ul>
 </div>

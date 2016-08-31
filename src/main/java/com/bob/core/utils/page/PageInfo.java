@@ -13,101 +13,101 @@ import java.util.List;
 
 public class PageInfo<T> implements Serializable {
 
-    private Integer pageNum = Constants.PAGE_NUM;// 页码
-    private Integer pageSize = Constants.PAGE_SIZE;//页面大小
-    private Integer startRow;// 起始行
-    private Integer endRow;// 末行
-    private Long totalCount;     //总数
-    private Integer totalPage;    // 总页数
-    private List<T> result;//结果集
+  private Integer current = Constants.PAGE_NUM;// 页码
+  private Integer rowCount = Constants.PAGE_SIZE;//页面大小
+  private Long total;     //总数
+  private List<T> rows;//结果集
 
-    /**
-     * 计算总页数
-     */
-    private void calculatePages() {
-        if (pageSize > 0) {
-            totalPage = (int) (totalCount / pageSize + ((totalCount % pageSize == 0) ? 0 : 1));
-        } else {
-            totalPage = 0;
-        }
+  private Integer startRow;// 起始行
+  private Integer endRow;// 末行
+  private Integer totalPage;    // 总页数
+  /**
+   * 计算总页数
+   */
+  private void calculatePages() {
+    if (rowCount > 0) {
+      totalPage = (int) (total / rowCount + ((total % rowCount == 0) ? 0 : 1));
+    } else {
+      totalPage = 0;
     }
+  }
 
-    /**
-     * 校验查询的页数
-     *
-     * @Param pageNum 页码
-     */
-    private void checkPageNum(Integer pageNum) {
-        if (pageNum <= 0) {
-            this.pageNum = 1;
-        } else if (pageNum > totalPage) {
-            this.pageNum = totalPage;
-        } else {
-            this.pageNum = pageNum;
-        }
+  /**
+   * 校验查询的页数
+   *
+   * @Param current 页码
+   */
+  private void checkPageNum(Integer current) {
+    if (current <= 0) {
+      this.current = 1;
+    } else if (current > totalPage) {
+      this.current = totalPage;
+    } else {
+      this.current = current;
     }
+  }
 
-    /**
-     * 计算起止行号
-     */
-    private void calculateStartAndEndRow() {
-        this.startRow = this.pageNum > 0 ? (this.pageNum - 1) * this.pageSize : 0;
-        this.endRow = this.startRow + this.pageSize * (this.pageNum > 0 ? 1 : 0);
-    }
+  /**
+   * 计算起止行号
+   */
+  private void calculateStartAndEndRow() {
+    this.startRow = this.current > 0 ? (this.current - 1) * this.rowCount : 0;
+    this.endRow = this.startRow + this.rowCount * (this.current > 0 ? 1 : 0);
+  }
 
-    public Integer getPageNum() {
-        return pageNum;
-    }
+  public Integer getCurrent() {
+    return current;
+  }
 
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
+  public void setCurrent(Integer current) {
+    this.current = current;
+  }
 
-    public Integer getPageSize() {
-        return pageSize;
-    }
+  public Integer getRowCount() {
+    return rowCount;
+  }
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
+  public void setRowCount(Integer rowCount) {
+    this.rowCount = rowCount;
+  }
 
-    public Long getTotalCount() {
-        return totalCount;
-    }
+  public Long getTotal() {
+    return total;
+  }
 
-    public void setTotalCount(Long totalCount) {
-        this.totalCount = (null == totalCount) ? 0 : totalCount;
-        // 计算总页数
-        calculatePages();
-        // 校验查询的页数
-        checkPageNum(pageNum);
-        // 计算查询的起止行数
-        calculateStartAndEndRow();
-    }
+  public void setTotal(Long total) {
+    this.total = (null == total) ? 0 : total;
+    // 计算总页数
+    calculatePages();
+    // 校验查询的页数
+    checkPageNum(current);
+    // 计算查询的起止行数
+    calculateStartAndEndRow();
+  }
 
-    public Integer getTotalPage() {
-        return totalPage;
-    }
+  public Integer getTotalPage() {
+    return totalPage;
+  }
 
-    public Integer getEndRow() {
-        return endRow;
-    }
+  public Integer getEndRow() {
+    return endRow;
+  }
 
-    public Integer getStartRow() {
-        return startRow;
-    }
+  public Integer getStartRow() {
+    return startRow;
+  }
 
-    public List<T> getResult() {
-        return result;
-    }
+  public List<T> getRows() {
+    return rows;
+  }
 
-    public void setResult(List<T> result) {
-        this.result = result;
-    }
+  public void setRows(List<T> result) {
+    this.rows = result;
+  }
 
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 }

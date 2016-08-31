@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysOrgnizationService")
 public class SysOrgnizationServiceImpl
-    extends BaseServiceImpl<SysOrgnization>
-    implements SysOrgnizationService {
+        extends BaseServiceImpl<SysOrgnization>
+        implements SysOrgnizationService {
 
   @Autowired
   private SysOrgnizationMapper sysOrgnizationMapper;

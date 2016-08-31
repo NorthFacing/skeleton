@@ -17,7 +17,7 @@ public class RedisDemo {
     JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
     JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, 10000, pw);
     Jedis jedis = jedisPool.getResource();
-    jedis.set("foo","bar");
+    jedis.set("foo", "bar");
     String foo = jedis.get("foo");
     System.out.println(foo);
     jedis.del("foo");

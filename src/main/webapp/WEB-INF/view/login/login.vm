@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>欢迎登录</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>欢迎登录</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- bootstrap -->
-    <link href="$!{path}/ext/bootStrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="$!{path}/resources/login/login.css" rel="stylesheet"/>
+  <!-- bootstrap -->
+  <link href="$!{path}/ext/bootStrap/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="$!{path}/resources/login/login.css" rel="stylesheet"/>
 
 </head>
 <body>
 <script>
-    //在最顶层打开
-    var b = window.top != window.self;
-    if (b) {
-        window.top.location = window.location.href;
-    }
+  //在最顶层打开
+  var b = window.top != window.self;
+  if (b) {
+    window.top.location = window.location.href;
+  }
 </script>
 <div class="container-fluid">
-    <div class="row login-wrapper" align="center">
-        <div class="col-md-4 box">
-            <div class="content-wrap">
-                <h6>登录</h6>
-                <h7 id="errormsg" style="color:red;line-height: 20px;">#if($!error) $!error #end</h7>
-                <form class="form-horizontal" role="form" id="loginform" action="$!{path}/admin/loginAction" method="post">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="密码">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="login()">登录
-                    </button>
-                </form>
-            </div>
-        </div>
+  <div class="row login-wrapper" align="center">
+    <div class="col-md-4 box">
+      <div class="content-wrap">
+        <h6>登录</h6>
+        <h7 id="errormsg" style="color:red;line-height: 20px;">#if($!error) $!error #end</h7>
+        <form class="form-horizontal" role="form" id="loginform" action="$!{path}/admin/loginAction" method="post">
+          <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+          <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+          <button type="button" class="btn btn-primary btn-lg" onclick="login()">登录
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 </div>
 
@@ -40,30 +40,30 @@
 <script src="$!{path}/ext/other/js/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
 
 <script type="text/javascript">
-    $(function () {
-        if (getQueryString("msg") != null
-                && getQueryString("msg") != ""
-                && getQueryString("msg") != undefined) {
-            $("#errormsg").html(decodeURI(getQueryString("msg")));
-        }
-    });
-    //获取url参数的值：name是参数名
-    function getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) {
-            return (r[2]);
-        }
-        return null;
+  $(function () {
+    if (getQueryString("msg") != null
+            && getQueryString("msg") != ""
+            && getQueryString("msg") != undefined) {
+      $("#errormsg").html(decodeURI(getQueryString("msg")));
     }
-    function login() {
-        if ($.trim($("#username").val()) == "" || $.trim($("#password").val()) == "") {
-            $("#errormsg").html("请输入用户名密码!");
-            return;
-        }
-        $("#password").val(hex_md5($("#password").val()));
-        $("#loginform").submit();
+  });
+  //获取url参数的值：name是参数名
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+      return (r[2]);
     }
+    return null;
+  }
+  function login() {
+    if ($.trim($("#username").val()) == "" || $.trim($("#password").val()) == "") {
+      $("#errormsg").html("请输入用户名密码!");
+      return;
+    }
+    $("#password").val(hex_md5($("#password").val()));
+    $("#loginform").submit();
+  }
 </script>
 </body>
 </html>

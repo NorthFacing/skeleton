@@ -16,46 +16,46 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 暂未使用，需要自己实现为redis的缓存使用
  */
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
-    private Cache<String, AtomicInteger> passwordRetryCache;
+  private Cache<String, AtomicInteger> passwordRetryCache;
 
-    public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
-        passwordRetryCache = cacheManager.getCache("passwordRetryCache");
+  public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
+    passwordRetryCache = cacheManager.getCache("passwordRetryCache");
+  }
+
+  @Override
+  public boolean doCredentialsMatch(AuthenticationToken token,
+                                    AuthenticationInfo info) {
+    String username = (String) token.getPrincipal();
+
+    // retry count + 1
+    AtomicInteger retryCount = passwordRetryCache.get(username);
+
+    if (retryCount == null) {
+      retryCount = new AtomicInteger(0);
+      passwordRetryCache.put(username, retryCount);
     }
 
-    @Override
-    public boolean doCredentialsMatch(AuthenticationToken token,
-        AuthenticationInfo info) {
-        String username = (String) token.getPrincipal();
-
-        // retry count + 1
-        AtomicInteger retryCount = passwordRetryCache.get(username);
-
-        if (retryCount == null) {
-            retryCount = new AtomicInteger(0);
-            passwordRetryCache.put(username, retryCount);
-        }
-
-        if (retryCount.incrementAndGet() > 5) {
-            // if retry count > 5 throw
-            throw new ExcessiveAttemptsException();
-        }
-
-        boolean matches = super.doCredentialsMatch(token, info);
-
-        if (matches) {
-            // clear retry count
-            passwordRetryCache.remove(username);
-        }
-
-        return matches;
+    if (retryCount.incrementAndGet() > 5) {
+      // if retry count > 5 throw
+      throw new ExcessiveAttemptsException();
     }
-	
-	/**
-	* build user password
-	*/
-	public String buildCredentials(String userName, String password,String credentialsSalt) {
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(userName,password, ByteSource.Util.bytes(userName + credentialsSalt),userName);
-		AuthenticationToken token = new UsernamePasswordToken(userName, password);
-		return super.hashProvidedCredentials(token, authenticationInfo).toString();
+
+    boolean matches = super.doCredentialsMatch(token, info);
+
+    if (matches) {
+      // clear retry count
+      passwordRetryCache.remove(username);
     }
+
+    return matches;
+  }
+
+  /**
+   * build user password
+   */
+  public String buildCredentials(String userName, String password, String credentialsSalt) {
+    SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(userName, password, ByteSource.Util.bytes(userName + credentialsSalt), userName);
+    AuthenticationToken token = new UsernamePasswordToken(userName, password);
+    return super.hashProvidedCredentials(token, authenticationInfo).toString();
+  }
 }

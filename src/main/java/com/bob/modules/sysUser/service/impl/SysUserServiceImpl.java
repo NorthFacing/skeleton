@@ -28,8 +28,8 @@ import java.util.Set;
  */
 @Service("sysUserService")
 public class SysUserServiceImpl
-    extends BaseServiceImpl<SysUser>
-    implements SysUserService {
+        extends BaseServiceImpl<SysUser>
+        implements SysUserService {
 
   @Autowired
   private SysUserMapper sysUserMapper;

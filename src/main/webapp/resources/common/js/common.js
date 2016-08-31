@@ -124,19 +124,15 @@ var CommonUI = {
     }
 };
 
-
+// 列表表格
 $.fn.extend({
-    test:function(msg){
-        alert(msg);
-    },
-    bootgridWrapper:function(options){
-        var that = this,
-            opts = $.extend({
-                labels :{
-                    infos: "显示第 {{ctx.start}} 到第 {{ctx.end}} 条记录，总共 {{ctx.total}} 条记录",
-                    noResults: "没有数据！"
-                }
-            },options);
+    bootgridWrapper: function (options) {
+        var opts = $.extend({
+            labels: {
+                infos: "显示第 {{ctx.start}} 到第 {{ctx.end}} 条记录，总共 {{ctx.total}} 条记录",
+                noResults: "没有数据！"
+            }
+        }, options);
         var bg = $(this).bootgrid(opts);
         return bg;
     }

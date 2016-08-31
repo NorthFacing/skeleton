@@ -7,41 +7,41 @@ import java.time.LocalDateTime;
  */
 public class BaseQuery extends PageInfo {
 
-    // 分页查询字段
-    protected LocalDateTime updateTimeEnd;
-    protected LocalDateTime updateTimeStart;
-    private LocalDateTime createTimeStart;
-    private LocalDateTime createTimeEnd;
+  // 分页查询字段
+  protected LocalDateTime updateTimeEnd;
+  protected LocalDateTime updateTimeStart;
+  private LocalDateTime createTimeStart;
+  private LocalDateTime createTimeEnd;
 
-    public LocalDateTime getCreateTimeStart() {
-        return createTimeStart;
-    }
+  public LocalDateTime getCreateTimeStart() {
+    return createTimeStart;
+  }
 
-    public void setCreateTimeStart(LocalDateTime createTimeStart) {
-        this.createTimeStart = createTimeStart;
-    }
+  public void setCreateTimeStart(LocalDateTime createTimeStart) {
+    this.createTimeStart = createTimeStart;
+  }
 
-    public LocalDateTime getCreateTimeEnd() {
-        return createTimeEnd;
-    }
+  public LocalDateTime getCreateTimeEnd() {
+    return createTimeEnd;
+  }
 
-    public void setCreateTimeEnd(LocalDateTime createTimeEnd) {
-        this.createTimeEnd = createTimeEnd;
-    }
+  public void setCreateTimeEnd(LocalDateTime createTimeEnd) {
+    this.createTimeEnd = createTimeEnd;
+  }
 
-    public LocalDateTime getUpdateTimeStart() {
-        return updateTimeStart;
-    }
+  public LocalDateTime getUpdateTimeStart() {
+    return updateTimeStart;
+  }
 
-    public void setUpdateTimeStart(LocalDateTime updateTimeStart) {
-        this.updateTimeStart = updateTimeStart;
-    }
+  public void setUpdateTimeStart(LocalDateTime updateTimeStart) {
+    this.updateTimeStart = updateTimeStart;
+  }
 
-    public LocalDateTime getUpdateTimeEnd() {
-        return updateTimeEnd;
-    }
+  public LocalDateTime getUpdateTimeEnd() {
+    return updateTimeEnd;
+  }
 
-    public void setUpdateTimeEnd(LocalDateTime updateTimeEnd) {
-        this.updateTimeEnd = updateTimeEnd;
-    }
+  public void setUpdateTimeEnd(LocalDateTime updateTimeEnd) {
+    this.updateTimeEnd = updateTimeEnd;
+  }
 }

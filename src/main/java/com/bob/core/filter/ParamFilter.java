@@ -17,10 +17,10 @@ import java.io.IOException;
  */
 public class ParamFilter extends OncePerRequestFilter {
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
-        ParameterRequestWrapper requestWrapper = new ParameterRequestWrapper(request);
-        filterChain.doFilter(requestWrapper, response);
-    }
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+          throws ServletException, IOException {
+    ParameterRequestWrapper requestWrapper = new ParameterRequestWrapper(request);
+    filterChain.doFilter(requestWrapper, response);
+  }
 }
