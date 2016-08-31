@@ -75,10 +75,11 @@ public class SysResourceController extends BaseController {
     query.setRowCount(10);
     query.setTotal(200l);
     ArrayList<SysResource> resources = new ArrayList<>();
-    for (int i=0;i<10;i++){
+    for (int i = 0; i < 10; i++) {
       SysResource sysResource = new SysResource();
-      sysResource.setName("name"+i);
+      sysResource.setName("name" + i);
       sysResource.setDescription("test");
+      sysResource.setResUrl("url" + i);
       resources.add(sysResource);
     }
     query.setRows(resources);

@@ -10,7 +10,7 @@ $(function () {
         },
         url: path + "/admin/sysResource/pageData",
         formatters: {
-            "link": function (column, row) {
+            "resUrl": function (column, row) {
                 return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
             }
         }

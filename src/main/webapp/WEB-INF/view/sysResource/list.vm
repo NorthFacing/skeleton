@@ -49,9 +49,9 @@
         <thead>
         <tr>
           <th data-column-id="id" data-type="numeric">ID</th>
-          <th data-column-id="sender">Sender</th>
-          <th data-column-id="received" data-order="desc">Received</th>
-          <th data-column-id="link" data-formatter="link" data-sortable="false">Link</th>
+          <th data-column-id="name">name</th>
+          <th data-column-id="description" data-order="desc">description</th>
+          <th data-column-id="resUrl" data-formatter="resUrl" data-sortable="false">resUrl</th>
         </tr>
         </thead>
       </table>
