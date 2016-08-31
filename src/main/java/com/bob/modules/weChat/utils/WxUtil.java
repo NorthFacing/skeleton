@@ -1,7 +1,8 @@
 package com.bob.modules.weChat.utils;
 
-import com.bob.core.utils.JsonUtil;
-import com.bob.core.utils.http.HttpRequest;
+//import com.bob.core.utils.JsonUtil;
+//import com.bob.core.utils.http.HttpClientUtil;
+//import com.bob.core.utils.http.HttpRequest;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -73,9 +74,10 @@ public class WxUtil {
     String url = "https://api.weixin.qq.com/sns/oauth2/access_token"
             + "?appid=wx9384e04d490c6dce&secret=24b5879f0a654926bcd8745b2114968e&code=" + code
             + "&grant_type=authorization_code";
-    String sd = HttpRequest.httpsPost(url, null);
-    Map<String, Object> m = JsonUtil.getMap4Json(sd);
-    return (String) m.get("openid");
+//    String sd = HttpClientUtil.httpsPost(url, null);
+//    Map<String, Object> m = JsonUtil.getMap4Json(sd);
+//    return (String) m.get("openid");
+    return null;
   }
 
   public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {

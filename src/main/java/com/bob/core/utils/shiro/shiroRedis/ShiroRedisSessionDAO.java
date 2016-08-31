@@ -1,6 +1,7 @@
 package com.bob.core.utils.shiro.shiroRedis;
 
-import com.bob.core.cache.redis.ShiroRedisImpl;
+import com.bob.core.cache.redis.CacheRedisImpl;
+import com.bob.core.contants.BizConfig;
 import com.bob.core.utils.javaUtil.SerializeUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -18,13 +19,13 @@ import java.io.Serializable;
  * @Warn 注意，本地缓存通过EhCache实现，失效时间一定要远小于Redis失效时间，
  * 这样本地失效后，会访问Redis读取，并重新设置Redis上会话数据的过期时间。
  */
-public class RedisSessionDAO extends CachingSessionDAO {
+public class ShiroRedisSessionDAO extends CachingSessionDAO {
 
-  private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
+  private static Logger logger = LoggerFactory.getLogger(ShiroRedisSessionDAO.class);
 
-  private String nameSpace = "shiro_redis_session";
+  private String sessionNameSpace = "shiro_redis_session";
 
-  private ShiroRedisImpl shiroRedisImpl;
+  private CacheRedisImpl redisImpl;
 
   @Override
   protected void doUpdate(Session session) {
@@ -44,7 +45,7 @@ public class RedisSessionDAO extends CachingSessionDAO {
       logger.error("session or session id is null");
       return;
     }
-    shiroRedisImpl.del(getByteKey(session.getId()));
+    redisImpl.del(getByteKey(session.getId()));
   }
 
   @Override
@@ -61,7 +62,7 @@ public class RedisSessionDAO extends CachingSessionDAO {
       logger.error("session id is null");
       return null;
     }
-    byte[] sessionByte = shiroRedisImpl.get(getByteKey(sessionId));
+    byte[] sessionByte = redisImpl.get(getByteKey(sessionId));
     if (sessionByte == null) {
       return null;
     } else {
@@ -83,8 +84,9 @@ public class RedisSessionDAO extends CachingSessionDAO {
 
     byte[] key = getByteKey(session.getId());
     byte[] value = SerializeUtils.serialize(session);
-    session.setTimeout(shiroRedisImpl.getExpired() * 1000);
-    shiroRedisImpl.set(key, value, shiroRedisImpl.getExpired());
+    int timeOut = BizConfig.sessionTimeOut * 60;
+    session.setTimeout(timeOut * 1000);
+    redisImpl.set(key, value, timeOut);
   }
 
   /**
@@ -94,28 +96,25 @@ public class RedisSessionDAO extends CachingSessionDAO {
    * @return
    */
   private byte[] getByteKey(Serializable sessionId) {
-    String preKey = this.nameSpace + sessionId;
+    String preKey = this.sessionNameSpace + sessionId;
     return preKey.getBytes();
   }
 
   // 以下 setter & getter
 
-  public ShiroRedisImpl getShiroRedisImpl() {
-    return shiroRedisImpl;
+  public CacheRedisImpl getCacheRedisImpl() {
+    return redisImpl;
   }
 
-  public void setShiroRedisImpl(ShiroRedisImpl shiroRedisImpl) {
-    this.shiroRedisImpl = shiroRedisImpl;
+  public void setShiroRedisImpl(CacheRedisImpl cacheRedisImpl) {
+    this.redisImpl = cacheRedisImpl;
+    // TODO 这里不需要初始化了吧
     // 初始化redisManager
-    this.shiroRedisImpl.init();
+//    this.redisImpl.init();
   }
 
-  public String getNameSpace() {
-    return nameSpace;
-  }
-
-  public void setNameSpace(String nameSpace) {
-    this.nameSpace = nameSpace;
+  public void setNameSpace(String sessionNameSpace) {
+    this.sessionNameSpace = sessionNameSpace;
   }
 
 }

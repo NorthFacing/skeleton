@@ -1,4 +1,4 @@
-package com.demo.cert;
+package com.bob.core.utils.cert;
 
 import org.apache.commons.codec.binary.Base64;
 

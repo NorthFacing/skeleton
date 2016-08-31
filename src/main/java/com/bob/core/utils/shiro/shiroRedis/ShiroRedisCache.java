@@ -1,7 +1,6 @@
 package com.bob.core.utils.shiro.shiroRedis;
 
-import com.bob.core.cache.redis.ShiroRedisImpl;
-import com.bob.core.utils.javaUtil.SerializeUtils;
+import com.bob.core.cache.redis.CacheRedisImpl;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
@@ -21,13 +20,11 @@ import java.util.Set;
  * @param <K>
  * @param <V>
  */
-public class RedisCache<K, V> implements Cache<K, V> {
+public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
-  private Logger logger = LoggerFactory.getLogger(RedisCache.class);
+  private Logger logger = LoggerFactory.getLogger(ShiroRedisCache.class);
 
-  // The wrapped Jedis instance.
-  private ShiroRedisImpl shiroRedisImpl;
-  // The Redis key nameSpace for the sessions
+  private CacheRedisImpl shiroRedisImpl;
   private String nameSpace;
 
   /**
@@ -35,7 +32,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
    *
    * @param shiroRedisImpl The cache manager instance
    */
-  public RedisCache(ShiroRedisImpl shiroRedisImpl) {
+  public ShiroRedisCache(CacheRedisImpl shiroRedisImpl) {
     if (shiroRedisImpl == null) {
       throw new IllegalArgumentException("Cache argument cannot be null.");
     }
@@ -49,7 +46,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
    * @param shiroRedisImpl The cache manager instance
    * @param nameSpace      The Redis key nameSpace
    */
-  public RedisCache(ShiroRedisImpl shiroRedisImpl, String nameSpace) {
+  public ShiroRedisCache(CacheRedisImpl shiroRedisImpl, String nameSpace) {
     this(shiroRedisImpl);
     // set the nameSpace
     this.nameSpace = nameSpace;
@@ -62,9 +59,8 @@ public class RedisCache<K, V> implements Cache<K, V> {
       if (key == null) {
         return null;
       } else {
-        byte[] rawValue = shiroRedisImpl.get(getByteKey(key));
-        V value = (V) SerializeUtils.deserialize(rawValue);
-        return value;
+        Object o = shiroRedisImpl.get(getKey(key));
+        return (V) o;
       }
     } catch (Throwable t) {
       throw new CacheException(t);
@@ -74,9 +70,9 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
   @Override
   public V put(K key, V value) throws CacheException {
-    logger.debug("添加shiro对象到redis： key [{}]", key);
+    logger.debug("添加shiro对象到redis： {} = {}", key, value);
     try {
-      shiroRedisImpl.set(getByteKey(key), SerializeUtils.serialize(value));
+      shiroRedisImpl.set(getKey(key), value);
       return value;
     } catch (Throwable t) {
       throw new CacheException(t);
@@ -88,7 +84,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
     logger.debug("从redis中删除shiro对象： key [{}]", key);
     try {
       V previous = get(key);
-      shiroRedisImpl.del(getByteKey(key));
+      shiroRedisImpl.del(getKey(key));
       return previous;
     } catch (Throwable t) {
       throw new CacheException(t);
@@ -108,7 +104,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
   @Override
   public int size() {
     try {
-      Long longSize = new Long(shiroRedisImpl.dbSize());
+      Long longSize = shiroRedisImpl.dbSize();
       int size = longSize.intValue();
       logger.debug("从redis获取shiro对象数量： size [{}]", size);
       return size;
@@ -160,17 +156,16 @@ public class RedisCache<K, V> implements Cache<K, V> {
   }
 
   /**
-   * 获得byte[]型的key
+   * 获取shiro的key
    *
-   * @param key
-   * @return
+   * @param key key
+   * @return key拼装
    */
-  private byte[] getByteKey(K key) {
+  private String getKey(K key) {
     if (key instanceof String) {
-      String preKey = nameSpace + key;
-      return preKey.getBytes();
+      return nameSpace + key;
     } else {
-      return SerializeUtils.serialize(key);
+      return nameSpace + key.toString();
     }
   }
 }

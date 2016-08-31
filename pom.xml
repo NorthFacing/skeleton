@@ -7,6 +7,7 @@
     <version>0.1-SNAPSHOT</version>
     <url>https://github.com/NorthFacing/skeleton</url>
     <properties>
+        <httpclient.version>3.0.1</httpclient.version>
         <!-- redis -->
         <spring.redis.version>1.6.0.RELEASE</spring.redis.version>
         <jedis.version>2.7.3</jedis.version>
@@ -50,9 +51,7 @@
         <!-- maven -->
         <maven.compiler.version>2.5.1</maven.compiler.version>
         <!-- JDK -->
-        <!--开发时JDK版本使用1.8，可以使用最新的JDK语法，比如lambda表达式等-->
         <jdk.version>1.8</jdk.version>
-        <!--编译目标仍然是1.6，保证低版本JDK可以运行-->
         <compiler.version>1.8</compiler.version>
         <!-- server -->
         <maven.tomcat7.version>2.2</maven.tomcat7.version>
@@ -67,6 +66,11 @@
         <port>8086</port>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
@@ -415,7 +419,7 @@
         <finalName>${project.artifactId}</finalName>
         <directory>target</directory>
         <filters>
-            <filter>src/main/resources/runtime-env/dev.properties</filter>
+            <filter>src/main/resources/runtime-env/${runtime.name}.properties</filter>
         </filters>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
@@ -465,42 +469,11 @@
                 <version>2.4</version>
                 <configuration>
                     <warName>${project.build.finalName}</warName>
-                    <webappDirectory>${project.build.directory}/${runtime.name}-${project.build.finalName}
+                    <webappDirectory>
+                        ${project.build.directory}/${runtime.name}-${project.build.finalName}
                     </webappDirectory>
-                    <!--<encoding>${project.build.sourceEncoding}</encoding>-->
                 </configuration>
             </plugin>
-            <!-- Tomcat 插件 -->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>${maven.tomcat7.version}</version>
-                <configuration>
-                    <path>/${project.artifactId}</path>
-                    <port>${port}</port>
-                </configuration>
-            </plugin>
-            <!-- jetty 插件 -->
-            <!--<plugin>-->
-            <!--<groupId>org.mortbay.jetty</groupId>-->
-            <!--<artifactId>jetty-maven-plugin</artifactId>-->
-            <!--<version>${maven.jetty.version}</version>-->
-            <!--<configuration>-->
-            <!--<webApp>-->
-            <!--<contextPath>/${project.artifactId}</contextPath>-->
-            <!--</webApp>-->
-            <!--<connectors>-->
-            <!--<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">-->
-            <!--<port>${port}</port>-->
-            <!--</connector>-->
-            <!--</connectors>-->
-            <!--<scanTargets>-->
-            <!--<scanTarget>target/classes/</scanTarget>-->
-            <!--</scanTargets>-->
-            <!--<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>-->
-            <!--<scanIntervalSeconds>2</scanIntervalSeconds>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 </project>

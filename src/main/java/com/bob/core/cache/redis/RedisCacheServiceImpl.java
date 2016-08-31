@@ -16,6 +16,7 @@ import java.util.Set;
 /**
  * Redis缓存包装实现：spring实现（作为备份，未使用）
  */
+@Deprecated
 //@Service("cacheService")
 public class RedisCacheServiceImpl implements CacheService {
     public static Logger logger = LoggerFactory.getLogger(RedisCacheServiceImpl.class);
@@ -83,9 +84,6 @@ public class RedisCacheServiceImpl implements CacheService {
     public void set(final String cacheName, final String key, final Object value, final int expried) {
         if (StringUtils.isBlank(key)) {
             throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
-        }
-        if (value == null) {
-            throw new IllegalArgumentException("The cache value：'" + value + "' is invalid.");
         }
         redisTemplate.execute((RedisConnection connection) -> {
             byte[] _key = assemblyKey(cacheName, key);

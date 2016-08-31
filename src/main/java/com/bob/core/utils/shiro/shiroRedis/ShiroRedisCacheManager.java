@@ -1,6 +1,6 @@
 package com.bob.core.utils.shiro.shiroRedis;
 
-import com.bob.core.cache.redis.ShiroRedisImpl;
+import com.bob.core.cache.redis.CacheRedisImpl;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
@@ -13,9 +13,9 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * 使用RedisCacheManager替换shiro默认缓存管理
  */
-public class RedisCacheManager implements CacheManager {
+public class ShiroRedisCacheManager implements CacheManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisCacheManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShiroRedisCacheManager.class);
 
     // fast lookup by name map
     private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<>();
@@ -23,7 +23,7 @@ public class RedisCacheManager implements CacheManager {
     // The Redis key prefix for caches
     private String nameSpace = "shiro_redis_cache:";
     // 缓存实例
-    private ShiroRedisImpl shiroRedisImpl;
+    private CacheRedisImpl shiroRedisImpl;
 
     @Override
     public <K, V> Cache<K, V> getCache(String name) throws CacheException {
@@ -33,7 +33,7 @@ public class RedisCacheManager implements CacheManager {
             // initialize the Redis manager instance
             shiroRedisImpl.init();
             // create a new cache instance
-            c = new RedisCache<K, V>(shiroRedisImpl, nameSpace);
+            c = new ShiroRedisCache<K, V>(shiroRedisImpl, nameSpace);
             // add it to the cache collection
             caches.put(name, c);
         }
@@ -48,11 +48,11 @@ public class RedisCacheManager implements CacheManager {
         this.nameSpace = nameSpace;
     }
 
-    public ShiroRedisImpl getShiroRedisImpl() {
+    public CacheRedisImpl getShiroRedisImpl() {
         return shiroRedisImpl;
     }
 
-    public void setShiroRedisImpl(ShiroRedisImpl shiroRedisImpl) {
+    public void setShiroRedisImpl(CacheRedisImpl shiroRedisImpl) {
         this.shiroRedisImpl = shiroRedisImpl;
     }
 

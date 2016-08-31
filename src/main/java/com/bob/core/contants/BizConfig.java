@@ -5,13 +5,17 @@ package com.bob.core.contants;
  */
 public class BizConfig {
 
-    public static String appDomain;
+  public static String appDomain;
 
-    public static String getAppDomain() {
-        return appDomain;
-    }
+  public static int sessionTimeOut;
 
-    public static void setAppDomain(String appDomain) {
-        BizConfig.appDomain = appDomain;
-    }
+  public void setAppDomain(String appDomain) {
+    BizConfig.appDomain = appDomain;
+  }
+
+  public void setSessionTimeOut(String sessionTimeOut) {
+    System.out.println(sessionTimeOut);
+    Integer timeOut = Integer.parseInt(sessionTimeOut);
+    BizConfig.sessionTimeOut = timeOut;
+  }
 }

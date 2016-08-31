@@ -13,30 +13,27 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Protocol;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+//import java.util.concurrent.ConcurrentHashMap;
+//import java.util.concurrent.ConcurrentMap;
 
 /**
  * Redis缓存实现：jedis实现
  */
 @Service("cacheService")
-public class ShiroRedisImpl implements CacheService {
+public class CacheRedisImpl implements CacheService {
 
-  private Logger logger = LoggerFactory.getLogger(ShiroRedisImpl.class);
+  private Logger logger = LoggerFactory.getLogger(CacheRedisImpl.class);
 
-  private String host = "";
-  private int port = 0;
-  private String password = "";
-  //timeout for jedis try to connect to redis server, not expire time! In milliseconds
-  // 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException；
-  private int timeout = 0;
-  // 0 - never expire
-  private int expired = 0;
+  private String host;
+  private int port;
+  private String password;
+  private int timeout; // 连接超时时间
 
   public static String prefix = Constants.PROJECT_NAME;
   public static final String CONNECTOR = ":";
@@ -46,9 +43,9 @@ public class ShiroRedisImpl implements CacheService {
 
   private JedisPoolConfig poolConfig;
 
-  private final ConcurrentMap<String, ShiroRedisImpl> caches = new ConcurrentHashMap<>();
+//  private final ConcurrentMap<String, CacheRedisImpl> caches = new ConcurrentHashMap<>();
 
-  public ShiroRedisImpl() {
+  public CacheRedisImpl() {
   }
 
   /**
@@ -60,8 +57,8 @@ public class ShiroRedisImpl implements CacheService {
   public void init() {
     logger.debug("ShiroRedisImpl进行初始化");
     if (jedisPool == null) {
-      if (password != null && !"".equals(password)) {
-        jedisPool = new JedisPool(poolConfig, host, port, timeout, password);
+      if (StringUtils.isNotEmpty(password)) {
+        jedisPool = new JedisPool(poolConfig, host, port, Protocol.DEFAULT_TIMEOUT, password);
       } else if (timeout != 0) {
         jedisPool = new JedisPool(poolConfig, host, port, timeout);
       } else {
@@ -94,18 +91,17 @@ public class ShiroRedisImpl implements CacheService {
     if (StringUtils.isBlank(key)) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return null;
-    }
-    logger.debug("根据key从Redis中获取对象： key [{}]", key);
+    Jedis jedis = null;
     try {
+      jedis = jedisPool.getResource();
       byte[] value = jedis.get(assembleKey(nameSpace, key));
       if (null == value) {
         return null;
       }
       return SerializeUtils.deserialize(value);
+    } catch (Exception e) {
+      logger.error("从Redis获取对象时出错：{}", e.getMessage(), e);
+      return null;
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -136,18 +132,16 @@ public class ShiroRedisImpl implements CacheService {
     if (value == null) {
       throw new IllegalArgumentException("The cache value：'" + value + "' is invalid.");
     }
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return;
-    }
-    logger.debug("添加对象到Redis： nameSpace [{}]，key [{}]，expired [{}]", nameSpace, key, expired);
+    Jedis jedis = null;
     try {
+      jedis = jedisPool.getResource();
       byte[] assKey = assembleKey(nameSpace, key);
       jedis.set(assKey, SerializeUtils.serialize(value));
       if (expired != 0) {
         jedis.expire(key, expired);
       }
+    } catch (Exception e) {
+      logger.error("添加对象到Redis出错：{}", e.getMessage(), e);
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -165,14 +159,13 @@ public class ShiroRedisImpl implements CacheService {
     if (StringUtils.isBlank(key)) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
-    logger.debug("从redis中删除shiro对象： key [{}]", key);
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return false;
-    }
+    Jedis jedis = null;
     try {
+      jedis = jedisPool.getResource();
       return jedis.del(assembleKey(nameSpace, key)) > 0;
+    } catch (Exception e) {
+      logger.error("从Redis删除时出错：{}", e.getMessage(), e);
+      return false;
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -185,14 +178,14 @@ public class ShiroRedisImpl implements CacheService {
     if (StringUtils.isBlank(nameSpace)) {
       throw new IllegalArgumentException("The cache name：'" + nameSpace + "' is invalid.");
     }
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return null;
-    }
+    Jedis jedis = null;
     try {
+      jedis = jedisPool.getResource();
       Set<byte[]> keySet = jedis.keys(assembleKey(nameSpace, "*"));
       return keySet;
+    } catch (Exception e) {
+      logger.error("byteKeys出错：{}", e.getMessage(), e);
+      return null;
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -216,12 +209,9 @@ public class ShiroRedisImpl implements CacheService {
     if (StringUtils.isBlank(nameSpace)) {
       throw new IllegalArgumentException("The cache name：'" + nameSpace + "' is invalid.");
     }
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return 0;
-    }
+    Jedis jedis = null;
     try {
+      jedis = jedisPool.getResource();
       Set<byte[]> keySet = jedis.keys(assembleKey(nameSpace, "*"));
       byte[][] keys = new byte[keySet.size()][];
       int i = 0;
@@ -229,6 +219,9 @@ public class ShiroRedisImpl implements CacheService {
         keys[i++] = key;
       }
       return jedis.del(keys);
+    } catch (Exception e) {
+      logger.error("clearCache出错：{}", e.getMessage(), e);
+      return 0;
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -238,12 +231,12 @@ public class ShiroRedisImpl implements CacheService {
 
   @Override
   public void flushDB() {
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-    }
+    Jedis jedis = null;
     try {
+      jedis = jedisPool.getResource();
       jedis.flushDB();
+    } catch (Exception e) {
+      logger.error("flushDB出错：{}", e.getMessage(), e);
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -253,19 +246,18 @@ public class ShiroRedisImpl implements CacheService {
 
   @Override
   public Long dbSize() {
-    Long dbSize = 0L;
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-    }
+    Jedis jedis = null;
     try {
-      dbSize = jedis.dbSize();
+      jedis = jedisPool.getResource();
+      return jedis.dbSize();
+    } catch (Exception e) {
+      logger.error("dbSize出错：{}", e.getMessage(), e);
+      return 0L;
     } finally {
       if (jedis != null) {
         jedis.close();
       }
     }
-    return dbSize;
   }
 
   private byte[] assembleKey(String nameSpace, String key) {
@@ -283,25 +275,23 @@ public class ShiroRedisImpl implements CacheService {
 
   // *****************************************shiro使用的缓存方法开始*****************************************
 
-  public void set(byte[] key, byte[] value) {
-    this.set(key, value, expired);
-  }
+//  public void set(byte[] key, byte[] value) {
+//    this.set(key, value, expired);
+//  }
 
   public void set(byte[] key, byte[] value, int expired) {
     if (key == null || key.length < 1) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return;
-    }
+    Jedis jedis = null;
     try {
-      logger.debug("添加对象到redis： key [{}]，expired [{}]", key, expired);
+      jedis = jedisPool.getResource();
       jedis.set(key, value);
       if (expired != 0) {
         jedis.expire(key, expired);
       }
+    } catch (Exception e) {
+      logger.error("添加对象到redis出错：{}", e.getMessage(), e);
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -313,15 +303,14 @@ public class ShiroRedisImpl implements CacheService {
     if (key == null || key.length < 1) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return null;
-    }
+    Jedis jedis = null;
     try {
-      logger.debug("根据key从Redis中获取对象： key [{}]", key);
+      jedis = jedisPool.getResource();
       byte[] value = jedis.get(key);
       return value;
+    } catch (Exception e) {
+      logger.error("根据key从Redis中获取对象出错：{}", e.getMessage(), e);
+      return null;
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -333,14 +322,14 @@ public class ShiroRedisImpl implements CacheService {
     if (key == null || key.length < 1) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
-    Jedis jedis = jedisPool.getResource();
-    if (jedis == null) {
-      logger.error("从jedisPool获取jedis实例失败！");
-      return false;
-    }
+    Jedis jedis = null;
     try {
-      logger.debug("从redis中删除对象： key [{}]", key);
-      return jedis.del(key) > 0;
+      jedis = jedisPool.getResource();
+      boolean del = jedis.del(key) > 0;
+      return del;
+    } catch (Exception e) {
+      logger.error("从redis中删除对象出错：{}", e.getMessage(), e);
+      return false;
     } finally {
       if (jedis != null) {
         jedis.close();
@@ -395,14 +384,6 @@ public class ShiroRedisImpl implements CacheService {
     this.timeout = timeout;
   }
 
-  public int getExpired() {
-    return expired;
-  }
-
-  public void setExpired(int expired) {
-    this.expired = expired;
-  }
-
   public String getPrefix() {
     return prefix;
   }
@@ -416,6 +397,6 @@ public class ShiroRedisImpl implements CacheService {
   }
 
   public static void setJedisPool(JedisPool jedisPool) {
-    ShiroRedisImpl.jedisPool = jedisPool;
+    CacheRedisImpl.jedisPool = jedisPool;
   }
 }

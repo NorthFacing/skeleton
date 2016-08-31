@@ -1,6 +1,6 @@
 //package com.bob.core.filter;
 //
-//import com.bob.core.cache.redis.ShiroRedisImpl;
+//import com.bob.core.cache.redis.CacheRedisImpl;
 //import com.bob.core.contants.Constants;
 //import com.bob.core.session.LoginUser;
 //import com.bob.core.session.UserSession;
@@ -75,7 +75,7 @@
 //    }
 //    // 获取session
 //    WebApplicationContext context = ApplicationContextUtil.getContext();
-//    ShiroRedisImpl redis = (ShiroRedisImpl) context.getBean("cacheService");
+//    CacheRedisImpl redis = (CacheRedisImpl) context.getBean("cacheService");
 //    UserSession<LoginUser> session = (UserSession<LoginUser>) redis.get(userCookie.getValue());
 //    if (session == null) {
 //      redirectLogin(request, response);

@@ -1,4 +1,4 @@
-package com.demo.cert;
+package com.bob.core.utils.cert;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
