@@ -104,9 +104,9 @@ public abstract class BaseServiceImpl<T extends BaseEntity>
   @Override
   public <Q extends BaseQuery> Q pageData(Q query) {
     Long count = getMapper().count(query);
-    query.setTotalCount(count);
+    query.setTotal(count);
     List list = getMapper().query(query);
-    query.setResult(list);
+    query.setRows(list);
     return query;
   }
 
