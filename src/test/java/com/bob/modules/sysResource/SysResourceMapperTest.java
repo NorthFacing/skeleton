@@ -69,7 +69,7 @@ public class SysResourceMapperTest extends BaseMapperTest {
     Long count = sysResourceMapper.count(sysResourceQuery);
     Assert.assertTrue(count > 0);
 
-    sysResourceQuery.setTotalCount(count);
+    sysResourceQuery.setTotal(count);
 
     List<SysResource> result = sysResourceMapper.query(sysResourceQuery);
     Assert.assertNotNull(result);
