@@ -1,7 +1,6 @@
 $(function () {
 
-    $("#grid-data").bootgrid({
-        ajax: true,
+    $("#grid-data").bootgridWrapper({
         post: function () {
             /* To accumulate custom parameter with the request object */
             return {

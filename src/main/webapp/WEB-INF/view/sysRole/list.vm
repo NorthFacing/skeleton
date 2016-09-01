@@ -20,30 +20,6 @@
           <li><a href="#">医院管理</a></li>
         </ol>
       </div>
-      <div class="row">
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="status">医院等级</label>
-            <select class="form-control" id="type">
-              <option value="">全部</option>
-              <option value="1">省级医院</option>
-              <option value="2">市级医院</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="name">医院名称</label>
-            <input type="text" class="form-control" placeholder="医院名称" id="name">
-          </div>
-          <a class="btn btn-info" href="#" role="button" id="search-btn">
-            <i class="glyphicon glyphicon-search"></i>
-            查询
-          </a>
-          <a class="btn btn-info" href="$!{path}/admin/sysRole/add" role="button" id="add-btn">
-            <i class="glyphicon glyphicon-ok"></i>
-            新增
-          </a>
-        </form>
-      </div>
 
       <table id="grid-data" class="table table-hover table-striped">
         <thead>

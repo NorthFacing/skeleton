@@ -128,6 +128,8 @@ var CommonUI = {
 $.fn.extend({
     bootgridWrapper: function (options) {
         var opts = $.extend({
+            ajax: true,
+            navigation: 2,
             labels: {
                 infos: "显示第 {{ctx.start}} 到第 {{ctx.end}} 条记录，总共 {{ctx.total}} 条记录",
                 noResults: "没有数据！"

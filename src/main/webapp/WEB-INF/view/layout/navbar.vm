@@ -1,5 +1,5 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
+<header class="navbar-inverse">
+  <div class="container clearfix">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
               aria-expanded="false" aria-controls="navbar">
@@ -8,14 +8,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="$!{path}/admin/login">统一配置管理中心</a>
+      <a class="navbar-brand" href="$!{path}/admin/login">WEB脚手架</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">欢迎您 </a></li>
-        <li><a href="#" id="rePassword">修改密码</a></li>
+##        <li><a href="#" id="rePassword">修改密码</a></li>
         <li><a href="$!{path}/admin/logout">退出</a></li>
       </ul>
     </div>
   </div>
-</nav>
+</header>

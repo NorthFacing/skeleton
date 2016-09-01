@@ -1,3 +1,5 @@
+#set($layout="/WEB-INF/view/layout/empty.vm")
+
 <!DOCTYPE html>
 <html>
 <head>

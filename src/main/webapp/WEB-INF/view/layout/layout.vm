@@ -1,17 +1,26 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  ...省略...
+    #parse("/WEB-INF/view/layout/base.vm")
+    #parse("/WEB-INF/view/layout/head.vm")
+  <title>$!{title}</title>
 </head>
 <body>
-<div id="header">
-  Hello header.
+    #parse("/WEB-INF/view/layout/navbar.vm")
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 col-sm-12">
+        #parse("/WEB-INF/view/layout/menu.vm")
+    </div>
+    <div class="col-md-10 col-sm-12">
+        $screen_content
+    </div>
+  </div>
 </div>
-<div id="content">
-  <div id="main">$screen_content</div>
 </div>
-<div id="footer">
-  Hello footer.
-</div>
+    #parse("/WEB-INF/view/layout/bottom.vm")
+    #foreach( $js in $!addJS )
+        <script src="$!{path}/resources$!js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+    #end
 </body>
 </html>

@@ -84,7 +84,7 @@
         <property name="exposeSpringMacroHelpers" value="true"/><!--是否使用spring对宏定义的支持 -->
         <property name="exposeRequestAttributes" value="true"/><!--是否开放request属性 -->
         <property name="requestContextAttribute" value="rc"/><!--request属性引用名称 -->
-        <property name="layoutUrl" value="/WEB-INF/view/layout/empty.vm"/>
+        <property name="layoutUrl" value="/WEB-INF/view/layout/layout.vm"/>
     </bean>
     <!-- velocity end -->
 
