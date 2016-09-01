@@ -1,12 +1,14 @@
 /*override*/
-.navbar {
-    margin-bottom: 0;
+.navbar-default{
+    background-color: #ccc;
+    border-color: #ccc;
 }
 
 .breadcrumb {
     border-radius: 0;
     line-height: 15px;
 }
+
 
 .left-title {
     padding: 10px 0px 10px 25px;
