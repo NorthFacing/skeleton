@@ -5,11 +5,13 @@
 
 .breadcrumb {
     border-radius: 0;
+    line-height: 15px;
 }
 
 .left-title {
     padding: 10px 0px 10px 25px;
     background-color: #dadada;
-    font-size: 150%;
+    font-size: 120%;
     font-weight: bold;
+    line-height: 12px;
 }
