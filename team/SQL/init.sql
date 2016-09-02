@@ -17,16 +17,12 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`skeleton` /*!40100 DEFAULT CHARACTER SE
 
 USE `skeleton`;
 
-/*Table structure for table `sys_login_log` */
+/*Table structure for table `base_entity` */
 
-DROP TABLE IF EXISTS `sys_login_log`;
+DROP TABLE IF EXISTS `base_entity`;
 
-CREATE TABLE `sys_login_log` (
+CREATE TABLE `base_entity` (
   `ID` varchar(32) NOT NULL COMMENT 'ID',
-  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
-  `user_name` varbinary(127) DEFAULT NULL COMMENT '用户名',
-  `login_time` datetime DEFAULT NULL COMMENT '登陆时间',
-  `status` tinyint(1) DEFAULT NULL COMMENT '状态',
   `create_time` datetime DEFAULT NULL COMMENT '创建用户',
   `create_user` varchar(127) DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改用户',
@@ -34,17 +30,76 @@ CREATE TABLE `sys_login_log` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `base_entity` */
+
+insert  into `base_entity`(`ID`,`create_time`,`create_user`,`update_time`,`update_user`) values ('0226D51B93054654BA3B8DA08F0F6829','2016-02-01 14:43:56','admin','2016-02-01 14:43:56','admin'),('1875710EEBC7488EB6167AA39814B845','2016-02-01 14:35:24','admin','2016-02-01 14:35:24','admin'),('38353CE247D34BBBB071E923A114C2AC','2016-02-01 15:12:57','admin','2016-02-01 15:12:57','admin'),('3EFCE521ED1A4F1EBA6A1FD69F835B0A','2016-02-01 15:12:57','admin','2016-02-01 15:12:57','admin'),('447B491CB77848D5B22F3A06169A2417','2016-02-01 14:35:24','admin','2016-02-01 14:35:24','admin'),('4E5047874C374D3F804FF5C4FE463BCE','2016-02-01 15:11:12','admin','2016-02-01 15:11:12','admin'),('5339842FF9564AB39BE0D432D83AAA43','2016-02-01 15:11:12','admin','2016-02-01 15:11:12','admin'),('5E1FAF8E81404022870F6889180D83BD','2016-01-03 01:36:47','TODO-ADD','2016-01-03 01:36:47','TODO-UPDATE'),('7CEB65B8D29E44F895F680E7DAE59197','2016-02-01 14:43:56','admin','2016-02-01 14:43:56','admin'),('9D72E632A23348AC8399207B60C0D0BE','2016-01-03 01:31:48','TODO-ADD','2016-01-03 01:31:48','TODO-ADD'),('C4C378A3C8F84EC0A5284BC5CE3CE631','2016-01-03 01:37:05','TODO-ADD','2016-01-03 01:37:05','TODO-UPDATE'),('E660FDFA716146EFB5F79D79EC78EB02','2016-01-03 01:31:48','TODO-ADD','2016-01-03 01:31:48','TODO-UPDATE');
+
+/*Table structure for table `sys_log` */
+
+DROP TABLE IF EXISTS `sys_log`;
+
+CREATE TABLE `sys_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `corp_id` varchar(45) DEFAULT NULL COMMENT '医院ID',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
+  `user_name` varchar(200) DEFAULT NULL COMMENT '用户姓名',
+  `user_ip` varchar(45) DEFAULT NULL COMMENT 'IP',
+  `data_id` varchar(32) DEFAULT NULL COMMENT '数据ID',
+  `opr_name` varchar(100) DEFAULT NULL COMMENT '操作名称',
+  `opr_type` varchar(100) DEFAULT NULL COMMENT '操作类型',
+  `opr_time` datetime DEFAULT NULL COMMENT '操作时间',
+  `module` varchar(300) DEFAULT NULL COMMENT '模块',
+  `url` varchar(300) DEFAULT NULL COMMENT 'URL地址',
+  `in_params` text COMMENT '入参',
+  `out_params` text COMMENT '出参',
+  `create_time` datetime DEFAULT NULL,
+  `create_user` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
+
+/*Data for the table `sys_log` */
+
+/*Table structure for table `sys_login_log` */
+
+DROP TABLE IF EXISTS `sys_login_log`;
+
+CREATE TABLE `sys_login_log` (
+  `ID` varchar(32) NOT NULL COMMENT 'ID',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `user_name` varchar(127) DEFAULT NULL COMMENT '用户名',
+  `login_time` datetime DEFAULT NULL COMMENT '登陆时间',
+  `login_ip` varchar(127) DEFAULT NULL COMMENT '登陆IP',
+  `status` tinyint(1) DEFAULT NULL COMMENT '状态',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user` varchar(127) DEFAULT NULL COMMENT '创建用户',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user` varchar(127) DEFAULT NULL COMMENT '修改用户',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sys_login_log` */
+
+insert  into `sys_login_log`(`ID`,`user_id`,`user_name`,`login_time`,`login_ip`,`status`,`create_time`,`create_user`,`update_time`,`update_user`) values ('04DCE085FDA5417CB93A3FFE3783E6CC',NULL,'admin','2016-01-13 14:03:52','127.0.0.1',NULL,'2016-01-13 14:03:53','admin','2016-01-13 14:03:53','admin'),('0A71C4775E6C43A7854C8779A494DFC4',NULL,NULL,NULL,NULL,NULL,'2016-01-13 13:52:33','admin','2016-01-13 13:52:33','admin'),('0AF675CAF18C4F86859D0CFB25AE7279',NULL,'admin','2016-01-23 21:49:05','127.0.0.1',NULL,'2016-01-23 21:49:05','admin','2016-01-23 21:49:05','admin'),('1431F5293573446CB9DF08847BF45285',NULL,'admin','2016-09-01 09:43:59','127.0.0.1',NULL,'2016-09-01 09:43:59','admin','2016-09-01 09:43:59','admin'),('191BF82861A044B18C5F459ED99E0ED1',NULL,'admin','2016-01-13 21:57:12','127.0.0.1',NULL,'2016-01-13 21:57:12','admin','2016-01-13 21:57:12','admin'),('1B81CABEE5884474AE94248762651818',NULL,'admin','2016-01-13 18:52:40','127.0.0.1',NULL,'2016-01-13 18:52:40','admin','2016-01-13 18:52:40','admin'),('1DDC56DEB8FC4145B25D5E8BE50D9E19',NULL,'admin','2016-01-13 19:37:02','127.0.0.1',NULL,'2016-01-13 19:37:02','admin','2016-01-13 19:37:02','admin'),('1E149B659095477AA35CC6A986516943',NULL,'admin','2016-01-15 11:52:18','127.0.0.1',NULL,'2016-01-15 11:52:18','admin','2016-01-15 11:52:18','admin'),('1E1F28EB67264A48993787CBB0A7AF5D',NULL,'admin','2016-01-15 11:49:52','127.0.0.1',NULL,'2016-01-15 11:49:53','admin','2016-01-15 11:49:53','admin'),('2251A4B40EB24E21A1F60ED19DCE9BB4',NULL,'admin','2016-09-01 10:28:32','127.0.0.1',NULL,'2016-09-01 10:28:32','admin','2016-09-01 10:28:32','admin'),('2997C0068A794A41A65196C75C89BC36',NULL,'admin','2016-08-31 23:40:29','127.0.0.1',NULL,'2016-08-31 23:40:29','admin','2016-08-31 23:40:29','admin'),('2CB8995A516D472FA2F2938CC1FFB429',NULL,'admin','2016-01-23 21:59:47','127.0.0.1',NULL,'2016-01-23 21:59:47','admin','2016-01-23 21:59:47','admin'),('338CE93891B24BB28CA0AFF8C68A82D5',NULL,'admin','2016-09-01 10:25:30','127.0.0.1',NULL,'2016-09-01 10:25:30','admin','2016-09-01 10:25:30','admin'),('40C22BFC7C9B4B249E381F6714BE3470',NULL,'admin','2016-04-08 11:32:20','127.0.0.1',NULL,'2016-04-08 11:32:20','admin','2016-04-08 11:32:20','admin'),('4481D46268F84CD5B6722AA2B69D59D2',NULL,'admin','2016-01-14 11:07:18','127.0.0.1',NULL,'2016-01-14 11:07:18','admin','2016-01-14 11:07:18','admin'),('4660A72904BD4D02817FFF049D58463C',NULL,'admin','2016-09-01 14:06:58','127.0.0.1',NULL,'2016-09-01 14:06:58','admin','2016-09-01 14:06:58','admin'),('474852B43506425FA2539CCBE2328B54',NULL,'admin','2016-09-01 11:51:37','127.0.0.1',NULL,'2016-09-01 11:51:37','admin','2016-09-01 11:51:37','admin'),('4C7BFD9B38AB4F91A0C3E3853EECEBEF',NULL,'admin','2016-09-01 11:53:17','127.0.0.1',NULL,'2016-09-01 11:53:17','admin','2016-09-01 11:53:17','admin'),('50CA6E576673437EB8C7958035A9ECD0',NULL,NULL,NULL,NULL,NULL,'2016-01-13 13:55:42','admin','2016-01-13 13:55:42','admin'),('59B807184BF4420CBE46941DBABCC4D0',NULL,'admin','2016-01-13 19:30:46','127.0.0.1',NULL,'2016-01-13 19:30:46','admin','2016-01-13 19:30:46','admin'),('5D15915A279E44ADBD9A9B33538CD205',NULL,'admin','2016-09-01 09:40:44','127.0.0.1',NULL,'2016-09-01 09:40:44','admin','2016-09-01 09:40:44','admin'),('5E9BB3D9EADF40C48253DA2D3B7A48C9',NULL,'admin','2016-01-13 22:03:10','127.0.0.1',NULL,'2016-01-13 22:03:10','admin','2016-01-13 22:03:10','admin'),('61162565F98B473D8CE8EA9601BACAFD',NULL,'admin','2016-08-31 23:44:17','127.0.0.1',NULL,'2016-08-31 23:44:17','admin','2016-08-31 23:44:17','admin'),('62074023DEBA4B64A21CAA2F4E3F1CC6',NULL,'admin','2016-01-14 10:50:51','127.0.0.1',NULL,'2016-01-14 10:50:51','admin','2016-01-14 10:50:51','admin'),('6FD7A51E67EE4BA4B8769F122EDAB0F7',NULL,'admin','2016-01-13 17:04:53','127.0.0.1',NULL,'2016-01-13 17:04:59','admin','2016-01-13 17:04:59','admin'),('72DA1479D93E475D8A7F63C37E52CAE5',NULL,'admin','2016-01-14 11:35:25','127.0.0.1',NULL,'2016-01-14 11:35:25','admin','2016-01-14 11:35:25','admin'),('777A2D22B2DA43F2B8554A9E5EE36A9E',NULL,'admin','2016-08-31 22:14:19','127.0.0.1',NULL,'2016-08-31 22:14:19','admin','2016-08-31 22:14:19','admin'),('7BB0964CD2C246D485BD74C7EBF3EA78',NULL,'admin','2016-04-08 12:23:47','127.0.0.1',NULL,'2016-04-08 12:23:47','admin','2016-04-08 12:23:47','admin'),('7CB34457A7BD44D3A71AE0893A995076',NULL,'admin','2016-09-01 10:58:19','127.0.0.1',NULL,'2016-09-01 10:58:19','admin','2016-09-01 10:58:19','admin'),('8AD10155FA5A42A1BEB40E35F16C1EFE',NULL,'admin','2016-01-13 21:46:17','127.0.0.1',NULL,'2016-01-13 21:46:17','admin','2016-01-13 21:46:17','admin'),('8B6D1704308C4E97963DEE0D2CD3073C',NULL,'admin','2016-09-01 10:59:05','0:0:0:0:0:0:0:1',NULL,'2016-09-01 10:59:05','admin','2016-09-01 10:59:05','admin'),('8E493A11FD084FF0BFB1566110546B75',NULL,'admin','2016-09-01 13:02:00','127.0.0.1',NULL,'2016-09-01 13:02:00','admin','2016-09-01 13:02:00','admin'),('8F99DFD68A124E24A632EC835B16F47C',NULL,'admin','2016-01-24 00:01:01','127.0.0.1',NULL,'2016-01-24 00:01:01','admin','2016-01-24 00:01:01','admin'),('8FFE831B9BF94A27A050F427BC54C29E',NULL,'admin','2016-01-13 22:15:18','127.0.0.1',NULL,'2016-01-13 22:15:18','admin','2016-01-13 22:15:18','admin'),('95988B67F7CC453697303FB305D1E1DD',NULL,'admin','2016-01-13 21:55:18','127.0.0.1',NULL,'2016-01-13 21:55:18','admin','2016-01-13 21:55:18','admin'),('988BABF9324743FD9685815EA9B7A235',NULL,'admin','2016-09-01 13:32:21','127.0.0.1',NULL,'2016-09-01 13:32:21','admin','2016-09-01 13:32:21','admin'),('991B4E864D064027BD4AC5FB92D105F5',NULL,'admin','2016-01-14 11:17:13','127.0.0.1',NULL,'2016-01-14 11:17:13','admin','2016-01-14 11:17:13','admin'),('9EA1D202F87B4A18B23E5FBE76D1AC59',NULL,'admin','2016-09-01 10:29:24','127.0.0.1',NULL,'2016-09-01 10:29:24','admin','2016-09-01 10:29:24','admin'),('A74000F4C4304B9996535B5AB53C2841',NULL,'admin','2016-02-01 16:41:12','127.0.0.1',NULL,'2016-02-01 16:41:13','admin','2016-02-01 16:41:13','admin'),('A9F0CAEE2FC944A3891FBEB962A8D837',NULL,'admin','2016-01-13 18:27:15','127.0.0.1',NULL,'2016-01-13 18:27:15','admin','2016-01-13 18:27:15','admin'),('AA960D1D50DA476480F82D53E147A922',NULL,'admin','2016-09-01 10:26:42','127.0.0.1',NULL,'2016-09-01 10:26:42','admin','2016-09-01 10:26:42','admin'),('AAA34E2B3A4D433CA29CF0B5DD3F00F0',NULL,'admin','2016-01-15 11:39:59','127.0.0.1',NULL,'2016-01-15 11:39:59','admin','2016-01-15 11:39:59','admin'),('B5BFF0085AF6490FA0EF8B728C0931E3',NULL,'chromeName',NULL,NULL,NULL,'2016-01-13 14:04:49','admin','2016-01-13 14:04:49','admin'),('BC0B24A35AF64888B062C281CB1E0749',NULL,'admin','2016-02-01 16:35:55','127.0.0.1',NULL,'2016-02-01 16:35:55','admin','2016-02-01 16:35:55','admin'),('C0F3C9ED8E084288B0CDBEF287E7C425',NULL,'admin','2016-09-01 13:55:32','127.0.0.1',NULL,'2016-09-01 13:55:32','admin','2016-09-01 13:55:32','admin'),('CB85E4599CFD46A1A26F13CE37C4ECB4',NULL,'admin','2016-01-23 22:30:40','127.0.0.1',NULL,'2016-01-23 22:30:40','admin','2016-01-23 22:30:40','admin'),('CD73D67B8D6A4686A4E48637A8F077DC',NULL,'admin','2016-01-14 11:24:48','127.0.0.1',NULL,'2016-01-14 11:24:48','admin','2016-01-14 11:24:48','admin'),('CE0782AEB8CC455D99D0E5A39AFF84FA',NULL,'admin','2016-01-24 00:41:44','127.0.0.1',NULL,'2016-01-24 00:41:44','admin','2016-01-24 00:41:44','admin'),('D1FE3E3B18EC444893FBB3344232E938',NULL,'admin','2016-09-01 10:26:55','127.0.0.1',NULL,'2016-09-01 10:26:55','admin','2016-09-01 10:26:55','admin'),('D683729F389943E3BD2A63343E09E680',NULL,'admin','2016-09-01 10:27:03','127.0.0.1',NULL,'2016-09-01 10:27:03','admin','2016-09-01 10:27:03','admin'),('E59B57766693431E8DB3F7EF76D28D89',NULL,'admin','2016-04-08 15:20:37','127.0.0.1',NULL,'2016-04-08 15:20:37','admin','2016-04-08 15:20:37','admin'),('E71AA721BF574B828C3121DE4F684580',NULL,'admin','2016-09-01 12:31:56','127.0.0.1',NULL,'2016-09-01 12:31:56','admin','2016-09-01 12:31:56','admin'),('E8EAC68F17ED4663A2D8404D9A05568E',NULL,'admin','2016-01-23 22:27:26','127.0.0.1',NULL,'2016-01-23 22:27:28','admin','2016-01-23 22:27:28','admin'),('EBE08F64ECFE49D6AFBDE9F8356A31C9',NULL,'admin','2016-04-08 12:25:09','127.0.0.1',NULL,'2016-04-08 12:25:09','admin','2016-04-08 12:25:09','admin'),('EC95268B51744E76B0B42393B321F8F5',NULL,'admin','2016-09-01 09:54:45','127.0.0.1',NULL,'2016-09-01 09:54:45','admin','2016-09-01 09:54:45','admin'),('F5DDF0B4DAC14649AAF85E1DE4D08010',NULL,'admin','2016-09-01 14:31:36','127.0.0.1',NULL,'2016-09-01 14:31:37','admin','2016-09-01 14:31:37','admin'),('F7194F53A1B34290961B3DBEFD99C8F0',NULL,'admin','2016-01-13 17:50:34','127.0.0.1',NULL,'2016-01-13 17:50:34','admin','2016-01-13 17:50:34','admin');
+
 /*Table structure for table `sys_orgnization` */
 
 DROP TABLE IF EXISTS `sys_orgnization`;
 
 CREATE TABLE `sys_orgnization` (
-  `id` varchar(32) NOT NULL,
-  `parent_id` varchar(32) DEFAULT NULL,
-  `name` varchar(127) DEFAULT NULL,
-  `full_name` varbinary(255) DEFAULT NULL,
+  `id` varchar(32) NOT NULL COMMENT 'ID',
+  `parent_id` varchar(32) DEFAULT NULL COMMENT '父节点ID',
+  `code` varchar(32) DEFAULT NULL COMMENT '编码',
+  `name` varchar(127) DEFAULT NULL COMMENT '名称',
+  `full_name` varchar(255) DEFAULT NULL COMMENT '全程',
+  `status` tinyint(2) DEFAULT NULL COMMENT '状态',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user` varchar(127) DEFAULT NULL COMMENT '创建用户',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user` varchar(127) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sys_orgnization` */
 
 /*Table structure for table `sys_resource` */
 
@@ -54,17 +109,24 @@ CREATE TABLE `sys_resource` (
   `id` varchar(32) NOT NULL COMMENT 'ID',
   `parent_id` varchar(32) DEFAULT NULL COMMENT '父节点ID',
   `name` varchar(127) DEFAULT NULL COMMENT '名称',
-  `res_url` varchar(255) DEFAULT NULL COMMENT '资源路径',
-  `type` tinyint(1) DEFAULT NULL COMMENT '类型',
-  `level` tinyint(1) DEFAULT NULL COMMENT '层级',
+  `type` enum('1','2') DEFAULT NULL COMMENT '类型：1，菜单权限；2，按钮权限',
+  `shiro_key` varchar(127) DEFAULT NULL COMMENT 'shiro判断资源权限标识符（必填）',
+  `res_url` varchar(255) DEFAULT NULL COMMENT '菜单路径（菜单类型时必填）',
+  `res_level` tinyint(2) DEFAULT NULL COMMENT '菜单层级（菜单类型时必填）',
+  `res_priority` tinyint(3) DEFAULT NULL COMMENT '菜单顺序（菜单类型时必填）',
+  `res_code` varchar(127) DEFAULT NULL COMMENT '菜单CODE（自动生成）',
   `description` varchar(255) DEFAULT NULL COMMENT '描述',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
-  `create_time` datetime DEFAULT NULL COMMENT '创建用户',
-  `create_user` varchar(127) DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改用户',
-  `update_user` varchar(127) DEFAULT NULL COMMENT '修改时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user` varchar(127) DEFAULT NULL COMMENT '创建用户',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user` varchar(127) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sys_resource` */
+
+insert  into `sys_resource`(`id`,`parent_id`,`name`,`type`,`shiro_key`,`res_url`,`res_level`,`res_priority`,`res_code`,`description`,`status`,`create_time`,`create_user`,`update_time`,`update_user`) values ('0528B4B7C6D4413CACFAA9C293683A29','54A37FD78E30431DA23B1FAE92F70A1C','新增','2','sysResource:add','sysResource/add',NULL,NULL,NULL,'权限新增',NULL,'2016-01-04 18:45:13','admin','2016-01-04 18:45:13','admin'),('0B775C1306CC42C8A5D3B5467530C086',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 14:43:56','admin','2016-02-01 14:43:56','admin'),('1A7AA62A40D647A4A433A1A213415F7E','9710AB7F5EAB4992B007E4FA293ED495','用户管理','1','sysUser:list','sysUser/list',2,NULL,NULL,'用户管理',NULL,'2016-01-04 18:41:48','admin','2016-01-04 18:41:48','admin'),('1E15F8AA64EA43959FE1D2794853E0BF','C1B285463D4D47AAA5C5420215A68E06','修改','2','sysRole:update','sysRole/update',NULL,NULL,NULL,'角色修改',NULL,'2016-01-04 18:47:49','admin','2016-01-04 18:47:49','admin'),('259B05FD81BE46B093715F6551A5E256',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 15:11:12','admin','2016-02-01 15:11:12','admin'),('26DECF2CC94C4632B3735DFCFBF9CD2C',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 14:35:24','admin','2016-02-01 14:35:24','admin'),('28D57B52BAA64A0FBDA9CAC96756CEEA','1A7AA62A40D647A4A433A1A213415F7E','新增','2','sysUser:add','sysUser/add',NULL,NULL,NULL,'用户新增',NULL,'2016-01-04 18:50:59','admin','2016-01-04 18:50:59','admin'),('320200931F1F46CCA80B645C9CC718CD',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 14:35:23','admin','2016-02-01 14:35:23','admin'),('3FFDCEBEEB144133861AA6C67BBF4F86',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 14:35:24','admin','2016-02-01 14:35:24','admin'),('41370C085C7240FA98CE360A4F0B224F',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 14:43:55','admin','2016-02-01 14:43:55','admin'),('54A37FD78E30431DA23B1FAE92F70A1C','9710AB7F5EAB4992B007E4FA293ED495','权限管理','1','sysResource:list','sysResource/list',2,NULL,NULL,'权限管理',NULL,'2016-01-04 18:43:31','admin','2016-01-04 18:43:31','admin'),('58164C307C8B47E2AB82F5E567F03A80','C1B285463D4D47AAA5C5420215A68E06','新增','2','sysRole:add','sysRole/add',NULL,NULL,NULL,'角色新增',NULL,'2016-01-04 18:47:30','admin','2016-01-04 18:47:30','admin'),('595BC15DC3CC4B4EA05D97F4CC424B2B',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 15:11:11','admin','2016-02-01 15:11:11','admin'),('6333177057C243FDA7B4B0A8D50FF1B0',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 15:12:57','admin','2016-02-01 15:12:57','admin'),('635BDCE534EF4C79B136C032DAE30E3A',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 15:12:56','admin','2016-02-01 15:12:56','admin'),('73E88131A9174D498D7E82B0E3CBA319','54A37FD78E30431DA23B1FAE92F70A1C','修改','2','sysResource:update','sysResource/update',NULL,NULL,NULL,'权限修改',NULL,'2016-01-04 18:45:58','admin','2016-01-04 18:45:58','admin'),('76CDA720F1D94419B369ADD2E584B9A3','54A37FD78E30431DA23B1FAE92F70A1C','删除','2','sysResource:delete','sysResource/delete',NULL,NULL,NULL,'权限删除',NULL,'2016-01-04 18:46:21','admin','2016-01-04 18:46:21','admin'),('797185C8CD824606BC5C3182B4CFDD78',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 15:11:12','admin','2016-02-01 15:11:12','admin'),('963F7D07EDBE43E9BF2150649AA29909',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 15:12:57','admin','2016-02-01 15:12:57','admin'),('9710AB7F5EAB4992B007E4FA293ED495',NULL,'用户权限管理','1','sysUserModule','',1,NULL,NULL,'用户权限管理',NULL,'2016-01-04 17:39:01','admin','2016-01-04 17:39:01','admin'),('9BABDFC7E9C14FDFA310110DADE37662',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 15:11:12','admin','2016-02-01 15:11:12','admin'),('9CDFEC27D4584AEA8406FB708563FEC3',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 15:11:12','admin','2016-02-01 15:11:12','admin'),('ADC70D7073C14449B41E7A9A42F1A9C2',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 14:43:56','admin','2016-02-01 14:43:56','admin'),('BC11AAECA1C445609B3CDCC055703E24',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 15:12:57','admin','2016-02-01 15:12:57','admin'),('C1B285463D4D47AAA5C5420215A68E06','9710AB7F5EAB4992B007E4FA293ED495','角色管理','1','sysRole:list','sysRole/list',2,NULL,NULL,'角色管理',NULL,'2016-01-04 18:42:33','admin','2016-01-04 18:42:33','admin'),('CA3DDFB1D070497A8D8907F7DD56B778','1A7AA62A40D647A4A433A1A213415F7E','删除','2','sysUser:delete','sysUser/delete',NULL,NULL,NULL,'用户删除',NULL,'2016-01-04 18:52:28','admin','2016-01-04 18:52:28','admin'),('CCAA263A7DA543F5A87347B2F38107E5','C1B285463D4D47AAA5C5420215A68E06','删除','2','sysRole:delete','sysRole/delete',NULL,NULL,NULL,'角色删除',NULL,'2016-01-04 18:49:48','admin','2016-01-04 18:49:48','admin'),('CF6BDDE1A3534201A43264AA79AF0FE2',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 14:43:56','admin','2016-02-01 14:43:56','admin'),('E264C1BC7AF14298A9EF8DC28E680717',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 14:35:24','admin','2016-02-01 14:35:24','admin'),('E2C058DBFB744364B6B4E6F0856CE9F7',NULL,'name',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,'2016-02-01 14:43:56','admin','2016-02-01 14:43:56','admin'),('E83B3D477407439BB776F33482D34DA2',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 14:35:24','admin','2016-02-01 14:35:24','admin'),('EBD942689BF744208D8A31E014A718B9','1A7AA62A40D647A4A433A1A213415F7E','修改','2','sysUser:update','sysUser/update',NULL,NULL,NULL,'用户修改',NULL,'2016-01-04 18:52:04','admin','2016-01-04 18:52:04','admin'),('F30400E9DD6E4DE0AC82B699D9261004',NULL,'Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2016-02-01 15:12:57','admin','2016-02-01 15:12:57','admin');
 
 /*Table structure for table `sys_role` */
 
@@ -75,12 +137,16 @@ CREATE TABLE `sys_role` (
   `name` varchar(127) DEFAULT NULL COMMENT '名称',
   `description` varchar(255) DEFAULT NULL COMMENT '描述',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
-  `create_time` datetime DEFAULT NULL COMMENT '创建用户',
-  `create_user` varchar(127) DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改用户',
-  `update_user` varchar(127) DEFAULT NULL COMMENT '修改时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user` varchar(127) DEFAULT NULL COMMENT '创建用户',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user` varchar(127) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sys_role` */
+
+insert  into `sys_role`(`id`,`name`,`description`,`status`,`create_time`,`create_user`,`update_time`,`update_user`) values ('043E7752194A45D38121959BF41B43F8','chagne','test2',NULL,'2016-01-04 22:01:09','admin','2016-01-04 22:07:18','admin'),('23286875381C440D8930963AB221ADE5','管理员','系统管理员',NULL,'2016-01-04 19:00:04','TODO-ADD','2016-01-04 19:00:04','TODO-ADD'),('634E7E0AEF8843BBA51E59A79DC14BE9','asdf','asdf',NULL,'2016-01-04 22:11:40','admin','2016-01-04 22:11:40','admin');
 
 /*Table structure for table `sys_role_resource` */
 
@@ -88,15 +154,19 @@ DROP TABLE IF EXISTS `sys_role_resource`;
 
 CREATE TABLE `sys_role_resource` (
   `id` varchar(32) NOT NULL COMMENT 'ID',
-  `role_id` varchar(32) DEFAULT NULL COMMENT 'roleId',
-  `resource_id` varchar(32) DEFAULT NULL COMMENT 'resourceId',
+  `role_id` varchar(32) DEFAULT NULL COMMENT '角色ID',
+  `resource_id` varchar(32) DEFAULT NULL COMMENT '权限ID',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
-  `create_time` datetime DEFAULT NULL COMMENT '创建用户',
-  `create_user` varchar(127) DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改用户',
-  `update_user` varchar(127) DEFAULT NULL COMMENT '修改时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user` varchar(127) DEFAULT NULL COMMENT '创建用户',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user` varchar(127) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sys_role_resource` */
+
+insert  into `sys_role_resource`(`id`,`role_id`,`resource_id`,`status`,`create_time`,`create_user`,`update_time`,`update_user`) values ('083F93D19F2D40BBAF8BA42FE0FAEA0D','634E7E0AEF8843BBA51E59A79DC14BE9','',NULL,'2016-01-04 22:11:54','admin','2016-01-04 22:11:54','admin'),('32F4DC9289624947A42627B48AB539A4','634E7E0AEF8843BBA51E59A79DC14BE9','',NULL,'2016-01-04 22:11:54','admin','2016-01-04 22:11:54','admin'),('7305046E25554B55BCB8ED1F70954B8C','043E7752194A45D38121959BF41B43F8','345',NULL,'2016-01-04 22:07:35','admin','2016-01-04 22:07:35','admin'),('8A7441AC525848B0A38C797A3346F169','043E7752194A45D38121959BF41B43F8','123',NULL,'2016-01-04 22:07:35','admin','2016-01-04 22:07:35','admin'),('8D23613ACCEA492895CD31678F4E1404','043E7752194A45D38121959BF41B43F8','234',NULL,'2016-01-04 22:07:35','admin','2016-01-04 22:07:35','admin'),('E5F84899C8F14256B072448148F6AF65','634E7E0AEF8843BBA51E59A79DC14BE9','123',NULL,'2016-01-04 22:11:54','admin','2016-01-04 22:11:54','admin');
 
 /*Table structure for table `sys_user` */
 
@@ -106,7 +176,8 @@ CREATE TABLE `sys_user` (
   `id` varchar(32) NOT NULL COMMENT 'ID',
   `user_name` varchar(127) DEFAULT NULL COMMENT '用户名/登录名',
   `nick_name` varchar(127) DEFAULT NULL COMMENT '昵称/显示名',
-  `pass_word` varbinary(127) DEFAULT NULL COMMENT '密码',
+  `pass_word` varchar(127) DEFAULT NULL COMMENT '密码',
+  `salt` varchar(32) DEFAULT NULL COMMENT '加密盐',
   `dep_id` varchar(32) DEFAULT NULL COMMENT '归属部门ID',
   `dep_code` varchar(127) DEFAULT NULL COMMENT '归属部门CODE',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
@@ -117,21 +188,27 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `sys_user` */
+
+insert  into `sys_user`(`id`,`user_name`,`nick_name`,`pass_word`,`salt`,`dep_id`,`dep_code`,`status`,`create_time`,`create_user`,`update_time`,`update_user`) values ('CD831B40875D45FDB6997FA169E50189','admin','超级管理员','d7209dd1279db11d279baf881d4260bd','42241c898ff16edc4673fe51ad3ef212',NULL,NULL,NULL,'2016-01-04 14:56:56','admin','2016-01-04 14:56:56','admin');
+
 /*Table structure for table `sys_user_role` */
 
 DROP TABLE IF EXISTS `sys_user_role`;
 
 CREATE TABLE `sys_user_role` (
   `id` varchar(32) NOT NULL COMMENT 'ID',
-  `user_id` varchar(32) DEFAULT NULL COMMENT 'userId',
-  `role_id` varchar(32) DEFAULT NULL COMMENT 'roleId',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `role_id` varchar(32) DEFAULT NULL COMMENT '角色ID',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
-  `create_time` datetime DEFAULT NULL COMMENT '创建用户',
-  `create_user` varchar(127) DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改用户',
-  `update_user` varchar(127) DEFAULT NULL COMMENT '修改时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user` varchar(127) DEFAULT NULL COMMENT '创建用户',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user` varchar(127) DEFAULT NULL COMMENT '修改用户',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sys_user_role` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
