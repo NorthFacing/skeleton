@@ -75,20 +75,21 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!-- cacheManager -->
-    <bean id="shiroCacheManager" class="com.bob.core.utils.shiro.shiroRedis.ShiroRedisCacheManager">
-        <property name="shiroRedisImpl" ref="shiroRedisImpl"/>
-        <property name="nameSpace" value="shiro_redis_cache"></property>
+    <bean id="shiroCacheManager" class="com.bob.core.utils.shiro.shiroRedis.RedisCacheManager">
+        <property name="redisCacheImpl" ref="redisCacheImpl"/>
+        <property name="prefix" value="shiro_redis_cache"/>
     </bean>
 
     <!-- cookie -->
     <bean id="shiroSessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <!--设置 Cookie 名字，默认为 JSESSIONID-->
-        <property name="name" value="sid"/>
+        <property name="name" value="cid"/>
         <!--设置 Cookie 的域名，默认空，即当前访问的域名-->
         <!--<property name="domain" value=""/>-->
         <!--设置 Cookie 的路径，默认空，即存储在域名根下-->
         <!--<property name="path" value=""/>-->
         <!--设置 Cookie 的过期时间，秒为单位，默认-1 表示关闭浏览器时过期 Cookie-->
+        <!-- TODO -->
         <property name="maxAge" value="1800"/>
         <!--如果设置为 true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击； -->
         <!--此特性需要实现了 Servlet 2.5 MR6及以上版本的规范的 Servlet 容器支持-->
@@ -99,10 +100,10 @@
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
     <!--sessionDao缓存配置：ref="cache"配置于spring-mybatis.xml中-->
-    <bean id="redisSessionDAO" class="com.bob.core.utils.shiro.shiroRedis.ShiroRedisSessionDAO">
-        <property name="shiroRedisImpl" ref="shiroRedisImpl"/>
+    <bean id="redisSessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisCachingSessionDAO">
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-        <property name="nameSpace" value="shiro_redis_session"></property>
+        <property name="cacheRedisImpl" ref="redisCacheImpl"/>
+        <property name="sessionPrefix" value="shiro_redis_session"></property>
     </bean>
 
     <!-- sessionManager -->
@@ -125,7 +126,7 @@
         <property name="testOnReturn" value="${redis.testOnReturn}"/>
     </bean>
 
-    <bean id="shiroRedisImpl" class="com.bob.core.cache.redis.CacheRedisImpl">
+    <bean id="redisCacheImpl" class="com.bob.core.cache.redis.RedisCacheImpl">
         <property name="poolConfig" ref="poolConfig"/>
         <property name="host" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>

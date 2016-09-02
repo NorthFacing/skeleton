@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.ByteArrayInputStream;
@@ -66,22 +67,22 @@ public class RedisCacheServiceImpl implements CacheService {
   }
 
   @Override
-  public void set(final String key, final Object value) {
+  public void set(final String key, final Serializable value) {
     set(null, key, value, expried);
   }
 
   @Override
-  public void set(final String key, final Object value, final int expried) {
+  public void set(final String key, final Serializable value, final int expried) {
     set(null, key, value, expried);
   }
 
   @Override
-  public void set(String cacheName, String key, Object value) {
+  public void set(String cacheName, String key, Serializable value) {
     set(cacheName, key, value, expried);
   }
 
   @Override
-  public void set(final String cacheName, final String key, final Object value, final int expried) {
+  public void set(final String cacheName, final String key, final Serializable value, final int expried) {
     if (StringUtils.isBlank(key)) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
@@ -93,7 +94,7 @@ public class RedisCacheServiceImpl implements CacheService {
           throw new IllegalArgumentException(RedisCacheServiceImpl.class.getSimpleName() + " requires a Serializable payload "
                   + "but received an object of type [" + value.getClass().getName() + "]");
         }
-        _value = SerializationUtils.serialize((Serializable) value);
+        _value = SerializationUtils.serialize(value);
         connection.set(_key, _value);
         if (expried > 0) {
           connection.expire(_key, expried);
@@ -120,23 +121,16 @@ public class RedisCacheServiceImpl implements CacheService {
 
   @Override
   public Set<String> keys(String cacheName) {
-    Set<byte[]> _keyset = this.byteKeys(cacheName);
-    Set<String> _keys = new HashSet<>();
-    for (byte[] _key : _keyset) {
-      _keys.add(redisTemplate.getStringSerializer().deserialize(_key));
-    }
-    return _keys;
-  }
-
-  @Override
-  public Set<byte[]> byteKeys(String cacheName) {
     if (StringUtils.isBlank(cacheName)) {
       throw new IllegalArgumentException("The cache name：'" + cacheName + "' is invalid.");
     }
     return redisTemplate.execute((RedisConnection connection) -> {
               byte[] _key_pattern = redisTemplate.getStringSerializer().serialize(cacheName + CONNECTOR + "*");
               Set<byte[]> _keyset = connection.keys(_key_pattern);
-              return _keyset;
+              Set<String> keys = new HashSet<>();
+              for (byte[] _key : _keyset)
+                keys.add(new String(_key));
+              return keys;
             }
     );
   }

@@ -1,12 +1,13 @@
 package com.bob.core.utils.shiro.shiroRedis;
 
-import com.bob.core.cache.redis.CacheRedisImpl;
+import com.bob.core.cache.redis.RedisCacheImpl;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,51 +17,52 @@ import java.util.Set;
 
 /**
  * 使用RedisCache替换shiro默认缓存实现
+ * TODO：存储的都是些什么内容？
  *
  * @param <K>
  * @param <V>
  */
-public class ShiroRedisCache<K, V> implements Cache<K, V> {
+public class RedisCache<K, V> implements Cache<K, V> {
 
-  private Logger logger = LoggerFactory.getLogger(ShiroRedisCache.class);
+  private Logger logger = LoggerFactory.getLogger(RedisCache.class);
 
-  private CacheRedisImpl shiroRedisImpl;
-  private String nameSpace;
+  private String prefix;
+  private RedisCacheImpl redisCacheImpl;
 
   /**
    * 通过一个JedisManager实例构造RedisCache
    *
-   * @param shiroRedisImpl The cache manager instance
+   * @param redisCacheImpl The cache manager instance
    */
-  public ShiroRedisCache(CacheRedisImpl shiroRedisImpl) {
-    if (shiroRedisImpl == null) {
+  public RedisCache(RedisCacheImpl redisCacheImpl) {
+    if (redisCacheImpl == null) {
       throw new IllegalArgumentException("Cache argument cannot be null.");
     }
-    this.shiroRedisImpl = shiroRedisImpl;
+    this.redisCacheImpl = redisCacheImpl;
   }
 
   /**
    * Constructs a cache instance with the specified
    * Redis manager and using a custom key nameSpace.
    *
-   * @param shiroRedisImpl The cache manager instance
-   * @param nameSpace      The Redis key nameSpace
+   * @param redisCacheImpl The cache manager instance
+   * @param prefix         The prefix of key
    */
-  public ShiroRedisCache(CacheRedisImpl shiroRedisImpl, String nameSpace) {
-    this(shiroRedisImpl);
-    // set the nameSpace
-    this.nameSpace = nameSpace;
+  public RedisCache(RedisCacheImpl redisCacheImpl, String prefix) {
+    this(redisCacheImpl);
+    // set the prefix
+    this.prefix = prefix;
   }
 
   @Override
   public V get(K key) throws CacheException {
-    logger.debug("根据key从Redis中获取shiro对象： key [{}]", key);
     try {
       if (key == null) {
         return null;
       } else {
-        Object o = shiroRedisImpl.get(getKey(key));
-        return (V) o;
+        V value = (V) redisCacheImpl.get(getKey(key));
+        logger.debug("[RedisCache] 根据key从Redis中获取shiro对象： {} = {}", key, value);
+        return value;
       }
     } catch (Throwable t) {
       throw new CacheException(t);
@@ -70,9 +72,9 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
   @Override
   public V put(K key, V value) throws CacheException {
-    logger.debug("添加shiro对象到redis： {} = {}", key, value);
+    logger.debug("[RedisCache] 添加shiro对象到redis： {} = {}", key, value);
     try {
-      shiroRedisImpl.set(getKey(key), value);
+      redisCacheImpl.set(getKey(key), (Serializable) value);
       return value;
     } catch (Throwable t) {
       throw new CacheException(t);
@@ -81,10 +83,10 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
   @Override
   public V remove(K key) throws CacheException {
-    logger.debug("从redis中删除shiro对象： key [{}]", key);
+    logger.debug("[RedisCache] 从redis中删除shiro对象： key = {}", key);
     try {
       V previous = get(key);
-      shiroRedisImpl.del(getKey(key));
+      redisCacheImpl.del(getKey(key));
       return previous;
     } catch (Throwable t) {
       throw new CacheException(t);
@@ -93,9 +95,9 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
   @Override
   public void clear() throws CacheException {
-    logger.debug("从redis中删除所有shiro对象。");
+    logger.debug("[RedisCache] 从redis中删除所有shiro对象。");
     try {
-      shiroRedisImpl.clearCache(nameSpace);
+      redisCacheImpl.clearCache(prefix);
     } catch (Throwable t) {
       throw new CacheException(t);
     }
@@ -104,9 +106,9 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
   @Override
   public int size() {
     try {
-      Long longSize = shiroRedisImpl.dbSize();
+      Long longSize = redisCacheImpl.dbSize();
       int size = longSize.intValue();
-      logger.debug("从redis获取shiro对象数量： size [{}]", size);
+      logger.debug("[RedisCache] 从redis获取shiro对象数量： size = {}", size);
       return size;
     } catch (Throwable t) {
       throw new CacheException(t);
@@ -116,15 +118,15 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
   @Override
   public Set<K> keys() {
     try {
-      Set<byte[]> keys = shiroRedisImpl.byteKeys(nameSpace);
+      Set<String> keys = redisCacheImpl.keys(prefix);
       if (CollectionUtils.isEmpty(keys)) {
         return Collections.emptySet();
       } else {
         Set<K> newKeys = new HashSet<>();
-        for (byte[] key : keys) {
+        for (String key : keys) {
           newKeys.add((K) key);
         }
-        logger.debug("从redis缓存shiro对象的keys：共计 [{}] 个", newKeys.size());
+        logger.debug("[RedisCache] 从redis缓存shiro对象的keys：共计 {} 个", newKeys.size());
         return newKeys;
       }
     } catch (Throwable t) {
@@ -135,19 +137,19 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
   @Override
   public Collection<V> values() {
     try {
-      Set<byte[]> keys = shiroRedisImpl.byteKeys(nameSpace);
+      Set<String> keys = redisCacheImpl.keys(prefix);
       if (!CollectionUtils.isEmpty(keys)) {
         List<V> values = new ArrayList<>(keys.size());
-        for (byte[] key : keys) {
+        for (String key : keys) {
           V value = get((K) key);
           if (value != null) {
             values.add(value);
           }
         }
-        logger.debug("从redis缓存shiro对象的values：共计 [{}] 个", values.size());
+        logger.debug("[RedisCache] 从redis缓存shiro对象的values：共计 {} 个", values.size());
         return Collections.unmodifiableList(values);
       } else {
-        logger.debug("从redis缓存shiro对象的values：共计 [0] 个");
+        logger.debug("[RedisCache] 从redis缓存shiro对象的values：共计 0 个");
         return Collections.emptyList();
       }
     } catch (Throwable t) {
@@ -163,9 +165,9 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
    */
   private String getKey(K key) {
     if (key instanceof String) {
-      return nameSpace + key;
+      return prefix + key;
     } else {
-      return nameSpace + key.toString();
+      return prefix + key.toString();
     }
   }
 }

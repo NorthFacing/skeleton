@@ -1,5 +1,6 @@
 package com.bob.core.utils.shiro.session;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.shiro.session.mgt.SimpleSession;
 
 import java.io.Serializable;
@@ -8,13 +9,8 @@ import java.util.Map;
 
 /**
  * 由于SimpleSession lastAccessTime更改后也会调用SessionDao update方法，
- * 增加标识位，如果只是更新lastAccessTime SessionDao update方法直接返回
- * <p>
- * Session Attribute
- * DefaultSubjectContext.PRINCIPALS_SESSION_KEY 保存 principal
- * DefaultSubjectContext.AUTHENTICATED_SESSION_KEY 保存 boolean是否登陆
- *
- * @see org.apache.shiro.subject.support.DefaultSubjectContext
+ * 增加标识位，如果只是更新lastAccessTime字段，SessionDao的update方法直接返回
+ * TODO: 好像并没有实现上面描述的效果，继续进行验证吧
  */
 public class ShiroSession extends SimpleSession {
 
@@ -73,8 +69,8 @@ public class ShiroSession extends SimpleSession {
     if (getLastAccessTime() != null) {
       long last = getLastAccessTime().getTime();
       long now = lastAccessTime.getTime();
-      //如果5s内访问 则不更新session,否则需要更新远端过期时间
-      if ((last - now) / 1000 >= 5) {
+      //如果5s内访问 则不更新session，否则需要更新远端过期时间
+      if ((last - now) >= 5000) {
         //发送通知
       }
     }
@@ -118,6 +114,15 @@ public class ShiroSession extends SimpleSession {
     this.setExpired(true);
   }
 
+  public boolean isChanged() {
+    return isChanged;
+  }
+
+  public void setChanged(boolean isChanged) {
+    this.isChanged = isChanged;
+  }
+
+
   @Override
   public boolean equals(Object obj) {
     return super.equals(obj);
@@ -135,15 +140,7 @@ public class ShiroSession extends SimpleSession {
 
   @Override
   public String toString() {
-    return super.toString();
+    return ReflectionToStringBuilder.toString(this);
   }
 
-
-  public boolean isChanged() {
-    return isChanged;
-  }
-
-  public void setChanged(boolean isChanged) {
-    this.isChanged = isChanged;
-  }
 }

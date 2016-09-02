@@ -1,10 +1,11 @@
 package com.bob.core.utils.shiro.shiroRedis;
 
-import com.bob.core.cache.redis.CacheRedisImpl;
+import com.bob.core.cache.redis.RedisCacheImpl;
 import com.bob.core.contants.BizConfig;
-import com.bob.core.utils.javaUtil.SerializeUtils;
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
+import org.apache.shiro.session.mgt.SimpleSession;
 import org.apache.shiro.session.mgt.ValidatingSession;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
 import org.slf4j.Logger;
@@ -18,14 +19,16 @@ import java.io.Serializable;
  * @Note 继承AbstractSessionDAO实现的时候，doReadSession方法调用过于频繁，所以改为通过集成CachingSessionDAO来实现。
  * @Warn 注意，本地缓存通过EhCache实现，失效时间一定要远小于Redis失效时间，
  * 这样本地失效后，会访问Redis读取，并重新设置Redis上会话数据的过期时间。
+ * <p>
+ * TODO：为什么需要这个类？有什么作用？
  */
-public class ShiroRedisSessionDAO extends CachingSessionDAO {
+public class RedisCachingSessionDAO extends CachingSessionDAO {
 
-  private static Logger logger = LoggerFactory.getLogger(ShiroRedisSessionDAO.class);
+  private static Logger logger = LoggerFactory.getLogger(RedisCachingSessionDAO.class);
 
-  private String sessionNameSpace = "shiro_redis_session";
+  private String sessionPrefix = "shiro_redis_session"; // 作为默认值
 
-  private CacheRedisImpl redisImpl;
+  private RedisCacheImpl redisImpl;
 
   @Override
   protected void doUpdate(Session session) {
@@ -62,56 +65,50 @@ public class ShiroRedisSessionDAO extends CachingSessionDAO {
       logger.error("session id is null");
       return null;
     }
-    byte[] sessionByte = redisImpl.get(getByteKey(sessionId));
-    if (sessionByte == null) {
+    Object s = redisImpl.get(getByteKey(sessionId));
+    if (s == null) {
       return null;
     } else {
-      return (Session) SerializeUtils.deserialize(sessionByte);
+      return (Session) s;
     }
   }
 
   /**
    * save session
    *
-   * @param session
-   * @throws UnknownSessionException
+   * @param session session
+   * @throws UnknownSessionException UnknownSessionException
    */
   private void saveSession(Session session) throws UnknownSessionException {
     if (session == null || session.getId() == null) {
       logger.error("session or session id is null");
       return;
     }
-
-    byte[] key = getByteKey(session.getId());
-    byte[] value = SerializeUtils.serialize(session);
+    String key = getByteKey(session.getId());
     int timeOut = BizConfig.sessionTimeOut * 60;
     session.setTimeout(timeOut * 1000);
-    redisImpl.set(key, value, timeOut);
+    redisImpl.set(key, (SimpleSession)session, timeOut);
   }
 
   /**
    * 获得byte[]型的key
    *
-   * @param sessionId
+   * @param sessionId sessionId
    * @return
    */
-  private byte[] getByteKey(Serializable sessionId) {
-    String preKey = this.sessionNameSpace + sessionId;
-    return preKey.getBytes();
+  private String getByteKey(Serializable sessionId) {
+    String preKey = this.sessionPrefix + sessionId;
+    return preKey;
   }
 
-  // 以下 setter & getter
+  // 以下 setter 供shiro.xml配置调用
 
-  public CacheRedisImpl getCacheRedisImpl() {
-    return redisImpl;
-  }
-
-  public void setShiroRedisImpl(CacheRedisImpl cacheRedisImpl) {
+  public void setCacheRedisImpl(RedisCacheImpl cacheRedisImpl) {
     this.redisImpl = cacheRedisImpl;
   }
 
-  public void setNameSpace(String sessionNameSpace) {
-    this.sessionNameSpace = sessionNameSpace;
+  public void setSessionPrefix(String sessionPrefix) {
+    this.sessionPrefix = sessionPrefix;
   }
 
 }

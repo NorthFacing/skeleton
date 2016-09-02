@@ -32,7 +32,11 @@ public class LoginController extends BaseController {
 
   @RequestMapping(value = "/login")
   public String login() {
-    return "/login/login";
+    Subject subject = SecurityUtils.getSubject();
+    if (StringUtils.isNotEmpty((String) subject.getPrincipal()))
+      return "/login/loginSuc";
+    else
+      return "/login/login";
   }
 
   @RequestMapping(value = "/loginAction")
