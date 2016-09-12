@@ -1,6 +1,5 @@
 package com.bob.core.cache;
 
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -30,7 +29,7 @@ public interface CacheService {
    * @param key 缓存key
    * @param value 缓存对象
    */
-  void set(final String key, final Serializable value);
+  void set(final String key, final String value);
 
   /**
    * <pre>
@@ -39,7 +38,7 @@ public interface CacheService {
    * @param value 缓存对象
    * @param expried 过期时间（单位：秒）
    */
-  void set(final String key, final Serializable value, final int expried);
+  void set(final String key, final String value, final int expried);
 
   /**
    * <pre>
@@ -48,7 +47,7 @@ public interface CacheService {
    * @param key 缓存key
    * @param value 缓存对象
    */
-  void set(final String cacheName, final String key, final Serializable value);
+  void set(final String cacheName, final String key, final String value);
 
   /**
    * <pre>
@@ -58,7 +57,7 @@ public interface CacheService {
    * @param value 缓存对象
    * @param expried 过期时间（单位：秒）
    */
-  void set(final String cacheName, final String key, final Serializable value, final int expried);
+  void set(final String cacheName, final String key, final String value, final int expried);
 
   /**
    * <pre>

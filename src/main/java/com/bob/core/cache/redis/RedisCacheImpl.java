@@ -3,11 +3,9 @@ package com.bob.core.cache.redis;
 import com.bob.core.cache.CacheService;
 import com.bob.core.contants.Constants;
 
-import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -16,13 +14,11 @@ import redis.clients.jedis.Protocol;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Redis缓存实现：jedis实现
  */
-@Service("cacheService")
 public class RedisCacheImpl implements CacheService {
 
   private Logger logger = LoggerFactory.getLogger(RedisCacheImpl.class);
@@ -46,15 +42,12 @@ public class RedisCacheImpl implements CacheService {
    */
   @PostConstruct
   public void init() {
-    logger.debug("ShiroRedisImpl进行初始化");
-    if (jedisPool == null) {
-      if (StringUtils.isNotEmpty(password)) {
-        jedisPool = new JedisPool(poolConfig, host, port, Protocol.DEFAULT_TIMEOUT, password);
-      } else if (timeout != 0) {
-        jedisPool = new JedisPool(poolConfig, host, port, timeout);
-      } else {
-        jedisPool = new JedisPool(poolConfig, host, port);
-      }
+    logger.debug("RedisCache进行初始化");
+    timeout = (timeout == 0) ? Protocol.DEFAULT_TIMEOUT : timeout;
+    if (StringUtils.isNotEmpty(password)) {
+      jedisPool = new JedisPool(poolConfig, host, port, timeout, password);
+    } else {
+      jedisPool = new JedisPool(poolConfig, host, port, timeout);
     }
   }
 
@@ -71,14 +64,12 @@ public class RedisCacheImpl implements CacheService {
 
 
   @Override
-  @SuppressWarnings("unchecked")
-  public Object get(String key) {
+  public String get(String key) {
     return this.get(null, key);
   }
 
   @Override
-  @SuppressWarnings("unchecked")
-  public Object get(String prefix, String key) {
+  public String get(String prefix, String key) {
     if (StringUtils.isBlank(key)) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
@@ -89,9 +80,8 @@ public class RedisCacheImpl implements CacheService {
       if (null == value) {
         return null;
       }
-      Object o = SerializationUtils.deserialize(value.getBytes("UTF-8"));
-      logger.debug("[RedisCacheImpl] ");
-      return o;
+      logger.debug("[RedisCacheImpl] 从Redis获取对象：{} = {}", key, value);
+      return value;
     } catch (Exception e) {
       logger.error("从Redis获取对象时出错：{}", e.getMessage(), e);
       return null;
@@ -103,22 +93,22 @@ public class RedisCacheImpl implements CacheService {
   }
 
   @Override
-  public void set(String key, Serializable value) {
+  public void set(String key, String value) {
     this.set(null, key, value, 0);
   }
 
   @Override
-  public void set(String key, Serializable value, int expried) {
+  public void set(String key, String value, int expried) {
     this.set(null, key, value, expried);
   }
 
   @Override
-  public void set(String prefix, String key, Serializable value) {
+  public void set(String prefix, String key, String value) {
     this.set(prefix, key, value, 0);
   }
 
   @Override
-  public void set(String prefix, String key, Serializable value, int expired) {
+  public void set(String prefix, String key, String value, int expired) {
     if (StringUtils.isBlank(key)) {
       throw new IllegalArgumentException("The cache key：'" + key + "' is invalid.");
     }
@@ -126,10 +116,11 @@ public class RedisCacheImpl implements CacheService {
     try {
       jedis = jedisPool.getResource();
       String assKey = assembleKey(prefix, key);
-      jedis.set(assKey.getBytes("UTF-8"), SerializationUtils.serialize(value));
+      jedis.set(assKey, value);
       if (expired != 0) {
         jedis.expire(key, expired);
       }
+      logger.debug("[RedisCacheImpl] 添加对象到Redis：{} = {}, expired = {}", key, value, expired);
     } catch (Exception e) {
       logger.error("添加对象到Redis出错：{}", e.getMessage(), e);
     } finally {
@@ -152,6 +143,7 @@ public class RedisCacheImpl implements CacheService {
     Jedis jedis = null;
     try {
       jedis = jedisPool.getResource();
+      logger.debug("[RedisCacheImpl] 从Redis删除：key = {}", key);
       return jedis.del(assembleKey(prefix, key)) > 0;
     } catch (Exception e) {
       logger.error("从Redis删除时出错：{}", e.getMessage(), e);
@@ -242,8 +234,8 @@ public class RedisCacheImpl implements CacheService {
   private String assembleKey(String prefix, String key) {
     StringBuilder builder = new StringBuilder(Constants.PROJECT_NAME);
     if (StringUtils.isNotEmpty(prefix))
-      builder.append("-").append(prefix);
-    builder.append("-").append(key);
+      builder.append(":").append(prefix);
+    builder.append(":").append(key);
     return builder.toString();
   }
 

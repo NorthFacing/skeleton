@@ -7,15 +7,14 @@ public class BizConfig {
 
   public static String appDomain;
 
-  public static int sessionTimeOut;
+  public static long sessionTimeOut;
 
   public void setAppDomain(String appDomain) {
     BizConfig.appDomain = appDomain;
   }
 
   public void setSessionTimeOut(String sessionTimeOut) {
-    System.out.println(sessionTimeOut);
-    Integer timeOut = Integer.parseInt(sessionTimeOut);
+    Long timeOut = Long.parseLong(sessionTimeOut);
     BizConfig.sessionTimeOut = timeOut;
   }
 }

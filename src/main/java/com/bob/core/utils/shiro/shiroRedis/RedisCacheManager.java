@@ -1,6 +1,5 @@
 package com.bob.core.utils.shiro.shiroRedis;
 
-import com.bob.core.cache.redis.RedisCacheImpl;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
@@ -20,10 +19,7 @@ public class RedisCacheManager implements CacheManager {
   // fast lookup by name map
   private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<>();
 
-  // The Redis key prefix for caches
-  private String prefix = "shiro_redis_cache:"; // 默认值
-  // 缓存实例，由xml中spring bean注入
-  private RedisCacheImpl redisCacheImpl;
+  private RedisCache cache;
 
   @Override
   public <K, V> Cache<K, V> getCache(String name) throws CacheException {
@@ -31,19 +27,14 @@ public class RedisCacheManager implements CacheManager {
     Cache c = caches.get(name);
     if (c == null) {
       // create a new cache instance
-      c = new RedisCache<K, V>(redisCacheImpl, prefix);
+      c = cache;
       // add it to the cache collection
       caches.put(name, c);
     }
     return c;
   }
 
-  public void setPrefix(String prefix) {
-    this.prefix = prefix;
+  public void setCache(RedisCache cache) {
+    this.cache = cache;
   }
-
-  public void setRedisCacheImpl(RedisCacheImpl redisCacheImpl) {
-    this.redisCacheImpl = redisCacheImpl;
-  }
-
 }

@@ -1,6 +1,6 @@
 package com.bob.modules.weChat.utils;
 
-//import com.bob.core.utils.JsonUtil;
+//import com.bob.core.utils.json.JsonUtil;
 //import com.bob.core.utils.http.HttpClientUtil;
 //import com.bob.core.utils.http.HttpRequest;
 

@@ -1,4 +1,4 @@
-package com.bob.core.utils;
+package com.bob.core.utils.json;
 
 import com.alibaba.fastjson.JSONObject;
 

@@ -329,21 +329,21 @@
         </dependency>
         <!-- test end -->
         <!-- ueditor start -->
-        <!--<dependency>-->
-            <!--<groupId>commons-codec</groupId>-->
-            <!--<artifactId>commons-codec</artifactId>-->
-            <!--<version>${codec.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>commons-fileupload</groupId>-->
-            <!--<artifactId>commons-fileupload</artifactId>-->
-            <!--<version>${fileupload.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>commons-io</groupId>-->
-            <!--<artifactId>commons-io</artifactId>-->
-            <!--<version>${io.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${codec.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${fileupload.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${io.version}</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.json</groupId>-->
             <!--<artifactId>json</artifactId>-->
@@ -414,6 +414,12 @@
                 <runtime.name>pro</runtime.name>
             </properties>
         </profile>
+        <profile>
+            <id>ske</id>
+            <properties>
+                <runtime.name>ske</runtime.name>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
@@ -427,12 +433,11 @@
             <!-- 拷贝资源文件 -->
             <resource>
                 <directory>src/main/resources</directory>
-                <!--必须配置此属性，才能将多环境变量赋值到db.properties-->
+                <!--必须配置此属性，才能将多环境变量赋值到config.properties-->
                 <filtering>true</filtering>
-                <!--剔除多环境配置的配置文件，所需参数已经赋值到db.properties，此文件不再需要-->
+                <!--剔除多环境配置的配置文件，所需参数已经赋值到config.properties，此文件不再需要-->
                 <excludes>
                     <exclude>runtime-env/**</exclude>
-                    <exclude>log4j.xml</exclude>
                 </excludes>
             </resource>
             <!-- 拷贝Mapper.xml文件 -->
@@ -471,7 +476,7 @@
                 <configuration>
                     <warName>${project.build.finalName}</warName>
                     <webappDirectory>
-                        ${project.build.directory}/${runtime.name}-${project.build.finalName}
+                        ${project.build.directory}/${project.build.finalName}
                     </webappDirectory>
                 </configuration>
             </plugin>

@@ -3,16 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 密码校验规则。另外：如果要使用缓存，在这里进行配置-->
-    <!--<bean id="credentialsMatcher" class="com.bob.core.utils.shiro.RetryLimitHashedCredentialsMatcher">-->
-    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-        <!-- hashAlgorithmName必须的，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。
-        这里使用MD5 storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
-        hashIterations迭代次数，默认值是1。 -->
-        <!--<constructor-arg ref="cacheManager"/>-->
-        <property name="hashAlgorithmName" value="md5"/><!--需要和PasswordHelper中的参数配置一致-->
-        <property name="hashIterations" value="2"/><!--需要和PasswordHelper中的参数配置一致-->
-        <property name="storedCredentialsHexEncoded" value="true"/>
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+        <property name="realm" ref="myRealm"/>
+        <!-- sessionManager -->
+        <property name="sessionManager" ref="sessionManager"/>
+        <!-- cache -->
+        <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
@@ -26,14 +23,83 @@
         <!--<property name="authorizationCacheName" value="authorizationCache"/>-->
     </bean>
 
-    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
-        <property name="realm" ref="myRealm"/>
-        <!-- sessionManager -->
-        <property name="sessionManager" ref="shiroSessionManager"/>
-        <!-- cache -->
-        <property name="cacheManager" ref="shiroCacheManager"/>
+    <!-- 密码校验规则 -->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <!-- hashAlgorithmName必须的，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。
+        这里使用MD5 storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
+        hashIterations迭代次数，默认值是1。 -->
+        <!--<constructor-arg ref="cacheManager"/>-->
+        <property name="hashAlgorithmName" value="md5"/><!--需要和PasswordHelper中的参数配置一致-->
+        <property name="hashIterations" value="2"/><!--需要和PasswordHelper中的参数配置一致-->
+        <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
+
+    <!-- sessionManager -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="sessionDAO"/>
+        <!--sessionManager 创建会话 Cookie 的模板-->
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <!--是否启用/禁用 Session Id Cookie，默认是启用的；-->
+        <!--如果禁用后将不会设置 Session Id Cookie，即默认使用了 Servlet 容器的 JSESSIONID，-->
+        <!--且通过 URL 重写（URL 中的“;JSESSIONID=id”部分）保存 Session Id。-->
+        <property name="sessionIdCookieEnabled" value="true"/>
+    </bean>
+
+    <!--sessionDao缓存配置：ref="cache"配置于spring-mybatis.xml中-->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <!-- cookie -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!--设置 Cookie 名字，默认为 JSESSIONID-->
+        <property name="name" value="cid"/>
+        <!--设置 Cookie 的域名，默认空，即当前访问的域名-->
+        <!--<property name="domain" value=""/>-->
+        <!--设置 Cookie 的路径，默认空，即存储在域名根下-->
+        <!--<property name="path" value=""/>-->
+        <!--设置 Cookie 的过期时间，秒为单位，默认-1 表示关闭浏览器时过期 Cookie-->
+        <property name="maxAge" value="${shiro.session.timeout}"/>
+        <!--如果设置为 true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击； -->
+        <!--此特性需要实现了 Servlet 2.5 MR6及以上版本的规范的 Servlet 容器支持-->
+        <property name="httpOnly" value="true"/>
+    </bean>
+
+    <!-- 会话ID生成器 -->
+    <bean id="sessionIdGenerator" class="com.bob.core.utils.shiro.session.UuidSessionIdGenerator"/>
+
+    <!-- cacheManager -->
+    <bean id="cacheManager" class="com.bob.core.utils.shiro.shiroRedis.RedisCacheManager">
+        <property name="cache" ref="cache"/>
+    </bean>
+
+    <bean id="cache" class="com.bob.core.utils.shiro.shiroRedis.RedisCache">
+        <property name="poolConfig" ref="config"/>
+        <property name="host" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.pass}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+    </bean>
+
+    <bean id="config" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+    </bean>
+
+    <!--<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
+    <!--p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"-->
+    <!--p:pool-config-ref="poolConfig"/>-->
+
+    <!--<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
+    <!--<property name="connectionFactory" ref="jedisConnectionFactory"/>-->
+    <!--</bean>-->
+    <!--<bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheServiceImpliceImpl">-->
+    <!--<property name="prefix" value="selekton"/>-->
+    <!--<property name="redisTemplate" ref="redisTemplate"/>-->
+    <!--</bean>-->
 
     <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
     <!-- They will automatically be acquired by the 'shiroFilter' bean above and made available -->
@@ -71,79 +137,5 @@
             </value>
         </property>
     </bean>
-
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-
-    <!-- cacheManager -->
-    <bean id="shiroCacheManager" class="com.bob.core.utils.shiro.shiroRedis.RedisCacheManager">
-        <property name="redisCacheImpl" ref="redisCacheImpl"/>
-        <property name="prefix" value="shiro_redis_cache"/>
-    </bean>
-
-    <!-- cookie -->
-    <bean id="shiroSessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <!--设置 Cookie 名字，默认为 JSESSIONID-->
-        <property name="name" value="cid"/>
-        <!--设置 Cookie 的域名，默认空，即当前访问的域名-->
-        <!--<property name="domain" value=""/>-->
-        <!--设置 Cookie 的路径，默认空，即存储在域名根下-->
-        <!--<property name="path" value=""/>-->
-        <!--设置 Cookie 的过期时间，秒为单位，默认-1 表示关闭浏览器时过期 Cookie-->
-        <!-- TODO -->
-        <property name="maxAge" value="1800"/>
-        <!--如果设置为 true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击； -->
-        <!--此特性需要实现了 Servlet 2.5 MR6及以上版本的规范的 Servlet 容器支持-->
-        <property name="httpOnly" value="true"/>
-    </bean>
-
-    <!-- 会话ID生成器 -->
-    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
-
-    <!--sessionDao缓存配置：ref="cache"配置于spring-mybatis.xml中-->
-    <bean id="redisSessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisCachingSessionDAO">
-        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-        <property name="cacheRedisImpl" ref="redisCacheImpl"/>
-        <property name="sessionPrefix" value="shiro_redis_session"></property>
-    </bean>
-
-    <!-- sessionManager -->
-    <bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="sessionDAO" ref="redisSessionDAO"/>
-        <!--sessionManager 创建会话 Cookie 的模板-->
-        <property name="sessionIdCookie" ref="shiroSessionIdCookie"/>
-        <!--是否启用/禁用 Session Id Cookie，默认是启用的；-->
-        <!--如果禁用后将不会设置 Session Id Cookie，即默认使用了 Servlet 容器的 JSESSIONID，-->
-        <!--且通过 URL 重写（URL 中的“;JSESSIONID=id”部分）保存 Session Id。-->
-        <property name="sessionIdCookieEnabled" value="true"/>
-    </bean>
-
-    <!--缓存配置在shiro配置文件中了，用于和shiro进行共用-->
-    <!-- redis config start -->
-    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.maxIdle}"/>
-        <property name="maxTotal" value="${redis.maxTotal}"/>
-        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
-        <property name="testOnReturn" value="${redis.testOnReturn}"/>
-    </bean>
-
-    <bean id="redisCacheImpl" class="com.bob.core.cache.redis.RedisCacheImpl">
-        <property name="poolConfig" ref="poolConfig"/>
-        <property name="host" value="${redis.host}"/>
-        <property name="port" value="${redis.port}"/>
-        <property name="password" value="${redis.pass}"/>
-        <property name="timeout" value="${redis.timeout}"/>
-    </bean>
-
-    <!--<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
-    <!--p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"-->
-    <!--p:pool-config-ref="poolConfig"/>-->
-
-    <!--<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
-    <!--<property name="connectionFactory" ref="jedisConnectionFactory"/>-->
-    <!--</bean>-->
-    <!--<bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheServiceImpliceImpl">-->
-    <!--<property name="prefix" value="selekton"/>-->
-    <!--<property name="redisTemplate" ref="redisTemplate"/>-->
-    <!--</bean>-->
 
 </beans>
