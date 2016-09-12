@@ -18,28 +18,26 @@ public class CcuuAspect {
 
   public void insert(JoinPoint jp) {
     Object obj = jp.getArgs()[0];
-    if (obj instanceof BaseEntity) {
-      iccuu(obj);
-    }
+    iccuu(obj);
   }
 
   @SuppressWarnings("unchecked")
   public void insertBatch(JoinPoint jp) {
     Object obj = jp.getArgs()[0];
     if (obj instanceof List) {
-      for (Object model : (List<BaseEntity>) obj) {
-        iccuu(model);
-      }
+      ((List) obj).parallelStream().forEach(entity -> iccuu(entity));
     }
   }
 
   private void iccuu(Object obj) {
-    BaseEntity entity = (BaseEntity) obj;
-    entity.setId(UuidUtil.getId());
-    entity.setCreateTime(LocalDateTime.now());
-    entity.setCreateUser("admin");
-    entity.setUpdateTime(LocalDateTime.now());
-    entity.setUpdateUser("admin");
+    if (obj instanceof BaseEntity) {
+      BaseEntity entity = (BaseEntity) obj;
+      entity.setId(UuidUtil.getId());
+      entity.setCreateTime(LocalDateTime.now());
+      entity.setCreateUser("admin");
+      entity.setUpdateTime(LocalDateTime.now());
+      entity.setUpdateUser("admin");
+    }
   }
 
   public void update(JoinPoint jp) {
