@@ -1,25 +1,29 @@
 $(function () {
 
-    $("#grid-data").bootgridWrapper({
-        post: function () {
-            /* To accumulate custom parameter with the request object */
-            return {
-                id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
-            };
-        },
+    $("#grid-table").bootgridWrapper({
         url: path + "/admin/sysResource/pageData",
+        post: params,
         formatters: {
-            "resUrl": function (column, row) {
-                return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-            }
+            "resUrl": resUrlFormatter
         }
     });
 
-    $("#search-btn").on("click", function (arg1, arg2) {
+    $("#search-btn").on("click", function () {
         $("#grid-data").bootgrid("reload");
     });
 
 });
+
+function params() {
+    return {
+        current: $("#grid-table").bootgrid("getCurrentPage"),
+        rowCount: $("#grid-table").bootgrid("getRowCount")
+    };
+}
+
+function resUrlFormatter(column, row) {
+    return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
+}
 
 function delById(id) {
     $.ajax({

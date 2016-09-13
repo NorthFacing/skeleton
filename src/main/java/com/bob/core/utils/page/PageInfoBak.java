@@ -13,8 +13,8 @@ import java.util.List;
 
 public class PageInfoBak<T> implements Serializable {
 
-  private Integer pageNum = Constants.PAGE_NUM;// 页码
-  private Integer pageSize = Constants.PAGE_SIZE;//页面大小
+  private Integer pageNum;// 页码
+  private Integer pageSize;//页面大小
   private Integer startRow;// 起始行
   private Integer endRow;// 末行
   private Long totalCount;     //总数
@@ -60,7 +60,7 @@ public class PageInfoBak<T> implements Serializable {
   }
 
   public void setPageNum(Integer pageNum) {
-    this.pageNum = pageNum;
+    this.pageNum = (pageNum == null) ? Constants.PAGE_NUM : pageNum;
   }
 
   public Integer getPageSize() {
@@ -68,7 +68,7 @@ public class PageInfoBak<T> implements Serializable {
   }
 
   public void setPageSize(Integer pageSize) {
-    this.pageSize = pageSize;
+    this.pageSize = (pageSize == null) ? Constants.PAGE_SIZE : pageSize;
   }
 
   public Long getTotalCount() {

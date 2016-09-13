@@ -13,14 +13,15 @@ import java.util.List;
 
 public class PageInfo<T> implements Serializable {
 
-  private Integer current = Constants.PAGE_NUM;// 页码
-  private Integer rowCount = Constants.PAGE_SIZE;//页面大小
+  private Integer current;// 页码
+  private Integer rowCount;//页面大小
   private Long total;     //总数
   private List<T> rows;//结果集
 
   private Integer startRow;// 起始行
   private Integer endRow;// 末行
   private Integer totalPage;    // 总页数
+
   /**
    * 计算总页数
    */
@@ -60,7 +61,7 @@ public class PageInfo<T> implements Serializable {
   }
 
   public void setCurrent(Integer current) {
-    this.current = current;
+    this.current = (current == null) ? Constants.PAGE_NUM : current;
   }
 
   public Integer getRowCount() {
@@ -68,7 +69,7 @@ public class PageInfo<T> implements Serializable {
   }
 
   public void setRowCount(Integer rowCount) {
-    this.rowCount = rowCount;
+    this.rowCount = (rowCount == null) ? Constants.PAGE_SIZE : rowCount;
   }
 
   public Long getTotal() {

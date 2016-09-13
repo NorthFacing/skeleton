@@ -2,23 +2,22 @@
 #set($addJS=["/sysResource/list.js"])
 
 <div class="row">
-  <ol class="breadcrumb">
-    <li><i class="glyphicon glyphicon-home"></i></li>
-    <li><a href="$!{path}/admin/login">首页</a></li>
-    <li><a href="#">资源管理</a></li>
-  </ol>
+    <ol class="breadcrumb">
+        <li><i class="glyphicon glyphicon-home"></i></li>
+        <li><a href="$!{path}/admin/login">首页</a></li>
+        <li><a href="#">资源管理</a></li>
+    </ol>
 </div>
 
-
-<table id="grid-data" class="table table-condensed table-hover table-striped">
-  <thead>
-  <tr>
-    <th data-column-id="id" data-type="numeric">ID</th>
-    <th data-column-id="name">name</th>
-    <th data-column-id="description" data-order="desc">description</th>
-    <th data-column-id="resUrl" data-formatter="resUrl" data-sortable="false">resUrl</th>
-  </tr>
-  </thead>
+<table id="grid-table" class="table table-condensed table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+        <th data-column-id="id" data-identifier="true" data-type="string" data-visible="false">ID</th>
+        <th data-column-id="name">name</th>
+        <th data-column-id="description" data-sortable="false">description</th>
+        <th data-column-id="resUrl" data-sortable="false" data-formatter="resUrl">resUrl</th>
+    </tr>
+    </thead>
 </table>
 
 

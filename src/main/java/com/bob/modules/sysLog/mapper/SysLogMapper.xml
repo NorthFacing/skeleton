@@ -109,7 +109,7 @@
         FROM
         <include refid="tabaleName"/>
         <include refid="queryCondition"/>
-        LIMIT #{startRow}, #{pageSize}
+        LIMIT #{startRow}, #{rowCount}
     </select>
 
 

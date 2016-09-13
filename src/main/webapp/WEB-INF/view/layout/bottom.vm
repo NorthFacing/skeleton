@@ -1,96 +1,73 @@
 <div id="bottom">
-  <script src="$!{path}/ext/jQuery/jquery-1.11.3.min.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
-  <script src="$!{path}/ext/bootStrap/js/bootstrap.min.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+    <script src="$!{path}/ext/jQuery/jquery-1.11.3.min.js?staticVersion=$!{staticVersion}"
+            type="text/javascript"></script>
+    <script src="$!{path}/ext/bootStrap/js/bootstrap.min.js?staticVersion=$!{staticVersion}"
+            type="text/javascript"></script>
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="$!{path}/ext/bootStrap/js/html5shiv.min.js?staticVersion=$!{staticVersion}"
-          type="text/javascript"></script>
-  <script src="$!{path}/ext/bootStrap/js/respond.min.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
-  <![endif]-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="$!{path}/ext/bootStrap/js/html5shiv.min.js?staticVersion=$!{staticVersion}"
+            type="text/javascript"></script>
+    <script src="$!{path}/ext/bootStrap/js/respond.min.js?staticVersion=$!{staticVersion}"
+            type="text/javascript"></script>
+    <![endif]-->
 
-  <script type="text/javascript" src="$!{path}/ext/bootgrid/jquery.bootgrid.min.js"></script>
+    <script type="text/javascript" src="$!{path}/ext/bootgrid/jquery.bootgrid.min.js"></script>
 
-  <script src="$!{path}/ext/artDialog/dialog-min.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+    <script src="$!{path}/ext/other/js/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
 
-  <script src="$!{path}/ext/other/js/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="$!{path}/resources/common/js/ie10-viewport-bug-workaround.js?staticVersion=$!{staticVersion}"
+            type="text/javascript"></script>
 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="$!{path}/resources/common/js/ie10-viewport-bug-workaround.js?staticVersion=$!{staticVersion}"
-          type="text/javascript"></script>
+    <script src="$!{path}/resources/common/js/common.js?staticVersion=$!{staticVersion}"
+            type="text/javascript"></script>
 
-  <script src="$!{path}/resources/common/js/common.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+    <script type="">
+        $(function () {
+            $("#rePassword").on("click", function () {
+                var d = dialog({
+                    width: 400,
+                    height: 200,
+                    title: '修改密码',
+                    okValue: '确 定'
+                });
+                var elem = document.getElementById('rePassword-content');
+                d.content(elem).showModal();
+            });
 
-  <script type="text/javascript">
-
-    $(function () {
-      var splitList = window.location.pathname.split("/");
-      var isok = true;
-      for (var i = 0; i < $(".submeun").size(); i++) {
-        var abq = $(".submeun a").eq(i);
-        if (splitList[3] == abq.attr("href").split("/")[3]) {
-          abq.css("color", "red");
-          isok = false;
-        }
-      }
-      if (isok) {
-        $(".submeun a").last().css("color", "red");
-      }
-    });
-    function GetQueryString(name) {
-      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-      var r = window.location.search.substr(1).match(reg);
-      if (r != null)return unescape(r[2]);
-      return null;
-    }
-
-  </script>
-
-  <script type="">
-    $(function () {
-      $("#rePassword").on("click", function () {
-        var d = dialog({
-          width: 400,
-          height: 200,
-          title: '修改密码',
-          okValue: '确 定'
-        });
-        var elem = document.getElementById('rePassword-content');
-        d.content(elem).showModal();
-      });
-
-      $("#repasswordSubmit").on("click", function () {
-        var password = $("#password").val();
-        var newPassword = $("#newPassword").val();
-        if (password == "" || newPassword == "") {
-          $.messager.popup("请输入原密码和新密码！");
-          return false;
-        }
-        password = hex_md5($("#password").val());
-        newPassword = hex_md5($("#newPassword").val());
-        $.ajax({
-          url: "$!{path}/admin/updatePassword",
-          data: {password: password, newPassword: newPassword},
-          dataType: "json",
-          success: function (arg1) {
-            if (arg1.resultCode == "100") {
-              $.messager.popup("操作成功！");
+            $("#repasswordSubmit").on("click", function () {
+                var password = $("#password").val();
+                var newPassword = $("#newPassword").val();
+                if (password == "" || newPassword == "") {
+                    $.messager.popup("请输入原密码和新密码！");
+                    return false;
+                }
+                password = hex_md5($("#password").val());
+                newPassword = hex_md5($("#newPassword").val());
+                $.ajax({
+                    url: "$!{path}/admin/updatePassword",
+                    data: {password: password, newPassword: newPassword},
+                    dataType: "json",
+                    success: function (arg1) {
+                        if (arg1.resultCode == "100") {
+                            $.messager.popup("操作成功！");
 //					window.location.href=""
-            } else {
-              $.messager.popup(arg1.msg);
+                        } else {
+                            $.messager.popup(arg1.msg);
 //                    $.messager.popup("失败");
-            }
-          }
+                        }
+                    }
+                });
+            });
         });
-      });
-    });
-  </script>
+    </script>
 
-  <div id="rePassword-content" style="display:none">
-    <div style="margin-left:80px;margin-top:30px;">
-      原密码：<input type="password" name="password" id="password" style="height:30px;"/><br>
-      新密码：<input type="password" name="newPassword" id="newPassword" style="height:30px;margin-top:5px;"/><br>
-      <a href="#" id="repasswordSubmit" class="btn btn-primary" style="margin-left:110px;margin-top:10px;">确定</a>
+    <div id="rePassword-content" style="display:none">
+        <div style="margin-left:80px;margin-top:30px;">
+            原密码：<input type="password" name="password" id="password" style="height:30px;"/><br>
+            新密码：<input type="password" name="newPassword" id="newPassword" style="height:30px;margin-top:5px;"/><br>
+            <a href="#" id="repasswordSubmit" class="btn btn-primary" style="margin-left:110px;margin-top:10px;">确定</a>
+        </div>
     </div>
-  </div>
 </div>

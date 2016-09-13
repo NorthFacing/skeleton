@@ -94,7 +94,7 @@
         FROM
         <include refid="tabaleName"/>
         <include refid="queryCondition"/>
-        LIMIT #{startRow}, #{pageSize}
+        LIMIT #{startRow}, #{rowCount}
     </select>
 
     <select id="getByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
