@@ -106,7 +106,6 @@ public class PageInfo<T> implements Serializable {
     this.rows = result;
   }
 
-
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
