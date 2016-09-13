@@ -12,7 +12,7 @@
         <spring.redis.version>1.6.0.RELEASE</spring.redis.version>
         <jedis.version>2.9.0</jedis.version>
         <!-- spring -->
-        <spring.version>4.1.7.RELEASE</spring.version>
+        <spring.version>4.3.2.RELEASE</spring.version>
         <!-- hibernate.validate -->
         <hibernate.validate>5.2.4.Final</hibernate.validate>
         <!-- mybatis -->
