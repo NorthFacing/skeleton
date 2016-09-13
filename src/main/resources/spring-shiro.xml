@@ -14,13 +14,13 @@
 
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
     <!-- security datasource: -->
-    <bean id="myRealm" class="com.bob.core.utils.shiro.MyRealm">
+    <bean id="myRealm" class="com.bob.core.utils.shiro.realm.MyRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-        <!--<property name="cachingEnabled" value="true"/>-->
-        <!--<property name="authenticationCachingEnabled" value="true"/>-->
-        <!--<property name="authenticationCacheName" value="authenticationCache"/>-->
-        <!--<property name="authorizationCachingEnabled" value="true"/>-->
-        <!--<property name="authorizationCacheName" value="authorizationCache"/>-->
+        <property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="true"/>
+        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
     </bean>
 
     <!-- 密码校验规则 -->
@@ -35,28 +35,22 @@
     </bean>
 
     <!-- sessionManager -->
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="globalSessionTimeout" value="${shiro.session.timeout}"/>
-
+    <bean id="sessionManager" class="com.bob.core.utils.shiro.session.MyWebSessionManager">
+        <!--单位毫秒，默认 30 分钟-->
+        <property name="globalSessionTimeout" value="60000"/>
         <!-- 是否开启会话验证器任务 默认true -->
-        <!--<property name="sessionValidationSchedulerEnabled" value="true"/>-->
-
-        <!-- 会话验证器调度时间 -->
-        <!--<property name="sessionValidationInterval" value="${shiro.session.timeout}"/>-->
-
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <!--会话验证调度器 ， 默认就是使用 ExecutorServiceSessionValidationScheduler-->
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
         <property name="sessionDAO" ref="sessionDAO"/>
-
         <property name="cacheManager" ref="cacheManager"/>
-
         <!--sessionManager 创建会话 Cookie 的模板-->
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
         <!--是否启用/禁用 Session Id Cookie，默认是启用的；-->
         <!--如果禁用后将不会设置 Session Id Cookie，即默认使用了 Servlet 容器的 JSESSIONID，-->
         <!--且通过 URL 重写（URL 中的“;JSESSIONID=id”部分）保存 Session Id。-->
         <property name="sessionIdCookieEnabled" value="true"/>
-
         <property name="sessionFactory" ref="sessionFactory"/>
-
         <property name="sessionListeners">
             <list>
                 <!--<ref bean="sessionListener"/>-->
@@ -64,9 +58,15 @@
         </property>
     </bean>
 
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <!--单位毫秒，默认就是 1 小时-->
+        <property name="interval" value="120000"/>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+
     <!--sessionDao缓存配置：ref="cache"配置于spring-mybatis.xml中-->
-    <!--<bean id="sessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisCachingSessionDAO">-->
-    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+    <bean id="sessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisCachingSessionDAO">
+    <!--<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">-->
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 
@@ -82,7 +82,8 @@
         <!--设置 Cookie 的路径，默认空，即存储在域名根下-->
         <!--<property name="path" value=""/>-->
         <!--设置 Cookie 的过期时间，秒为单位，默认-1 表示关闭浏览器时过期 Cookie-->
-        <property name="maxAge" value="${shiro.session.timeout}"/>
+        <property name="maxAge" value="60000"/>
+        <!--<property name="maxAge" value="1800000"/>-->
         <!--如果设置为 true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击； -->
         <!--此特性需要实现了 Servlet 2.5 MR6及以上版本的规范的 Servlet 容器支持-->
         <property name="httpOnly" value="true"/>
@@ -152,6 +153,7 @@
                 <!--资源文件放行-->
                 /ext/** = anon
                 /resources/** = anon
+                /errorPage/** = anon
                 <!--登陆操作放行-->
                 /admin/loginAction = anon
                 <!--/admin/sysUser/* = authc, perms[sysUser:list]-->

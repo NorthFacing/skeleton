@@ -1,4 +1,4 @@
-package com.bob.core.utils.shiro;
+package com.bob.core.utils.shiro.realm;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

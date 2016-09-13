@@ -42,7 +42,6 @@ public class RedisCache<K, V> implements Cache<K, V> {
   private JedisPoolConfig poolConfig;
   private static JedisPool jedisPool;
 
-
   /**
    *
    */
@@ -62,12 +61,6 @@ public class RedisCache<K, V> implements Cache<K, V> {
     logger.debug("ShiroRedisImpl销毁jedisPool");
     jedisPool.destroy();
   }
-
-  //  public RedisCache() {
-//  }
-//
-//  public RedisCache(String preKey) {
-//  }
 
   @Override
   public V put(K key, V value) throws CacheException {

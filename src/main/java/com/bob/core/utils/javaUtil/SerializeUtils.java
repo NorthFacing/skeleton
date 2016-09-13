@@ -81,4 +81,13 @@ public class SerializeUtils {
     }
     return result;
   }
+
+  public static void main(String[] args) {
+    String test = "admin";
+    byte[] bytes = serialize(test);
+    System.out.println(bytes);
+    String result = (String) deserialize(bytes);
+    System.out.println(result);
+  }
+
 }

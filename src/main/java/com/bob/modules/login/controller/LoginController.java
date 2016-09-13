@@ -39,6 +39,13 @@ public class LoginController extends BaseController {
       return "/login/login";
   }
 
+  @RequestMapping(value = "/logout")
+  public String logout() {
+    Subject user = SecurityUtils.getSubject();
+    user.logout();
+    return "/login/login";
+  }
+
   @RequestMapping(value = "/loginAction")
   public String loginAction(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
     try {

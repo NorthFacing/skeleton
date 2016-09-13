@@ -86,20 +86,23 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>spring-mvc</servlet-name>
-        <!-- TODO 确认一下url-pattern中的/和/*的区别 -->
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
-    <context-param>
-        <param-name>log4jConfigLocation</param-name>
-        <!--<param-value>/WEB-INF/classes/log4j.properties</param-value>-->
-        <param-value>classpath:log4j.properties</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jRefreshInterval</param-name>
-        <param-value>10000</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>log4jConfigLocation</param-name>-->
+        <!--&lt;!&ndash;<param-value>/WEB-INF/classes/log4j.properties</param-value>&ndash;&gt;-->
+        <!--<param-value>classpath:log4j.properties</param-value>-->
+    <!--</context-param>-->
+    <!--<context-param>-->
+        <!--<param-name>log4jRefreshInterval</param-name>-->
+        <!--<param-value>10000</param-value>-->
+    <!--</context-param>-->
 
+    <error-page>
+        <exception-type>org.apache.shiro.session.InvalidSessionException</exception-type>
+        <location>/admin/login</location>
+    </error-page>
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
         <location>/errorPage/error.html</location>

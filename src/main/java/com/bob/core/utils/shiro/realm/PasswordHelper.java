@@ -1,4 +1,4 @@
-package com.bob.core.utils.shiro;
+package com.bob.core.utils.shiro.realm;
 
 import com.bob.core.contants.Constants;
 import com.bob.modules.sysUser.entity.SysUser;

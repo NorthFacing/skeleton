@@ -1,4 +1,4 @@
-package com.bob.core.utils.shiro;
+package com.bob.core.utils.shiro.realm;
 
 import com.bob.core.contants.StatusCode;
 import com.bob.modules.sysUser.entity.SysUser;
@@ -10,21 +10,23 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * 可以使用多个Realm对应有多个策略，比如至少一个通过的策略就可以用于 账号/手机号/邮箱 + 密码 至少有一个通过就通过的验证方案
- */
 public class MyRealm extends AuthorizingRealm {
 
   @Autowired
   private SysUserService sysUserService;
+
+  @Override
+  public boolean supports(AuthenticationToken token) {
+    return token instanceof UsernamePasswordToken; //仅支持UsernamePasswordToken类型的Token
+  }
 
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -76,16 +78,15 @@ public class MyRealm extends AuthorizingRealm {
 
     //交给AuthenticatingRealm 使用 CredentialsMatcher 进行密码匹配
     SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-            username, // 用户名
-            user.getPassWord(), // 密码
-            // salt = 系统常量 + username + salt
-            ByteSource.Util.bytes(PasswordHelper.ENCRYPT + username + user.getSalt()),
-            getName() // realm name
+        username, // 用户名
+        user.getPassWord(), // 密码
+        // salt = 系统常量 + username + salt
+        new MySimpleByteSource(PasswordHelper.ENCRYPT + username + user.getSalt()),
+        getName() // realm name
     );
 
     // TODO 当配置访问路径权限的时候，会根据用户名去redis查找对象，如果找不到就会报空指针异常
     // 这里暂且手动插入redis缓存，后面排查原因
-
 
     return authenticationInfo;
   }
@@ -104,18 +105,18 @@ public class MyRealm extends AuthorizingRealm {
 //  public void clearCache(PrincipalCollection principals) {
 //    super.clearCache(principals);
 //  }
-
-  public void clearAllCachedAuthorizationInfo() {
-    getAuthorizationCache().clear();
-  }
-
-  public void clearAllCachedAuthenticationInfo() {
-    getAuthenticationCache().clear();
-  }
-
-  public void clearAllCache() {
-    clearAllCachedAuthenticationInfo();
-    clearAllCachedAuthorizationInfo();
-  }
+//
+//  public void clearAllCachedAuthorizationInfo() {
+//    getAuthorizationCache().clear();
+//  }
+//
+//  public void clearAllCachedAuthenticationInfo() {
+//    getAuthenticationCache().clear();
+//  }
+//
+//  public void clearAllCache() {
+//    clearAllCachedAuthenticationInfo();
+//    clearAllCachedAuthorizationInfo();
+//  }
 
 }
