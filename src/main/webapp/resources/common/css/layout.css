@@ -1,5 +1,5 @@
 /*override*/
-.navbar-default{
+.navbar-default {
     background-color: #ccc;
     border-color: #ccc;
 }
@@ -9,6 +9,7 @@
     line-height: 15px;
 }
 
+/* custom */
 
 .left-title {
     padding: 10px 0px 10px 25px;
@@ -17,3 +18,12 @@
     font-weight: bold;
     line-height: 12px;
 }
+
+.btn-line {
+    margin-bottom: 10px;
+}
+
+.right-btn {
+    float: right;
+}
+

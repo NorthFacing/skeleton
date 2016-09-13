@@ -9,6 +9,26 @@
     </ol>
 </div>
 
+<div class="row btn-line">
+    <div class="col-md-8">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="用户名称" id="name">
+            </div>
+            <a class="btn btn-info" href="#" role="button" id="btn-search">
+                <i class="glyphicon glyphicon-search"></i>
+                查询
+            </a>
+        </form>
+    </div>
+    <div class="col-md-3">
+        <div class="btn-group right-btn">
+            <button type="button" class="btn btn-default" id="btn-add" href="$!{path}/admin/sysResource/add">新增</button>
+            <button type="button" class="btn btn-default" id="btn-del">删除</button>
+        </div>
+    </div>
+</div>
+
 <table id="grid-table" class="table table-condensed table-bordered table-striped table-hover">
     <thead>
     <tr>
