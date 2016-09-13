@@ -23,8 +23,6 @@ import java.util.Set;
 
 /**
  * 使用RedisCache替换shiro默认缓存实现
- * TODO：存储的都是些什么内容？
- * TODO：hmset最大size是多少？数量特别大之后效率如何？
  *
  * @param <K>
  * @param <V>
@@ -42,9 +40,6 @@ public class RedisCache<K, V> implements Cache<K, V> {
   private JedisPoolConfig poolConfig;
   private static JedisPool jedisPool;
 
-  /**
-   *
-   */
   @PostConstruct
   public void init() {
     logger.debug("RedisCache进行初始化");
@@ -90,7 +85,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
     if (key == null) {
       return null;
     }
-    Jedis jedis = null;
+    Jedis jedis;
     try {
       jedis = jedisPool.getResource();
       byte[] bKey = SerializeUtils.serialize(key);
@@ -99,6 +94,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
         return null;
 
       byte[] bValue = hmget.get(0);
+      @SuppressWarnings("unchecked")
       V value = (V) SerializeUtils.deserialize(bValue);
       logger.debug("[RedisCache] 根据key从Redis中获取shiro对象： {} = {}", key, value);
       return value;
@@ -115,7 +111,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
     if (key == null) {
       return null;
     }
-    Jedis jedis = null;
+    Jedis jedis;
     try {
       jedis = jedisPool.getResource();
       V value = get(key);
@@ -131,7 +127,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
   @Override
   public int size() {
     logger.debug("[RedisCache] 获取dbSize");
-    Jedis jedis = null;
+    Jedis jedis;
     try {
       jedis = jedisPool.getResource();
       int size = jedis.hlen(hmsetKey).intValue();
@@ -144,14 +140,15 @@ public class RedisCache<K, V> implements Cache<K, V> {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public Set<K> keys() {
     logger.debug("[RedisCache] 从redis缓存shiro对象的keys");
-    Jedis jedis = null;
+    Jedis jedis;
     try {
       jedis = jedisPool.getResource();
       Set<byte[]> keys = jedis.hkeys(hmsetKey);
       Set<K> kKeys = new HashSet<>();
-      keys.stream().forEach(key -> kKeys.add((K) SerializeUtils.deserialize(key)));
+      keys.forEach(key -> kKeys.add((K) SerializeUtils.deserialize(key)));
       logger.debug("[RedisCache] 从redis缓存shiro对象的keys：共计 {} 个", kKeys.size());
       return kKeys;
     } catch (Throwable t) {
@@ -161,14 +158,15 @@ public class RedisCache<K, V> implements Cache<K, V> {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public Collection<V> values() {
     logger.debug("[RedisCache] redis缓存shiro对象的values");
-    Jedis jedis = null;
+    Jedis jedis;
     try {
       jedis = jedisPool.getResource();
       Collection<byte[]> values = jedis.hvals(hmsetKey);
       Collection<V> vValues = new LinkedList<>();
-      values.stream().forEach(value -> vValues.add((V) SerializeUtils.deserialize(value)));
+      values.forEach(value -> vValues.add((V) SerializeUtils.deserialize(value)));
       logger.debug("[RedisCache] redis缓存shiro对象的values：共计 {} 个", values.size());
       return vValues;
     } catch (Throwable t) {
@@ -181,7 +179,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
   @Override
   public void clear() throws CacheException {
     logger.debug("[RedisCache] 从redis中删除所有shiro对象。");
-    Jedis jedis = null;
+    Jedis jedis;
     try {
       jedis = jedisPool.getResource();
       Set<byte[]> hkeys = jedis.hkeys(hmsetKey);

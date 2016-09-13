@@ -16,10 +16,6 @@ public class ShiroSession extends SimpleSession {
     super();
   }
 
-  public ShiroSession(String host) {
-    super(host);
-  }
-
   @Override
   public void setLastAccessTime(Date lastAccessTime) {
     if (getLastAccessTime() != null) {

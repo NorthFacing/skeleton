@@ -6,14 +6,10 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
         <property name="realm" ref="myRealm"/>
-        <!-- sessionManager -->
         <property name="sessionManager" ref="sessionManager"/>
-        <!-- cache -->
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
-    <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
-    <!-- security datasource: -->
     <bean id="myRealm" class="com.bob.core.utils.shiro.realm.MyRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>
@@ -25,31 +21,20 @@
 
     <!-- 密码校验规则 -->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-        <!-- hashAlgorithmName必须的，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。
-        这里使用MD5 storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
-        hashIterations迭代次数，默认值是1。 -->
-        <!--<constructor-arg ref="cacheManager"/>-->
-        <property name="hashAlgorithmName" value="md5"/><!--需要和PasswordHelper中的参数配置一致-->
-        <property name="hashIterations" value="2"/><!--需要和PasswordHelper中的参数配置一致-->
-        <property name="storedCredentialsHexEncoded" value="true"/>
+        <property name="hashAlgorithmName" value="md5"/><!--必填，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。-->
+        <property name="hashIterations" value="2"/><!--迭代次数，默认值是1。-->
+        <property name="storedCredentialsHexEncoded" value="true"/><!-- storedCredentialsHexEncoded默认是true，密码加密用的是Hex编码；false时用Base64编码 -->
     </bean>
 
     <!-- sessionManager -->
     <bean id="sessionManager" class="com.bob.core.utils.shiro.session.MyWebSessionManager">
-        <!--单位毫秒，默认 30 分钟-->
-        <property name="globalSessionTimeout" value="60000"/>
-        <!-- 是否开启会话验证器任务 默认true -->
-        <property name="sessionValidationSchedulerEnabled" value="true"/>
-        <!--会话验证调度器 ， 默认就是使用 ExecutorServiceSessionValidationScheduler-->
-        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="globalSessionTimeout" value="60000"/><!--单位毫秒，默认 30 分钟-->
+        <property name="sessionValidationSchedulerEnabled" value="true"/><!-- 是否开启会话验证器任务 默认true -->
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/><!--会话验证调度器 ， 默认就是使用 ExecutorServiceSessionValidationScheduler-->
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="cacheManager" ref="cacheManager"/>
-        <!--sessionManager 创建会话 Cookie 的模板-->
-        <property name="sessionIdCookie" ref="sessionIdCookie"/>
-        <!--是否启用/禁用 Session Id Cookie，默认是启用的；-->
-        <!--如果禁用后将不会设置 Session Id Cookie，即默认使用了 Servlet 容器的 JSESSIONID，-->
-        <!--且通过 URL 重写（URL 中的“;JSESSIONID=id”部分）保存 Session Id。-->
-        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookieEnabled" value="true"/><!--默认是启用的-->
+        <property name="sessionIdCookie" ref="sessionIdCookie"/><!--sessionManager 创建会话 Cookie 的模板-->
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="sessionListeners">
             <list>
@@ -59,14 +44,13 @@
     </bean>
 
     <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
-        <!--单位毫秒，默认就是 1 小时-->
-        <property name="interval" value="120000"/>
+        <property name="interval" value="120000"/><!--单位毫秒，默认就是 1 小时-->
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
 
-    <!--sessionDao缓存配置：ref="cache"配置于spring-mybatis.xml中-->
-    <bean id="sessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisCachingSessionDAO">
-    <!--<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">-->
+    <!--sessionDao缓存配置-->
+    <!--<bean id="sessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisCachingSessionDAO">-->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 
@@ -116,18 +100,6 @@
         <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
         <property name="testOnReturn" value="${redis.testOnReturn}"/>
     </bean>
-
-    <!--<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
-    <!--p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"-->
-    <!--p:pool-config-ref="poolConfig"/>-->
-
-    <!--<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
-    <!--<property name="connectionFactory" ref="jedisConnectionFactory"/>-->
-    <!--</bean>-->
-    <!--<bean id="cacheService" class="com.bob.core.cache.redis.RedisCacheServiceImpliceImpl">-->
-    <!--<property name="prefix" value="selekton"/>-->
-    <!--<property name="redisTemplate" ref="redisTemplate"/>-->
-    <!--</bean>-->
 
     <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
     <!-- They will automatically be acquired by the 'shiroFilter' bean above and made available -->

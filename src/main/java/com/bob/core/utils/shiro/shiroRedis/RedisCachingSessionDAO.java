@@ -10,22 +10,17 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 
 /**
- * CachingSessionDAO 中已经进行了缓存，这里可以继续持久化数据库的操作，但并没有如此操作，
- * 保留此类的目的是以后如果想要持久化直接扩展此类即可。
- * 开涛：因为继承了 CachingSessionDAO；所有在读取时会先查缓存中是否存在，如果找不到才到数据库中查找。
+ * 保留类，当前并未使用
+ * 一般配置了缓存管理器，所有的操作都会优先在缓存中执行。
+ * 本类可以在缓存操作之外进行持久化操作，比如，缓存中找不到之后会执行本类中的方法从数据库读取。
  */
 public class RedisCachingSessionDAO extends CachingSessionDAO {
 
   private static final Logger logger = LoggerFactory.getLogger(RedisCachingSessionDAO.class);
 
-  /**
-   * 如DefaultSessionManager在创建完session后会调用该方法
-   */
   @Override
   protected Serializable doCreate(Session session) {
-    // 创建一个Id并设置给Session
     Serializable sessionId = super.generateSessionId(session);
-    logger.debug("开始创建 shiro session, id = {}", sessionId);
     super.assignSessionId(session, sessionId);
     try {
 //      插入数据库
@@ -41,7 +36,6 @@ public class RedisCachingSessionDAO extends CachingSessionDAO {
    */
   @Override
   protected Session doReadSession(Serializable sessionId) {
-    logger.debug("开始读取 shiro session, id = {}", sessionId);
     Session session = null;
     try {
 //      从数据库查找
@@ -82,7 +76,6 @@ public class RedisCachingSessionDAO extends CachingSessionDAO {
    */
   @Override
   public void doDelete(Session session) {
-    logger.debug("开始删除 shiro session, id = {}", session.getId());
     try {
 //      从数据库删除
       logger.debug("删除 shiro session 完毕, id = {}", session.getId());

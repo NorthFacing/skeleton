@@ -26,9 +26,8 @@ public class RedisCacheManager implements CacheManager {
     logger.debug("获取名称为: " + name + " 的RedisCache实例");
     Cache c = caches.get(name);
     if (c == null) {
-      // create a new cache instance
+      // Bob：这里共用同一个cache，因为使用的是数据源，所以也没有必要新初始化一个对象了
       c = cache;
-      // add it to the cache collection
       caches.put(name, c);
     }
     return c;
