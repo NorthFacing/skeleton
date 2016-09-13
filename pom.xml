@@ -7,14 +7,14 @@
     <version>0.1-SNAPSHOT</version>
     <url>https://github.com/NorthFacing/skeleton</url>
     <properties>
-        <httpclient.version>3.0.1</httpclient.version>
+        <httpclient.version>3.1</httpclient.version>
         <!-- redis -->
         <spring.redis.version>1.6.0.RELEASE</spring.redis.version>
-        <jedis.version>2.7.3</jedis.version>
+        <jedis.version>2.9.0</jedis.version>
         <!-- spring -->
         <spring.version>4.1.7.RELEASE</spring.version>
         <!-- hibernate.validate -->
-        <hibernate.validate>5.1.3.Final</hibernate.validate>
+        <hibernate.validate>5.2.4.Final</hibernate.validate>
         <!-- mybatis -->
         <mybatis.version>3.2.8</mybatis.version>
         <!-- pageHelper -->
@@ -26,11 +26,11 @@
         <!-- persistence-api -->
         <persistence-api.version>1.0</persistence-api.version>
         <!-- shiro -->
-        <shiro.version>1.3.0</shiro.version>
+        <shiro.version>1.3.1</shiro.version>
         <!-- mysql -->
         <mysql.connection.version>5.1.35</mysql.connection.version>
         <!-- druid -->
-        <druid.version>1.0.14</druid.version>
+        <druid.version>1.0.25</druid.version>
         <!-- servlet -->
         <servlet.version>3.1.0</servlet.version>
         <!-- jsp -->
@@ -204,16 +204,16 @@
             <artifactId>shiro-web</artifactId>
             <version>${shiro.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-quartz</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shiro</groupId>-->
+            <!--<artifactId>shiro-ehcache</artifactId>-->
+            <!--<version>${shiro.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shiro</groupId>-->
+            <!--<artifactId>shiro-quartz</artifactId>-->
+            <!--<version>${shiro.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
