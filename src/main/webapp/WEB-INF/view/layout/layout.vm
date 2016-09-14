@@ -20,7 +20,8 @@
 </div>
     #parse("/WEB-INF/view/layout/bottom.vm")
     #foreach( $js in $!addJS )
-        <script src="$!{path}/resources$!js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+        <script src="$!{path}/resources$!js?staticVersion=$!{staticVersion}"
+                type="text/javascript"></script>
     #end
 </body>
 </html>
