@@ -3,7 +3,6 @@ package com.bob.core.base.entity;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Id;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

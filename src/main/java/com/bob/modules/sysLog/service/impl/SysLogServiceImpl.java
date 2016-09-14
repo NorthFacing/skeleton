@@ -13,10 +13,11 @@ import org.springframework.stereotype.Service;
  */
 @Service("SysLogService")
 public class SysLogServiceImpl
-        extends BaseServiceImpl<SysLog>
-        implements SysLogService {
+    extends BaseServiceImpl<SysLog>
+    implements SysLogService {
 
   @Autowired
+  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysLogMapper sysLogMapper;
 
   @Override

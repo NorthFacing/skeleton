@@ -22,10 +22,11 @@ public class MyWebSessionManager extends DefaultWebSessionManager {
 
   /**
    * 将session缓存至request，这样每次请求只需要访问一次redis
-   * @覆写 DefaultSessionManager 中的方法
+   *
    * @param sessionKey
    * @return
    * @throws UnknownSessionException
+   * @覆写 DefaultSessionManager 中的方法
    */
   @Override
   protected Session retrieveSession(SessionKey sessionKey) throws UnknownSessionException {

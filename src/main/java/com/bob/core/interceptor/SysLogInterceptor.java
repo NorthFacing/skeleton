@@ -32,7 +32,7 @@ public class SysLogInterceptor implements HandlerInterceptor {
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-          throws Exception {
+      throws Exception {
 
     String contextPath = request.getContextPath();
     String requestURI = request.getRequestURI();

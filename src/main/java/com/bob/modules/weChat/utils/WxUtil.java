@@ -73,8 +73,8 @@ public class WxUtil {
 
   public static String getOpenId(String code) {
     String url = "https://api.weixin.qq.com/sns/oauth2/access_token"
-            + "?appid=wx9384e04d490c6dce&secret=24b5879f0a654926bcd8745b2114968e&code=" + code
-            + "&grant_type=authorization_code";
+        + "?appid=wx9384e04d490c6dce&secret=24b5879f0a654926bcd8745b2114968e&code=" + code
+        + "&grant_type=authorization_code";
 //    String sd = HttpClientUtil.httpsPost(url, null);
 //    Map<String, Object> m = JsonUtil.getMap4Json(sd);
 //    return (String) m.get("openid");

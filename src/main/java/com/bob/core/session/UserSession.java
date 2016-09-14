@@ -77,6 +77,15 @@ public class UserSession<T> {
     this.homePage = homePage;
   }
 
+  /**
+   * 生成 sessionId
+   *
+   * @created 2015年10月12日 上午8:25:21
+   */
+  public static String generateSessionId() {
+    return EncoderHandler.encodeByMD5(UUID.randomUUID().toString().replaceAll("-", ""));
+  }
+
   public Map<String, String> getUserDept() {
     return userDept;
   }
@@ -155,14 +164,5 @@ public class UserSession<T> {
 
   public void setCorpId(String corpId) {
     this.corpId = corpId;
-  }
-
-  /**
-   * 生成 sessionId
-   *
-   * @created 2015年10月12日 上午8:25:21
-   */
-  public static String generateSessionId() {
-    return EncoderHandler.encodeByMD5(UUID.randomUUID().toString().replaceAll("-", ""));
   }
 }

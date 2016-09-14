@@ -18,13 +18,7 @@ import java.util.List;
 public interface SysLogMapper extends BaseMapper<SysLog> {
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
-  SysLog select(SysLog entity);
-
-  @SelectProvider(type = CRUDTemplate.class, method = "select")
   SysLogVo selectVo(SysLog entity);
-
-  @SelectProvider(type = CRUDTemplate.class, method = "select")
-  List<SysLog> selectList(SysLog entity);
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
   List<SysLogVo> selectVoList(SysLog entity);

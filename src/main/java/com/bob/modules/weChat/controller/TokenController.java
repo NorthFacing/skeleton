@@ -32,7 +32,7 @@ public class TokenController {
   public
   @ResponseBody
   String validate(@PathVariable("wxToken") String wxToken, CheckModel tokenModel)
-          throws ParseException, IOException {
+      throws ParseException, IOException {
     return tokenService.validate(wxToken, tokenModel);
   }
 }

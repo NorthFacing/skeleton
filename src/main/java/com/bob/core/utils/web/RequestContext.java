@@ -33,12 +33,6 @@ public final class RequestContext {
     return map;
   }
 
-  public static void setLoginUserId(Long id) {
-    Map map = getThreadLocalMap();
-    map.put(RequestContext.LOGIN_USER_ID_KEY, id);
-    threadLocal.set(map);
-  }
-
   public static Long getLoginUserId() {
     Object object = getThreadLocalMap().get(RequestContext.LOGIN_USER_ID_KEY);
     if (object == null)
@@ -47,14 +41,20 @@ public final class RequestContext {
     return Long.valueOf(object.toString());
   }
 
-  public static void setLoginUser(Object user) {
+  public static void setLoginUserId(Long id) {
     Map map = getThreadLocalMap();
-    map.put(RequestContext.LOGIN_USER_KEY, user);
+    map.put(RequestContext.LOGIN_USER_ID_KEY, id);
     threadLocal.set(map);
   }
 
   public static UserSession getLoginUser() {
     return (UserSession) getThreadLocalMap().get(RequestContext.LOGIN_USER_KEY);
+  }
+
+  public static void setLoginUser(Object user) {
+    Map map = getThreadLocalMap();
+    map.put(RequestContext.LOGIN_USER_KEY, user);
+    threadLocal.set(map);
   }
 
   public static String getLoginUserName() {
@@ -67,24 +67,24 @@ public final class RequestContext {
     threadLocal.set(map);
   }
 
+  public static HttpServletRequest getRequest() {
+    return (HttpServletRequest) getThreadLocalMap().get(RequestContext.HTTP_REQUEST_KEY);
+  }
+
   public static void setRequest(HttpServletRequest request) {
     Map map = getThreadLocalMap();
     map.put(RequestContext.HTTP_REQUEST_KEY, request);
     threadLocal.set(map);
   }
 
-  public static HttpServletRequest getRequest() {
-    return (HttpServletRequest) getThreadLocalMap().get(RequestContext.HTTP_REQUEST_KEY);
+  public static HttpServletResponse getResponse() {
+    return (HttpServletResponse) getThreadLocalMap().get(RequestContext.HTTP_RESPONSE_KEY);
   }
 
   public static void setResponse(HttpServletResponse response) {
     Map map = getThreadLocalMap();
     map.put(RequestContext.HTTP_RESPONSE_KEY, response);
     threadLocal.set(map);
-  }
-
-  public static HttpServletResponse getResponse() {
-    return (HttpServletResponse) getThreadLocalMap().get(RequestContext.HTTP_RESPONSE_KEY);
   }
 
   public static void clearVariable() {

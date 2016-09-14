@@ -25,11 +25,11 @@ public interface BaseService<T extends BaseEntity> {
 
   T selectById(String id);
 
+  List<T> selectList(T entity);
+
   <V extends T> V selectVo(T entity);
 
   <V extends T> V selectVoById(String id);
-
-  List<T> selectList(T entity);
 
   <V extends T> List<V> selectVoList(T entity);
 

@@ -8,12 +8,16 @@ import com.bob.modules.sysResource.mapper.SysResourceMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
 /**
  * Created by Bob on 2015/12/31.
+ *
+ * @author Bob <email>0haizhu0@gmail.com</email>
  */
+@Rollback
 public class SysResourceMapperTest extends BaseMapperTest {
 
   @Autowired
@@ -32,21 +36,21 @@ public class SysResourceMapperTest extends BaseMapperTest {
     SysResource sysResource = getSysResource();
     sysResourceMapper.insert(sysResource);
 
-    SysResource param1 = new SysResource();
-    param1.setId(sysResource.getId());
+    SysResource entity = new SysResource();
+    entity.setId(sysResource.getId());
 
-    SysResource result1 = sysResourceMapper.select(param1);
+    SysResource result1 = sysResourceMapper.select(entity);
     Assert.assertNotNull(result1);
 
-    SysResourceVo result2 = sysResourceMapper.selectVo(param1);
+    SysResourceVo result2 = sysResourceMapper.selectVo(entity);
     Assert.assertNotNull(result2);
 
   }
 
   @Test
   public void selectListTest() {
-    SysResource sysResource = getSysResource();
-    sysResourceMapper.insert(sysResource);
+    SysResource entity = getSysResource();
+    sysResourceMapper.insert(entity);
 
     SysResource param = new SysResource();
 

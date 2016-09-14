@@ -19,7 +19,7 @@ public class PasswordTypeHandler extends BaseTypeHandler<String> {
 
   @Override
   public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType)
-          throws SQLException {
+      throws SQLException {
     try {
       ps.setBytes(i, EncryptionUtil.encrypt(parameter));
     } catch (NoSuchPaddingException e) {

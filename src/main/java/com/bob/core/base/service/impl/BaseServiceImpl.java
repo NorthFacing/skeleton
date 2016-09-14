@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service("baseService")
 public abstract class BaseServiceImpl<T extends BaseEntity>
-        implements BaseService<T> {
+    implements BaseService<T> {
 
   /**
    * 获取实际操作的对象方法，方便操作
@@ -80,6 +80,11 @@ public abstract class BaseServiceImpl<T extends BaseEntity>
   }
 
   @Override
+  public List<T> selectList(T entity) {
+    return getMapper().selectList(entity);
+  }
+
+  @Override
   public <V extends T> V selectVo(T entity) {
     return getMapper().selectVo(entity);
   }
@@ -92,11 +97,6 @@ public abstract class BaseServiceImpl<T extends BaseEntity>
   }
 
   @Override
-  public List<T> selectList(T entity) {
-    return getMapper().selectList(entity);
-  }
-
-  @Override
   public <V extends T> List<V> selectVoList(T entity) {
     return getMapper().selectVoList(entity);
   }
@@ -105,7 +105,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity>
   public <Q extends BaseQuery> Q pageData(Q query) {
     Long count = getMapper().count(query);
     query.setTotal(count);
-    List list = getMapper().query(query);
+    List<T> list = getMapper().query(query);
     query.setRows(list);
     return query;
   }

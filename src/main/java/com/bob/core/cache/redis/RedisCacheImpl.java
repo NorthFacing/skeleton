@@ -2,11 +2,9 @@ package com.bob.core.cache.redis;
 
 import com.bob.core.cache.CacheService;
 import com.bob.core.contants.Constants;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -21,18 +19,23 @@ import java.util.Set;
  */
 public class RedisCacheImpl implements CacheService {
 
+  private static JedisPool jedisPool = null;
   private Logger logger = LoggerFactory.getLogger(RedisCacheImpl.class);
-
   private String host;
   private int port;
   private String password;
   private int timeout; // 连接超时时间
-
-  private static JedisPool jedisPool = null;
-
   private JedisPoolConfig poolConfig;
 
   public RedisCacheImpl() {
+  }
+
+  public static JedisPool getJedisPool() {
+    return jedisPool;
+  }
+
+  public static void setJedisPool(JedisPool jedisPool) {
+    RedisCacheImpl.jedisPool = jedisPool;
   }
 
   /**
@@ -61,7 +64,6 @@ public class RedisCacheImpl implements CacheService {
     logger.debug("ShiroRedisImpl销毁jedisPool");
     jedisPool.destroy();
   }
-
 
   @Override
   public String get(String key) {
@@ -215,6 +217,8 @@ public class RedisCacheImpl implements CacheService {
     }
   }
 
+  // *****************************************以下是setter和getter方法*****************************************
+
   @Override
   public Long dbSize() {
     Jedis jedis = null;
@@ -238,8 +242,6 @@ public class RedisCacheImpl implements CacheService {
     builder.append(":").append(key);
     return builder.toString();
   }
-
-  // *****************************************以下是setter和getter方法*****************************************
 
   public JedisPoolConfig getPoolConfig() {
     return poolConfig;
@@ -279,13 +281,5 @@ public class RedisCacheImpl implements CacheService {
 
   public void setTimeout(int timeout) {
     this.timeout = timeout;
-  }
-
-  public static JedisPool getJedisPool() {
-    return jedisPool;
-  }
-
-  public static void setJedisPool(JedisPool jedisPool) {
-    RedisCacheImpl.jedisPool = jedisPool;
   }
 }

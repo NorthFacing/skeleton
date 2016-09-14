@@ -3,9 +3,6 @@ package com.bob.core.utils.myBatis;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
-/**
- *
- */
 public class CRUDTemplate {
 
   public String insert(Object obj) throws Exception {

@@ -128,17 +128,17 @@ public class EntityUtil {
    * @Date 2015-12-31 12:57:00
    */
   public static String prepareTableName(Object obj) {
-    String tablename = null;
+    String tableName;
     Class<?> clazz = obj.getClass();
     Table table = clazz.getAnnotation(Table.class);
     if (table != null) {
-      tablename = table.name();
+      tableName = table.name();
     } else {
       String pojoName = clazz.getSimpleName();
-      tablename = camelCase2UnderScore(pojoName);
+      tableName = camelCase2UnderScore(pojoName);
     }
-    logger.info(tablename);
-    return tablename;
+    logger.info(tableName);
+    return tableName;
   }
 
   //=======================================静态信息获取===============================================

@@ -39,4 +39,5 @@ public class SysRoleVo extends SysRole {
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
   }
+
 }

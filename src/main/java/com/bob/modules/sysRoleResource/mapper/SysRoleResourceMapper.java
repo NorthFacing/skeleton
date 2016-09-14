@@ -3,7 +3,6 @@ package com.bob.modules.sysRoleResource.mapper;
 import com.bob.core.base.mapper.BaseMapper;
 import com.bob.core.utils.myBatis.CRUDTemplate;
 import com.bob.modules.sysRoleResource.entity.SysRoleResource;
-import com.bob.modules.sysRoleResource.entity.SysRoleResourceQuery;
 import com.bob.modules.sysRoleResource.entity.SysRoleResourceVo;
 import org.apache.ibatis.annotations.SelectProvider;
 
@@ -19,13 +18,7 @@ import java.util.List;
 public interface SysRoleResourceMapper extends BaseMapper<SysRoleResource> {
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
-  SysRoleResource select(SysRoleResource entity);
-
-  @SelectProvider(type = CRUDTemplate.class, method = "select")
   SysRoleResourceVo selectVo(SysRoleResource entity);
-
-  @SelectProvider(type = CRUDTemplate.class, method = "select")
-  List<SysRoleResource> selectList(SysRoleResource entity);
 
   @SelectProvider(type = CRUDTemplate.class, method = "select")
   List<SysRoleResourceVo> selectVoList(SysRoleResource entity);

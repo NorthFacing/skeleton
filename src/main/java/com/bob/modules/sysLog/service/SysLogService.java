@@ -2,8 +2,6 @@ package com.bob.modules.sysLog.service;
 
 import com.bob.core.base.service.BaseService;
 import com.bob.modules.sysLog.entity.SysLog;
-import com.bob.modules.sysLog.entity.SysLogQuery;
-import com.bob.modules.sysLog.entity.SysLogVo;
 
 /**
  * SysLogService

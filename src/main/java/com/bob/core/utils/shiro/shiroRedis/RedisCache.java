@@ -29,16 +29,14 @@ import java.util.Set;
  */
 public class RedisCache<K, V> implements Cache<K, V> {
 
-  private Logger logger = LoggerFactory.getLogger(RedisCache.class);
-
   private static final byte[] hmsetKey = SerializeUtils.serialize("shiroRedisKey");
-
+  private static JedisPool jedisPool;
+  private Logger logger = LoggerFactory.getLogger(RedisCache.class);
   private String host;
   private int port;
   private String password;
   private int timeout; // 连接超时时间
   private JedisPoolConfig poolConfig;
-  private static JedisPool jedisPool;
 
   @PostConstruct
   public void init() {

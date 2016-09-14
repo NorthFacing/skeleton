@@ -26,12 +26,14 @@ import java.util.List;
  */
 @Service("sysRoleService")
 public class SysRoleServiceImpl
-        extends BaseServiceImpl<SysRole>
-        implements SysRoleService {
+    extends BaseServiceImpl<SysRole>
+    implements SysRoleService {
 
   @Autowired
+  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysRoleMapper sysRoleMapper;
   @Autowired
+  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysRoleResourceMapper sysRoleResourceMapper;
 
   @Override

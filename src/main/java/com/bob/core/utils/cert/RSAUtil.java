@@ -1,6 +1,9 @@
 package com.bob.core.utils.cert;
 
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import javax.crypto.Cipher;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -10,10 +13,6 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
-
-import javax.crypto.Cipher;
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class RSAUtil {
 
@@ -48,7 +47,7 @@ public class RSAUtil {
 
 
   public static String encryptByPublicKey(String data, RSAPublicKey publicKey)
-          throws Exception {
+      throws Exception {
     Security.addProvider(new BouncyCastleProvider());
     Cipher cipher = Cipher.getInstance("RSA", "BC");
     cipher.init(Cipher.ENCRYPT_MODE, publicKey);

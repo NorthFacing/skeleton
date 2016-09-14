@@ -56,7 +56,7 @@ public class RedisCachingSessionDAO extends CachingSessionDAO {
   @Override
   protected void doUpdate(Session session) {
     logger.debug("开始更新 shiro session, id = {}", session.getId());
-    if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
+    if (session instanceof ValidatingSession && !((ValidatingSession) session).isValid()) {
       return; //如果会话过期/停止 没必要再更新了
     }
     try {

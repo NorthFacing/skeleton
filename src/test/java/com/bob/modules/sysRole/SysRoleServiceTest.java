@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Bob on 2016/1/4.
  */
 public class SysRoleServiceTest extends BaseServiceTest {
+
   @Autowired
   private SysRoleService sysRoleService;
 
