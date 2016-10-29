@@ -266,12 +266,12 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>jcl-over-slf4j</artifactId>-->
+            <!--<version>${slf4j.version}</version>-->
+            <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -469,6 +469,10 @@
                     <compilerVersion>${compiler.version}</compilerVersion>
                     <encoding>UTF-8</encoding>
                 </configuration>
+                <!--如果有额外的依赖包-->
+                <!--<compilerArguments>-->
+                    <!--<extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>-->
+                <!--</compilerArguments>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -481,15 +485,55 @@
                     </webappDirectory>
                 </configuration>
             </plugin>
+            <!--编译jar形式的包时将依赖包打包至lib目录-->
             <!--<plugin>-->
-                <!--<groupId>org.eclipse.jetty</groupId>-->
-                <!--<artifactId>jetty-maven-plugin</artifactId>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-dependency-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>copy</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>copy-dependencies</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<outputDirectory>-->
+                                <!--${project.build.directory}/lib-->
+                            <!--</outputDirectory>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+            <!-- 指定jar包main函数 -->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jar-plugin</artifactId>-->
                 <!--<configuration>-->
-                    <!--<scanIntervalSeconds>3</scanIntervalSeconds>-->
-                    <!--<webAppConfig>-->
-                        <!--<contextPath>/skeleton</contextPath>-->
-                    <!--</webAppConfig>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<addClasspath>true</addClasspath>-->
+                            <!--<classpathPrefix>lib/</classpathPrefix>-->
+                            <!--<mainClass>com.bob.HBaseTest</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
                 <!--</configuration>-->
+            <!--</plugin>-->
+            <!-- 源码打包 -->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-source-plugin</artifactId>-->
+                <!--<version>2.1</version>-->
+                <!--<configuration>-->
+                    <!--<attach>true</attach>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>jar</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
             <!--</plugin>-->
         </plugins>
     </build>
