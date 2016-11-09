@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(value = "/admin")
 public class LoginController extends BaseController {
+
   @Autowired
   private SysLoginLogService sysLoginLogService;
 

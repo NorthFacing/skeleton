@@ -28,8 +28,8 @@ public class RSADemo02 {
 
 
     KeyFactory fact = KeyFactory.getInstance("RSA");
-    RSAPublicKeySpec pub = fact.getKeySpec(kp.getPublic(), RSAPublicKeySpec.class);
-    RSAPrivateKeySpec priv = fact.getKeySpec(kp.getPrivate(), RSAPrivateKeySpec.class);
+    RSAPublicKeySpec pub = fact.getKeySpec(publicKey, RSAPublicKeySpec.class);
+    RSAPrivateKeySpec priv = fact.getKeySpec(privateKey, RSAPrivateKeySpec.class);
 
     saveToFile("M:/public.key", pub.getModulus(), pub.getPublicExponent());
     saveToFile("M:/private.key", priv.getModulus(), priv.getPrivateExponent());

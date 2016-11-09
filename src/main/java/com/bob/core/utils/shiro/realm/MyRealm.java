@@ -16,9 +16,13 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MyRealm extends AuthorizingRealm {
+
+  Logger logger = LoggerFactory.getLogger(MyRealm.class);
 
   @Autowired
   private SysUserService sysUserService;
@@ -31,6 +35,8 @@ public class MyRealm extends AuthorizingRealm {
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
+    logger.debug("【MyRealm】doGetAuthorizationInfo");
+
     SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
     Session session = SecurityUtils.getSubject().getSession();
@@ -39,6 +45,7 @@ public class MyRealm extends AuthorizingRealm {
       return authorizationInfo;
     }
 
+    // TODO 每次请求都要执行这个方法，那么这里需要做缓存处理
     SysUser user = (SysUser) obj;
     if ("admin".equals(user.getUserName())) {              // 如果是admin账号，作为超级管理员，拥有所有角色和所有权限
       authorizationInfo.setRoles(sysUserService.getAllRolesName());

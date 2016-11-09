@@ -1,12 +1,12 @@
 package com.bob.modules.weChat.utils;
 
-//import com.bob.core.utils.json.JsonUtil;
-//import com.bob.core.utils.http.HttpClientUtil;
-//import com.bob.core.utils.http.HttpRequest;
-
+import com.alibaba.fastjson.JSONObject;
+import com.bob.core.utils.http.HttpClientUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 public class WxUtil {
+
+  static Logger logger = LoggerFactory.getLogger(WxUtil.class);
 
   /**
    * 保存openId到cookie
@@ -75,9 +77,14 @@ public class WxUtil {
     String url = "https://api.weixin.qq.com/sns/oauth2/access_token"
         + "?appid=wx9384e04d490c6dce&secret=24b5879f0a654926bcd8745b2114968e&code=" + code
         + "&grant_type=authorization_code";
-//    String sd = HttpClientUtil.httpsPost(url, null);
-//    Map<String, Object> m = JsonUtil.getMap4Json(sd);
-//    return (String) m.get("openid");
+    JSONObject resp = null;
+    try {
+      resp = HttpClientUtil.httpPost(url, null);
+      String openid = resp.getString("openid");
+      return openid;
+    } catch (Exception e) {
+      logger.error("get openId error，{}", e.getMessage(), e);
+    }
     return null;
   }
 

@@ -42,7 +42,7 @@ public class RedisCachingSessionDAO extends CachingSessionDAO {
       if (session != null) {
         logger.info("读取 shiro session 完毕, id = {}, name = {}", session.getId(), session.getClass().getName());
       } else {
-        logger.warn("读取 shiro session 失败, id = {}", session.getId());
+        logger.warn("读取 shiro session 失败");
       }
     } catch (Exception e) {
       logger.error("读取Session失败，{}", e.getMessage(), e);

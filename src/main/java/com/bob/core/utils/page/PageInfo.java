@@ -85,7 +85,7 @@ public class PageInfo<T> implements Serializable {
   }
 
   public void setTotal(Long total) {
-    this.total = (null == total) ? 0 : total;
+    this.total = (null == total) ? 0l : total;
     // 计算总页数
     calculatePages();
     // 校验并修正查询的页数

@@ -54,7 +54,7 @@
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 
-    <!-- 自定义Session工厂方法 返回会标识是否修改主要字段的自定义Session-->
+    <!-- 自定义Session工厂方法-->
     <bean id="sessionFactory" class="com.bob.core.utils.shiro.session.ShiroSessionFactory"/>
 
     <!-- cookie -->

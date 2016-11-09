@@ -13,12 +13,15 @@
             http://www.springframework.org/schema/task
             http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <context:component-scan base-package="com.bob.*.*.controller"/>
+    <!--扫描加载controller类-->
+    <context:component-scan base-package="com.bob.*.*.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- enable autowire -->
     <context:annotation-config/>
 
-    <!-- 定时器开关 开始 -->
+    <!-- 自动注册组件 -->
     <task:annotation-driven/>
 
     <!-- Configures the @Controller programming model -->
