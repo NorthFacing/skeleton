@@ -160,25 +160,3 @@ FROM
     WHERE A.uid IS NOT NULL
     GROUP BY B.pid
   ) T;
-
-
--- 每个产品线同一天的记录只取一条
-SELECT DISTINCT
-  to_days(log2.cdtime) d,
-  im.pid               lineId
-FROM (
-       SELECT
-         o3.id,
-         o3.devid,
-         o3.cdtime,
-         idi.mdcode productcode
-       FROM ia_onecup_finshlog o3
-         LEFT JOIN ia_device_info idi
-           ON o3.devid = idi.produce_code
-         LEFT JOIN ia_productmodel im
-           ON idi.produce_code = im.dcode
-       WHERE DATE_FORMAT(o3.cdtime, '%Y-%m-%d') < curdate()
-     ) log2
-  LEFT JOIN ia_productmodel im
-    ON log2.productcode = im.dcode
-GROUP BY im.pid, to_days(log2.cdtime)
