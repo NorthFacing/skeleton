@@ -1,31 +1,152 @@
--- 7日占比
-
+-- 按照型号分组的间隔天数
 SELECT
+  date_sub(curdate(), INTERVAL 1 DAY)                                                          totaldate,
+  log1.productcode                                                                             mdcode,
+  B.pid                                                                                        lineId,
+  NULL                                                                                         devavg,
+  cast((to_days(max(log1.cdtime)) - to_days(min(log1.cdtime))) / C.days AS DECIMAL(10, 0)) + 1 useavg,
+  NULL                                                                                         7dproportion
+FROM (
+       -- 查询所有log日志
+       SELECT
+         o1.cdtime,
+         o1.productcode,
+         o1.machineid devId
+       FROM operaterecord_data_80a0 o1
+       WHERE o1.deleted = 0
+             AND DATE_FORMAT(o1.cdtime, '%Y-%m-%d') < curdate()
+       UNION
+       SELECT
+         o2.cdtime,
+         o2.productcode,
+         o2.machineid devId
+       FROM operaterecord_data_9000 o2
+       WHERE o2.deleted = 0
+             AND DATE_FORMAT(o2.cdtime, '%Y-%m-%d') < curdate()
+       UNION
+       SELECT
+         o3.cdtime,
+         idi.mdcode productcode,
+         o3.devid   devId
+       FROM ia_onecup_finshlog o3
+         LEFT JOIN ia_device_info idi
+           ON o3.devid = idi.produce_code
+       WHERE DATE_FORMAT(o3.cdtime, '%Y-%m-%d') < curdate()
+     ) log1
+  -- 日志和用户关联
+  LEFT JOIN (
+              SELECT DISTINCT
+                ud.did,
+                ud.uid
+              FROM ia_user_dev ud
+                -- 设备和用户关联
+                LEFT JOIN ia_appusers u
+                  ON ud.uid = u.id
+              WHERE ud.deleted = 0
+                    AND u.deleted = 0
+              GROUP BY ud.did
+            ) A
+    ON log1.devId = A.did
+  -- 日志和产品线关联
+  LEFT JOIN (
+              SELECT
+                m.dcode,
+                m.pid
+              FROM ia_productmodel m
+            ) B
+    ON log1.productcode = B.dcode
+  --
+  LEFT JOIN (
+              -- 每个型号不同日期的总天数
+              SELECT
+                COUNT(M.d) days,
+                M.productcode
+              FROM (
+                     -- 每个型号同一天的记录只取一条
+                     SELECT DISTINCT
+                       to_days(log2.cdtime) d,
+                       log2.productcode
+                     FROM (
+                            -- 查询所有log日志
+                            SELECT
+                              o1.cdtime,
+                              o1.productcode
+                            FROM operaterecord_data_80a0 o1
+                            WHERE o1.deleted = 0
+                                  AND DATE_FORMAT(o1.cdtime, '%Y-%m-%d') < curdate()
+                            UNION
+                            SELECT
+                              o2.cdtime,
+                              o2.productcode
+                            FROM operaterecord_data_9000 o2
+                            WHERE o2.deleted = 0
+                                  AND DATE_FORMAT(o2.cdtime, '%Y-%m-%d') < curdate()
+                            UNION
+                            SELECT
+                              o3.cdtime,
+                              idi.mdcode productcode
+                            FROM ia_onecup_finshlog o3
+                              LEFT JOIN ia_device_info idi
+                                ON o3.devid = idi.produce_code
+                            WHERE DATE_FORMAT(o3.cdtime, '%Y-%m-%d') < curdate()
+                          ) log2
+                     GROUP BY log2.productcode, to_days(log2.cdtime)
+                   ) M
+              GROUP BY M.productcode
+            ) C
+    ON log1.productcode = C.productcode
+WHERE A.uid IS NOT NULL
+GROUP BY log1.productcode
 
-  T.totaldate,
-  sum(
-      CASE WHEN T.useavg <= 7
-        THEN 1
-      ELSE 0 END
-  )                                       part,
-  count(1)                                total,
-  cast(sum(
-           CASE WHEN T.useavg <= 7
-             THEN 1
-           ELSE 0 END
-       ) / count(1) AS DECIMAL(10, 2)) AS 7dproportion
+
+-- 型号7日占比
+SELECT
+  date_sub(curdate(), INTERVAL 1 DAY) totaldate,
+  T.productcode                       mdcode,
+  T.lineId                            lineid,
+  NULL                                devavg,
+  NULL                                useavg,
+  concat(cast(sum(
+                  CASE WHEN T.useavg <= 7
+                    THEN 1
+                  ELSE 0 END
+              ) * 100 / count(1) AS DECIMAL(10, 1)),
+         '%')                         7dproportion
 FROM
   (
-    -- 间隔天数
+    -- 按照设备分组的间隔天数
     SELECT
-      date_sub(curdate(), INTERVAL 1 DAY)                                                    totaldate,
-      B.pid                                                                                  lineId,
-      min(o.cdtime)                                                                          min_day,
-      max(o.cdtime)                                                                          max_day,
-      (to_days(max(o.cdtime)) - to_days(min(o.cdtime)))                                      '时间差',
-      C.days                                                                                 '制作天数',
-      cast((to_days(max(o.cdtime)) - to_days(min(o.cdtime))) / C.days AS DECIMAL(10, 0)) + 1 useavg
-    FROM operaterecord_data_80a0 o
+      log1.productcode,
+      log1.devId,
+      B.pid                                                                                        lineId,
+      cast((to_days(max(log1.cdtime)) - to_days(min(log1.cdtime))) / C.days AS DECIMAL(10, 0)) + 1 useavg
+    FROM (
+           -- 查询所有log日志
+           SELECT
+             o1.cdtime,
+             o1.productcode,
+             o1.machineid devId
+           FROM operaterecord_data_80a0 o1
+           WHERE o1.deleted = 0
+                 AND DATE_FORMAT(o1.cdtime, '%Y-%m-%d') < curdate()
+           UNION
+           SELECT
+             o2.cdtime,
+             o2.productcode,
+             o2.machineid devId
+           FROM operaterecord_data_9000 o2
+           WHERE o2.deleted = 0
+                 AND DATE_FORMAT(o2.cdtime, '%Y-%m-%d') < curdate()
+           UNION
+           SELECT
+             o3.cdtime,
+             idi.mdcode productcode,
+             o3.devid   devId
+           FROM ia_onecup_finshlog o3
+             LEFT JOIN ia_device_info idi
+               ON o3.devid = idi.produce_code
+           WHERE DATE_FORMAT(o3.cdtime, '%Y-%m-%d') < curdate()
+         ) log1
       -- 日志和用户关联
       LEFT JOIN (
                   SELECT DISTINCT
@@ -39,7 +160,7 @@ FROM
                         AND u.deleted = 0
                   GROUP BY ud.did
                 ) A
-        ON o.machineid = A.did
+        ON log1.devId = A.did
       -- 日志和产品线关联
       LEFT JOIN (
                   SELECT
@@ -47,29 +168,53 @@ FROM
                     m.pid
                   FROM ia_productmodel m
                 ) B
-        ON o.productcode = B.dcode
+        ON log1.productcode = B.dcode
       --
       LEFT JOIN (
-                  -- 每个产品线不同日期的总天数
+                  -- 每个设备不同日期的总天数
                   SELECT
-                    count(M.day) days,
-                    M.lineId
+                    COUNT(M.d) days,
+                    M.devId,
+                    M.productcode
                   FROM (
-                         -- 每个产品线同一天的记录只取一条
+                         -- 每个设备同一天的记录只取一条
                          SELECT DISTINCT
-                           to_days(o2.cdtime) day,
-                           im.pid             lineId
-                         FROM operaterecord_data_80a0 o2
-                           LEFT JOIN ia_productmodel im
-                             ON o2.productcode = im.dcode
-                         GROUP BY im.pid, to_days(o2.cdtime)
+                           to_days(log2.cdtime) d,
+                           log2.devId,
+                           log2.productcode
+                         FROM (
+                                -- 查询所有log日志
+                                SELECT
+                                  o1.cdtime,
+                                  o1.machineid devId,
+                                  o1.productcode
+                                FROM operaterecord_data_80a0 o1
+                                WHERE o1.deleted = 0
+                                      AND DATE_FORMAT(o1.cdtime, '%Y-%m-%d') < curdate()
+                                UNION
+                                SELECT
+                                  o2.cdtime,
+                                  o2.machineid devId,
+                                  o2.productcode
+                                FROM operaterecord_data_9000 o2
+                                WHERE o2.deleted = 0
+                                      AND DATE_FORMAT(o2.cdtime, '%Y-%m-%d') < curdate()
+                                UNION
+                                SELECT
+                                  o3.cdtime,
+                                  o3.devid   devId,
+                                  idi.mdcode productcode
+                                FROM ia_onecup_finshlog o3
+                                  LEFT JOIN ia_device_info idi
+                                    ON o3.devid = idi.produce_code
+                                WHERE DATE_FORMAT(o3.cdtime, '%Y-%m-%d') < curdate()
+                              ) log2
+                         GROUP BY log2.devId, to_days(log2.cdtime)
                        ) M
-                  GROUP BY M.lineId
+                  GROUP BY M.devId
                 ) C
-        ON B.pid = C.lineId
-    WHERE o.deleted = 0
-          AND DATE_FORMAT(o.cdtime, '%Y-%m-%d') < curdate()
-          AND A.uid IS NOT NULL
-    GROUP BY B.pid
-  ) T;
-
+        ON log1.devId = C.devId
+    WHERE A.uid IS NOT NULL
+    GROUP BY log1.devId
+  ) T
+GROUP BY T.productcode;
