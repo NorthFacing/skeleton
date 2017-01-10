@@ -1,7 +1,7 @@
 CREATE PROCEDURE `proc_statistic_total_useavg`()
   BEGIN
     INSERT INTO ia_report_frequency
-
+    -- 统计全部设备的使用间隔时间
       SELECT
         date_sub(curdate(), INTERVAL 1 DAY)                          totaldate,
         NULL                                                         mdcode,

@@ -1,7 +1,7 @@
 CREATE PROCEDURE `proc_statistic_line_7dproportion`()
   BEGIN
     INSERT INTO ia_report_frequency
-
+    -- 统计产品线下的7日内百分比
       SELECT
         date_sub(curdate(), INTERVAL 1 DAY) totaldate,
         NULL                                mdcode,
