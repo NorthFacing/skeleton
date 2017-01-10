@@ -96,7 +96,7 @@ FROM (
             ) C
     ON log1.productcode = C.productcode
 WHERE A.uid IS NOT NULL
-GROUP BY log1.productcode
+GROUP BY log1.productcode;
 
 
 -- 型号7日占比
