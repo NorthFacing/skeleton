@@ -1,4 +1,6 @@
-CREATE PROCEDURE `proc_statistic_line_useavg`()
+DROP PROCEDURE IF EXISTS proc_statistic_line_useavg;
+
+CREATE PROCEDURE proc_statistic_line_useavg()
   BEGIN
     INSERT INTO ia_report_frequency
     -- 统计产品线下的使用间隔时间

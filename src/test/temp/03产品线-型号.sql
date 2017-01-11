@@ -106,12 +106,11 @@ SELECT
   T.lineId                            lineid,
   NULL                                devavg,
   NULL                                useavg,
-  concat(cast(sum(
+  cast(sum(
                   CASE WHEN T.useavg <= 7
                     THEN 1
                   ELSE 0 END
-              ) * 100 / count(1) AS DECIMAL(10, 1)),
-         '%')                         7dproportion
+              ) * 100 / count(1) AS DECIMAL(10, 1))                         7dproportion
 FROM
   (
     -- 按照设备分组的间隔天数

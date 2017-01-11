@@ -1,19 +1,20 @@
-CREATE PROCEDURE `proc_statistic_type_7dproportion`()
+DROP PROCEDURE IF EXISTS proc_statistic_type_7dproportion;
+
+CREATE PROCEDURE proc_statistic_type_7dproportion()
   BEGIN
     INSERT INTO ia_report_frequency
     -- 统计设备类型下的7日内百分比
       SELECT
-        date_sub(curdate(), INTERVAL 1 DAY) totaldate,
-        T.productcode                       mdcode,
-        T.lineId                            lineid,
-        NULL                                devavg,
-        NULL                                useavg,
-        concat(cast(sum(
-                        CASE WHEN T.useavg <= 7
-                          THEN 1
-                        ELSE 0 END
-                    ) * 100 / count(1) AS DECIMAL(10, 1)),
-               '%')                         7dproportion
+        date_sub(curdate(), INTERVAL 1 DAY)        totaldate,
+        T.productcode                              mdcode,
+        T.lineId                                   lineid,
+        NULL                                       devavg,
+        NULL                                       useavg,
+        cast(sum(
+                 CASE WHEN T.useavg <= 7
+                   THEN 1
+                 ELSE 0 END
+             ) * 100 / count(1) AS DECIMAL(10, 1)) 7dproportion
       FROM
         (
           -- 按照设备分组的间隔天数

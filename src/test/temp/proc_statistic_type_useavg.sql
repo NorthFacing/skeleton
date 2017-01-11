@@ -1,4 +1,6 @@
-CREATE PROCEDURE `proc_statistic_type_useavg`()
+DROP PROCEDURE IF EXISTS proc_statistic_type_useavg;
+
+CREATE PROCEDURE proc_statistic_type_useavg()
   BEGIN
     INSERT INTO ia_report_frequency
     -- 统计设备类型下的使用间隔时间
