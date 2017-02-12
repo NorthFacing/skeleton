@@ -1,103 +1,92 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    #parse("/WEB-INF/view/layout/base.vm")
-    #parse("/WEB-INF/view/layout/header.vm")
-  <title>医院管理</title>
-</head>
-<body>
-<div class="container-fluid">
-    #parse("/WEB-INF/view/layout/navbar.vm")
-  <div class="row">
-    <div class="col-md-2">
-        #parse("/WEB-INF/view/layout/menu.vm")
+#set($title="资源管理")
+#set($addJS=["/sysResource/list.js"])
+
+<!-- Content Header (Page header) -->
+
+<section class="content-header" style="padding: 8px 15px 3px 15px;background-color: #eaeaea">
+    <h1>
+        Dashboard
+        <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb" style="padding: 0px 30px;">
+        <li><a href="$!{path}/admin/login"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">资源管理</li>
+    </ol>
+</section>
+
+<section class="col-md-12" style="padding-top: 15px">
+    <!-- Main row -->
+    <div class="row" style="padding-top: 10px">
+        <!-- Main content -->
+        <div class="col-md-12">
+            <form id="form" class="form-horizontal" action="#" method="POST">
+                <input type="hidden" id="entityId" name="id" value="$!{entity.id}"/>
+
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label"><span class="required"> * </span>父节点ID：</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               name="parentId" value="$!{entity.parentId}" maxlength="32"/>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label"><span class="required"> * </span>名称：</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               name="name" value="$!{entity.name}" maxlength="60"/>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label"><span class="required"> * </span>资源路径：</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               name="resUrl" value="$!{entity.resUrl}" maxlength="150"/>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label"><span class="required"> * </span>类型：</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               name="type" value="$!{entity.type}" maxlength="1"/>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label"><span class="required"> * </span>层级：</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               name="level" value="$!{entity.level}" maxlength="20"/>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label"><span class="required"> * </span>描述：</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               name="description" value="$!{entity.description}" maxlength="100"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+
+                    <div class="col-sm-2">
+                        <button type="button" id="save" class="btn btn-info">
+                            <i class="glyphicon glyphicon-export"></i>
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="col-md-10">
-      <div class="row">
-        <ol class="breadcrumb">
-          <li><i class="glyphicon glyphicon-home"></i></li>
-          <li><a href="$!{path}/admin/login">首页</a></li>
-          <li><a href="#">医院管理</a></li>
-        </ol>
-      </div>
-      <div class="row">
-        <form id="form" class="form-horizontal" action="#" method="POST">
-          <input type="hidden" id="entityId" name="id" value="$!{entity.id}"/>
-
-          <div class="form-group ">
-            <label class="col-sm-2 control-label"><span class="required"> * </span>父节点ID：</label>
-
-            <div class="col-sm-6">
-              <input type="text" class="form-control"
-                     name="parentId" value="$!{entity.parentId}" maxlength="32"/>
-            </div>
-          </div>
-
-          <div class="form-group ">
-            <label class="col-sm-2 control-label"><span class="required"> * </span>名称：</label>
-
-            <div class="col-sm-6">
-              <input type="text" class="form-control"
-                     name="name" value="$!{entity.name}" maxlength="60"/>
-            </div>
-          </div>
-
-          <div class="form-group ">
-            <label class="col-sm-2 control-label"><span class="required"> * </span>资源路径：</label>
-
-            <div class="col-sm-6">
-              <input type="text" class="form-control"
-                     name="resUrl" value="$!{entity.resUrl}" maxlength="150"/>
-            </div>
-          </div>
-
-          <div class="form-group ">
-            <label class="col-sm-2 control-label"><span class="required"> * </span>类型：</label>
-
-            <div class="col-sm-6">
-              <input type="text" class="form-control"
-                     name="type" value="$!{entity.type}" maxlength="1"/>
-            </div>
-          </div>
-
-          <div class="form-group ">
-            <label class="col-sm-2 control-label"><span class="required"> * </span>层级：</label>
-
-            <div class="col-sm-6">
-              <input type="text" class="form-control"
-                     name="level" value="$!{entity.level}" maxlength="20"/>
-            </div>
-          </div>
-
-          <div class="form-group ">
-            <label class="col-sm-2 control-label"><span class="required"> * </span>描述：</label>
-
-            <div class="col-sm-6">
-              <input type="text" class="form-control"
-                     name="description" value="$!{entity.description}" maxlength="100"/>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label"></label>
-
-            <div class="col-sm-2">
-              <button type="button" id="save" class="btn btn-info">
-                <i class="glyphicon glyphicon-export"></i>
-                保存
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-    #parse("/WEB-INF/view/layout/bottom.vm")
-
-<script src="$!{path}/static/sysResource/edit.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
-
-</body>
-</html>
+</section>

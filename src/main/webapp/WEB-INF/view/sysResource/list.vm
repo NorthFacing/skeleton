@@ -29,9 +29,12 @@
         </div>
         <div class="col-md-4">
             <div class="btn-group right-btn"  style="float: right; padding-right: 40px">
-                <button type="button" class="btn btn-default" id="btn-add" href="$!{path}/admin/sysResource/add">新增
+                <button type="button" class="btn btn-default" id="btn-add">
+                    <a href="$!{path}/admin/sysResource/add">新增</a>
                 </button>
-                <button type="button" class="btn btn-default" id="btn-del">删除</button>
+                <button type="button" class="btn btn-default" id="btn-del">
+                    删除
+                </button>
             </div>
         </div>
     </div>
