@@ -1,13 +1,18 @@
 #set($title="资源管理")
 #set($addJS=["/sysResource/list.js"])
 
-<div class="row">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Dashboard
+        <small>Control panel</small>
+    </h1>
     <ol class="breadcrumb">
-        <li><i class="glyphicon glyphicon-home"></i></li>
-        <li><a href="$!{path}/admin/login">首页</a></li>
-        <li><a href="#">资源管理</a></li>
+        <li><a href="$!{path}/admin/login"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">资源管理</li>
     </ol>
-</div>
+</section>
+
 
 <div class="row btn-line">
     <div class="col-md-8">
@@ -28,16 +33,20 @@
         </div>
     </div>
 </div>
-
-<table id="grid-table" class="table table-condensed table-bordered table-striped table-hover">
-    <thead>
-    <tr>
-        <th data-column-id="id" data-identifier="true" data-type="string" data-visible="false">ID</th>
-        <th data-column-id="name">name</th>
-        <th data-column-id="description" data-sortable="false">description</th>
-        <th data-column-id="resUrl" data-sortable="false" data-formatter="resUrl">resUrl</th>
-    </tr>
-    </thead>
-</table>
-
+<!-- Main content -->
+<section class="content">
+    <!-- Main row -->
+    <div class="row">
+        <table id="grid-table" class="table table-condensed table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th data-column-id="id" data-identifier="true" data-type="string" data-visible="false">ID</th>
+                <th data-column-id="name">name</th>
+                <th data-column-id="description" data-sortable="false">description</th>
+                <th data-column-id="resUrl" data-sortable="false" data-formatter="resUrl">resUrl</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</section>
 

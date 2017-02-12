@@ -1,24 +1,31 @@
 #set($title="角色管理")
 #set($addJS=["/sysRole/list.js"])
 
-<div class="row">
-  <ol class="breadcrumb">
-    <li><i class="glyphicon glyphicon-home"></i></li>
-    <li><a href="$!{path}/admin/login">首页</a></li>
-    <li><a href="#">角色管理</a></li>
-  </ol>
-</div>
-
-
-<table id="grid-data" class="table table-condensed table-hover table-striped">
-  <thead>
-  <tr>
-    <th data-column-id="id" data-type="numeric">ID</th>
-    <th data-column-id="name">name</th>
-    <th data-column-id="description" data-order="desc">description</th>
-    <th data-column-id="resUrl" data-formatter="resUrl" data-sortable="false">resUrl</th>
-  </tr>
-  </thead>
-</table>
-
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Dashboard
+        <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="$!{path}/admin/login"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">角色管理</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Main row -->
+    <div class="row">
+        <table id="grid-data" class="table table-condensed table-hover table-striped">
+            <thead>
+            <tr>
+                <th data-column-id="id" data-type="numeric">ID</th>
+                <th data-column-id="name">name</th>
+                <th data-column-id="description" data-order="desc">description</th>
+                <th data-column-id="resUrl" data-formatter="resUrl" data-sortable="false">resUrl</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</section>
 
