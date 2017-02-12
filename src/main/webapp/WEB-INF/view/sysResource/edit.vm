@@ -97,7 +97,7 @@
 
     #parse("/WEB-INF/view/layout/bottom.vm")
 
-<script src="$!{path}/resources/sysResource/edit.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+<script src="$!{path}/static/sysResource/edit.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
 
 </body>
 </html>

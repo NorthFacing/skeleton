@@ -9,7 +9,7 @@
 
   <!-- bootstrap -->
   <link href="$!{path}/ext/bootStrap/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="$!{path}/resources/login/login.css" rel="stylesheet"/>
+  <link href="$!{path}/static/login/login.css" rel="stylesheet"/>
 
 </head>
 <body>

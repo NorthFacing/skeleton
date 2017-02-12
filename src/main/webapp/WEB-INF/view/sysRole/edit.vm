@@ -64,7 +64,7 @@
 
     #parse("/WEB-INF/view/layout/bottom.vm")
 
-<script src="$!{path}/resources/sysRole/edit.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
+<script src="$!{path}/static/sysRole/edit.js?staticVersion=$!{staticVersion}" type="text/javascript"></script>
 
 </body>
 </html>
