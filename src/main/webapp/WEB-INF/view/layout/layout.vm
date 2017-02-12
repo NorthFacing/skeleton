@@ -10,7 +10,7 @@
         #parse("/WEB-INF/view/layout/navbar.vm")
         #parse("/WEB-INF/view/layout/menu.vm")
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="background-color: #ffffff">
             $screen_content
         </div>
     </div>

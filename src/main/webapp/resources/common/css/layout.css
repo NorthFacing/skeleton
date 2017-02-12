@@ -4,26 +4,11 @@
     border-color: #ccc;
 }
 
-.breadcrumb {
-    border-radius: 0;
-    line-height: 15px;
+.breadcrumb-override {
+    padding: 0px 30px;
 }
 
-/* custom */
-
-.left-title {
-    padding: 10px 0px 10px 25px;
-    background-color: #dadada;
-    font-size: 120%;
-    font-weight: bold;
-    line-height: 12px;
+.content-header-override {
+    padding: 8px 15px 3px 15px;
+    background-color: #eaeaea;
 }
-
-.btn-line {
-    margin-bottom: 10px;
-}
-
-.right-btn {
-    float: right;
-}
-

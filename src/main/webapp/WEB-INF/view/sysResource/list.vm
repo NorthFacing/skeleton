@@ -2,51 +2,53 @@
 #set($addJS=["/sysResource/list.js"])
 
 <!-- Content Header (Page header) -->
-<section class="content-header">
+
+<section class="content-header" style="padding: 8px 15px 3px 15px;background-color: #eaeaea">
     <h1>
         Dashboard
         <small>Control panel</small>
     </h1>
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="padding: 0px 30px;">
         <li><a href="$!{path}/admin/login"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">资源管理</li>
     </ol>
 </section>
 
-
-<div class="row btn-line">
-    <div class="col-md-8">
-        <form class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="用户名称" id="name">
+<section class="col-md-12" style="padding-top: 15px">
+    <div class="row btn-line">
+        <div class="col-md-8">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="用户名称" id="name">
+                </div>
+                <a class="btn btn-info" href="#" role="button" id="btn-search">
+                    <i class="glyphicon glyphicon-search"></i>
+                    查询
+                </a>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="btn-group right-btn"  style="float: right; padding-right: 40px">
+                <button type="button" class="btn btn-default" id="btn-add" href="$!{path}/admin/sysResource/add">新增
+                </button>
+                <button type="button" class="btn btn-default" id="btn-del">删除</button>
             </div>
-            <a class="btn btn-info" href="#" role="button" id="btn-search">
-                <i class="glyphicon glyphicon-search"></i>
-                查询
-            </a>
-        </form>
-    </div>
-    <div class="col-md-3">
-        <div class="btn-group right-btn">
-            <button type="button" class="btn btn-default" id="btn-add" href="$!{path}/admin/sysResource/add">新增</button>
-            <button type="button" class="btn btn-default" id="btn-del">删除</button>
         </div>
     </div>
-</div>
-<!-- Main content -->
-<section class="content">
     <!-- Main row -->
-    <div class="row">
-        <table id="grid-table" class="table table-condensed table-bordered table-striped table-hover">
-            <thead>
-            <tr>
-                <th data-column-id="id" data-identifier="true" data-type="string" data-visible="false">ID</th>
-                <th data-column-id="name">name</th>
-                <th data-column-id="description" data-sortable="false">description</th>
-                <th data-column-id="resUrl" data-sortable="false" data-formatter="resUrl">resUrl</th>
-            </tr>
-            </thead>
-        </table>
+    <div class="row" style="padding-top: 10px">
+        <!-- Main content -->
+        <div class="col-md-12">
+            <table id="grid-table" class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th data-column-id="id" data-identifier="true" data-type="string" data-visible="false">ID</th>
+                    <th data-column-id="name">name</th>
+                    <th data-column-id="description" data-sortable="false">description</th>
+                    <th data-column-id="resUrl" data-sortable="false" data-formatter="resUrl">resUrl</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </section>
-
