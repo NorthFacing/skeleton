@@ -17,12 +17,12 @@
     <script src="$!{path}/ext/other/js/md5.js?staticVersion=$staticVersion" type="text/javascript"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="$!{path}/resources/common/js/ie10-viewport-bug-workaround.js?staticVersion=$!{staticVersion}"
+    <script src="$!{path}/static/common/js/ie10-viewport-bug-workaround.js?staticVersion=$!{staticVersion}"
             type="text/javascript"></script>
 
-    <script src="$!{path}/resources/common/js/app.js?staticVersion=$!{staticVersion}"
+    <script src="$!{path}/static/common/js/app.js?staticVersion=$!{staticVersion}"
 
-    <script src="$!{path}/resources/common/js/common.js?staticVersion=$!{staticVersion}"
+    <script src="$!{path}/static/common/js/common.js?staticVersion=$!{staticVersion}"
             type="text/javascript"></script>
 
     <script type="">
