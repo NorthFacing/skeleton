@@ -12,6 +12,5 @@
 <!-- Custom styles for this template -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="$!{path}/resources/common/css/AdminLTE.min.css?staticVersion=$!{staticVersion}">
-<link rel="stylesheet" href="$!{path}/resources/common/css/editormd.css?staticVersion=$!{staticVersion}">
 <link rel="stylesheet" href="$!{path}/resources/common/css/_all-skins.css?staticVersion=$!{staticVersion}">
 <link rel="stylesheet" href="$!{path}/resources/common/css/layout.css?staticVersion=$!{staticVersion}">
