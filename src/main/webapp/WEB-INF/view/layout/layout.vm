@@ -3,25 +3,38 @@
 <head>
     #parse("/WEB-INF/view/layout/base.vm")
     #parse("/WEB-INF/view/layout/head.vm")
-  <title>$!{title}</title>
+    <title>$!{title}</title>
 </head>
-<body>
-    #parse("/WEB-INF/view/layout/navbar.vm")
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2 col-sm-12">
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        #parse("/WEB-INF/view/layout/navbar.vm")
         #parse("/WEB-INF/view/layout/menu.vm")
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Dashboard
+                    <small>Control panel</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <!-- Main row -->
+                <div class="row">
+                    $screen_content
+                </div>
+            </section>
+        </div>
     </div>
-    <div class="col-md-10 col-sm-12">
-        $screen_content
-    </div>
-  </div>
-</div>
-</div>
     #parse("/WEB-INF/view/layout/bottom.vm")
     #foreach( $js in $!addJS )
-        <script src="$!{path}/resources$!js?staticVersion=$!{staticVersion}"
-                type="text/javascript"></script>
+    <script src="$!{path}/resources$!js?staticVersion=$!{staticVersion}"
+            type="text/javascript"></script>
     #end
 </body>
 </html>

@@ -5,9 +5,13 @@
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
 <!-- Bootstrap core CSS -->
-<link href="$!{path}/ext/bootStrap/css/bootstrap.min.css?staticVersion=$!{staticVersion}" rel="stylesheet">
+<link rel="stylesheet" href="$!{path}/ext/bootStrap/css/bootstrap.min.css?staticVersion=$!{staticVersion}">
 
-<link href="$!{path}/ext/bootgrid/jquery.bootgrid.min.css?staticVersion=$!{staticVersion}" rel="stylesheet">
+<link rel="stylesheet" href="$!{path}/ext/bootgrid/jquery.bootgrid.min.css?staticVersion=$!{staticVersion}">
 
 <!-- Custom styles for this template -->
-<link href="$!{path}/resources/common/css/layout.css?staticVersion=$!{staticVersion}" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="$!{path}/resources/common/css/AdminLTE.min.css?staticVersion=$!{staticVersion}">
+<link rel="stylesheet" href="$!{path}/resources/common/css/editormd.css?staticVersion=$!{staticVersion}">
+<link rel="stylesheet" href="$!{path}/resources/common/css/_all-skins.css?staticVersion=$!{staticVersion}">
+<link rel="stylesheet" href="$!{path}/resources/common/css/layout.css?staticVersion=$!{staticVersion}">

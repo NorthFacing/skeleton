@@ -20,6 +20,8 @@
     <script src="$!{path}/resources/common/js/ie10-viewport-bug-workaround.js?staticVersion=$!{staticVersion}"
             type="text/javascript"></script>
 
+    <script src="$!{path}/resources/common/js/app.js?staticVersion=$!{staticVersion}"
+
     <script src="$!{path}/resources/common/js/common.js?staticVersion=$!{staticVersion}"
             type="text/javascript"></script>
 
