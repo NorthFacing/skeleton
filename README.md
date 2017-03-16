@@ -31,9 +31,11 @@ http://localhost:8080/skeleton/admin/sysResource/list
 
 
 # TODO
-* 资源文件和java文件分开，约定大于配置，职责分明
 * index.html 和 error.html 的跳转
 * shiro 对于 admin 账号权限的放行，目前通过查询所有roles和所有permissions的方法类实现放行
+* jedis客户端考虑换成spring进行管理
+* jedis从pool中获取实例的时候要考虑高并发的情况，需要加锁处理：[参考](http://blog.csdn.net/liuvlun/article/details/50034551)
+* 处理不当会出现如下问题：[参考](http://blog.csdn.net/lnho2015/article/details/50979229)
 
 # shiro
 * SecurityUtils.getSubject().isPermitted("sysUser:list")
