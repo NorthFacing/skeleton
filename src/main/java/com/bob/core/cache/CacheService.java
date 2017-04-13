@@ -83,7 +83,7 @@ public interface CacheService {
    * @return int
    */
 
-  Set<String> keys(String cacheName);
+  Set<String> keys(final String cacheName);
 
   /**
    * <pre>

@@ -1,7 +1,6 @@
 package com.bob.core.cache.redis;
 
 import com.bob.core.cache.CacheService;
-import com.bob.core.contants.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -236,10 +235,10 @@ public class RedisCacheImpl implements CacheService {
   }
 
   private String assembleKey(String prefix, String key) {
-    StringBuilder builder = new StringBuilder(Constants.PROJECT_NAME);
+    StringBuilder builder = new StringBuilder();
     if (StringUtils.isNotEmpty(prefix))
-      builder.append(":").append(prefix);
-    builder.append(":").append(key);
+      builder.append(prefix).append(":");
+    builder.append(key);
     return builder.toString();
   }
 

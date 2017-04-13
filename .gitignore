@@ -7,7 +7,3 @@
 .project
 *.log
 *.iml
-
-/src/main/resources/runtime-env/test.properties
-/src/main/resources/runtime-env/dev.properties
-/src/main/resources/runtime-env/pro.properties
