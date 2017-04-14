@@ -14,9 +14,9 @@ import java.io.Serializable;
  * 一般配置了缓存管理器，所有的操作都会优先在缓存中执行。
  * 本类可以在缓存操作之外进行持久化操作，比如，缓存中找不到之后会执行本类中的方法从数据库读取。
  */
-public class RedisCachingSessionDAO extends CachingSessionDAO {
+public class ShiroCachingSessionDAO extends CachingSessionDAO {
 
-  private static final Logger logger = LoggerFactory.getLogger(RedisCachingSessionDAO.class);
+  private static final Logger logger = LoggerFactory.getLogger(ShiroCachingSessionDAO.class);
 
   @Override
   protected Serializable doCreate(Session session) {

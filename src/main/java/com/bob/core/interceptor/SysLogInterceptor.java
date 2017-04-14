@@ -3,7 +3,7 @@ package com.bob.core.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bob.core.contants.Constants;
-import com.bob.core.session.UserSession;
+import com.bob.core.utils.session.UserSession;
 import com.bob.core.utils.ApplicationContextUtil;
 import com.bob.core.utils.web.RequestContext;
 import com.bob.modules.sysLog.entity.SysLog;

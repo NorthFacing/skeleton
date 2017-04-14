@@ -20,6 +20,10 @@ http://localhost:8080/skeleton/admin/sysResource/list
 
 # 参考资料
 
+## Spring cache
+
+* [spring-redis-demo](https://github.com/ndpar/spring-redis-demo)
+
 ## 密码加密
 * [使用typeHandler进行加密](http://www.thespringriver.com/simple-example-of-mybatis-java-maven-implementation-8-customized-type-handler/ "使用typeHandler处理密码")
 

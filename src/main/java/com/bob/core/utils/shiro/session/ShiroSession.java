@@ -1,5 +1,6 @@
 package com.bob.core.utils.shiro.session;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.shiro.session.mgt.SimpleSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,17 +52,18 @@ public class ShiroSession extends SimpleSession {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder("[ ");
-    sb.append("id=").append(super.getId());
-    sb.append(", startTimestamp=").append(super.getStartTimestamp());
-    sb.append(", stopTimestamp=").append(super.getStopTimestamp());
-    sb.append(", lastAccessTime=").append(super.getLastAccessTime());
-    sb.append(", expired=").append(super.isExpired());
-    sb.append(", timeout=").append(super.getTimeout());
-    sb.append(", host=").append(super.getHost());
-    sb.append(", isValid=").append(super.isValid());
-    sb.append(", isTimedOut=").append(super.isTimedOut()).append(" ]");
-    return sb.toString();
+//    StringBuilder sb = new StringBuilder("[ ");
+//    sb.append("id=").append(super.getId());
+//    sb.append(", startTimestamp=").append(super.getStartTimestamp());
+//    sb.append(", stopTimestamp=").append(super.getStopTimestamp());
+//    sb.append(", lastAccessTime=").append(super.getLastAccessTime());
+//    sb.append(", expired=").append(super.isExpired());
+//    sb.append(", timeout=").append(super.getTimeout());
+//    sb.append(", host=").append(super.getHost());
+//    sb.append(", isValid=").append(super.isValid());
+//    sb.append(", isTimedOut=").append(super.isTimedOut()).append(" ]");
+//    return sb.toString();
+    return ReflectionToStringBuilder.toString(this);
   }
 
 }

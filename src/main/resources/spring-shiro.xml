@@ -49,7 +49,7 @@
     </bean>
 
     <!--sessionDao缓存配置-->
-    <!--<bean id="sessionDAO" class="com.bob.core.utils.shiro.shiroRedis.RedisCachingSessionDAO">-->
+    <!--<bean id="sessionDAO" clacom.bob.core.utils.shiro.shiroRedis.ShiroCachingSessionDAOnDAO">-->
     <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
@@ -81,23 +81,7 @@
     <!--</bean>-->
 
     <!-- cacheManager -->
-    <bean id="cacheManager" class="com.bob.core.utils.shiro.shiroRedis.RedisCacheManager">
-        <property name="cache" ref="cache"/>
-    </bean>
-
-    <bean id="cache" class="com.bob.core.utils.shiro.shiroRedis.RedisCache">
-        <property name="poolConfig" ref="config"/>
-        <property name="host" value="${redis.host}"/>
-        <property name="port" value="${redis.port}"/>
-        <property name="password" value="${redis.pass}"/>
-        <property name="timeout" value="${redis.timeout}"/>
-    </bean>
-
-    <bean id="config" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.maxIdle}"/>
-        <property name="maxTotal" value="${redis.maxTotal}"/>
-        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
-        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+    <bean id="cacheManager" class="com.bob.core.utils.shiro.shiroRedis.ShiroCacheManager">
     </bean>
 
     <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->

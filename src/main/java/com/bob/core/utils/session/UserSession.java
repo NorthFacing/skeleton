@@ -1,4 +1,4 @@
-package com.bob.core.session;
+package com.bob.core.utils.session;
 
 import com.bob.core.utils.encrypt.EncoderHandler;
 

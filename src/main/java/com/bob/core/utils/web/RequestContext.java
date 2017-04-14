@@ -1,6 +1,6 @@
 package com.bob.core.utils.web;
 
-import com.bob.core.session.UserSession;
+import com.bob.core.utils.session.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

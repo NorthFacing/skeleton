@@ -22,10 +22,10 @@
         <description>context listener</description>
         <listener-class>com.bob.core.listener.ApplicationListener</listener-class>
     </listener>
-    <listener>
-        <description>log4j listener</description>
-        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-    </listener>
+    <!--<listener>-->
+        <!--<description>log4j listener</description>-->
+        <!--<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>-->
+    <!--</listener>-->
 
     <!-- shiro 安全过滤器 -->
     <filter>
