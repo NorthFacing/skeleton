@@ -3,6 +3,17 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="false"/>
+    </bean>
+
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
         <property name="realm" ref="myRealm"/>
@@ -23,14 +34,16 @@
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
         <property name="hashAlgorithmName" value="md5"/><!--必填，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。-->
         <property name="hashIterations" value="2"/><!--迭代次数，默认值是1。-->
-        <property name="storedCredentialsHexEncoded" value="true"/><!-- storedCredentialsHexEncoded默认是true，密码加密用的是Hex编码；false时用Base64编码 -->
+        <property name="storedCredentialsHexEncoded"
+                  value="true"/><!-- storedCredentialsHexEncoded默认是true，密码加密用的是Hex编码；false时用Base64编码 -->
     </bean>
 
     <!-- sessionManager -->
     <bean id="sessionManager" class="com.bob.core.utils.shiro.session.MyWebSessionManager">
         <property name="globalSessionTimeout" value="${session.timeout}"/><!--单位毫秒，默认 30 分钟-->
         <property name="sessionValidationSchedulerEnabled" value="true"/><!-- 是否开启会话验证器任务 默认true -->
-        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/><!--会话验证调度器 ， 默认就是使用 ExecutorServiceSessionValidationScheduler-->
+        <property name="sessionValidationScheduler"
+                  ref="sessionValidationScheduler"/><!--会话验证调度器 ， 默认就是使用 ExecutorServiceSessionValidationScheduler-->
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="cacheManager" ref="cacheManager"/>
         <property name="sessionIdCookieEnabled" value="true"/><!--默认是启用的-->
@@ -43,7 +56,8 @@
         </property>
     </bean>
 
-    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+    <bean id="sessionValidationScheduler"
+          class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
         <property name="interval" value="${session.interval}"/><!--单位毫秒，默认就是 1 小时-->
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
@@ -75,7 +89,7 @@
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="com.bob.core.utils.shiro.session.UuidSessionIdGenerator"/>
 
-    <bean id="sessionListener" class="com.bob.core.utils.shiro.listener.ShiroSessionListener" >
+    <bean id="sessionListener" class="com.bob.core.utils.shiro.listener.ShiroSessionListener">
     </bean>
 
     <!-- cacheManager -->
@@ -111,7 +125,7 @@
             <value>
                 <!--资源文件放行-->
                 /ext/** = anon
-                /resources/** = anon
+                /static/** = anon
                 /errorPage/** = anon
                 <!--登陆操作放行-->
                 /admin/loginAction = anon
