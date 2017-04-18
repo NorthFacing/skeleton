@@ -38,7 +38,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="sessionListeners">
             <list>
-                <!--<ref bean="sessionListener"/>-->
+                <ref bean="sessionListener"/>
             </list>
         </property>
     </bean>
@@ -75,13 +75,17 @@
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="com.bob.core.utils.shiro.session.UuidSessionIdGenerator"/>
 
-    <!--<bean id="sessionListener" class="com.bob.core.utils.shiro.listener.ShiroSessionListener" >-->
-        <!--<property name="sessionDao" ref="cachingShiroSessionDao" />-->
-        <!--<property name="shiroSessionService" ref="shiroSessionService" />-->
-    <!--</bean>-->
+    <bean id="sessionListener" class="com.bob.core.utils.shiro.listener.ShiroSessionListener" >
+    </bean>
 
     <!-- cacheManager -->
     <bean id="cacheManager" class="com.bob.core.utils.shiro.shiroRedis.ShiroCacheManager">
+        <property name="shiroCache" ref="shiroCache"/>
+    </bean>
+
+    <bean id="shiroCache" class="com.bob.core.utils.shiro.shiroRedis.ShiroCache">
+        <!-- redisTemplate 配置在applicationContext中 -->
+        <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
 
     <!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->

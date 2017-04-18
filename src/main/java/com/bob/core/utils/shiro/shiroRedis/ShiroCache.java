@@ -85,4 +85,7 @@ public class ShiroCache<K, V> implements Cache<K, V> {
     return new StringBuffer("shiro-").append(key).toString();
   }
 
+  public void setRedisTemplate(RedisTemplate redisTemplate) {
+    this.redisTemplate = redisTemplate;
+  }
 }
