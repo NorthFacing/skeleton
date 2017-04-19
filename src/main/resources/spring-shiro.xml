@@ -3,13 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-        depends-on="lifecycleBeanPostProcessor">
-    <property name="proxyTargetClass" value="false"/>
-  </bean>
-
-  <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-
   <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
     <property name="securityManager" ref="securityManager"/>
   </bean>
@@ -26,17 +19,17 @@
 
   <bean id="myRealm" class="com.bob.core.utils.shiro.realm.MyRealm">
     <property name="credentialsMatcher" ref="credentialsMatcher"/>
-    <property name="cachingEnabled" value="true"/>
-    <property name="authenticationCachingEnabled" value="true"/>
+    <property name="cachingEnabled" value="false"/><!-- 有啥用？ -->
+    <property name="authenticationCachingEnabled" value="false"/><!-- 有啥用？ -->
     <property name="authenticationCacheName" value="authenticationCache"/>
-    <property name="authorizationCachingEnabled" value="true"/>
+    <property name="authorizationCachingEnabled" value="false"/><!-- 有啥用？ -->
     <property name="authorizationCacheName" value="authorizationCache"/>
   </bean>
 
   <!-- 密码校验规则 -->
   <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-    <property name="hashAlgorithmName" value="md5"/><!--必填，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。-->
-    <property name="hashIterations" value="2"/><!--迭代次数，默认值是1。-->
+    <property name="hashAlgorithmName" value="${shiro.algorithmName}"/><!--必填，没有默认值。可以有MD5或者SHA-1，如果对密码安全有更高要求可以用SHA-256或者更高。-->
+    <property name="hashIterations" value="${shiro.hashIterations}"/><!--迭代次数，默认值是1。-->
     <property name="storedCredentialsHexEncoded" value="true"/><!-- 默认是true，密码加密用的是Hex编码；false时用Base64编码 -->
   </bean>
 
@@ -73,7 +66,7 @@
   <!-- cookie -->
   <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
     <!--设置 Cookie 名字，默认为 JSESSIONID-->
-    <property name="name" value="sId"/>
+    <property name="name" value="sessionId"/>
     <!--设置 Cookie 的域名，默认空，即当前访问的域名-->
     <!--<property name="domain" value=""/>-->
     <!--设置 Cookie 的路径，默认空，即存储在域名根下-->

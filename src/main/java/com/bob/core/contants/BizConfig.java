@@ -5,10 +5,23 @@ package com.bob.core.contants;
  */
 public class BizConfig {
 
-  public static String appDomain;
+  public static String algorithmName;
 
-  public void setAppDomain(String appDomain) {
-    BizConfig.appDomain = appDomain;
+  public static int hashIterations;
+
+  public String getAlgorithmName() {
+    return algorithmName;
   }
 
+  public void setAlgorithmName(String algorithmName) {
+    this.algorithmName = algorithmName;
+  }
+
+  public int getHashIterations() {
+    return hashIterations;
+  }
+
+  public void setHashIterations(int hashIterations) {
+    this.hashIterations = hashIterations;
+  }
 }

@@ -29,7 +29,6 @@ public class ShiroCache<K, V> implements Cache<K, V> {
     this.redisTemplate = template;
   }
 
-
   @Override
   public V get(K key) throws CacheException {
     if (!(key instanceof String))
@@ -97,7 +96,7 @@ public class ShiroCache<K, V> implements Cache<K, V> {
   }
 
   private String assembleKey(String key) {
-    String cacheKey = new StringBuffer("shiro-")
+    String cacheKey = new StringBuffer("shiro:")
       .append(shiroCacheName).append("-")
       .append(key).toString();
     return cacheKey;

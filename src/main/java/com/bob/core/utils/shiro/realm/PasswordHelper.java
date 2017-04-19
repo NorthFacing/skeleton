@@ -1,5 +1,6 @@
 package com.bob.core.utils.shiro.realm;
 
+import com.bob.core.contants.BizConfig;
 import com.bob.core.contants.Constants;
 import com.bob.modules.sysUser.entity.SysUser;
 import org.apache.shiro.crypto.RandomNumberGenerator;
@@ -9,11 +10,23 @@ import org.apache.shiro.util.ByteSource;
 
 public class PasswordHelper {
   public static final String ENCRYPT = Constants.PROJECT_NAME;
-  private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-  private String algorithmName = "md5";
-  private int hashIterations = 2;
+  private static RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
+
+  public static void encryptPassword(SysUser entity) {
+    String salt = randomNumberGenerator.nextBytes().toHex();
+    entity.setSalt(salt);
+    String newPassword = new SimpleHash(BizConfig.algorithmName,
+        entity.getPassWord(),
+        ByteSource.Util.bytes(ENCRYPT + entity.getUserName() + salt),
+      BizConfig.hashIterations).toHex();
+    entity.setPassWord(newPassword);
+  }
 
   public static void main(String[] args) {
+
+    BizConfig.algorithmName = "md5";
+    BizConfig.hashIterations = 2;
+
     PasswordHelper passwordHelper = new PasswordHelper();
     SysUser entity = new SysUser();
     entity.setUserName("admin");
@@ -24,13 +37,4 @@ public class PasswordHelper {
     System.out.println("password:\n" + entity.getPassWord());
   }
 
-  public void encryptPassword(SysUser entity) {
-    String salt = randomNumberGenerator.nextBytes().toHex();
-    entity.setSalt(salt);
-    String newPassword = new SimpleHash(algorithmName,
-        entity.getPassWord(),
-        ByteSource.Util.bytes(ENCRYPT + entity.getUserName() + salt),
-        hashIterations).toHex();
-    entity.setPassWord(newPassword);
-  }
 }

@@ -97,5 +97,14 @@
     <property name="maxInMemorySize" value="40960"/>
   </bean>
 
+  <!-- shiro配置开始，必须放在此xml中，不然拦截器更新CCUU字段的时候会报错 -->
+  <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+        depends-on="lifecycleBeanPostProcessor">
+    <property name="proxyTargetClass" value="false"/>
+  </bean>
+
+  <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+  <!-- shiro 配置结束 -->
+
 </beans>
 

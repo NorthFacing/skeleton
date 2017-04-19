@@ -14,11 +14,9 @@
   </context:component-scan>
 
   <!--初始化常量配置-->
-  <bean class="com.bob.core.contants.WxConfig">
-    <property name="appId" value="${wx.appId}"/>
-  </bean>
   <bean class="com.bob.core.contants.BizConfig">
-    <property name="appDomain" value="${sys.appDomain}"/>
+    <property name="algorithmName" value="${shiro.algorithmName}"/>
+    <property name="hashIterations" value="${shiro.hashIterations}"/>
   </bean>
 
   <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">

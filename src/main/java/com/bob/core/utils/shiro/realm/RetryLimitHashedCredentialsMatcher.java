@@ -23,8 +23,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
   }
 
   @Override
-  public boolean doCredentialsMatch(AuthenticationToken token,
-                                    AuthenticationInfo info) {
+  public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
     String username = (String) token.getPrincipal();
 
     // retry count + 1
