@@ -4,16 +4,16 @@
              xsi:schemaLocation="http://www.zeroturnaround.com
              http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
-    <classpath>
-        <dir name="C:/Users/Bob/IdeaProjects/skeleton/target/classes">
-        </dir>
-    </classpath>
+  <classpath>
+    <dir name="C:/Users/Bob/IdeaProjects/skeleton/target/classes">
+    </dir>
+  </classpath>
 
-    <web>
-        <link target="/">
-            <dir name="C:/Users/Bob/IdeaProjects/skeleton/src/main/webapp">
-            </dir>
-        </link>
-    </web>
+  <web>
+    <link target="/">
+      <dir name="C:/Users/Bob/IdeaProjects/skeleton/src/main/webapp">
+      </dir>
+    </link>
+  </web>
 
 </application>
