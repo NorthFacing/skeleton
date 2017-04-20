@@ -17,11 +17,29 @@
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
-                    <span class="hidden-xs">Alexander Pierce</span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="hidden-xs">$!{user.nickName}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="$!{path}/static/login/default-header.jpeg" class="img-circle" alt="User Image">
+                            <p>
+                                $!{user.nickName}
+                                <small>$!{user.userName}</small>
+                            </p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="$!{path}/admin/sysUser/changePassWordPage?id=$!{user.id}" class="btn btn-default btn-flat">修改密码</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="$!{path}/admin/logout" class="btn btn-default btn-flat">退出</a>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
-##                <li>
-##                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"></a>
-##                </li>
             </ul>
         </div>
     </nav>
