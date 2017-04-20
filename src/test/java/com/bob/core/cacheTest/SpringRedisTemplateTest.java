@@ -13,22 +13,22 @@ public class SpringRedisTemplateTest extends BaseServiceTest {
 
   @Autowired
   @SuppressWarnings("SpringJavaAutowiringInspection")
-  private RedisTemplate<String, String> template;
+  private RedisTemplate<String, String> redisTemplate;
 
   @Test
   public void M01_add() {
-    template.opsForValue().set("foo", "bar");
+    redisTemplate.opsForValue().set("foo", "bar");
   }
 
   @Test
   public void M02_get() {
-    String foo = template.opsForValue().get("foo");
+    String foo = redisTemplate.opsForValue().get("foo");
     Assert.assertTrue("bar".equals(foo));
   }
 
   @Test
   public void M03_del() {
-    template.delete("foo");
+    redisTemplate.delete("foo");
   }
 
 }
