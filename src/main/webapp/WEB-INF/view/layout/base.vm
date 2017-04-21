@@ -1,5 +1,5 @@
 ## 静态文件版本控制
-#set($staticVersion="201702")
+#set($staticVersion="20170107")
 
 ## 项目路径
 <script type="text/javascript">
