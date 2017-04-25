@@ -27,18 +27,14 @@ import java.util.Set;
  * @since v0.1
  */
 @Service("sysUserService")
-public class SysUserServiceImpl
-    extends BaseServiceImpl<SysUser>
-    implements SysUserService {
+@SuppressWarnings("SpringJavaAutowiringInspection")
+public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
 
   @Autowired
-  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysUserMapper sysUserMapper;
   @Autowired
-  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysRoleMapper sysRoleMapper;
   @Autowired
-  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysResourceMapper sysResourceMapper;
 
   @Override
