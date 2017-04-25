@@ -21,7 +21,7 @@ public class ShiroCacheManager implements CacheManager {
 
   @Override
   public <K, V> Cache<K, V> getCache(String name) throws CacheException {
-    ShiroCache<K,V> shiroCache = new ShiroCache<>(name, redisTemplate);
+    ShiroCache<K, V> shiroCache = new ShiroCache<>(name, redisTemplate);
     logger.debug("获取名称为: " + name + " 的 ShiroCache 实例：{}", shiroCache);
     return shiroCache;
   }

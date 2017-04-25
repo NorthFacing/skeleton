@@ -14,8 +14,7 @@ import java.util.List;
  * Created by Bob on 2016/1/3.
  */
 @Service("baseService")
-public abstract class BaseServiceImpl<T extends BaseEntity>
-    implements BaseService<T> {
+public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
 
   /**
    * 获取实际操作的对象方法，方便操作

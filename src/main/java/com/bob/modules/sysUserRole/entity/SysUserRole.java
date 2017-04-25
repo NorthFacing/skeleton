@@ -2,6 +2,7 @@ package com.bob.modules.sysUserRole.entity;
 
 import com.bob.core.base.entity.BaseEntity;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -17,8 +18,11 @@ import lombok.ToString;
 @ToString
 public class SysUserRole extends BaseEntity {
 
+  @NonNull
   private String userId;    //  用户ID
+  @NonNull
   private String roleId;    //  角色ID
+  @NonNull
   private Integer status;    //  状态
 
 }

@@ -1,11 +1,11 @@
 package com.bob.modules.sysResource.entity;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Setter
+@Getter
+@ToString
 public class SysResourceVo extends SysResource {
-
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this);
-  }
 }

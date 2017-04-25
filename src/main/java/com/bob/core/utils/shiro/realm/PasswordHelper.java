@@ -18,7 +18,7 @@ public class PasswordHelper {
     String newPassword = new SimpleHash(BizConfig.algorithmName,
         entity.getPassWord(),
         ByteSource.Util.bytes(ENCRYPT + entity.getUserName() + salt),
-      BizConfig.hashIterations).toHex();
+        BizConfig.hashIterations).toHex();
     entity.setPassWord(newPassword);
   }
 

@@ -1,116 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bob.modules.sysLog.mapper.SysLogMapper">
-    <resultMap id="BaseResultMap" type="com.bob.modules.sysLog.entity.SysLog">
-        <result column="id" property="id"/>
-        <result column="corp_id" property="corpId"/>
-        <result column="user_id" property="userId"/>
-        <result column="user_name" property="userName"/>
-        <result column="user_ip" property="userIp"/>
-        <result column="data_id" property="dataId"/>
-        <result column="opr_name" property="oprName"/>
-        <result column="opr_type" property="oprType"/>
-        <result column="opr_time" property="oprTime"/>
-        <result column="module" property="module"/>
-        <result column="url" property="url"/>
-        <result column="in_params" property="inParams"/>
-        <result column="out_params" property="outParams"/>
-        <result column="create_time" property="createTime"/>
-        <result column="create_user" property="createUser"/>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.bob.modules.sysLog.entity.SysLog">
+    <result column="id" property="id"/>
+    <result column="corp_id" property="corpId"/>
+    <result column="user_id" property="userId"/>
+    <result column="user_name" property="userName"/>
+    <result column="user_ip" property="userIp"/>
+    <result column="data_id" property="dataId"/>
+    <result column="opr_name" property="oprName"/>
+    <result column="opr_type" property="oprType"/>
+    <result column="opr_time" property="oprTime"/>
+    <result column="module" property="module"/>
+    <result column="url" property="url"/>
+    <result column="in_params" property="inParams"/>
+    <result column="out_params" property="outParams"/>
+    <result column="create_time" property="createTime"/>
+    <result column="create_user" property="createUser"/>
+  </resultMap>
 
-    <sql id="tabaleName">sys_log</sql>
+  <sql id="tabaleName">sys_log</sql>
 
-    <sql id="baseColumn">
-        id,
-        corp_id,
-        user_id,
-        user_name,
-        user_ip,
-        data_id,
-        opr_name,
-        opr_type,
-        opr_time,
-        module,
-        url,
-        in_params,
-        out_params,
-        create_time,
-        create_user
-    </sql>
+  <sql id="baseColumn">
+    id,
+    corp_id,
+    user_id,
+    user_name,
+    user_ip,
+    data_id,
+    opr_name,
+    opr_type,
+    opr_time,
+    module,
+    url,
+    in_params,
+    out_params,
+    create_time,
+    create_user
+  </sql>
 
-    <sql id="whereCondition">
-        <where>
-            <if test=" id != null ">
-                AND id = #{id}
-            </if>
-            <if test=" corpId != null ">
-                AND corp_id = #{corpId}
-            </if>
-            <if test=" userId != null ">
-                AND user_id = #{userId}
-            </if>
-            <if test=" userName != null ">
-                AND user_name = #{userName}
-            </if>
-            <if test=" userIp != null ">
-                AND user_ip = #{userIp}
-            </if>
-            <if test=" dataId != null ">
-                AND data_id = #{dataId}
-            </if>
-            <if test=" oprName != null ">
-                AND opr_name = #{oprName}
-            </if>
-            <if test=" oprType != null ">
-                AND opr_type = #{oprType}
-            </if>
-            <if test=" oprTime != null ">
-                AND opr_time = #{oprTime}
-            </if>
-            <if test=" module != null ">
-                AND module = #{module}
-            </if>
-            <if test=" url != null ">
-                AND url = #{url}
-            </if>
-            <if test=" inParams != null ">
-                AND in_params = #{inParams}
-            </if>
-            <if test=" outParams != null ">
-                AND out_params = #{outParams}
-            </if>
-            <if test=" createTime != null ">
-                AND create_time = #{createTime}
-            </if>
-            <if test=" createUser != null ">
-                AND create_user = #{createUser}
-            </if>
-        </where>
-    </sql>
+  <sql id="whereCondition">
+    <where>
+      <if test=" id != null ">
+        AND id = #{id}
+      </if>
+      <if test=" corpId != null ">
+        AND corp_id = #{corpId}
+      </if>
+      <if test=" userId != null ">
+        AND user_id = #{userId}
+      </if>
+      <if test=" userName != null ">
+        AND user_name = #{userName}
+      </if>
+      <if test=" userIp != null ">
+        AND user_ip = #{userIp}
+      </if>
+      <if test=" dataId != null ">
+        AND data_id = #{dataId}
+      </if>
+      <if test=" oprName != null ">
+        AND opr_name = #{oprName}
+      </if>
+      <if test=" oprType != null ">
+        AND opr_type = #{oprType}
+      </if>
+      <if test=" oprTime != null ">
+        AND opr_time = #{oprTime}
+      </if>
+      <if test=" module != null ">
+        AND module = #{module}
+      </if>
+      <if test=" url != null ">
+        AND url = #{url}
+      </if>
+      <if test=" inParams != null ">
+        AND in_params = #{inParams}
+      </if>
+      <if test=" outParams != null ">
+        AND out_params = #{outParams}
+      </if>
+      <if test=" createTime != null ">
+        AND create_time = #{createTime}
+      </if>
+      <if test=" createUser != null ">
+        AND create_user = #{createUser}
+      </if>
+    </where>
+  </sql>
 
-    <sql id="queryCondition">
-        <where>
-        </where>
-    </sql>
+  <sql id="queryCondition">
+    <where>
+    </where>
+  </sql>
 
-    <select id="count" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultType="java.lang.Long">
-        SELECT count(*)
-        FROM
-        <include refid="tabaleName"/>
-        <include refid="queryCondition"/>
-    </select>
+  <select id="count" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultType="java.lang.Long">
+    SELECT count(*)
+    FROM
+    <include refid="tabaleName"/>
+    <include refid="queryCondition"/>
+  </select>
 
-    <select id="query" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultMap="BaseResultMap">
-        SELECT
-        <include refid="baseColumn"/>
-        FROM
-        <include refid="tabaleName"/>
-        <include refid="queryCondition"/>
-        LIMIT #{startRow}, #{rowCount}
-    </select>
+  <select id="query" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultMap="BaseResultMap">
+    SELECT
+    <include refid="baseColumn"/>
+    FROM
+    <include refid="tabaleName"/>
+    <include refid="queryCondition"/>
+    LIMIT #{startRow}, #{rowCount}
+  </select>
 
 
 </mapper>

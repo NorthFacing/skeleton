@@ -16,12 +16,10 @@ import org.springframework.stereotype.Service;
  * @since v0.1
  */
 @Service("sysUserRoleService")
-public class SysUserRoleServiceImpl
-    extends BaseServiceImpl<SysUserRole>
-    implements SysUserRoleService {
+@SuppressWarnings("SpringJavaAutowiringInspection")
+public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> implements SysUserRoleService {
 
   @Autowired
-  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysUserRoleMapper sysUserRoleMapper;
 
   @Override

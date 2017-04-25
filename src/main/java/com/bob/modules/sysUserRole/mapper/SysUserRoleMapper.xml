@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bob.modules.sysUserRole.mapper.SysUserRoleMapper">
-    <resultMap id="BaseResultMap" type="com.bob.modules.sysUserRole.entity.SysUserRole">
-        <result column="id" property="id"/>
-        <result column="user_id" property="userId"/>
-        <result column="role_id" property="roleId"/>
-        <result column="status" property="status"/>
-        <result column="create_time" property="createTime"/>
-        <result column="create_user" property="createUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="update_user" property="updateUser"/>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.bob.modules.sysUserRole.entity.SysUserRole">
+    <result column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="role_id" property="roleId"/>
+    <result column="status" property="status"/>
+    <result column="create_time" property="createTime"/>
+    <result column="create_user" property="createUser"/>
+    <result column="update_time" property="updateTime"/>
+    <result column="update_user" property="updateUser"/>
+  </resultMap>
 
-    <sql id="tabaleName">sys_user_role</sql>
+  <sql id="tabaleName">sys_user_role</sql>
 
-    <sql id="baseColumn">
-        id,
-        user_id,
-        role_id,
-        status,
-        create_time,
-        create_user,
-        update_time,
-        update_user
-    </sql>
+  <sql id="baseColumn">
+    id,
+    user_id,
+    role_id,
+    status,
+    create_time,
+    create_user,
+    update_time,
+    update_user
+  </sql>
 
-    <sql id="whereCondition">
-        <where>
-            <if test=" id != null ">
-                AND id = #{id}
-            </if>
-            <if test=" userId != null ">
-                AND user_id = #{userId}
-            </if>
-            <if test=" roleId != null ">
-                AND role_id = #{roleId}
-            </if>
-            <if test=" status != null ">
-                AND status = #{status}
-            </if>
-            <if test=" createTime != null ">
-                AND create_time = #{createTime}
-            </if>
-            <if test=" createUser != null ">
-                AND create_user = #{createUser}
-            </if>
-            <if test=" updateTime != null ">
-                AND update_time = #{updateTime}
-            </if>
-            <if test=" updateUser != null ">
-                AND update_user = #{updateUser}
-            </if>
-        </where>
-    </sql>
+  <sql id="whereCondition">
+    <where>
+      <if test=" id != null ">
+        AND id = #{id}
+      </if>
+      <if test=" userId != null ">
+        AND user_id = #{userId}
+      </if>
+      <if test=" roleId != null ">
+        AND role_id = #{roleId}
+      </if>
+      <if test=" status != null ">
+        AND status = #{status}
+      </if>
+      <if test=" createTime != null ">
+        AND create_time = #{createTime}
+      </if>
+      <if test=" createUser != null ">
+        AND create_user = #{createUser}
+      </if>
+      <if test=" updateTime != null ">
+        AND update_time = #{updateTime}
+      </if>
+      <if test=" updateUser != null ">
+        AND update_user = #{updateUser}
+      </if>
+    </where>
+  </sql>
 
-    <sql id="queryCondition">
-        <where>
-        </where>
-    </sql>
+  <sql id="queryCondition">
+    <where>
+    </where>
+  </sql>
 
-    <select id="count" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultType="java.lang.Long">
-        SELECT count(*)
-        FROM
-        <include refid="tabaleName"/>
-        <include refid="queryCondition"/>
-    </select>
+  <select id="count" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultType="java.lang.Long">
+    SELECT count(*)
+    FROM
+    <include refid="tabaleName"/>
+    <include refid="queryCondition"/>
+  </select>
 
-    <select id="query" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultMap="BaseResultMap">
-        SELECT
-        <include refid="baseColumn"/>
-        FROM
-        <include refid="tabaleName"/>
-        <include refid="queryCondition"/>
-        LIMIT #{startRow}, #{rowCount}
-    </select>
+  <select id="query" parameterType="com.bob.modules.sysResource.entity.SysResourceQuery" resultMap="BaseResultMap">
+    SELECT
+    <include refid="baseColumn"/>
+    FROM
+    <include refid="tabaleName"/>
+    <include refid="queryCondition"/>
+    LIMIT #{startRow}, #{rowCount}
+  </select>
 
 
 </mapper>
