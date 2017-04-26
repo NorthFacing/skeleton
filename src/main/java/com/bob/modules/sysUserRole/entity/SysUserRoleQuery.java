@@ -12,4 +12,5 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SysUserRoleQuery extends BaseQuery {
+
 }

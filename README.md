@@ -11,6 +11,13 @@
 
 # 启动测试
 
+```
+bash
+cd /etc/init.d/ && sudo ./redis_6379 start
+tail -f /mnt/c/home/logs/skeleton/debug.log
+```
+
+
 登陆：
 admin/admin
 
@@ -45,10 +52,6 @@ http://localhost:8080/skeleton/admin/sysResource/list
 * SecurityUtils.getSubject().isPermitted("sysUser:list")
 * 有些缓存为启动，具体查看xml配置
 * 登陆的时候redis会有多次存储，看看是否能优化
-* redis相关类中的优化是否有必要需要确认
-
-# 碎碎念
-* 所有的设计模式，都是对语言缺陷的补救措施
 
 
 Preference:

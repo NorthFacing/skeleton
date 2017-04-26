@@ -8,14 +8,15 @@ import com.bob.modules.sysRole.mapper.SysRoleMapper;
 import com.bob.modules.sysRole.service.SysRoleService;
 import com.bob.modules.sysRoleResource.entity.SysRoleResource;
 import com.bob.modules.sysRoleResource.mapper.SysRoleResourceMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * SysRoleServiceImpl
@@ -24,16 +25,14 @@ import java.util.List;
  * @Date 2016-1-3 22:44:45
  * @since v0.1
  */
+@Slf4j
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Service("sysRoleService")
-public class SysRoleServiceImpl
-    extends BaseServiceImpl<SysRole>
-    implements SysRoleService {
+public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysRoleService {
 
   @Autowired
-  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysRoleMapper sysRoleMapper;
   @Autowired
-  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysRoleResourceMapper sysRoleResourceMapper;
 
   @Override
@@ -67,15 +66,17 @@ public class SysRoleServiceImpl
   private void insertRoleResource(SysRoleVo entity) {
     List<String> resourceIds = entity.getResourceIds();
     if (CollectionUtils.isNotEmpty(resourceIds)) {
-      ArrayList<SysRoleResource> list = new ArrayList<>();
-      for (String roleId : resourceIds) {
-        if (StringUtils.isNotEmpty(roleId)) {
-          SysRoleResource srr = new SysRoleResource();
-          srr.setRoleId(entity.getId());
-          srr.setResourceId(roleId);
-          list.add(srr);
-        }
-      }
+
+      List<SysRoleResource> list = resourceIds.parallelStream()
+        .filter(rsId -> !rsId.isEmpty())
+        .map(rsId -> {
+          SysRoleResource rs = new SysRoleResource();
+          rs.setRoleId(entity.getId());
+          rs.setResourceId(rsId);
+          return rs;
+        })
+        .collect(Collectors.toList());
+
       sysRoleResourceMapper.insertBatch(list);
     }
   }

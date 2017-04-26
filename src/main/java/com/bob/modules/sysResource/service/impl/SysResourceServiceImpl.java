@@ -5,6 +5,7 @@ import com.bob.core.base.service.impl.BaseServiceImpl;
 import com.bob.modules.sysResource.entity.SysResource;
 import com.bob.modules.sysResource.mapper.SysResourceMapper;
 import com.bob.modules.sysResource.service.SysResourceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,12 @@ import org.springframework.stereotype.Service;
  * @Date 2015-12-30 22:03:45
  * @since v0.1
  */
+@Slf4j
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Service("sysResourceService")
-public class SysResourceServiceImpl
-    extends BaseServiceImpl<SysResource>
-    implements SysResourceService {
+public class SysResourceServiceImpl extends BaseServiceImpl<SysResource> implements SysResourceService {
 
   @Autowired
-  @SuppressWarnings("SpringJavaAutowiringInspection")
   private SysResourceMapper sysResourceMapper;
 
   @Override

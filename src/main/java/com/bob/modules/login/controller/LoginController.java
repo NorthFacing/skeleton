@@ -4,6 +4,7 @@ import com.bob.core.base.controller.BaseController;
 import com.bob.core.utils.javaUtil.LocalDateTool;
 import com.bob.modules.sysLoginLog.entity.SysLoginLog;
 import com.bob.modules.sysLoginLog.service.SysLoginLogService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Bob on 2016/1/4.
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/admin")
 public class LoginController extends BaseController {

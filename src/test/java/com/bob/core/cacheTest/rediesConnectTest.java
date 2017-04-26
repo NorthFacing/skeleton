@@ -23,7 +23,7 @@ public class rediesConnectTest {
     config.setTestOnBorrow(false);
     config.setTestOnReturn(false);
 
-    String host = "aliyun";
+    String host = "127.0.0.1";
 
     Integer port = 6379;
 

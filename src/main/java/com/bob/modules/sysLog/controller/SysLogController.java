@@ -5,6 +5,7 @@ import com.bob.core.utils.web.Result;
 import com.bob.modules.sysLog.entity.SysLog;
 import com.bob.modules.sysLog.entity.SysLogQuery;
 import com.bob.modules.sysLog.service.SysLogService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Date 2016-3-3 9:27:06
  * @since v0.0.1
  */
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class SysLogController extends BaseController {

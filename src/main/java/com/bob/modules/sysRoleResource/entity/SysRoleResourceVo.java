@@ -15,4 +15,5 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SysRoleResourceVo extends SysRoleResource {
+
 }

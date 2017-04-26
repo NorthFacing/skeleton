@@ -9,6 +9,7 @@ import com.bob.modules.sysRole.mapper.SysRoleMapper;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.mapper.SysUserMapper;
 import com.bob.modules.sysUser.service.SysUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * SysUserServiceImpl
@@ -26,8 +28,9 @@ import java.util.Set;
  * @Date 2016-1-3 22:44:45
  * @since v0.1
  */
-@Service("sysUserService")
+@Slf4j
 @SuppressWarnings("SpringJavaAutowiringInspection")
+@Service("sysUserService")
 public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
 
   @Autowired
@@ -96,28 +99,24 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
   @Override
   public Set<String> getPermissionsNameByUserId(String uId) {
-    Set<String> shiroKey = new HashSet<>();
     List<SysResource> resources = this.getPermissionsByUserId(uId);
-    preparePermission(resources, shiroKey);
-    return shiroKey;
+    return preparePermission(resources);
   }
 
   @Override
   public Set<String> getAllPermissions() {
     List<SysResource> resources = sysResourceMapper.getAllResources();
-    Set<String> shiroKey = new HashSet<>();
-    preparePermission(resources, shiroKey);
-    return shiroKey;
+    return preparePermission(resources);
   }
 
-  private void preparePermission(List<SysResource> resources, Set<String> shiroKey) {
-    if (CollectionUtils.isNotEmpty(resources)) {
-      for (SysResource resource : resources) {
-        if (null != resource.getShiroKey()) {
-          shiroKey.add(resource.getShiroKey());
-        }
-      }
-    }
+  private Set<String> preparePermission(List<SysResource> resources) {
+
+    Set<String> shiroKeys = resources.parallelStream()
+      .filter(it -> null != it.getShiroKey())
+      .map(it -> it.getShiroKey())
+      .collect(Collectors.toSet());
+
+    return shiroKeys;
   }
 
 }

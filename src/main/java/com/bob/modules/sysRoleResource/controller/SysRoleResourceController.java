@@ -5,6 +5,7 @@ import com.bob.core.utils.web.Result;
 import com.bob.modules.sysRoleResource.entity.SysRoleResource;
 import com.bob.modules.sysRoleResource.entity.SysRoleResourceQuery;
 import com.bob.modules.sysRoleResource.service.SysRoleResourceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Date 2016-1-4 16:06:42
  * @since v0.1
  */
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class SysRoleResourceController extends BaseController {

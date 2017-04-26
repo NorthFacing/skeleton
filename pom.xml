@@ -54,7 +54,8 @@
     <!-- maven -->
     <maven.compiler.version>2.5.1</maven.compiler.version>
     <!-- JDK -->
-    <jdk.version>1.8</jdk.version>
+    <source.version>1.8</source.version>
+    <target.version>1.8</target.version>
     <compiler.version>1.8</compiler.version>
     <!-- server -->
     <maven.tomcat7.version>2.2</maven.tomcat7.version>
@@ -399,8 +400,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven.compiler.version}</version>
         <configuration>
-          <source>${jdk.version}</source>
-          <target>${jdk.version}</target>
+          <source>${source.version}</source>
+          <target>${target.version}</target>
           <compilerVersion>${compiler.version}</compilerVersion>
           <encoding>UTF-8</encoding>
         </configuration>
@@ -475,7 +476,7 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-          <port>8081</port>
+          <port>8080</port>
         </configuration>
       </plugin>
     </plugins>

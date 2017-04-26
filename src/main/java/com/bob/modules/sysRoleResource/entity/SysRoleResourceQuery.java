@@ -12,4 +12,5 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SysRoleResourceQuery extends BaseQuery {
+
 }

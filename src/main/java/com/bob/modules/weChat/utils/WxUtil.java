@@ -2,11 +2,10 @@ package com.bob.modules.weChat.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bob.core.utils.http.HttpClientUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class WxUtil {
-
-  static Logger logger = LoggerFactory.getLogger(WxUtil.class);
 
   /**
    * 保存openId到cookie
@@ -83,7 +81,7 @@ public class WxUtil {
       String openid = resp.getString("openid");
       return openid;
     } catch (Exception e) {
-      logger.error("get openId error，{}", e.getMessage(), e);
+      log.error("get openId error，{}", e.getMessage(), e);
     }
     return null;
   }

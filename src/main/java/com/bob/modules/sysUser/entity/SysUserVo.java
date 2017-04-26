@@ -15,4 +15,5 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SysUserVo extends SysUser {
+
 }

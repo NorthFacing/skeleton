@@ -5,6 +5,7 @@ import com.bob.core.utils.web.Result;
 import com.bob.modules.sysUser.entity.SysUser;
 import com.bob.modules.sysUser.entity.SysUserQuery;
 import com.bob.modules.sysUser.service.SysUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -26,11 +27,10 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2016-1-4 16:06:42
  * @since v0.1
  */
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class SysUserController extends BaseController {
-
-  Logger logger = LoggerFactory.getLogger(SysUserController.class);
 
   @Autowired
   private SysUserService sysUserService;
@@ -115,7 +115,7 @@ public class SysUserController extends BaseController {
       }
       return false;
     } catch (Exception e) {
-      logger.error("[SysUserController]-existCheck error: \n params:={}\n{}", entity.toString(), e);
+      log.error("[SysUserController]-existCheck error: \n params:={}\n{}", entity.toString(), e);
       return false;
     }
   }
@@ -175,7 +175,7 @@ public class SysUserController extends BaseController {
       }
       return true;
     } catch (Exception e) {
-      logger.error("[SysUserController]-existCheck error: \n params:={}\n{}", entity.toString(), e);
+      log.error("[SysUserController]-existCheck error: \n params:={}\n{}", entity.toString(), e);
       return false;
     }
   }
