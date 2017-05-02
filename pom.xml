@@ -68,6 +68,8 @@
     <ueditor.version>1.1.1</ueditor.version>
 
     <jetty.version>9.4.0.M1</jetty.version>
+
+    <kotlin.version>1.1.1</kotlin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -332,6 +334,13 @@
       <artifactId>lombok</artifactId>
       <version>1.16.16</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+
   </dependencies>
 
   <!--多环境配置-->
@@ -365,7 +374,6 @@
     <filters>
       <filter>src/main/resources/runtime-env/${runtime.name}.properties</filter>
     </filters>
-    <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
       <!-- 拷贝资源文件 -->
       <resource>
@@ -386,29 +394,73 @@
       </resource>
     </resources>
     <plugins>
-      <!-- maven 插件 -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.compiler.version}</version>
+        <version>3.5.1</version>
         <configuration>
           <source>${source.version}</source>
           <target>${target.version}</target>
           <compilerVersion>${compiler.version}</compilerVersion>
           <encoding>UTF-8</encoding>
         </configuration>
-        <!--如果有额外的依赖包-->
-        <!--<compilerArguments>-->
-        <!--<extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>-->
-        <!--</compilerArguments>-->
+        <executions>
+          <!-- Replacing default-compile as it is treated specially by maven -->
+          <execution>
+            <id>default-compile</id>
+            <phase>none</phase>
+          </execution>
+          <!-- Replacing default-testCompile as it is treated specially by maven -->
+          <execution>
+            <id>default-testCompile</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>java-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>java-test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -421,56 +473,6 @@
           </webappDirectory>
         </configuration>
       </plugin>
-      <!--编译jar形式的包时将依赖包打包至lib目录-->
-      <!--<plugin>-->
-      <!--<groupId>org.apache.maven.plugins</groupId>-->
-      <!--<artifactId>maven-dependency-plugin</artifactId>-->
-      <!--<executions>-->
-      <!--<execution>-->
-      <!--<id>copy</id>-->
-      <!--<phase>package</phase>-->
-      <!--<goals>-->
-      <!--<goal>copy-dependencies</goal>-->
-      <!--</goals>-->
-      <!--<configuration>-->
-      <!--<outputDirectory>-->
-      <!--${project.build.directory}/lib-->
-      <!--</outputDirectory>-->
-      <!--</configuration>-->
-      <!--</execution>-->
-      <!--</executions>-->
-      <!--</plugin>-->
-      <!-- 指定jar包main函数 -->
-      <!--<plugin>-->
-      <!--<groupId>org.apache.maven.plugins</groupId>-->
-      <!--<artifactId>maven-jar-plugin</artifactId>-->
-      <!--<configuration>-->
-      <!--<archive>-->
-      <!--<manifest>-->
-      <!--<addClasspath>true</addClasspath>-->
-      <!--<classpathPrefix>lib/</classpathPrefix>-->
-      <!--<mainClass>com.bob.HBaseTest</mainClass>-->
-      <!--</manifest>-->
-      <!--</archive>-->
-      <!--</configuration>-->
-      <!--</plugin>-->
-      <!-- 源码打包 -->
-      <!--<plugin>-->
-      <!--<groupId>org.apache.maven.plugins</groupId>-->
-      <!--<artifactId>maven-source-plugin</artifactId>-->
-      <!--<version>2.1</version>-->
-      <!--<configuration>-->
-      <!--<attach>true</attach>-->
-      <!--</configuration>-->
-      <!--<executions>-->
-      <!--<execution>-->
-      <!--<phase>compile</phase>-->
-      <!--<goals>-->
-      <!--<goal>jar</goal>-->
-      <!--</goals>-->
-      <!--</execution>-->
-      <!--</executions>-->
-      <!--</plugin>-->
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
